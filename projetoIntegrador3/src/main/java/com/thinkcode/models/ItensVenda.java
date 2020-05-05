@@ -9,21 +9,21 @@ package com.thinkcode.models;
  *
  * @author Devakian
  */
-public class Itens {
+public class ItensVenda {
     
     private int idItem;
     private int idProduto;
     private int idUsuario;
     private int idVenda;
-    private int idQntd;
+    private int Qntd;
     private double valor;
 
-    public Itens(int idItem, int idProduto, int idUsuario, int idVenda, int idQntd, double valor) {
+    public ItensVenda(int idItem, int idProduto, int idUsuario, int idVenda, int idQntd, double valor) {
         this.idItem = idItem;
         this.idProduto = idProduto;
         this.idUsuario = idUsuario;
         this.idVenda = idVenda;
-        this.idQntd = idQntd;
+        this.Qntd = idQntd;
         this.valor = valor;
     }
 
@@ -59,12 +59,12 @@ public class Itens {
         this.idVenda = idVenda;
     }
 
-    public int getIdQntd() {
-        return idQntd;
+    public int getQntd() {
+        return Qntd;
     }
 
-    public void setIdQntd(int idQntd) {
-        this.idQntd = idQntd;
+    public void setQntd(int idQntd) {
+        this.Qntd = idQntd;
     }
 
     public double getValor() {
