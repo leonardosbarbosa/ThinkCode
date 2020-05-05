@@ -67,11 +67,11 @@
 
 										<div class="space-6"></div>
 
-										<form>
+                                                                                <form action="LoginServlet" method="POST">
 											<fieldset>
 												<label class="block clearfix">
 													<span class="block input-icon input-icon-right">
-														<input type="text" class="form-control" placeholder="Login"
+                                                                                                            <input type="text" class="form-control" placeholder="Login" name="email"
 															style="color:#000" />
 														<i class="ace-icon fa fa-user"></i>
 													</span>
@@ -80,7 +80,7 @@
 												<label class="block clearfix">
 													<span class="block input-icon input-icon-right">
 														<input type="password" class="form-control"
-															placeholder="Senha" />
+															placeholder="Senha" name="senha" />
 														<i class="ace-icon fa fa-lock"></i>
 													</span>
 												</label>
@@ -93,7 +93,7 @@
 															<span class="lbl"> Remember Me</span>
 														</label> -->
 
-													<button type="button" class="width-35 btn btn-sm btn-primary">
+													<button type="submit" class="width-35 btn btn-sm btn-primary">
 														<i class="ace-icon fa fa-key"></i>
 														<span class="bigger-110">Entrar</span>
 													</button>

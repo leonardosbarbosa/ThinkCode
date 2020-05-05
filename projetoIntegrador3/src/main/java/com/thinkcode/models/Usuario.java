@@ -28,6 +28,11 @@ public class Usuario {
     private String dataExclusao;
     private String userExclusao;
 
+    public Usuario (String email, String senha){
+    this.email = email;
+    this.senha = senha;
+    }
+    
     public Usuario(int id, int idPerfil, int idFilial, String cpfCnpj, String rg,
             String nome, String email, String senha, String telefone, String sexo,
             String empresa, String dataNasc, String dataInclusao, String userInclusao) {
