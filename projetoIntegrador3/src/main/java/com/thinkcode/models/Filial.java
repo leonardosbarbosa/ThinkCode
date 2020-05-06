@@ -11,7 +11,7 @@ package com.thinkcode.models;
  */
 public class Filial {
 
-    private int id;
+    private int idFilial;
     private String nome;
     private String descricao;
     private String cnpj;
@@ -26,7 +26,7 @@ public class Filial {
     private String userExclusao;
 
     public Filial(int id, String nome, String descricao, String cnpj, String cep, String rua, String bairro, String numero, String complemento, String dataInclusao, String userInlcusao) {
-        this.id = id;
+        this.idFilial = id;
         this.nome = nome;
         this.descricao = descricao;
         this.cnpj = cnpj;
@@ -40,11 +40,11 @@ public class Filial {
     }
 
     public int getId() {
-        return id;
+        return idFilial;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idFilial = id;
     }
 
     public String getNome() {
