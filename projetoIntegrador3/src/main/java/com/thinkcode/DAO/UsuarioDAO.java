@@ -19,6 +19,38 @@ import java.util.logging.Logger;
  * @author Leonardo Silva
  */
 public class UsuarioDAO {
+    
+    
+        public static boolean cadastrarUsuario(Usuario usuario) {
+        boolean ok = false;
+        Connection con;
+        try {
+            con = ConnectionDB.obterConexao();
+            String sql = "insert into usuario (id_perfil, id_filial, cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, data_nascimento, data_inclusao)"
+                    + " values (?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, usuario.getIdPerfil());
+            ps.setInt(2, usuario.getIdFilial());
+            ps.setString(3, usuario.getCpfCnpj());
+            ps.setString(4, usuario.getRg());
+            ps.setString(5, usuario.getNome()); 
+            ps.setString(6, usuario.getEmail());
+            ps.setString(7, usuario.getSenha());
+            ps.setLong(8, usuario.getTelefone());
+            ps.setString(9, usuario.getSexo());
+            ps.setInt(10, 2);
+            ps.setString(11, usuario.getDataNasc());
+            ps.setString(12, usuario.getDataInclusao());
+            ps.execute();
+            ok = true;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            String guts = ex.toString();
+            System.out.println(ex);
+        }
+        return ok;
+    }
 
     public static boolean consultarUsuario(Usuario usuario) {
         Connection con;

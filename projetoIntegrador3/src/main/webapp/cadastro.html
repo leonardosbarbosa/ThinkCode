@@ -292,7 +292,7 @@
                 </div>
 
                 <div class="page-content">
-                    <form>
+                    <form action="UsuarioServlet" method="POST">
                         <div>
                             <div id="user-profile-1" class="user-profile row">
                                 <div class="col-xs-12 col-sm-3 center">
@@ -406,16 +406,16 @@
                                                                 <label for="number-button" class="block">Sexo</label>
                                                                 <div class="radio">
                                                                     <label>
-                                                                        <input name="form-field-radio" type="radio"
-                                                                            class="ace" />
+                                                                        <input name="sexo" type="radio"
+                                                                            class="ace" value="Masculino"/>
                                                                         <span class="lbl"> Masculino</span>
                                                                     </label>
                                                                 </div>
 
                                                                 <div class="radio">
                                                                     <label>
-                                                                        <input name="form-field-radio" type="radio"
-                                                                            class="ace" />
+                                                                        <input name="sexo" type="radio"
+                                                                            class="ace" value="Feminino"/>
                                                                         <span class="lbl"> Feminino</span>
                                                                     </label>
                                                                 </div>
@@ -451,7 +451,7 @@
                                                                 <label for="number-button" class="block">CEP</label>
 
                                                                 <input type="text" id="form-field-1-1"
-                                                                    placeholder="Nome" placeholder="000.00-000"
+                                                                    placeholder="Digite seu CEP" placeholder="000.00-000"
                                                                     class="form-control input-mask-cep" name="cep" />
 
                                                             </div>
@@ -568,9 +568,9 @@
                                                 style="float: right;">
                                                 Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
                                             </a>
-                                            <button class="btn btn-sm btn-success"
+                                            <button type="submit" class="btn btn-sm btn-success"
                                                 style="float: right; margin-right: 2px;">
-                                                Registar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                                Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -651,7 +651,7 @@
                         $('.input-mask-phone').mask('(99) 99999-9999');
                         $('.input-mask-cpf').mask('999-999-999-99');
                         $('.input-mask-rg').mask('99-999-999-9');
-                        $('.input-mask-cep').mask('999.99-999')
+                        $('.input-mask-cep').mask('99999-999')
                         $('.date-picker').datepicker({
                             autoclose: true,
                             todayHighlight: true

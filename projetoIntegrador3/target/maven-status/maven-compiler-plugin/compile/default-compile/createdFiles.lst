@@ -1,5 +1,4 @@
 com\thinkcode\models\Canais.class
-com\thinkcode\models\Itens.class
 com\thinkcode\models\Endereco.class
 com\thinkcode\models\Venda.class
 com\thinkcode\models\Cliente.class

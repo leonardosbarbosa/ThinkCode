@@ -19,7 +19,7 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
-    private String telefone;
+    private long telefone;
     private String sexo;
     private String empresa;
     private String dataNasc;
@@ -28,13 +28,17 @@ public class Usuario {
     private String dataExclusao;
     private String userExclusao;
 
+    public Usuario () {
+    
+    }
+    
     public Usuario (String email, String senha){
     this.email = email;
     this.senha = senha;
     }
     
-    public Usuario(int id, int idPerfil, int idFilial, String cpfCnpj, String rg,
-            String nome, String email, String senha, String telefone, String sexo,
+    public Usuario(int idPerfil, int idFilial, String cpfCnpj, String rg,
+            String nome, String email, String senha, long telefone, String sexo,
             String empresa, String dataNasc, String dataInclusao, String userInclusao) {
 
         this.id = id;
@@ -117,11 +121,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getTelefone() {
+    public long getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(int telefone) {
         this.telefone = telefone;
     }
 
