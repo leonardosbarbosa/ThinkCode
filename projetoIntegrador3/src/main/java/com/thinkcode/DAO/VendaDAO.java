@@ -25,7 +25,7 @@ public class VendaDAO {
         try {
             con = ConnectionDB.obterConexao();
             String sql = "insert into venda (id_venda, id_status, id_endereco, id_usuario, id_filial, cpf_cnpj, pagamento, parcelas, total, data_exclusao, usr_exclusao, codigo_rastreio)"
-                    + " values (?,?,?,?,?,?,?)";
+                    + " values (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, produto.getIdVenda());
             ps.setInt(2, produto.getIdStatus());
@@ -34,14 +34,14 @@ public class VendaDAO {
             ps.setInt(5, produto.getIdFilial());
             ps.setString(6, produto.getCpfCnpj());
             ps.setInt(7, produto.getPagamento());
-            ps.setDouble(7, produto.getParcelas());
-            ps.setDouble(7, produto.getTotal());
-            ps.setString(7, produto.getData());
+            ps.setDouble(8, produto.getParcelas());
+            ps.setDouble(9, produto.getTotal());
+            ps.setString(10, produto.getData());
             ps.execute();
             ok = true;
 
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ok;
     }
@@ -57,7 +57,7 @@ public class VendaDAO {
             }
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -70,7 +70,7 @@ public class VendaDAO {
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

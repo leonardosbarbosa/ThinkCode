@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Leonardo Silva
  */
-public class ItensDAO {
+public class ItensVendaDAO {
 
     public static boolean cadastrarProduto(ItensVenda itensVenda) {
         boolean ok = false;
@@ -29,16 +29,16 @@ public class ItensDAO {
                     + " values (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, itensVenda.getIdItem());
-            ps.setInt(1, itensVenda.getIdProduto());
-            ps.setInt(1, itensVenda.getIdVenda());
-            ps.setInt(1, itensVenda.getQntd());
-            ps.setDouble(1, itensVenda.getValor());
+            ps.setInt(2, itensVenda.getIdProduto());
+            ps.setInt(3, itensVenda.getIdVenda());
+            ps.setInt(4, itensVenda.getQntd());
+            ps.setDouble(5, itensVenda.getValor());
             
             ps.execute();
             ok = true;
 
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ItensDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ItensVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ok;
     }
@@ -54,7 +54,7 @@ public class ItensDAO {
             }
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ItensDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ItensVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -67,7 +67,7 @@ public class ItensDAO {
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ItensDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ItensVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
