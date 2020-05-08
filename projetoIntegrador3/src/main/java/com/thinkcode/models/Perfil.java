@@ -14,6 +14,10 @@ public class Perfil {
     private int idPerfil;
     private String tipo;
     private String descricao;
+    private String dataInclusao;
+    private String usrInclusao;
+    private String dataExclusao;
+    private String usrExclusao;
 
     public Perfil(int idPerfil, String tipo, String descricao) {
         this.idPerfil = idPerfil;
@@ -43,6 +47,38 @@ public class Perfil {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getDataInclusao() {
+        return dataInclusao;
+    }
+
+    public void setDataInclusao(String dataInclusao) {
+        this.dataInclusao = dataInclusao;
+    }
+
+    public String getUsrInclusao() {
+        return usrInclusao;
+    }
+
+    public void setUsrInclusao(String usrInclusao) {
+        this.usrInclusao = usrInclusao;
+    }
+
+    public String getDataExclusao() {
+        return dataExclusao;
+    }
+
+    public void setDataExclusao(String dataExclusao) {
+        this.dataExclusao = dataExclusao;
+    }
+
+    public String getUsrExclusao() {
+        return usrExclusao;
+    }
+
+    public void setUsrExclusao(String usrExclusao) {
+        this.usrExclusao = usrExclusao;
     }
     
     

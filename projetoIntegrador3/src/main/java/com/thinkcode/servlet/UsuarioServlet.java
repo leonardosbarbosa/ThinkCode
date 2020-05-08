@@ -42,9 +42,9 @@ public class UsuarioServlet extends HttpServlet {
         String tel = request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
         long telefone = Long.parseLong(tel);
         String sexo = request.getParameter("sexo");
-        String empresa = "";
+        int empresa = 1;
         String data_nascimento = request.getParameter("data");
-        Usuario usuario = new Usuario(1, 1, cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, "2020-05-06", "2020-05-06", "robson");
+        Usuario usuario = new Usuario(1, 1, cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, "2020-05-06", "2020-05-06", 1);
 
         boolean ok = UsuarioDAO.cadastrarUsuario(usuario);
 

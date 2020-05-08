@@ -11,7 +11,7 @@ package com.thinkcode.models;
  */
 public class Usuario {
 
-    private int id;
+    private int idUsuario;
     private int idPerfil; // Chave Estrangeira
     private int idFilial; // Chave Estrangeira
     private String cpfCnpj;
@@ -21,12 +21,12 @@ public class Usuario {
     private String senha;
     private long telefone;
     private String sexo;
-    private String empresa;
+    private int empresa;
     private String dataNasc;
     private String dataInclusao;
-    private String userInclusao;
+    private int userInclusao;
     private String dataExclusao;
-    private String userExclusao;
+    private int userExclusao;
 
     public Usuario () {
     
@@ -39,9 +39,8 @@ public class Usuario {
     
     public Usuario(int idPerfil, int idFilial, String cpfCnpj, String rg,
             String nome, String email, String senha, long telefone, String sexo,
-            String empresa, String dataNasc, String dataInclusao, String userInclusao) {
-
-        this.id = id;
+            int empresa, String dataNasc, String dataInclusao, int userInclusao) {
+        
         this.idPerfil = idPerfil;
         this.idFilial = idFilial;
         this.cpfCnpj = cpfCnpj;
@@ -55,14 +54,15 @@ public class Usuario {
         this.dataNasc = dataNasc;
         this.dataInclusao = dataInclusao;
         this.userInclusao = userInclusao;
+        
     }
 
-    public int getId() {
-        return id;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idUsuario = id;
     }
 
     public int getIdPerfil() {
@@ -120,7 +120,7 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
+    
     public long getTelefone() {
         return telefone;
     }
@@ -137,11 +137,11 @@ public class Usuario {
         this.sexo = sexo;
     }
 
-    public String getEmpresa() {
+    public int getEmpresa() {
         return empresa;
     }
 
-    public void setEmpresa(String empresa) {
+    public void setEmpresa(int empresa) {
         this.empresa = empresa;
     }
 
@@ -161,11 +161,11 @@ public class Usuario {
         this.dataInclusao = dataInclusao;
     }
 
-    public String getUserInclusao() {
+    public int getUserInclusao() {
         return userInclusao;
     }
 
-    public void setUserInclusao(String userInclusao) {
+    public void setUserInclusao(int userInclusao) {
         this.userInclusao = userInclusao;
     }
 
@@ -177,11 +177,11 @@ public class Usuario {
         this.dataExclusao = dataExclusao;
     }
 
-    public String getUserExclusao() {
+    public int getUserExclusao() {
         return userExclusao;
     }
 
-    public void setUserExclusao(String userExclusao) {
+    public void setUserExclusao(int userExclusao) {
         this.userExclusao = userExclusao;
     }
 }

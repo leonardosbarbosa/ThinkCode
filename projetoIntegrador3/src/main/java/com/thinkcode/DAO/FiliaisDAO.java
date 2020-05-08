@@ -44,7 +44,7 @@ public class FiliaisDAO {
             ok = true;
 
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FiliaisDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ok;
     }
@@ -60,7 +60,7 @@ public class FiliaisDAO {
             }
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FiliaisDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -73,7 +73,7 @@ public class FiliaisDAO {
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FiliaisDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

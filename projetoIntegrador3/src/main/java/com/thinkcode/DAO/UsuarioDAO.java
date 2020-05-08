@@ -22,10 +22,12 @@ public class UsuarioDAO {
     
     
         public static boolean cadastrarUsuario(Usuario usuario) {
+
         boolean ok = false;
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
+
             String sql = "insert into usuario (id_perfil, id_filial, cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, data_nascimento, data_inclusao)"
                     + " values (?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -63,7 +65,20 @@ public class UsuarioDAO {
             }
             return false;
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+        public static boolean excluirUsuario(int idUsuario) {
+        Connection con;
+        try {
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("delete id_usuario from usuario where id_usuario like '%" + idUsuario + "%'");
+            ResultSet rs = ps.executeQuery();
+            return true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
