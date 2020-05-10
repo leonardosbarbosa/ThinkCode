@@ -19,9 +19,8 @@ import java.util.logging.Logger;
  * @author Leonardo Silva
  */
 public class UsuarioDAO {
-    
-    
-        public static boolean cadastrarUsuario(Usuario usuario) {
+
+    public static boolean cadastrarUsuario(Usuario usuario) {
 
         boolean ok = false;
         Connection con;
@@ -35,12 +34,12 @@ public class UsuarioDAO {
             ps.setInt(2, usuario.getIdFilial());
             ps.setString(3, usuario.getCpfCnpj());
             ps.setString(4, usuario.getRg());
-            ps.setString(5, usuario.getNome()); 
+            ps.setString(5, usuario.getNome());
             ps.setString(6, usuario.getEmail());
             ps.setString(7, usuario.getSenha());
             ps.setLong(8, usuario.getTelefone());
             ps.setString(9, usuario.getSexo());
-            ps.setInt(10, 2);
+            ps.setInt(10, 1);
             ps.setString(11, usuario.getDataNasc());
             ps.setString(12, usuario.getDataInclusao());
             ps.execute();
@@ -69,8 +68,23 @@ public class UsuarioDAO {
         }
         return false;
     }
-    
-        public static boolean excluirUsuario(int idUsuario) {
+
+    public static int consultarIdUsuario(Usuario usuario) {
+        Connection con;
+        try {
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("select id_usuario from usuario where cpf_cnpj = '" + usuario.getCpfCnpj() + "'");
+            ResultSet rs = ps.executeQuery();
+            if (rs.first()) {
+                return rs.getInt("id_usuario");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public static boolean excluirUsuario(int idUsuario) {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();

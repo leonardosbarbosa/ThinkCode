@@ -25,16 +25,15 @@ public class EnderecoDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "insert into endereco (id_endereco, id_usuario, cep, rua, bairro, numero, complemento)"
-                    + " values (?,?,?,?,?,?,?)";
+            String sql = "insert into endereco (id_usuario, cep, rua, bairro, numero, complemento)"
+                    + " values (?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, endereco.getId());
-            ps.setInt(2, endereco.getIdUsuario());
-            ps.setString(3, endereco.getCep());
-            ps.setString(4, endereco.getRua());
-            ps.setString(5, endereco.getBairro());
-            ps.setString(6, endereco.getNumero());
-            ps.setString(7, endereco.getComplemento());
+            ps.setInt(1, endereco.getIdUsuario());
+            ps.setString(2, endereco.getCep());
+            ps.setString(3, endereco.getRua());
+            ps.setString(4, endereco.getBairro());
+            ps.setString(5, endereco.getNumero());
+            ps.setString(6, endereco.getComplemento());
             ps.execute();
             ok = true;
 

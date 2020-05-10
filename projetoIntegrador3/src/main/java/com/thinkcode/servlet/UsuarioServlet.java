@@ -5,7 +5,9 @@
  */
 package com.thinkcode.servlet;
 
+import com.thinkcode.DAO.EnderecoDAO;
 import com.thinkcode.DAO.UsuarioDAO;
+import com.thinkcode.models.Endereco;
 import com.thinkcode.models.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,18 +45,27 @@ public class UsuarioServlet extends HttpServlet {
         long telefone = Long.parseLong(tel);
         String sexo = request.getParameter("sexo");
         int empresa = 1;
-        String data_nascimento = request.getParameter("data");
+        //String data_nascimento = request.getParameter("data");
         Usuario usuario = new Usuario(1, 1, cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, "2020-05-06", "2020-05-06", 1);
-
+        
         boolean ok = UsuarioDAO.cadastrarUsuario(usuario);
-
-        String url;
-
+        
+        String url = "/login.html";
+        
         if (ok) {
-            url = "/index.html";
-        } else {
-            url = "/login.html";
-        }
+            int id_usuario = UsuarioDAO.consultarIdUsuario(usuario);
+            String cep = request.getParameter("cep");
+            String rua = request.getParameter("rua");
+            String bairro = request.getParameter("bairro");
+            String numero = request.getParameter("numero");
+            String complemento = request.getParameter("complemento");
+            Endereco endereco = new Endereco(id_usuario, cep, rua, bairro, numero, complemento);
+            boolean okEndereco = EnderecoDAO.cadastrarEndereco(endereco);
+            if (okEndereco) {
+                url = "/index.html";                
+            }
+            
+        }        
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

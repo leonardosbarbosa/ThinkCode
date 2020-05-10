@@ -21,8 +21,7 @@ public class Endereco {
     private String dataExclusao;
     private String userExclusao;
 
-    public Endereco(int id, int idUsuario, String cep, String rua, String bairro, String numero, String complemento) {
-        this.id = id;
+    public Endereco(int idUsuario, String cep, String rua, String bairro, String numero, String complemento) {
         this.idUsuario = idUsuario;
         this.cep = cep;
         this.rua = rua;

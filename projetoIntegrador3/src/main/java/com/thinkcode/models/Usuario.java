@@ -37,7 +37,7 @@ public class Usuario {
     this.senha = senha;
     }
     
-    public Usuario(int idPerfil, int idFilial, String cpfCnpj, String rg,
+    public Usuario (int idPerfil, int idFilial, String cpfCnpj, String rg,
             String nome, String email, String senha, long telefone, String sexo,
             int empresa, String dataNasc, String dataInclusao, int userInclusao) {
         

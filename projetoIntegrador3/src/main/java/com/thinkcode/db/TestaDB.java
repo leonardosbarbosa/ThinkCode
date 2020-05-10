@@ -27,5 +27,10 @@ public class TestaDB {
   //      ProdutoDAO.cadastrarProduto(produto);
         ProdutoDAO.consultarProdutoNome("roda");
 
+        // Chamar Procedure
+//        CallableStatement cStmt = con.prepareCall("{call demoSp(?, ?)}");
+//            cStmt.setString(1, "Teste");
+//            cStmt.setString(2, "Teste2");
+        
     }
 }
