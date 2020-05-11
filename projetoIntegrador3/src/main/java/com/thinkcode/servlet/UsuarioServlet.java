@@ -11,6 +11,11 @@ import com.thinkcode.models.EnderecoModel;
 import com.thinkcode.models.UsuarioModel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,9 +54,12 @@ public class UsuarioServlet extends HttpServlet {
         usuario.setNome(request.getParameter("nome"));
         usuario.setEmail(request.getParameter("email"));
         usuario.setSenha(request.getParameter("senha"));
-        usuario.setTelefone(Integer.parseInt(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
+        usuario.setTelefone(Long.parseLong(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
         usuario.setSexo(request.getParameter("sexo"));
         usuario.setEmpresa(1);
+        usuario.setDataNasc(request.getParameter("dataNasc"));
+        Date dataIncl = new Date();
+        usuario.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
         //Fim atribuição
 
         //Cadastro de usuário
@@ -67,19 +75,18 @@ public class UsuarioServlet extends HttpServlet {
             String bairro = request.getParameter("bairro");
             String numero = request.getParameter("numero");
             String complemento = request.getParameter("complemento");
-
+            
             EnderecoModel endereco = new EnderecoModel(usuario.getIdUsuario(), cep, rua, bairro, numero, complemento);
             //Fim atribuição
-            
+
             //Cadastro endereço
             boolean okEndereco = enderecoController.Save(endereco);
             //Fim cadastro
-            
-            
+
             if (okEndereco) {
                 url = "/index.html";
             }
-
+            
         }
         
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

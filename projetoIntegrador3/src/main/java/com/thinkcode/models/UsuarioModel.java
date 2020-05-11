@@ -28,7 +28,7 @@ public class UsuarioModel {
     private String dataExclusao;
     private int userExclusao;
 
-    public UsuarioModel () {
+    public UsuarioModel() {
     
     }
     
@@ -125,7 +125,7 @@ public class UsuarioModel {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(long telefone) {
         this.telefone = telefone;
     }
 

@@ -11,6 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,8 +33,8 @@ public class UsuarioDAO {
             String sql = "insert into usuario (id_perfil, id_filial, cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, data_nascimento, data_inclusao)"
                     + " values (?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, usuario.getIdPerfil());
-            ps.setInt(2, usuario.getIdFilial());
+            ps.setInt(1, 1);
+            ps.setInt(2, 1);
             ps.setString(3, usuario.getCpfCnpj());
             ps.setString(4, usuario.getRg());
             ps.setString(5, usuario.getNome());
@@ -40,7 +43,9 @@ public class UsuarioDAO {
             ps.setLong(8, usuario.getTelefone());
             ps.setString(9, usuario.getSexo());
             ps.setInt(10, 1);
-            ps.setString(11, usuario.getDataNasc());
+
+            ps.setString(11, converteData(usuario.getDataNasc()));
+            String datinha = usuario.getDataNasc();
             ps.setString(12, usuario.getDataInclusao());
             ps.execute();
             ok = true;
@@ -51,6 +56,19 @@ public class UsuarioDAO {
             System.out.println(ex);
         }
         return ok;
+    }
+
+    public static String converteData(String data) {
+
+        try {
+            SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataNascimento = sdf1.parse(data);
+            data = dataNascimento.toInstant().toString().substring(0, 10);
+            return data;
+        } catch (ParseException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return data;
     }
 
     public static boolean consultarUsuarioCadastrado(UsuarioModel usuario) {
