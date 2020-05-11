@@ -9,66 +9,41 @@ package com.thinkcode.models;
  *
  * @author Leonardo Silva
  */
-public class Filial {
+public class EnderecoModel {
 
-    private int idFilial;
-    private String nome;
-    private String descricao;
-    private String cnpj;
+    private int id;
+    private int idUsuario;
     private String cep;
     private String rua;
     private String bairro;
     private String numero;
     private String complemento;
-    private String dataInclusao;
-    private String userInlcusao;
     private String dataExclusao;
     private String userExclusao;
 
-    public Filial(int id, String nome, String descricao, String cnpj, String cep, String rua, String bairro, String numero, String complemento, String dataInclusao, String userInlcusao) {
-        this.idFilial = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.cnpj = cnpj;
+    public EnderecoModel(int idUsuario, String cep, String rua, String bairro, String numero, String complemento) {
+        this.idUsuario = idUsuario;
         this.cep = cep;
         this.rua = rua;
         this.bairro = bairro;
         this.numero = numero;
         this.complemento = complemento;
-        this.dataInclusao = dataInclusao;
-        this.userInlcusao = userInlcusao;
     }
 
     public int getId() {
-        return idFilial;
+        return id;
     }
 
     public void setId(int id) {
-        this.idFilial = id;
+        this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getCep() {
@@ -109,22 +84,6 @@ public class Filial {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-    }
-
-    public String getDataInclusao() {
-        return dataInclusao;
-    }
-
-    public void setDataInclusao(String dataInclusao) {
-        this.dataInclusao = dataInclusao;
-    }
-
-    public String getUserInlcusao() {
-        return userInlcusao;
-    }
-
-    public void setUserInlcusao(String userInlcusao) {
-        this.userInlcusao = userInlcusao;
     }
 
     public String getDataExclusao() {

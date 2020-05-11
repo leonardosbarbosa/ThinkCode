@@ -1,7 +1,5 @@
-com\thinkcode\models\Canais.class
 com\thinkcode\models\Endereco.class
 com\thinkcode\models\Venda.class
-com\thinkcode\models\Cliente.class
 com\thinkcode\models\Perfil.class
 com\thinkcode\models\Produto.class
 com\thinkcode\models\Status_Venda.class

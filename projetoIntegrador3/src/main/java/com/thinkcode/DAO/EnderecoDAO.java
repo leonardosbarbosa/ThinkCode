@@ -6,7 +6,7 @@
 package com.thinkcode.DAO;
 
 import com.thinkcode.db.ConnectionDB;
-import com.thinkcode.models.Endereco;
+import com.thinkcode.models.EnderecoModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class EnderecoDAO {
 
-    public static boolean cadastrarEndereco(Endereco endereco) {
+    public static boolean cadastrarEndereco(EnderecoModel endereco) {
         boolean ok = false;
         Connection con;
         try {

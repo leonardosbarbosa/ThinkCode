@@ -6,7 +6,7 @@
 package com.thinkcode.DAO;
 
 import com.thinkcode.db.ConnectionDB;
-import com.thinkcode.models.Produto;
+import com.thinkcode.models.ProdutoModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class ProdutoDAO {
 
-    public static boolean cadastrarProduto(Produto produto) {
+    public static boolean cadastrarProduto(ProdutoModel produto) {
         boolean ok = false;
         Connection con;
         try {

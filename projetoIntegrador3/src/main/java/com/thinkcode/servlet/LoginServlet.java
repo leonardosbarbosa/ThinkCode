@@ -5,8 +5,9 @@
  */
 package com.thinkcode.servlet;
 
+import Controller.UsuarioController;
 import com.thinkcode.DAO.UsuarioDAO;
-import com.thinkcode.models.Usuario;
+import com.thinkcode.models.UsuarioModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -34,21 +35,32 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        
-        Usuario usuario = new Usuario(email, senha);
-        boolean ok = UsuarioDAO.consultarUsuario(usuario);
-        
+        //Instância de objetos
+        UsuarioModel usuario = new UsuarioModel();
+        UsuarioController usuarioController = new UsuarioController();
         String url;
-        
+        //Fim instância
+
+        //Pegando parâmetros e atribuindo a model
+        usuario.setEmail(request.getParameter("email"));
+        usuario.setSenha(request.getParameter("senha"));
+        //Fim atribuição
+
+        //Retornando usuário cadastrado
+        boolean ok = usuarioController.Login(usuario);
+        //Fim retorno
+
         if (ok) {
+            //Atribuindo usuário a model caso cadastrado
+            usuario = usuarioController.UsuarioPropriedades(usuario);
+            //Fim atribuição
+
             url = "/index.html";
         } else {
             url = "/login.html";
         }
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-            dispatcher.forward(request,response);
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

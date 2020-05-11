@@ -6,7 +6,7 @@
 package com.thinkcode.DAO;
 
 import com.thinkcode.db.ConnectionDB;
-import com.thinkcode.models.Perfil;
+import com.thinkcode.models.PerfilModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author Devakian
  */
 public class PerfilDAO {
-        public static boolean cadastrarPerfil(Perfil perfil) {
+        public static boolean cadastrarPerfil(PerfilModel perfil) {
         boolean ok = false;
         Connection con;
         try {

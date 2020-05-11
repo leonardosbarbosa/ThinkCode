@@ -6,7 +6,7 @@
 package com.thinkcode.db;
 
 import com.thinkcode.DAO.ProdutoDAO;
-import com.thinkcode.models.Produto;
+import com.thinkcode.models.ProdutoModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +23,7 @@ public class TestaDB {
 //Classse temporária para fins de teste 
     public static void main(String[] args) {
         Connection con;
-        Produto produto = new Produto(1, 1, "Caminhão", "Banco", 500, "Banco para o caminhão do gutão", 200.99);
+        ProdutoModel produto = new ProdutoModel(1, 1, "Caminhão", "Banco", 500, "Banco para o caminhão do gutão", 200.99);
   //      ProdutoDAO.cadastrarProduto(produto);
         ProdutoDAO.consultarProdutoNome("roda");
 

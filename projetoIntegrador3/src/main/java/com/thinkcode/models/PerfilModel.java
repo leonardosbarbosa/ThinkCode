@@ -9,8 +9,8 @@ package com.thinkcode.models;
  *
  * @author Devakian
  */
-public class Perfil {
-    
+public class PerfilModel {
+
     private int idPerfil;
     private String tipo;
     private String descricao;
@@ -19,7 +19,10 @@ public class Perfil {
     private String dataExclusao;
     private String usrExclusao;
 
-    public Perfil(int idPerfil, String tipo, String descricao) {
+    public PerfilModel() {
+    }
+
+    public PerfilModel(int idPerfil, String tipo, String descricao) {
         this.idPerfil = idPerfil;
         this.tipo = tipo;
         this.descricao = descricao;
@@ -80,6 +83,5 @@ public class Perfil {
     public void setUsrExclusao(String usrExclusao) {
         this.usrExclusao = usrExclusao;
     }
-    
-    
+
 }

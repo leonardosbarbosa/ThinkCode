@@ -6,11 +6,12 @@
 package com.thinkcode.DAO;
 
 import com.thinkcode.db.ConnectionDB;
-import com.thinkcode.models.Filial;
+import com.thinkcode.models.FilialModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  * @author Devakian
  */
 public class FiliaisDAO {
-      public static boolean cadastrarFilial(Filial filial) {
+      public static boolean cadastrarFilial(FilialModel filial) {
         boolean ok = false;
         Connection con;
         try {
@@ -31,14 +32,14 @@ public class FiliaisDAO {
             ps.setInt(1, filial.getId());
             ps.setString(2, filial.getNome());
             ps.setString(3, filial.getDescricao());
-            ps.setString(4, filial.getCnpj());
-            ps.setString(5, filial.getCep());
+            ps.setLong(4, filial.getCnpj());
+            ps.setInt(5, filial.getCep());
             ps.setString(6, filial.getRua());
             ps.setString(7, filial.getBairro());
             ps.setString(8, filial.getNumero());
             ps.setString(9, filial.getComplemento());
-            ps.setString(10, filial.getDataInclusao());
-            ps.setString(11, filial.getUserInlcusao());
+            ps.setString(10, filial.getDataInclusao().toString());
+            ps.setInt(11, filial.getUserInlcusao());
                           
             ps.execute();
             ok = true;

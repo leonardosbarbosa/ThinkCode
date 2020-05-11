@@ -5,52 +5,82 @@
  */
 package com.thinkcode.models;
 
+import java.util.Date;
+
 /**
  *
  * @author Leonardo Silva
  */
-public class Endereco {
+public class FilialModel {
 
-    private int id;
-    private int idUsuario;
-    private String cep;
+    private int idFilial;
+    private String nome;
+    private String descricao;
+    private Long cnpj;
+    private int cep;
     private String rua;
     private String bairro;
     private String numero;
     private String complemento;
+    private Date dataInclusao;
+    private int userInlcusao;
     private String dataExclusao;
     private String userExclusao;
 
-    public Endereco(int idUsuario, String cep, String rua, String bairro, String numero, String complemento) {
-        this.idUsuario = idUsuario;
+    public FilialModel() {
+    }
+
+    public FilialModel(String nome, String descricao, Long cnpj, int cep, String rua, String bairro, String numero, String complemento, Date dataInclusao, int userInlcusao) {
+
+        this.nome = nome;
+        this.descricao = descricao;
+        this.cnpj = cnpj;
         this.cep = cep;
         this.rua = rua;
         this.bairro = bairro;
         this.numero = numero;
         this.complemento = complemento;
+        this.dataInclusao = dataInclusao;
+        this.userInlcusao = userInlcusao;
     }
 
     public int getId() {
-        return id;
+        return idFilial;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idFilial = id;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public String getNome() {
+        return nome;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getCep() {
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Long getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(Long cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public int getCep() {
         return cep;
     }
 
-    public void setCep(String cep) {
+    public void setCep(int cep) {
         this.cep = cep;
     }
 
@@ -84,6 +114,22 @@ public class Endereco {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    public Date getDataInclusao() {
+        return dataInclusao;
+    }
+
+    public void setDataInclusao(Date dataInclusao) {
+        this.dataInclusao = dataInclusao;
+    }
+
+    public int getUserInlcusao() {
+        return userInlcusao;
+    }
+
+    public void setUserInlcusao(int userInlcusao) {
+        this.userInlcusao = userInlcusao;
     }
 
     public String getDataExclusao() {

@@ -6,7 +6,7 @@
 package com.thinkcode.DAO;
 
 import com.thinkcode.db.ConnectionDB;
-import com.thinkcode.models.Usuario;
+import com.thinkcode.models.UsuarioModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class UsuarioDAO {
 
-    public static boolean cadastrarUsuario(Usuario usuario) {
+    public static boolean cadastrarUsuario(UsuarioModel usuario) {
 
         boolean ok = false;
         Connection con;
@@ -53,7 +53,7 @@ public class UsuarioDAO {
         return ok;
     }
 
-    public static boolean consultarUsuario(Usuario usuario) {
+    public static boolean consultarUsuarioCadastrado(UsuarioModel usuario) {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
@@ -69,19 +69,34 @@ public class UsuarioDAO {
         return false;
     }
 
-    public static int consultarIdUsuario(Usuario usuario) {
+    public static UsuarioModel consultarUsuario(UsuarioModel usuario) {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("select id_usuario from usuario where cpf_cnpj = '" + usuario.getCpfCnpj() + "'");
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
-                return rs.getInt("id_usuario");
+                usuario.setCpfCnpj(rs.getString("cpf_cnpj"));
+                usuario.setDataExclusao(rs.getString("data_exclusao"));
+                usuario.setDataInclusao(rs.getString("data_inclusao"));
+                usuario.setDataNasc(rs.getString("data_nascimento"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setEmpresa(rs.getInt("empresa"));
+                usuario.setId(rs.getInt("id_usuario"));
+                usuario.setIdFilial(rs.getInt("id_filial"));
+                usuario.setIdPerfil(rs.getInt("id_perfil"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setRg(rs.getString("rg"));
+                usuario.setSenha(rs.getString("senha"));
+                usuario.setSexo(rs.getString("sexo"));
+                usuario.setTelefone(rs.getInt("telefone"));
+                usuario.setUserExclusao(rs.getInt("usr_exclusao"));
+                usuario.setUserInclusao(rs.getInt("usr_inclusao"));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return -1;
+        return usuario;
     }
 
     public static boolean excluirUsuario(int idUsuario) {

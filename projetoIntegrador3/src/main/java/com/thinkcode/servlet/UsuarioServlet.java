@@ -5,10 +5,10 @@
  */
 package com.thinkcode.servlet;
 
-import com.thinkcode.DAO.EnderecoDAO;
-import com.thinkcode.DAO.UsuarioDAO;
-import com.thinkcode.models.Endereco;
-import com.thinkcode.models.Usuario;
+import Controller.EnderecoController;
+import Controller.UsuarioController;
+import com.thinkcode.models.EnderecoModel;
+import com.thinkcode.models.UsuarioModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -36,36 +36,52 @@ public class UsuarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String cpf_cnpj = request.getParameter("cpf").replace("-", "");
-        String rg = request.getParameter("rg").replace("-", "");
-        String nome = request.getParameter("nome");
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        String tel = request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
-        long telefone = Long.parseLong(tel);
-        String sexo = request.getParameter("sexo");
-        int empresa = 1;
-        //String data_nascimento = request.getParameter("data");
-        Usuario usuario = new Usuario(1, 1, cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, "2020-05-06", "2020-05-06", 1);
-        
-        boolean ok = UsuarioDAO.cadastrarUsuario(usuario);
-        
+        //Instância de objetos
+        UsuarioModel usuario = new UsuarioModel();
+        UsuarioController usuarioController = new UsuarioController();
+        EnderecoController enderecoController = new EnderecoController();
         String url = "/login.html";
-        
+        //Fim instância
+
+        //Pegando parâmetros e atribuindo a model
+        usuario.setCpfCnpj(request.getParameter("cpf").replace("-", ""));
+        usuario.setRg(request.getParameter("rg").replace("-", ""));
+        usuario.setNome(request.getParameter("nome"));
+        usuario.setEmail(request.getParameter("email"));
+        usuario.setSenha(request.getParameter("senha"));
+        usuario.setTelefone(Integer.parseInt(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
+        usuario.setSexo(request.getParameter("sexo"));
+        usuario.setEmpresa(1);
+        //Fim atribuição
+
+        //Cadastro de usuário
+        boolean ok = usuarioController.Save(usuario);
+        //Fim cadastro
+
         if (ok) {
-            int id_usuario = UsuarioDAO.consultarIdUsuario(usuario);
+            //Retorno do usuário cadastrado
+            usuario = usuarioController.UsuarioPropriedades(usuario);
+            //Pegando parâmetros e atribuindo a model
             String cep = request.getParameter("cep");
             String rua = request.getParameter("rua");
             String bairro = request.getParameter("bairro");
             String numero = request.getParameter("numero");
             String complemento = request.getParameter("complemento");
-            Endereco endereco = new Endereco(id_usuario, cep, rua, bairro, numero, complemento);
-            boolean okEndereco = EnderecoDAO.cadastrarEndereco(endereco);
-            if (okEndereco) {
-                url = "/index.html";                
-            }
+
+            EnderecoModel endereco = new EnderecoModel(usuario.getIdUsuario(), cep, rua, bairro, numero, complemento);
+            //Fim atribuição
             
-        }        
+            //Cadastro endereço
+            boolean okEndereco = enderecoController.Save(endereco);
+            //Fim cadastro
+            
+            
+            if (okEndereco) {
+                url = "/index.html";
+            }
+
+        }
+        
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

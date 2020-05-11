@@ -9,7 +9,7 @@ package com.thinkcode.models;
  *
  * @author Leonardo Silva
  */
-public class Usuario {
+public class UsuarioModel {
 
     private int idUsuario;
     private int idPerfil; // Chave Estrangeira
@@ -28,16 +28,16 @@ public class Usuario {
     private String dataExclusao;
     private int userExclusao;
 
-    public Usuario () {
+    public UsuarioModel () {
     
     }
     
-    public Usuario (String email, String senha){
+    public UsuarioModel (String email, String senha){
     this.email = email;
     this.senha = senha;
     }
     
-    public Usuario (int idPerfil, int idFilial, String cpfCnpj, String rg,
+    public UsuarioModel (int idPerfil, int idFilial, String cpfCnpj, String rg,
             String nome, String email, String senha, long telefone, String sexo,
             int empresa, String dataNasc, String dataInclusao, int userInclusao) {
         

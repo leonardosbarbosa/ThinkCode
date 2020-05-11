@@ -9,7 +9,7 @@ package com.thinkcode.models;
  *
  * @author Leonardo Silva
  */
-public class Produto {
+public class ProdutoModel {
 
     private int idProduto;
     private int idUsuario; // Chave estrangeira
@@ -22,7 +22,11 @@ public class Produto {
     private String dataExclusao;
     private String userExclusao;
 
-    public Produto(int idUsuario, int idFilial, String tipo, String nome, int quantidade, String descricao, double valor) {
+    public ProdutoModel() {
+
+    }
+
+    public ProdutoModel(int idUsuario, int idFilial, String tipo, String nome, int quantidade, String descricao, double valor) {
         this.idUsuario = idUsuario;
         this.idFilial = idFilial;
         this.tipo = tipo;
