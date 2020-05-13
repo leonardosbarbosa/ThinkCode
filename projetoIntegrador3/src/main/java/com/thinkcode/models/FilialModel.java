@@ -22,7 +22,7 @@ public class FilialModel {
     private String bairro;
     private String numero;
     private String complemento;
-    private Date dataInclusao;
+    private String dataInclusao;
     private int userInlcusao;
     private String dataExclusao;
     private String userExclusao;
@@ -30,7 +30,7 @@ public class FilialModel {
     public FilialModel() {
     }
 
-    public FilialModel(String nome, String descricao, Long cnpj, int cep, String rua, String bairro, String numero, String complemento, Date dataInclusao, int userInlcusao) {
+    public FilialModel(String nome, String descricao, Long cnpj, int cep, String rua, String bairro, String numero, String complemento, String dataInclusao, int userInlcusao) {
 
         this.nome = nome;
         this.descricao = descricao;
@@ -116,19 +116,19 @@ public class FilialModel {
         this.complemento = complemento;
     }
 
-    public Date getDataInclusao() {
+    public String getDataInclusao() {
         return dataInclusao;
     }
 
-    public void setDataInclusao(Date dataInclusao) {
+    public void setDataInclusao(String dataInclusao) {
         this.dataInclusao = dataInclusao;
     }
 
-    public int getUserInlcusao() {
+    public int getUserInclusao() {
         return userInlcusao;
     }
 
-    public void setUserInlcusao(int userInlcusao) {
+    public void setUserInclusao(int userInlcusao) {
         this.userInlcusao = userInlcusao;
     }
 

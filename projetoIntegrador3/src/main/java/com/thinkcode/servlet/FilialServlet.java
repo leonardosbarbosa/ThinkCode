@@ -35,18 +35,19 @@ public class FilialServlet extends HttpServlet {
         FilialController filialController = new FilialController();
         String url = "/login.html";
         //Fim instância
-        
+
         //Pegando parâmetros e atribuindo a model
         filial.setNome(request.getParameter("nome"));
         filial.setDescricao(request.getParameter("descricao"));
         filial.setCnpj(Long.parseLong(request.getParameter("cnpj").replace(".", "").replace("-", "").replace("/", "")));
-        filial.setCep(Integer.parseInt(request.getParameter("cep").replace(".", "").replace("-", "").replace("/", "")));
+        filial.setCep(Integer.parseInt(request.getParameter("cepFilial").replace(".", "").replace("-", "").replace("/", "")));
         filial.setRua(request.getParameter("ruaFilial"));
         filial.setBairro(request.getParameter("bairroFilial").replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));
         filial.setNumero(request.getParameter("numeroFilial"));
         filial.setComplemento(request.getParameter("complementoFilial"));
-        
-        
+        Date dataIncl = new Date();
+        filial.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
+        filial.setUserInclusao(1);
 
         //Fim atribuição
         //Salvando produto

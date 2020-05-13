@@ -1,6 +1,6 @@
 package Controller;
 
-import com.thinkcode.DAO.FiliaisDAO;
+import com.thinkcode.DAO.FilialDAO;
 import com.thinkcode.DAO.ProdutoDAO;
 import com.thinkcode.models.FilialModel;
 import com.thinkcode.models.ProdutoModel;
@@ -12,6 +12,6 @@ import com.thinkcode.models.ProdutoModel;
 public class FilialController {
 
     public boolean Save(FilialModel filial) {
-        return FiliaisDAO.cadastrarFilial(filial);
+        return FilialDAO.cadastrarFilial(filial);
     }
 }

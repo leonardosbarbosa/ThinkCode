@@ -283,11 +283,11 @@
                 </div>
 
                 <div class="page-content">
-                    <form>
+                    <form action="FilialServlet" method="POST">
                         <div class="row">
                             <div class="col-lg-12">
                                 <p>
-                                    <h4>Cadastro de filial <i class="fa fa-university" aria-hidden="true"></i> </h1>
+                                    <h4>Cadastro de Filial <i class="fa fa-university" aria-hidden="true"></i> </h1>
                                         <hr>
                                 </p>
                             </div>
@@ -314,7 +314,7 @@
                                                         </div>
                                                         <div class="col-lg-3">
                                                             <label for="number-button" class="block">CNPJ</label>
-                                                            <input type="text" id="form-field-1-1" placeholder="000.000.000/0000-00" class="form-control input-mask-cnpj" name="cnpj" />
+                                                            <input type="text" id="form-field-1-1" placeholder="00.000.000/0000-00" class="form-control input-mask-cnpj" name="cnpj" />
                                                         </div>
                                                         <div class="col-lg-3">
                                                             <label for="number-button" class="block">Descrição</label>
@@ -413,8 +413,8 @@
                                 <a src="index.html" class="btn btn-sm btn-danger right" style="float: right;">
                                     Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
                                 </a>
-                                <button class="btn btn-sm btn-success" style="float: right; margin-right: 2px;">
-                                    Registar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;">
+                                    Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
                                 </button>
                             </div>
                         </div>
@@ -491,9 +491,9 @@
                 jQuery(function($) {
                     $.mask.definitions['~'] = '[+-]';
                     $('.input-mask-phone').mask('(99) 99999-9999');
-                    $('.input-mask-cnpj').mask('999.999.999./9999-99');
+                    $('.input-mask-cnpj').mask('99.999.999/9999-99');
                     $('.input-mask-rg').mask('99-999-999-9');
-                    $('.input-mask-cep').mask('999.99-999')
+                    $('.input-mask-cep').mask('99999-999')
                     $('.date-picker').datepicker({
                         autoclose: true,
                         todayHighlight: true
