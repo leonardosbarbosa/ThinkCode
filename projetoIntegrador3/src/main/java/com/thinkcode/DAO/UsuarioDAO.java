@@ -91,7 +91,7 @@ public class UsuarioDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select id_usuario from usuario where cpf_cnpj = '" + usuario.getCpfCnpj() + "'");
+            PreparedStatement ps = con.prepareStatement("select * from usuario where cpf_cnpj = '" + usuario.getCpfCnpj() + "'");
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 usuario.setCpfCnpj(rs.getString("cpf_cnpj"));

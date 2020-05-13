@@ -41,10 +41,10 @@ public class FilialServlet extends HttpServlet {
         filial.setDescricao(request.getParameter("descricao"));
         filial.setCnpj(Long.parseLong(request.getParameter("cnpj").replace(".", "").replace("-", "").replace("/", "")));
         filial.setCep(Integer.parseInt(request.getParameter("cep").replace(".", "").replace("-", "").replace("/", "")));
-        filial.setRua(request.getParameter("Rua"));
-        filial.setBairro(request.getParameter("Bairro").replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));
-        filial.setNumero(request.getParameter("numero"));
-        filial.setComplemento(request.getParameter("complemento"));
+        filial.setRua(request.getParameter("ruaFilial"));
+        filial.setBairro(request.getParameter("bairroFilial").replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));
+        filial.setNumero(request.getParameter("numeroFilial"));
+        filial.setComplemento(request.getParameter("complementoFilial"));
         
         
 

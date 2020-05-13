@@ -1,0 +1,184 @@
+CREATE DATABASE bdprojeto3;
+
+Use bdprojeto3;
+
+CREATE TABLE Filial (
+                id_filial INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(50) NOT NULL,
+                Descricao VARCHAR(100),
+		cnpj int not null,
+		cep INT NOT NULL,
+                rua VARCHAR(100) NOT NULL,
+                bairro VARCHAR(100) NOT NULL,
+                numero VARCHAR(7) NOT NULL,
+                complemento VARCHAR(100),
+		data_inclusao DATE,
+		usr_inclusao int,
+                data_exclusao DATE,
+		usr_exclusao int,
+                CONSTRAINT Canal_pk PRIMARY KEY (id_filial)
+);
+
+
+CREATE TABLE STATUS_VENDA (
+                id_status INT AUTO_INCREMENT NOT NULL,
+                status VARCHAR(30) NOT NULL,
+                descricao VARCHAR(100),
+		data_inclusao DATE,
+		usr_inclusao int,
+                data_exclusao DATE,
+		usr_exclusao int,
+                CONSTRAINT  id_status_pk PRIMARY KEY (id_status)
+);
+
+
+CREATE TABLE PERFIL (
+                id_perfil INT AUTO_INCREMENT NOT NULL,
+                tipo VARCHAR(30) NOT NULL,
+                descricao VARCHAR(100),
+                data_inclusao DATE,
+		usr_inclusao int,
+                data_exclusao DATE,
+		usr_exclusao int,
+                CONSTRAINT id_perfil_pk PRIMARY KEY (id_perfil)
+);
+
+
+CREATE TABLE USUARIO (
+                id_usuario INT AUTO_INCREMENT NOT NULL,
+                id_perfil INT NOT NULL,
+                id_filial INT NOT NULL,
+                cpf_cnpj VARCHAR(13) NOT NULL,
+                rg  VARCHAR(9) NOT NULL,
+                nome VARCHAR(100) NOT NULL,
+                email VARCHAR(100) NOT NULL,
+                senha VARCHAR(50) NOT NULL,
+                telefone bigINT NOT NULL,
+                sexo VARCHAR(10) NOT NULL,
+                empresa BOOLEAN NOT NULL,
+                data_nascimento DATE,
+                data_inclusao DATE,
+		usr_inclusao int,
+                data_exclusao DATE,
+		usr_exclusao int,
+                CONSTRAINT id_usuario_pk PRIMARY KEY (id_usuario)
+);
+
+
+CREATE TABLE PRODUTO (
+                id_produto INT AUTO_INCREMENT NOT NULL,
+                id_usuario INT NOT NULL,
+                id_filial INT NOT NULL,
+                tipo VARCHAR(50) NOT NULL,
+                nome VARCHAR(100) NOT NULL,
+                qtde INT NOT NULL,
+                descricao VARCHAR(100) NOT NULL,
+                valor DOUBLE PRECISION NOT NULL,
+                data_exclusao DATE,
+		usr_exclusao int,
+                CONSTRAINT id_usuario_pk PRIMARY KEY (id_produto)
+);
+
+
+CREATE TABLE ENDERECO (
+                id_endereco INT AUTO_INCREMENT NOT NULL,
+                id_usuario INT NOT NULL,
+                cep VARCHAR(10) NOT NULL,
+                rua VARCHAR(100) NOT NULL,
+                bairro VARCHAR(100) NOT NULL,
+                numero VARCHAR(7) NOT NULL,
+                complemento VARCHAR(100),
+		data_exclusao DATE,
+		usr_exclusao int,
+                CONSTRAINT id_usuario_pk PRIMARY KEY (id_endereco)
+);
+
+
+CREATE TABLE VENDA (
+                id_venda INT AUTO_INCREMENT NOT NULL,
+                id_status INT NOT NULL,
+                id_endereco INT NOT NULL,
+                id_usuario INT NOT NULL,
+                id_filial INT NOT NULL,
+                cpf_cnpj VARCHAR(13) NOT NULL,
+                pagamento BOOLEAN NOT NULL,
+                parcelas INT NOT NULL,
+                total DOUBLE(5,2),
+                data DATETIME NOT NULL,
+                data_exclusao DATE,
+		usr_exclusao int,
+                codigo_rastreio VARCHAR(50),
+                CONSTRAINT id_venda_pk PRIMARY KEY (id_venda)
+);
+
+
+CREATE TABLE ITEM_VENDA (
+                id_item INT AUTO_INCREMENT NOT NULL,
+                id_produto INT NOT NULL,
+                id_venda INT NOT NULL,
+                quantidade INT NOT NULL,
+                valor DOUBLE PRECISION NOT NULL,
+                CONSTRAINT id_venda_pk PRIMARY KEY (id_item)
+);
+
+
+ALTER TABLE USUARIO ADD CONSTRAINT Filiais_usuario_fk
+FOREIGN KEY (id_filial)
+REFERENCES Filial (id_filial);
+
+ALTER TABLE PRODUTO ADD CONSTRAINT Filiais_produto_fk
+FOREIGN KEY (id_filial)
+REFERENCES Filial (id_filial);
+
+ALTER TABLE VENDA ADD CONSTRAINT Filiais_venda_fk
+FOREIGN KEY (id_filial)
+REFERENCES Filial (id_filial);
+
+ALTER TABLE VENDA ADD CONSTRAINT status_venda_venda_fk
+FOREIGN KEY (id_status)
+REFERENCES STATUS_VENDA (id_status);
+
+ALTER TABLE USUARIO ADD CONSTRAINT perfil_usuario_fk
+FOREIGN KEY (id_perfil)
+REFERENCES PERFIL (id_perfil);
+
+ALTER TABLE ENDERECO ADD CONSTRAINT usuario_endereco_fk
+FOREIGN KEY (id_usuario)
+REFERENCES USUARIO (id_usuario);
+
+ALTER TABLE PRODUTO ADD CONSTRAINT usuario_produto_fk
+FOREIGN KEY (id_usuario)
+REFERENCES USUARIO (id_usuario);
+
+ALTER TABLE ITEM_VENDA ADD CONSTRAINT produto_item_venda_fk
+FOREIGN KEY (id_produto)
+REFERENCES PRODUTO (id_produto);
+
+ALTER TABLE VENDA ADD CONSTRAINT endereco_venda_fk
+FOREIGN KEY (id_endereco)
+REFERENCES ENDERECO (id_endereco);
+
+ALTER TABLE ITEM_VENDA ADD CONSTRAINT venda_item_venda_fk
+FOREIGN KEY (id_venda)
+REFERENCES VENDA (id_venda);
+
+INSERT INTO status_venda (id_status, status, descricao) VALUES (1, 'Finalizada', 'Venda efetuada com sucesso');
+INSERT INTO status_venda (id_status, status, descricao) VALUES (2, 'Cancelada', 'Venda Cancelada com sucesso');
+INSERT INTO status_venda (id_status, status, descricao) VALUES (3, 'Inciada', 'Venda Inciada com sucesso');
+
+INSERT INTO Filial (id_filial , Nome, Descricao, cnpj, cep, rua, bairro, numero) VALUES (1, 'Matriz', 'Matriz da loja', 1565656, '05780392', 'Rua Pedro Alvares Cabral', 'Vera Cruz', 168);
+INSERT INTO Filial (id_filial , Nome, Descricao, cnpj, cep, rua, bairro, numero) VALUES (2, 'Filial Jardim Sul', 'Loja filial localizada no Jardim sul', 1565686, '05780397', 'Giovanni Gronchi', 'Vila Andrade', 208);
+
+INSERT INTO perfil (id_perfil, tipo, descricao) VALUES (1, 'DBA', 'Usuario do Banco para teste');
+INSERT INTO perfil (id_perfil, tipo, descricao) VALUES (2, 'Gerente', 'Usuario gerente para teste');
+
+INSERT INTO usuario (id_usuario, id_perfil, id_filial,cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, data_nascimento) VALUES (1, 1, 1, '23579852', '333355112', 'Carlos Antonio Lima', 'Carlos.lima@gmail.com', '123456', '58133158', 'masculino', '0', '06072001');
+INSERT INTO usuario (id_usuario, id_perfil, id_filial,cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, data_nascimento) VALUES (2, 1, 1, '23579882', '334355112', 'Jéssica groove', 'je.groove@gmail.com', '1234567', '58133758', 'indefinido', '0', '08072001');
+
+INSERT INTO endereco (id_endereco, id_usuario, cep, rua, bairro, numero) VALUES (1, 1, '05780392', 'SEM RUA', 'SEM BAIRRO', 0);
+
+INSERT INTO produto (id_produto, id_usuario, id_filial, tipo, nome, qtde, descricao, valor) VALUES (1, 1, 1, 'limpeza', 'Limpa vidro 30 ml', 8, 'limpador de vidro para automoveis', 10.2);
+INSERT INTO produto (id_produto, id_usuario, id_filial, tipo, nome, qtde, descricao, valor) VALUES (2, 1, 1, 'Rodas', 'Rodas aro 17', 4, 'Roda aro 17 importada', 40.5);
+
+INSERT INTO venda (id_venda, id_status, id_endereco, id_usuario, id_filial , cpf_cnpj, pagamento, parcelas, data) VALUES (1, 3, 1, 1, 1, '00000000', 1, 1, '2020-04-27 00:00:00');
+
