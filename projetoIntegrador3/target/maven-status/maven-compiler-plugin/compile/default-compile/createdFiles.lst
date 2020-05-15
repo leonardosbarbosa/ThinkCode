@@ -1,6 +1,5 @@
 com\thinkcode\DAO\UsuarioDAO.class
 com\thinkcode\models\ItensVenda.class
-com\thinkcode\DAO\FiliaisDAO.class
 com\thinkcode\db\TestaDB.class
 com\thinkcode\models\Venda.class
 com\thinkcode\db\ConnectionDB.class

@@ -35,11 +35,13 @@ public class ProdutoServlet extends HttpServlet {
         String url = "/login.html";
         //Fim instância
         //Pegando parâmetros e atribuindo a model
-        produto.setNome(request.getParameter("nome"));
-        produto.setDescricao(request.getParameter("descricao"));
-        produto.setTipo(request.getParameter("tipo").replace(".", "").replace("-", "").replace("/", ""));
-        produto.setQuantidade(Integer.parseInt(request.getParameter("quantidade").replace(".", "").replace("-", "").replace("/", "")));
-        produto.setValor(Double.parseDouble(request.getParameter("valor")));
+        produto.setNome(request.getParameter("nomeProduto"));
+        produto.setDescricao(request.getParameter("descricaoProduto"));
+        produto.setTipo(request.getParameter("tipoProduto").replace(".", "").replace("-", "").replace("/", ""));
+        produto.setQuantidade(Integer.parseInt(request.getParameter("quantidadeProduto").replace(".", "").replace("-", "").replace("/", "")));
+        produto.setValor(Double.parseDouble(request.getParameter("valorProduto")));
+        produto.setIdFilial(1);
+        produto.setIdUsuario(1);
         //Fim atribuição
 
         //Salvando produto
