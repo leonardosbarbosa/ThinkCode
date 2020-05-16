@@ -69,20 +69,88 @@
             <div class="navbar-header pull-left">
                 <a href="index.html" class="navbar-brand">
                     <small>
-                        <img src="assets/images/gallery/reparar.png" width="12%;">
-                        <!-- <i class="fa fa-leaf"></i> -->
-                        Think Code
+                        <img src="assets/images/gallery/reparar.png">
+                        ThinkCode
                     </small>
                 </a>
             </div>
 
             <div class="navbar-buttons navbar-header pull-right" role="navigation">
                 <ul class="nav ace-nav">
+
+                    <li class="purple dropdown-modal">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <i class="ace-icon fa fa-bell icon-animated-bell"></i>
+                            <span class="badge badge-important">8</span>
+                        </a>
+
+                        <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+                            <li class="dropdown-header">
+                                <i class="ace-icon fa fa-exclamation-triangle"></i> 8 Notifications
+                            </li>
+
+                            <li class="dropdown-content">
+                                <ul class="dropdown-menu dropdown-navbar navbar-pink">
+                                    <li>
+                                        <a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left">
+                                                    <i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
+                                                    New Comments
+                                                </span>
+                                                <span class="pull-right badge badge-info">+12</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">
+                                            <i class="btn btn-xs btn-primary fa fa-user"></i> Bob just signed up as an editor ...
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left">
+                                                    <i class="btn btn-xs no-hover btn-success fa fa-shopping-cart"></i>
+                                                    New Orders
+                                                </span>
+                                                <span class="pull-right badge badge-success">+8</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left">
+                                                    <i class="btn btn-xs no-hover btn-info fa fa-twitter"></i>
+                                                    Followers
+                                                </span>
+                                                <span class="pull-right badge badge-info">+11</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-footer">
+                                <a href="#">
+                                    See all notifications
+                                    <i class="ace-icon fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
                     <li class="light-blue dropdown-modal">
                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                             <img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
                             <span class="user-info">
-                                <small>Bem-Vindo,</small>
+                                <small>Bem-vindo,</small>
                                 Administrador
                             </span>
 
@@ -92,13 +160,13 @@
                         <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                             <li>
                                 <a href="#">
-                                    <i class="ace-icon fa fa-cog"></i> Configuração
+                                    <i class="ace-icon fa fa-cog"></i> Settings
                                 </a>
                             </li>
 
                             <li>
                                 <a href="profile.html">
-                                    <i class="ace-icon fa fa-user"></i> Perfil
+                                    <i class="ace-icon fa fa-user"></i> Profile
                                 </a>
                             </li>
 
@@ -106,7 +174,7 @@
 
                             <li>
                                 <a href="#">
-                                    <i class="ace-icon fa fa-power-off"></i> Sair
+                                    <i class="ace-icon fa fa-power-off"></i> Logout
                                 </a>
                             </li>
                         </ul>
@@ -131,6 +199,9 @@
                 } catch (e) {}
             </script>
 
+
+            <!-- /.sidebar-shortcuts -->
+
             <ul class="nav nav-list">
                 <li class="active">
                     <a href="index.html">
@@ -143,7 +214,7 @@
 
                 <li class="">
                     <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa-desktop"></i>
+                        <i class="menu-icon fa fa-book"></i>
                         <span class="menu-text">
                             Relatórios
                         </span>
@@ -154,65 +225,6 @@
                     <b class="arrow"></b>
 
                     <ul class="submenu">
-                        <li class="">
-                            <a href="#" class="dropdown-toggle">
-                                <i class="menu-icon fa fa-caret-right"></i> Faturamento
-                                <b class="arrow fa fa-angle-down"></b>
-                            </a>
-
-                            <b class="arrow"></b>
-
-                            <ul class="submenu">
-                                <li class="">
-                                    <a href="top-menu.html">
-                                        <i class="menu-icon fa fa-caret-right"></i> Top Menu
-                                    </a>
-
-                                    <b class="arrow"></b>
-                                </li>
-
-                                <li class="">
-                                    <a href="two-menu-1.html">
-                                        <i class="menu-icon fa fa-caret-right"></i> Two Menus 1
-                                    </a>
-
-                                    <b class="arrow"></b>
-                                </li>
-
-                                <li class="">
-                                    <a href="two-menu-2.html">
-                                        <i class="menu-icon fa fa-caret-right"></i> Two Menus 2
-                                    </a>
-
-                                    <b class="arrow"></b>
-                                </li>
-
-                                <li class="">
-                                    <a href="mobile-menu-1.html">
-                                        <i class="menu-icon fa fa-caret-right"></i> Default Mobile Menu
-                                    </a>
-
-                                    <b class="arrow"></b>
-                                </li>
-
-                                <li class="">
-                                    <a href="mobile-menu-2.html">
-                                        <i class="menu-icon fa fa-caret-right"></i> Mobile Menu 2
-                                    </a>
-
-                                    <b class="arrow"></b>
-                                </li>
-
-                                <li class="">
-                                    <a href="mobile-menu-3.html">
-                                        <i class="menu-icon fa fa-caret-right"></i> Mobile Menu 3
-                                    </a>
-
-                                    <b class="arrow"></b>
-                                </li>
-                            </ul>
-                        </li>
-
                         <li class="">
                             <a href="typography.html">
                                 <i class="menu-icon fa fa-caret-right"></i> Vendas
@@ -232,55 +244,108 @@
 
                         <li class="">
                             <a href="content-slider.html">
-                                <i class="menu-icon fa fa-caret-right"></i> Cliente
+                                <i class="menu-icon fa fa-caret-right"></i> Usuários
                             </a>
 
                             <b class="arrow"></b>
                         </li>
-
-
-
                         <li class="">
-                            <a href="widgets.html">
-                                <i class="menu-icon fa fa-list-alt"></i>
-                                <span class="menu-text"> Cadastros </span>
+                            <a href="content-slider.html">
+                                <i class="menu-icon fa fa-caret-right"></i> Solicitações
                             </a>
 
                             <b class="arrow"></b>
                         </li>
+                    </ul>
+                </li>
 
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-pencil-square-o"></i>
+                        <span class="menu-text">
+                            Cadastro
+                        </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+                        <li class="">
+                            <a href="cadastroFilial.html">
+                                <i class="menu-icon glyphicon glyphicon-home"></i> Filial
+                            </a>
+
+                        </li>
+                        <li class="">
+                            <a href="cadastroPerfil.html">
+                                <i class="menu-icon glyphicon glyphicon-cog"></i> Perfil
+
+                            </a>
+
+                        </li>
+                        <li class="">
+                            <a href="cadastroProduto.html">
+                                <i class="menu-icon glyphicon glyphicon-barcode"></i> Produto
+
+                            </a>
+
+                        </li>
+                        <li class="">
+                            <a href="cadastroUsuario.html">
+                                <i class="menu-icon fa fa-user"></i> Usuario
+
+                            </a>
+
+                        </li>
 
                     </ul>
-                    <!-- /.nav-list -->
+                </li>
 
-                    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-                        <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-                    </div>
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-desktop"></i>
+                        <span class="menu-text">
+                            Compra/Venda
+                        </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+
+                        <li class="">
+                            <a href="typography.html">
+                                <i class="menu-icon fa fa-money"></i> Vendas
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="">
+                            <a href="elements.html">
+                                <i class="menu-icon fa fa-caret-right"></i> Compras
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+            <!-- /.nav-list -->
+
+            <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+                <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+            </div>
         </div>
 
         <div class="main-content">
             <div class="main-content-inner">
-                <div class="breadcrumbs ace-save-state" id="breadcrumbs">
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="ace-icon fa fa-home home-icon"></i>
-                            <a href="#">Home</a>
-                        </li>
-                        <li class="active">Dashboard</li>
-                    </ul>
-                    <!-- /.breadcrumb -->
 
-                    <div class="nav-search" id="nav-search">
-                        <form class="form-search">
-                            <span class="input-icon">
-                                <input type="text" placeholder="Search ..." class="nav-search-input"
-                                    id="nav-search-input" autocomplete="off" />
-                                <i class="ace-icon fa fa-search nav-search-icon"></i>
-                            </span>
-                        </form>
-                    </div>
-                    <!-- /.nav-search -->
-                </div>
 
                 <div class="page-content">
                     <form action="ProdutoServlet" method="POST">
