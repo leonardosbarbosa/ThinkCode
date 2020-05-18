@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +20,8 @@ import java.util.logging.Logger;
  * @author Devakian
  */
 public class PerfilDAO {
-        public static boolean cadastrarPerfil(PerfilModel perfil) {
+
+    public static boolean cadastrarPerfil(PerfilModel perfil) {
         boolean ok = false;
         Connection con;
         try {
@@ -34,7 +36,7 @@ public class PerfilDAO {
             ps.setString(5, perfil.getUsrInclusao());
             ps.setString(6, perfil.getDataExclusao());
             ps.setString(7, perfil.getUsrExclusao());
-            
+
             ps.execute();
             ok = true;
 
@@ -43,13 +45,14 @@ public class PerfilDAO {
         }
         return ok;
     }
-        public static boolean consultarPerfil(int idPerfil) {
+
+    public static boolean consultarPerfil(int idPerfil) {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("select id_perfil from perfil where id_perfil like '%" + idPerfil + "%'");
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 System.out.println(rs.getString("id_perfil"));
             }
             return true;
@@ -58,8 +61,22 @@ public class PerfilDAO {
         }
         return false;
     }
-        
-        public static boolean excluirPerfil(int idPerfil) {
+
+    public static boolean excluirPerfil(int idPerfil) {
+        Connection con;
+        Date date = new Date();
+        try {
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("update perfil set dt_exclusao = " + date + " where id_perfil like '%" + idPerfil + "%'");
+            ResultSet rs = ps.executeQuery();
+            return true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(PerfilDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static boolean Delete(int idPerfil) {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();

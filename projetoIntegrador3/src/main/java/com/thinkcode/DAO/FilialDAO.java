@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,13 +20,13 @@ import java.util.logging.Logger;
  * @author Devakian
  */
 public class FilialDAO {
-    
-      public static boolean cadastrarFilial(FilialModel filial) {
+
+    public static boolean cadastrarFilial(FilialModel filial) {
         boolean ok = false;
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            
+
             String sql = "insert into filial (Nome, Descricao, cnpj, cep, rua, bairro, numero,"
                     + " complemento, data_inclusao,usr_inclusao)"
                     + " values (?,?,?,?,?,?,?,?,?,?)";
@@ -39,7 +40,7 @@ public class FilialDAO {
             ps.setString(7, filial.getNumero());
             ps.setString(8, filial.getComplemento());
             ps.setString(9, filial.getDataInclusao());
-            ps.setInt(10, filial.getUserInclusao());                         
+            ps.setInt(10, filial.getUserInclusao());
             ps.execute();
             ok = true;
 
@@ -56,7 +57,7 @@ public class FilialDAO {
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("select id_filial from filial where id_filial like '%" + idFilial + "%'");
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 System.out.println(rs.getString("id_filial"));
             }
             return true;
@@ -65,8 +66,22 @@ public class FilialDAO {
         }
         return false;
     }
-    
-            public static boolean excluirFilial(int idFilial) {
+
+    public static boolean excluirFilial(int idFilial) {
+        Connection con;
+        Date date = new Date();
+        try {
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("update filial set dt_exclusao = " + date + " id_filial like '%" + idFilial + "%'");
+            ResultSet rs = ps.executeQuery();
+            return true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(FilialDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static boolean Delete(int idFilial) {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();

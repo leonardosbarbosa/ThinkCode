@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,6 +65,20 @@ public class VendaDAO {
             
         public static boolean excluirVenda(String idVenda) {
         Connection con;
+        Date date = new Date();
+        try {
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("update venda set dt_exlusao = "+ date +" where id_venda like '%" + idVenda + "%'");
+            ResultSet rs = ps.executeQuery();
+            return true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+        
+        public static boolean Delete(String idVenda) {
+        Connection con;
         try {
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("delete nome from venda where id_venda like '%" + idVenda + "%'");
@@ -74,4 +89,5 @@ public class VendaDAO {
         }
         return false;
     }
+        
 }

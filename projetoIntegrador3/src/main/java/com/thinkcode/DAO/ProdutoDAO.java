@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,7 +51,7 @@ public class ProdutoDAO {
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("select nome from produto where nome like '%" + nome + "%'");
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 System.out.println(rs.getString("nome"));
             }
             return true;
@@ -59,8 +60,22 @@ public class ProdutoDAO {
         }
         return false;
     }
-    
-            public static boolean excluirProdutoNome(String idProduto) {
+
+    public static boolean excluirProdutoNome(String idProduto) {
+        Connection con;
+        Date date = new Date();
+        try {
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("update produto set dt_exclusao = " + date + " where id_produto like '%" + idProduto + "%'");
+            ResultSet rs = ps.executeQuery();
+            return true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static boolean Delete(String idProduto) {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();

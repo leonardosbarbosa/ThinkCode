@@ -119,6 +119,20 @@ public class UsuarioDAO {
 
     public static boolean excluirUsuario(int idUsuario) {
         Connection con;
+         Date date = new Date();
+        try {
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("update from usuario set dt_exclusao = "+ date +" where id_usuario like '%" + idUsuario + "%'");
+            ResultSet rs = ps.executeQuery();
+            return true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static boolean Delete(int idUsuario) {
+        Connection con;
         try {
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("delete id_usuario from usuario where id_usuario like '%" + idUsuario + "%'");

@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,7 +34,7 @@ public class ItensVendaDAO {
             ps.setInt(3, itensVenda.getIdVenda());
             ps.setInt(4, itensVenda.getQntd());
             ps.setDouble(5, itensVenda.getValor());
-            
+
             ps.execute();
             ok = true;
 
@@ -49,7 +50,7 @@ public class ItensVendaDAO {
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("select id_venda from item_venda where id_venda like '%" + idVenda + "%'");
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 System.out.println(rs.getString("idVenda"));
             }
             return true;
@@ -58,8 +59,22 @@ public class ItensVendaDAO {
         }
         return false;
     }
-    
-            public static boolean excluirItensVenda(int idVendas) {
+
+    public static boolean excluirItensVenda(int idVendas) {
+        Connection con;
+        Date date = new Date();
+        try {
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("update item_venda set dt_exclusao = " + date + " where id_item like '%" + idVendas + "%'");
+            ResultSet rs = ps.executeQuery();
+            return true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ItensVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static boolean Delete(int idVendas) {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
