@@ -382,7 +382,7 @@
                                             <div class="col-sm-12">
                                                 <div class="widget-box">
                                                     <div class="widget-header">
-                                                        <h4 class="widget-title center">InformaÃ§Ãµes pessoais</h4>
+                                                        <h4 class="widget-title center">Informações pessoais</h4>
 
                                                         <div class="widget-toolbar">
                                                             <a href="#" data-action="collapse">
@@ -396,15 +396,15 @@
                                                             <div class="form-group">
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Nome</label>
-                                                                    <input type="text" id="form-field-1-1" placeholder="Nome" class="form-control" name="nome" />
+                                                                    <input type="text" id="form-field-1-1" placeholder="Nome" class="form-control" name="nome" required/>
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">CPF</label>
-                                                                    <input type="text" id="form-field-1-1" placeholder="000-000-000-00" class="form-control input-mask-cpf" name="cpf" />
+                                                                    <input type="text" id="form-field-1-1" placeholder="000-000-000-00" class="form-control input-mask-cpf" name="cpf" required/>
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">RG</label>
-                                                                    <input type="text" id="form-field-1-1" placeholder="00-000-000-0" class="form-control input-mask-rg" name="rg" />
+                                                                    <input type="text" id="form-field-1-1" placeholder="00-000-000-0" class="form-control input-mask-rg" name="rg" required/>
                                                                 </div>
                                                                 <div class="col-lg-3">
 
@@ -412,7 +412,7 @@
                                                                         Nascimento</label>
 
                                                                     <div class="input-group">
-                                                                        <input class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="dd/mm/yyyy" name="dataNasc" />
+                                                                        <input class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="dd/mm/yyyy" name="dataNasc" required/>
                                                                         <span class="input-group-addon">
                                                                             <i class="fa fa-calendar bigger-110"></i>
                                                                         </span>
@@ -427,7 +427,7 @@
                                                                             <i class="ace-icon fa fa-phone"></i>
                                                                         </span>
 
-                                                                        <input class="form-control input-mask-phone" type="text" id="form-field-mask-2" name="telefone" />
+                                                                        <input class="form-control input-mask-phone" type="text" id="form-field-mask-2" name="telefone" required/>
                                                                     </div>
                                                                 </div>
 
@@ -435,12 +435,12 @@
 
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">E-mail</label>
-                                                                    <input type="email" id="form-field-1-1" placeholder="E-mail" class="form-control" name="email" />
+                                                                    <input type="email" id="form-field-1-1" placeholder="E-mail" class="form-control" name="email" required />
                                                                 </div>
 
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Senha</label>
-                                                                    <input type="password" id="form-field-1-1" placeholder="Senha" class="form-control" name="senha" />
+                                                                    <input type="password" id="form-field-1-1" placeholder="Senha" class="form-control" name="senha"  required/>
                                                                 </div>
 
 
@@ -478,7 +478,7 @@
                                             <div class="col-sm-12">
                                                 <div class="widget-box">
                                                     <div class="widget-header">
-                                                        <h4 class="widget-title center">EndereÃ§o</h4>
+                                                        <h4 class="widget-title center">Endereço</h4>
 
                                                         <div class="widget-toolbar">
                                                             <a href="#" data-action="collapse">
@@ -511,7 +511,7 @@
                                                                 </div>
                                                                 <div class="col-lg-3">
 
-                                                                    <label for="number-button" class="block">NÃºmero </label>
+                                                                    <label for="number-button" class="block">Número </label>
                                                                     <input class="form-control" type="text" placeholder="NÃºmero da casa/apto" id="form-field-mask-2" name="numero" />
                                                                 </div>
                                                                 <div class="col-lg-3">
@@ -539,7 +539,7 @@
                                             <div class="col-sm-12">
                                                 <div class="widget-box">
                                                     <div class="widget-header">
-                                                        <h4 class="widget-title center">ConfiguraÃ§Ã£o de usuÃ¡rio</h4>
+                                                        <h4 class="widget-title center">Configuração de usuário</h4>
 
                                                         <div class="widget-toolbar">
                                                             <a href="#" data-action="collapse">
