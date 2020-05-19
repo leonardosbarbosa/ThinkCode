@@ -91,13 +91,13 @@ public class UsuarioDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select * from usuario where cpf_cnpj = '" + usuario.getCpfCnpj() + "'");
+            PreparedStatement ps = con.prepareStatement("select * from usuario where cpf_cnpj = '" + usuario.getCpfCnpj() + "' or email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'");
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 usuario.setCpfCnpj(rs.getString("cpf_cnpj"));
                 usuario.setDataExclusao(rs.getString("data_exclusao"));
-                usuario.setDataInclusao(rs.getString("data_inclusao"));
-                usuario.setDataNasc(rs.getString("data_nascimento"));
+                usuario.setDataInclusao(rs.getString("data_inclusao"));                
+                usuario.setDataNasc(rs.getDate("data_nascimento").toString());
                 usuario.setEmail(rs.getString("email"));
                 usuario.setEmpresa(rs.getInt("empresa"));
                 usuario.setId(rs.getInt("id_usuario"));
