@@ -600,7 +600,7 @@
                                                 <a src="index.html" class="btn btn-sm btn-danger right" style="float: right;">
                                                     Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
                                                 </a>
-                                                <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;">
+                                                <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="Cadastro" name="tarefa">
                                                     Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
                                                 </button>
                                             </div>

@@ -13,9 +13,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.List;
 
 /**
  *
@@ -97,7 +99,7 @@ public class UsuarioDAO {
             if (rs.first()) {
                 usuario.setCpfCnpj(rs.getString("cpf_cnpj"));
                 usuario.setDataExclusao(rs.getString("data_exclusao"));
-                usuario.setDataInclusao(rs.getString("data_inclusao"));                
+                usuario.setDataInclusao(rs.getString("data_inclusao"));
                 usuario.setDataNasc(rs.getDate("data_nascimento").toString());
                 usuario.setEmail(rs.getString("email"));
                 usuario.setEmpresa(rs.getInt("empresa"));
@@ -120,10 +122,10 @@ public class UsuarioDAO {
 
     public static boolean excluirUsuario(int idUsuario) {
         Connection con;
-         Date date = new Date();
+        Date date = new Date();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update from usuario set dt_exclusao = "+ date +" where id_usuario like '%" + idUsuario + "%'");
+            PreparedStatement ps = con.prepareStatement("update from usuario set dt_exclusao = " + date + " where id_usuario like '%" + idUsuario + "%'");
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -143,6 +145,39 @@ public class UsuarioDAO {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public static List<UsuarioModel> UsuariosCadastrados() {
+        Connection con;
+        List<UsuarioModel> usuarios = new ArrayList<UsuarioModel>();
+        UsuarioModel usuario = new UsuarioModel();
+        try {
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("select * from usuario");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                usuario.setCpfCnpj(rs.getString("cpf_cnpj"));
+                usuario.setDataExclusao(rs.getString("data_exclusao"));
+                usuario.setDataInclusao(rs.getString("data_inclusao"));
+                usuario.setDataNasc(rs.getDate("data_nascimento").toString());
+                usuario.setEmail(rs.getString("email"));
+                usuario.setEmpresa(rs.getInt("empresa"));
+                usuario.setId(rs.getInt("id_usuario"));
+                usuario.setIdFilial(rs.getInt("id_filial"));
+                usuario.setIdPerfil(rs.getInt("id_perfil"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setRg(rs.getString("rg"));
+                usuario.setSenha(rs.getString("senha"));
+                usuario.setSexo(rs.getString("sexo"));
+                usuario.setTelefone(rs.getInt("telefone"));
+                usuario.setUserExclusao(rs.getInt("usr_exclusao"));
+                usuario.setUserInclusao(rs.getInt("usr_inclusao"));
+                usuarios.add(usuario);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return usuarios;
     }
 
 }

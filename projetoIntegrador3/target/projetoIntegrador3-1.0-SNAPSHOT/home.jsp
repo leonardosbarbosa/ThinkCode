@@ -1651,7 +1651,8 @@
 
 
                         $('#CadastroUsuario').click(function () {
-                            UsuarioServlet('Cadastro');
+//                            UsuarioServlet('Cadastro');
+                              UsuarioServlet('GerenciaUsuarios');                          
                         })
                         function UsuarioServlet(tarefas) {
                             var taf = tarefas

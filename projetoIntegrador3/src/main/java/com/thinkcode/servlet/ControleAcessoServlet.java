@@ -5,11 +5,15 @@
  */
 package com.thinkcode.servlet;
 
+import Controller.UsuarioController;
+import com.thinkcode.models.UsuarioModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -21,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Gustavo Nascimento
  */
-@WebServlet(name = "RelatorioServlet", urlPatterns = {"/RelatorioServlet"})
-public class RelatorioServlet extends HttpServlet {
+@WebServlet(name = "ControleAcessoServlet", urlPatterns = {"/ControleAcessoServlet"})
+public class ControleAcessoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,13 +39,16 @@ public class RelatorioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       String page = request.getParameter("Pagina");
 
+        //Instância de objetos
+        UsuarioModel usuario = new UsuarioModel();
+        UsuarioController usuarioController = new UsuarioController();
+        Cookie cook = null;
         List<Cookie> cookies = new ArrayList<Cookie>();
         cookies = Arrays.asList(request.getCookies());
-        Cookie cook = null;
         String url = "/login.jsp";
         boolean logado = false;
-        
         //Fim instância       
 
         if (cookies != null) {
@@ -54,8 +61,14 @@ public class RelatorioServlet extends HttpServlet {
         }
 
         if (logado) {
-
+            
+            url = "/cadastroUsuario.jsp";
+            //Pegando parâmetros e atribuindo a model
+            
         }
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

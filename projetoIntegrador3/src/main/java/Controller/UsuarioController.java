@@ -2,6 +2,7 @@ package Controller;
 
 import com.thinkcode.DAO.UsuarioDAO;
 import com.thinkcode.models.UsuarioModel;
+import java.util.List;
 
 /**
  *
@@ -21,5 +22,9 @@ public class UsuarioController {
     public UsuarioModel UsuarioPropriedades(UsuarioModel user) {
         UsuarioDAO.consultarUsuario(user);
         return user;
+    }
+
+    public List<UsuarioModel> UsuariosCadastrados() {
+        return UsuarioDAO.UsuariosCadastrados();
     }
 }
