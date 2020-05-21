@@ -39,35 +39,58 @@ public class LoginServlet extends HttpServlet {
         //Instância de objetos
         UsuarioModel usuario = new UsuarioModel();
         UsuarioController usuarioController = new UsuarioController();
-        String url;
+        String url = "/login.jsp";
         //Fim instância
 
-        //Pegando parâmetros e atribuindo a model
-        usuario.setEmail(request.getParameter("email"));
-        usuario.setSenha(request.getParameter("senha"));
-        //Fim atribuição
+        Cookie[] cookies = request.getCookies();
+        boolean logado = false;
 
-        //Retornando usuário cadastrado
-        boolean ok = usuarioController.Login(usuario);
-        //Fim retorno
+        if (cookies != null) {
+            for (Cookie atual : cookies) {
+                if (atual.getName().equals("Id_Usuario")) {
+                    if (atual.getValue() != null) {
+                        url = "/IndexServlet";
+                        logado = true;
+                    }
+                }
 
-        if (ok) {
-            //Atribuindo usuário a model caso cadastrado
-            usuario = usuarioController.UsuarioPropriedades(usuario);
-            //Fim atribuição
-            Cookie cook = new Cookie("ID_Usuario", Integer.toString(usuario.getIdUsuario()));
-            cook.setMaxAge(60 * 60*24);
-            Cookie cook1 = new Cookie("CPF", usuario.getCpfCnpj());
-            cook.setMaxAge(60 * 60*24);
-            Cookie cook2 = new Cookie("NOME", usuario.getNome());
-            cook.setMaxAge(60 * 60*24);
-            response.addCookie(cook);
-            response.addCookie(cook1);
-            response.addCookie(cook2);
+            }
+        }
+        if (!logado) {
+            
+            if (request.getParameter("email") != null && request.getParameter("senha") != null) {
+                //Pegando parâmetros e atribuindo a model
+                usuario.setEmail(request.getParameter("email"));
+                usuario.setSenha(request.getParameter("senha"));
+                //Fim atribuição
 
-            url = "/index.html";
-        } else {
-            url = "/login.html";
+                //Retornando usuário cadastrado
+                boolean ok = usuarioController.Login(usuario);
+                //Fim retorno
+
+                if (ok) {
+                    //Atribuindo usuário a model caso cadastrado
+                    usuario = usuarioController.UsuarioPropriedades(usuario);
+                    //Fim atribuição
+                    Cookie cook = new Cookie("Id_Usuario", Integer.toString(usuario.getIdUsuario()));
+                    cook.setMaxAge(60 * 60*8);
+                    Cookie cook1 = new Cookie("CPF", usuario.getCpfCnpj());
+                    cook1.setMaxAge(60 * 60*8);
+                    Cookie cook2 = new Cookie("Nome", usuario.getNome());
+                    cook2.setMaxAge(60 * 60*8);
+                    Cookie cook3 = new Cookie("Perfil", Integer.toString(usuario.getIdPerfil()));
+                    cook3.setMaxAge(60 * 60*8);
+                    response.addCookie(cook);
+                    response.addCookie(cook1);
+                    response.addCookie(cook2);
+                    response.addCookie(cook3);
+
+                    //url = "/index.jsp";
+                    url = "/IndexServlet";
+                } else {
+                    url = "/login.jsp";
+                }
+            }
         }
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);

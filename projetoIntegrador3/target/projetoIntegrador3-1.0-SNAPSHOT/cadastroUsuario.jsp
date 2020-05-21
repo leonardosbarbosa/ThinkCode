@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=?pt-br?>
+<html lang="pt-br">
 
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -69,7 +69,7 @@
                 <div class="navbar-header pull-left">
                     <a href="index.html" class="navbar-brand">
                         <small>
-                            <img src="assets/images/gallery/reparar.png">
+                            <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
                         </small>
                     </a>
@@ -151,7 +151,8 @@
                                 <img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
                                 <span class="user-info">
                                     <small>Bem-vindo,</small>
-                                    Administrador
+                                    <label id="lblNome"></label>
+
                                 </span>
 
                                 <i class="ace-icon fa fa-caret-down"></i>
@@ -173,7 +174,7 @@
                                 <li class="divider"></li>
 
                                 <li>
-                                    <a href="#">
+                                    <a href="#" id="Sair">
                                         <i class="ace-icon fa fa-power-off"></i> Logout
                                     </a>
                                 </li>
@@ -512,7 +513,7 @@
                                                                 <div class="col-lg-3">
 
                                                                     <label for="number-button" class="block">Número </label>
-                                                                    <input class="form-control" type="text" placeholder="NÃºmero da casa/apto" id="form-field-mask-2" name="numero" />
+                                                                    <input class="form-control" type="text" placeholder="Número da casa/apto" id="form-field-mask-2" name="numero" />
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Complemento</label>
@@ -651,8 +652,8 @@
     <script src="assets/js/jquery-1.11.3.min.js"></script>
     <![endif]-->
                     <script type="text/javascript">
-                        if ('ontouchstart' in document.documentElement)
-                            document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+                    if ('ontouchstart' in document.documentElement)
+                        document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
                     </script>
                     <script src="assets/js/bootstrap.min.js"></script>
 
@@ -677,35 +678,46 @@
 
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
-                        jQuery(function ($) {
-                            $.mask.definitions['~'] = '[+-]';
-                            $('.input-mask-phone').mask('(99) 99999-9999');
-                            $('.input-mask-cpf').mask('999-999-999-99');
-                            $('.input-mask-rg').mask('99-999-999-9');
-                            $('.input-mask-cep').mask('99999-999')
-                            $('.date-picker').datepicker({
-                                autoclose: true,
-                                todayHighlight: true
-                            })
+                    jQuery(function ($) {
+                        $.mask.definitions['~'] = '[+-]';
+                        $('.input-mask-phone').mask('(99) 99999-9999');
+                        $('.input-mask-cpf').mask('999-999-999-99');
+                        $('.input-mask-rg').mask('99-999-999-9');
+                        $('.input-mask-cep').mask('99999-999')
+                        $('.date-picker').datepicker({
+                            autoclose: true,
+                            todayHighlight: true
+                        })
+                        $('#Sair').click(function(){
                             
-                                                   
+                            removeCookie();
+                        })
+                       function removeCookie(){
+                            alert('Entrou no método')
+                        }
+
+
                         <%
                             Cookie[] cookies = request.getCookies();
                             for (Cookie atual : cookies) {
-                                if (atual.getName().equals("ID_Usuario")) {
+                                if (atual.getName().equals("Perfil")) {
                                     int auxilio = Integer.parseInt(atual.getValue());
-                                    if (auxilio == 1) {
+                                    if (auxilio != 1) {
                         %>
-                                $('#liCadastro').hide()
-                            //document.getElementById("cadastroProdutos").style.display = "none";
-                            alert('foi');
+                        $('#liCadastro').hide()
                         <%
-            }
-        }
+                                    }
+                                }
+                                 if (atual.getName().equals("Nome")) {
+                                     String auxiliado = atual.getValue().substring(0, 8);
+                                 %>
+                                          $('#lblNome').text('<%= auxiliado %>');
+                                 <%    
+                                 }
 
-    }
+                            }
                         %>
-                        })
+                    })
                     </script>
                     </body>
 

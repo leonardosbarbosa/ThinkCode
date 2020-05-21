@@ -1,9 +1,11 @@
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\db\TestaDB.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\PerfilServlet.java
+C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\Criptografia.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\EnderecoModel.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\Controller\PerfilController.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\EnderecoDAO.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\ItensVenda.java
+C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\IndexServlet.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\LoginServlet.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\Controller\ProdutoController.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\UsuarioDAO.java
@@ -15,7 +17,6 @@ C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoInteg
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\Status_Venda.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\ProdutoDAO.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\db\ConnectionDB.java
-C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\NewServlet.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\PerfilModel.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\StatusVendaDAO.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\Controller\FilialController.java

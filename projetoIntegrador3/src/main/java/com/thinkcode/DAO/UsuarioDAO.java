@@ -30,8 +30,8 @@ public class UsuarioDAO {
         try {
             con = ConnectionDB.obterConexao();
 
-            String sql = "insert into usuario (id_perfil, id_filial, cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, data_nascimento, data_inclusao)"
-                    + " values (?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into usuario (id_perfil, id_filial, cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, data_nascimento, data_inclusao, usr_inclusao)"
+                    + " values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, 1);
             ps.setInt(2, 1);
@@ -47,6 +47,7 @@ public class UsuarioDAO {
             ps.setString(11, converteData(usuario.getDataNasc()));
             String datinha = usuario.getDataNasc();
             ps.setString(12, usuario.getDataInclusao());
+            ps.setInt(13, usuario.getUserInclusao());
             ps.execute();
             ok = true;
 

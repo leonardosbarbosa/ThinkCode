@@ -45,6 +45,8 @@ public class UsuarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String tarefa = request.getParameter("tarefa");
+
         //Instância de objetos
         UsuarioModel usuario = new UsuarioModel();
         UsuarioController usuarioController = new UsuarioController();
@@ -52,58 +54,69 @@ public class UsuarioServlet extends HttpServlet {
         Cookie cook = null;
         List<Cookie> cookies = new ArrayList<Cookie>();
         cookies = Arrays.asList(request.getCookies());
-        String url = "/login.html";
-        //Fim instância
+        String url = "/login.jsp";
+        boolean logado = false;
+        //Fim instância       
 
-        //Pegando parâmetros e atribuindo a model
         if (cookies != null) {
-                for (Cookie ck : cookies) {
-                    if (ck.getName() != null && ck.getName().equals("ID_Usuario")) {
-                        cook = ck;
-                    }
+            for (Cookie ck : cookies) {
+                if (ck.getName() != null && ck.getName().equals("Id_Usuario")) {
+                    cook = ck;
+                    logado = true;
                 }
             }
-        usuario.setUserInclusao(Integer.parseInt(cook.getValue()));
-        usuario.setCpfCnpj(request.getParameter("cpf").replace("-", ""));
-        usuario.setRg(request.getParameter("rg").replace("-", ""));
-        usuario.setNome(request.getParameter("nome"));
-        usuario.setEmail(request.getParameter("email"));
-        usuario.setSenha(request.getParameter("senha"));
-        usuario.setTelefone(Long.parseLong(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
-        usuario.setSexo(request.getParameter("sexo"));
-        usuario.setEmpresa(1);
-        usuario.setDataNasc(request.getParameter("dataNasc"));
-        Date dataIncl = new Date();
-        usuario.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
-        //Fim atribuição
+        }
 
-        //Cadastro de usuário
-        boolean ok = usuarioController.Save(usuario);
-        //Fim cadastro
-
-        if (ok) {
-            //Retorno do usuário cadastrado
-            usuario = usuarioController.UsuarioPropriedades(usuario);
+        if (logado) {
+            url = "cadastroUsuario.jsp";
             //Pegando parâmetros e atribuindo a model
-            String cep = request.getParameter("cep");
-            String rua = request.getParameter("rua");
-            String bairro = request.getParameter("bairro");
-            String numero = request.getParameter("numero");
-            String complemento = request.getParameter("complemento");
-            
-            EnderecoModel endereco = new EnderecoModel(usuario.getIdUsuario(), cep, rua, bairro, numero, complemento);
+            if (request.getParameter("cpf") != null && request.getParameter("rg") != null && request.getParameter("email") != null && request.getParameter("email") != null) {
+                usuario.setUserInclusao(Integer.parseInt(cook.getValue()));
+                usuario.setCpfCnpj(request.getParameter("cpf").replace("-", ""));
+                usuario.setRg(request.getParameter("rg").replace("-", ""));
+                usuario.setNome(request.getParameter("nome"));
+                usuario.setEmail(request.getParameter("email"));
+                usuario.setSenha(request.getParameter("senha"));
+                usuario.setTelefone(Long.parseLong(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
+                usuario.setSexo(request.getParameter("sexo"));
+                usuario.setEmpresa(1);
+                usuario.setDataNasc(request.getParameter("dataNasc"));
+                Date dataIncl = new Date();
+                usuario.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
             //Fim atribuição
 
-            //Cadastro endereço
-            boolean okEndereco = enderecoController.Save(endereco);
-            //Fim cadastro
+                //Cadastro de usuário
+                boolean ok = true;
+                if (tarefa.equals("Cadastro")) {
+                    ok = usuarioController.Save(usuario);
+                }
+                url = "/RelatorioServlet";
+                //Fim cadastro
+                if (ok) {
+                    //Retorno do usuário cadastrado
+                    usuario = usuarioController.UsuarioPropriedades(usuario);
+                    //Pegando parâmetros e atribuindo a model
+                    String cep = request.getParameter("cep");
+                    String rua = request.getParameter("rua");
+                    String bairro = request.getParameter("bairro");
+                    String numero = request.getParameter("numero");
+                    String complemento = request.getParameter("complemento");
 
-            if (okEndereco) {
-                url = "/index.html";
+                    EnderecoModel endereco = new EnderecoModel(usuario.getIdUsuario(), cep, rua, bairro, numero, complemento);
+                //Fim atribuição
+
+                    //Cadastro endereço
+                    boolean okEndereco = enderecoController.Save(endereco);
+                    //Fim cadastro
+
+                    if (okEndereco) {
+                        url = "/RelatorioServlet";
+                    }
+
+                }
             }
-            
         }
-        
+
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

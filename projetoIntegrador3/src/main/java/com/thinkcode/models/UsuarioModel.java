@@ -9,7 +9,7 @@ package com.thinkcode.models;
  *
  * @author Leonardo Silva
  */
-public class UsuarioModel {
+public class UsuarioModel extends Criptografia {
 
     private int idUsuario;
     private int idPerfil; // Chave Estrangeira
@@ -114,7 +114,8 @@ public class UsuarioModel {
     }
 
     public String getSenha() {
-        return senha;
+        String senhaCrip = CriptografiaMD5(senha);  
+        return senhaCrip;        
     }
 
     public void setSenha(String senha) {

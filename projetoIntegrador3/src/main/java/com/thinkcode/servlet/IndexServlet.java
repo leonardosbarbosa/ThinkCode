@@ -5,24 +5,24 @@
  */
 package com.thinkcode.servlet;
 
-import com.thinkcode.db.ConnectionDB;
+import Controller.UsuarioController;
+import com.thinkcode.models.UsuarioModel;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Leonardo Silva
+ * @author Gustavo Nascimento
  */
-@WebServlet(name = "NewServlet", urlPatterns = {"/NewServlet"})
-public class NewServlet extends HttpServlet {
+@WebServlet(name = "IndexServlet", urlPatterns = {"/IndexServlet"})
+public class IndexServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,23 +35,32 @@ public class NewServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        //Instância de objetos
+        UsuarioModel usuario = new UsuarioModel();
+        UsuarioController usuarioController = new UsuarioController();
+        String url = "/LoginServlet";
+        //Fim instância
 
+        Cookie[] cookies = request.getCookies();
+        boolean logado = false;
 
+        if (cookies != null) {
+            for (Cookie atual : cookies) {
+                if (atual.getName().equals("Id_Usuario")) {
+                    if (atual.getValue() != null) {
+                        url = "/home.jsp";
+                        logado = true;
+                    }
+                }
 
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + "meucu" + "</h1>");
-
-            out.println("</body>");
-            out.println("</html>");
+            }
         }
+        if (!logado) {
+            url = "/LoginServlet";
+        }
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -92,4 +101,5 @@ public class NewServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }
