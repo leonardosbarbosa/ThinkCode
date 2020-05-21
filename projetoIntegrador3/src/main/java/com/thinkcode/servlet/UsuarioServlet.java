@@ -68,64 +68,69 @@ public class UsuarioServlet extends HttpServlet {
         }
 
         if (logado) {
-            if (tarefa.equals("GerenciaUsuarios")) {
-                List<UsuarioModel> usuarios = usuarioController.UsuariosCadastrados();
-                request.setAttribute("usuarios", usuarios);
-                url = "/gerenciamentoUsuarios.jsp";
-            } else {
 
-                //Pegando parâmetros e atribuindo a model
-                if (request.getParameter("cpf") != null && request.getParameter("rg") != null && request.getParameter("email") != null && request.getParameter("email") != null) {
-                    url = "/cadastroUsuario.jsp";
-                    usuario.setUserInclusao(Integer.parseInt(cook.getValue()));
-                    usuario.setCpfCnpj(request.getParameter("cpf").replace("-", ""));
-                    usuario.setRg(request.getParameter("rg").replace("-", ""));
-                    usuario.setNome(request.getParameter("nome"));
-                    usuario.setEmail(request.getParameter("email"));
-                    usuario.setSenha(request.getParameter("senha"));
-                    usuario.setTelefone(Long.parseLong(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
-                    usuario.setSexo(request.getParameter("sexo"));
-                    usuario.setEmpresa(1);
-                    usuario.setDataNasc(request.getParameter("dataNasc"));
-                    Date dataIncl = new Date();
-                    usuario.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
+            List<UsuarioModel> usuarios = usuarioController.UsuariosCadastrados();
+            request.setAttribute("usuarios", usuarios);
+            url = "/gerenciamentoUsuarios.jsp";
+            //response.sendRedirect(request.getContextPath() + url);
+            //response.sendRedirect(url);
+
+            //Pegando parâmetros e atribuindo a model
+            if (request.getParameter("cpf") != null && request.getParameter("rg") != null && request.getParameter("email") != null && request.getParameter("email") != null) {
+                url = "/cadastroUsuario.jsp";
+                usuario.setUserInclusao(Integer.parseInt(cook.getValue()));
+                usuario.setCpfCnpj(request.getParameter("cpf").replace("-", ""));
+                usuario.setRg(request.getParameter("rg").replace("-", ""));
+                usuario.setNome(request.getParameter("nome"));
+                usuario.setEmail(request.getParameter("email"));
+                usuario.setSenha(request.getParameter("senha"));
+                usuario.setTelefone(Long.parseLong(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
+                usuario.setSexo(request.getParameter("sexo"));
+                usuario.setEmpresa(1);
+                usuario.setDataNasc(request.getParameter("dataNasc"));
+                Date dataIncl = new Date();
+                usuario.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
             //Fim atribuição
 
-                    //Cadastro de usuário
-                    boolean ok = true;
-                    if (tarefa.equals("Cadastro")) {
-                        ok = usuarioController.Save(usuario);
-                    }
-                    url = "/RelatorioServlet";
-                    //Fim cadastro
-                    if (ok) {
-                        //Retorno do usuário cadastrado
-                        usuario = usuarioController.UsuarioPropriedades(usuario);
-                        //Pegando parâmetros e atribuindo a model
-                        String cep = request.getParameter("cep");
-                        String rua = request.getParameter("rua");
-                        String bairro = request.getParameter("bairro");
-                        String numero = request.getParameter("numero");
-                        String complemento = request.getParameter("complemento");
+                //Cadastro de usuário
+                boolean ok = true;
+                if (tarefa.equals("Cadastro")) {
+                    ok = usuarioController.Save(usuario);
+                }
+                url = "/RelatorioServlet";
+                //Fim cadastro
+                if (ok) {
+                    //Retorno do usuário cadastrado
+                    usuario = usuarioController.UsuarioPropriedades(usuario);
+                    //Pegando parâmetros e atribuindo a model
+                    String cep = request.getParameter("cep");
+                    String rua = request.getParameter("rua");
+                    String bairro = request.getParameter("bairro");
+                    String numero = request.getParameter("numero");
+                    String complemento = request.getParameter("complemento");
 
-                        EnderecoModel endereco = new EnderecoModel(usuario.getIdUsuario(), cep, rua, bairro, numero, complemento);
+                    EnderecoModel endereco = new EnderecoModel(usuario.getIdUsuario(), cep, rua, bairro, numero, complemento);
                 //Fim atribuição
 
-                        //Cadastro endereço
-                        boolean okEndereco = enderecoController.Save(endereco);
-                        //Fim cadastro
+                    //Cadastro endereço
+                    boolean okEndereco = enderecoController.Save(endereco);
+                    //Fim cadastro
 
-                        if (okEndereco) {
-                            url = "/gerenciamentoUsuarios.jsp";
-                        }
-
+                    if (okEndereco) {
+                        url = "/gerenciamentoUsuarios.jsp";
                     }
+
                 }
+
             }
         }
+        try {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(request, response);
+        } catch (Exception e) {
+            String error = e.toString();
+        }
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

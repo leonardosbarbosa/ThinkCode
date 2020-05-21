@@ -143,7 +143,7 @@
                                 <img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
                                 <span class="user-info">
                                     <small>Bem-vindo,</small>
-                                    Administrador
+                                    <label id="lblNome"></label>
                                 </span>
 
                                 <i class="ace-icon fa fa-caret-down"></i>
@@ -286,7 +286,7 @@
 
                             </li>
                             <li class="">
-                                <a href="#" id="CadastroUsuario">
+                                <a href="UsuarioServlet" id="CadastroUsuario">
                                     <i class="menu-icon fa fa-user"></i> Usuario
 
                                 </a>
@@ -1650,29 +1650,50 @@
 
 
 
-                        $('#CadastroUsuario').click(function () {
-//                            UsuarioServlet('Cadastro');
-                              UsuarioServlet('GerenciaUsuarios');                          
-                        })
-                        function UsuarioServlet(tarefas) {
-                            var taf = tarefas
-                            $.ajax({
-                                url: "UsuarioServlet",
-                                type: "POST",
-                                data: {
-                                    tarefa: taf
-                                },
-                            })
-                                    .success(function (e) {
-                                        //do success stuff
-                                        console.log('Sucesso' + e)
-                                    })
-                                    .error(function (e) {
-                                        //do error handling stuff
-                                        console.log('Erro' + e.toString())
-                                    });
-                        }
+                        /*$('#CadastroUsuario').click(function () {
+                         //                            UsuarioServlet('Cadastro');
+                         UsuarioServlet('GerenciaUsuarios');                          
+                         })
+                         function UsuarioServlet(tarefas) {
+                         var taf = tarefas
+                         $.ajax({
+                         url: "UsuarioServlet",
+                         type: "POST",
+                         data: {
+                         tarefa: taf
+                         },
+                         })
+                         .success(function (e) {
+                         //do success stuff
+                         // window.location = "gerenciamentoUsuarios.jsp";
+                         })
+                         .error(function (e) {
+                         //do error handling stuff
+                         console.log('Erro' + e.toString())
+                         });
+                         }
+                         */
 
+            <%
+     Cookie[] cookies = request.getCookies();
+     for (Cookie atual : cookies) {
+         if (atual.getName().equals("Perfil")) {
+             int auxilio = Integer.parseInt(atual.getValue());
+             if (auxilio != 1) {
+            %>
+                        $('#liCadastro').hide()
+            <%
+                                }
+                            }
+                            if (atual.getName().equals("Nome")) {
+                                String auxiliado = atual.getValue().substring(0, 8);
+            %>
+                        $('#lblNome').text('<%= auxiliado%>');
+            <%
+                                         }
+
+                                     }
+            %>
                         $('.easy-pie-chart.percentage').each(function () {
                             var $box = $(this).closest('.infobox');
                             var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');

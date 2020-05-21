@@ -71,7 +71,7 @@
                 <div class="navbar-header pull-left">
                     <a href="index.html" class="navbar-brand">
                         <small>
-                            <img src="assets/images/gallery/reparar.png">
+                             <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
                         </small>
                     </a>
@@ -155,7 +155,7 @@
                                 <img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
                                 <span class="user-info">
                                     <small>Bem-vindo,</small>
-                                    Administrador
+                                    <label id="lblNome"></label>
                                 </span>
 
                                 <i class="ace-icon fa fa-caret-down"></i>
@@ -435,10 +435,10 @@
                                                 </div>
                                             </div>
 
-                                            <label>  <button class="btn btn-sm btn-success"
+                                            <label>  <a class="btn btn-sm btn-success " href="cadastroUsuario.jsp"
                                                              style="float: right; margin-right: 2px;">
                                                     Novo Usuario &nbsp; <i class="ace-icon glyphicon glyphicon-save"></i>
-                                                </button>
+                                                </a>
                                                 <button class="btn btn-sm btn-warning right" style="float: right; margin-right: 2px;" >
                                                     Limpar &nbsp;<i class="ace-icon fa fa-undo"></i>
                                                 </button>
@@ -502,7 +502,7 @@
                                                         <div class="hidden-sm hidden-xs btn-group">
 
 
-                                                            <button class="btn btn-xs btn-info">
+                                                            <button class="btn btn-xs btn-info" value="${usuario.idUsuario}">
                                                                 <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                             </button>
 
@@ -754,7 +754,26 @@
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
                     jQuery(function ($) {
+ <%
+                            Cookie[] cookies = request.getCookies();
+                            for (Cookie atual : cookies) {
+                                if (atual.getName().equals("Perfil")) {
+                                    int auxilio = Integer.parseInt(atual.getValue());
+                                    if (auxilio != 1) {
+                        %>
+                        $('#liCadastro').hide()
+                        <%
+                                    }
+                                }
+                                 if (atual.getName().equals("Nome")) {
+                                     String auxiliado = atual.getValue().substring(0, 8);
+                                 %>
+                                          $('#lblNome').text('<%= auxiliado %>');
+                                 <%    
+                                 }
 
+                            }
+                        %>
                     })
                     </script>
                     </body>

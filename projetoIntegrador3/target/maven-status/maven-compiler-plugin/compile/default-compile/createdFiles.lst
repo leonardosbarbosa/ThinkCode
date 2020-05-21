@@ -15,9 +15,11 @@ Controller\FilialController.class
 com\thinkcode\DAO\ItensVendaDAO.class
 com\thinkcode\servlet\FilialServlet.class
 com\thinkcode\models\EnderecoModel.class
+com\thinkcode\servlet\RelatorioServlet.class
 Controller\EnderecoController.class
 com\thinkcode\servlet\IndexServlet.class
 com\thinkcode\DAO\StatusVendaDAO.class
+com\thinkcode\servlet\ControleAcessoServlet.class
 com\thinkcode\servlet\LoginServlet.class
 com\thinkcode\servlet\ProdutoServlet.class
 com\thinkcode\DAO\FilialDAO.class

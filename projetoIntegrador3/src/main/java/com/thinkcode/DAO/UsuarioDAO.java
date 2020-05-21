@@ -150,12 +150,13 @@ public class UsuarioDAO {
     public static List<UsuarioModel> UsuariosCadastrados() {
         Connection con;
         List<UsuarioModel> usuarios = new ArrayList<UsuarioModel>();
-        UsuarioModel usuario = new UsuarioModel();
+        
         try {
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("select * from usuario");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                UsuarioModel usuario = new UsuarioModel();
                 usuario.setCpfCnpj(rs.getString("cpf_cnpj"));
                 usuario.setDataExclusao(rs.getString("data_exclusao"));
                 usuario.setDataInclusao(rs.getString("data_inclusao"));
@@ -169,7 +170,7 @@ public class UsuarioDAO {
                 usuario.setRg(rs.getString("rg"));
                 usuario.setSenha(rs.getString("senha"));
                 usuario.setSexo(rs.getString("sexo"));
-                usuario.setTelefone(rs.getInt("telefone"));
+                usuario.setTelefone(rs.getLong("telefone"));
                 usuario.setUserExclusao(rs.getInt("usr_exclusao"));
                 usuario.setUserInclusao(rs.getInt("usr_inclusao"));
                 usuarios.add(usuario);
