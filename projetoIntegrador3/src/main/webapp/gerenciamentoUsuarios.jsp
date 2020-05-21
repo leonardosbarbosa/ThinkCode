@@ -53,6 +53,7 @@
                         <script src="assets/js/html5shiv.min.js"></script>
                         <script src="assets/js/respond.min.js"></script>
                         <![endif]-->
+
     </head>
 
     <body class="no-skin">
@@ -71,7 +72,7 @@
                 <div class="navbar-header pull-left">
                     <a href="index.html" class="navbar-brand">
                         <small>
-                             <img src="assets/images/gallery/reparar.png" width="15%">
+                            <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
                         </small>
                     </a>
@@ -370,322 +371,141 @@
                                             </a>
                                         </div>
                                     </div>
+                                    <form method="POST" action="UsuarioServlet">
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+                                                <div class="form-group">
+                                                    <div class="col-lg-6">
+                                                        <label for="number-button" class="block">Filial</label>
+                                                        <select class="form-group" style="width: 100%;" name="filtroFiliais">
+                                                            <c:forEach var="filial" items="${filiais}">
+                                                                <option value="${filial.idFilial}">
+                                                                    ${filial.nome}
+                                                                </option>
+                                                            </c:forEach>
+                                                            <option></option>
+                                                            <option value="1">
+                                                                Matriz
+                                                            </option>
+                                                            <option value="2">
+                                                                S�o Paulo
+                                                            </option>
+                                                        </select>
+                                                    </div>
 
-                                    <div class="widget-body">
-                                        <div class="widget-main">
-                                            <div class="form-group">
-                                                <div class="col-lg-3">
-                                                    <label for="number-button" class="block">Filial</label>
-                                                    <select class="form-group" style="width: 100%;">
-                                                        <option>
-                                                            Matriz
-                                                        </option>
-                                                        <option>
-                                                            Belo Horizonte
-                                                        </option>
-                                                        <option>
-                                                            Santos
-                                                        </option>
-                                                    </select>
+                                                    <div class="col-lg-6">
+                                                        <label for="number-button" class="block">Perfil</label>
+                                                        <select class="form-group" style="width: 100%;" name="filtroPerfil">
+                                                            <c:forEach var="perfil" items="${perfils}">
+                                                                <option value="${perfil.idPerfil}">
+                                                                    ${perfil.tipo}
+                                                                </option>
+                                                            </c:forEach>
+                                                            <option></option>
+                                                            <option value="1">
+                                                                Administrador
+                                                            </option>
+                                                            <option value="2">
+                                                                Diretoria
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+
+
                                                 </div>
 
-                                                <div class="col-lg-3">
-                                                    <label for="number-button" class="block">Vendedor</label>
-                                                    <select class="form-group" style="width: 100%;">
-                                                        <option>
-                                                            Leonardo Moreno
-                                                        </option>
-                                                        <option>
-                                                            Leonardo Silva
-                                                        </option>
-                                                        <option>
-                                                            Felipe Santana
-                                                        </option>
-                                                    </select>
-                                                </div>
+                                                <label>  <a class="btn btn-sm btn-success " href="cadastroUsuario.jsp"
+                                                            style="float: right; margin-right: 2px;">
+                                                        Novo Usuario &nbsp; <i class="ace-icon glyphicon glyphicon-save"></i>
+                                                    </a>
+                                                    <button class="btn btn-sm btn-warning right" style="float: right; margin-right: 2px;" >
+                                                        Limpar &nbsp;<i class="ace-icon fa fa-undo"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-info"
+                                                            style="float: right; margin-right: 2px;" type="submit">
+                                                        Buscar &nbsp; <i class="ace-icon glyphicon glyphicon-search"></i>
+                                                    </button>
 
-                                                <div class="col-lg-3">
-                                                    <label for="number-button" class="block">Produto</label>
-                                                    <select class="form-group" style="width: 100%;">
-                                                        <option>
-                                                            Suspensão
-                                                        </option>
-                                                        <option>
-                                                            Freio
-                                                        </option>
-                                                        <option>
-                                                            Pneu
-                                                        </option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-lg-3">
-                                                    <label for="number-button" class="block">Cliente</label>
-                                                    <select class="form-group" style="width: 100%;">
-                                                        <option>
-                                                            Matheus
-                                                        </option>
-                                                        <option>
-                                                            Alex
-                                                        </option>
-                                                        <option>
-                                                            Gustavo
-                                                        </option>
-                                                    </select>
-                                                </div>
+                                                </label>
                                             </div>
-
-                                            <label>  <a class="btn btn-sm btn-success " href="cadastroUsuario.jsp"
-                                                             style="float: right; margin-right: 2px;">
-                                                    Novo Usuario &nbsp; <i class="ace-icon glyphicon glyphicon-save"></i>
-                                                </a>
-                                                <button class="btn btn-sm btn-warning right" style="float: right; margin-right: 2px;" >
-                                                    Limpar &nbsp;<i class="ace-icon fa fa-undo"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-info"
-                                                        style="float: right; margin-right: 2px;">
-                                                    Buscar &nbsp; <i class="ace-icon glyphicon glyphicon-search"></i>
-                                                </button>
-
-                                            </label>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <table id="simple-table" class="table  table-bordered table-hover">
-                                        <thead>
+                            <div class="col-xs-12">
+                                <table id="simple-table" class="table  table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th id="id"> ID </th>
+                                            <th> Nome </th>
+                                            <th> E-mail </th>
+                                            <th> Telefone </th>
+                                            <th> Filial </th>
+                                            <th> Cargo </th>
+                                            <th> Cadastro </th>
+                                            <th> Perfil</th>
+                                            <th>Gerenciar</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <c:forEach var="usuario" items="${usuarios}">
+
                                             <tr>
 
-                                                <th> ID </th>
-                                                <th> Nome </th>
-                                                <th> E-mail </th>
-                                                <th> Telefone </th>
-                                                <th> Filial </th>
-                                                <th> Cargo </th>
-                                                <th> Cadastro </th>
-                                                <th> Perfil</th>
-                                                <th>Gerenciar</th>
-                                            </tr>
-                                        </thead>
 
-                                        <tbody>
-                                            <c:forEach var="usuario" items="${usuarios}">
+                                                <td class="center">${usuario.idUsuario}  </td>
 
-                                                <tr>
+                                                <td>
+                                                    ${usuario.nome}
+                                                </td>
+                                                <td>
+                                                    ${usuario.email}
+                                                </td>
+                                                <td>
+                                                    ${usuario.telefone}
+                                                </td>
+                                                <td></td>
+                                                <td ></td>
+                                                <td></td>
 
+                                                <td >
 
-                                                    <td class="center">${usuario.idUsuario}  </td>
+                                                </td>
 
-                                                    <td>
-                                                        ${usuario.nome}
-                                                    </td>
-                                                    <td>
-                                                        ${usuario.email}
-                                                    </td>
-                                                    <td>
-                                                        ${usuario.telefone}
-                                                    </td>
-                                                    <td></td>
-                                                    <td ></td>
-                                                    <td></td>
-
-                                                    <td >
-
-                                                    </td>
-
-                                                    <td>
-                                                        <div class="hidden-sm hidden-xs btn-group">
+                                                <td>
+                                                    <div class="hidden-sm hidden-xs btn-group">
 
 
-                                                            <button class="btn btn-xs btn-info" value="${usuario.idUsuario}">
-                                                                <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                                            </button>
+                                                        <button class="btn btn-xs btn-info btn-edit" value="${usuario.idUsuario}" onclick="window.displaymessage(${usuario.idUsuario})" >
+                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                        </button>
 
-                                                            <button class="btn btn-xs btn-danger">
-                                                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                            </button>
+                                                        <button class="btn btn-xs btn-danger">
+                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                        </button>
 
-                                                        </div>
-
-                                                        <div class="hidden-md hidden-lg">
-                                                            <div class="inline pos-rel">
-                                                                <button class="btn btn-minier btn-primary dropdown-toggle"
-                                                                        data-toggle="dropdown" data-position="auto">
-                                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-                                                                </button>
-
-                                                                <ul
-                                                                    class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                                                    <li>
-                                                                        <a href="#" class="tooltip-info" data-rel="tooltip"
-                                                                           title="" data-original-title="View">
-                                                                            <span class="blue">
-                                                                                <i
-                                                                                    class="ace-icon fa fa-search-plus bigger-120"></i>
-                                                                            </span>
-                                                                        </a>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <a href="#" class="tooltip-success" data-rel="tooltip"
-                                                                           title="" data-original-title="Edit">
-                                                                            <span class="green">
-                                                                                <i
-                                                                                    class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                                                            </span>
-                                                                        </a>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <a href="#" class="tooltip-error" data-rel="tooltip"
-                                                                           title="" data-original-title="Delete">
-                                                                            <span class="red">
-                                                                                <i
-                                                                                    class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                                            </span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-
-                                            <tr class="detail-row">
-                                                <td colspan="8">
-                                                    <div class="table-detail">
-                                                        <div class="row">
-                                                            <div class="col-xs-12 col-sm-2">
-                                                                <div class="text-center">
-                                                                    <img height="150"
-                                                                         class="thumbnail inline no-margin-bottom"
-                                                                         alt="Domain Owner's Avatar"
-                                                                         src="assets/images/avatars/profile-pic.jpg">
-                                                                    <br>
-                                                                    <div
-                                                                        class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
-                                                                        <div class="inline position-relative">
-                                                                            <a class="user-title-label" href="#">
-                                                                                <i
-                                                                                    class="ace-icon fa fa-circle light-green"></i>
-                                                                                &nbsp;
-                                                                                <span class="white">Alex M.
-                                                                                    Doe</span>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-xs-12 col-sm-7">
-                                                                <div class="space visible-xs"></div>
-
-                                                                <div class="profile-user-info profile-user-info-striped">
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Username
-                                                                        </div>
-
-                                                                        <div class="profile-info-value">
-                                                                            <span>alexdoe</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Location
-                                                                        </div>
-
-                                                                        <div class="profile-info-value">
-                                                                            <i
-                                                                                class="fa fa-map-marker light-orange bigger-110"></i>
-                                                                            <span>Netherlands, Amsterdam</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Age </div>
-
-                                                                        <div class="profile-info-value">
-                                                                            <span>38</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Joined
-                                                                        </div>
-
-                                                                        <div class="profile-info-value">
-                                                                            <span>2010/06/20</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Last Online
-                                                                        </div>
-
-                                                                        <div class="profile-info-value">
-                                                                            <span>3 hours ago</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> About Me
-                                                                        </div>
-
-                                                                        <div class="profile-info-value">
-                                                                            <span>Bio</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-xs-12 col-sm-3">
-                                                                <div class="space visible-xs"></div>
-                                                                <h4 class="header blue lighter less-margin">Send a message
-                                                                    to Alex</h4>
-
-                                                                <div class="space-6"></div>
-
-                                                                <form>
-                                                                    <fieldset>
-                                                                        <textarea class="width-100" resize="none"
-                                                                                  placeholder="Type something…"></textarea>
-                                                                    </fieldset>
-
-                                                                    <div class="hr hr-dotted"></div>
-
-                                                                    <div class="clearfix">
-                                                                        <label class="pull-left">
-                                                                            <input type="checkbox" class="ace">
-                                                                            <span class="lbl"> Email me a
-                                                                                copy</span>
-                                                                        </label>
-
-                                                                        <button
-                                                                            class="pull-right btn btn-sm btn-primary btn-white btn-round"
-                                                                            type="button">
-                                                                            Submit
-                                                                            <i
-                                                                                class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
                                                     </div>
+
+
                                                 </td>
                                             </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.span -->
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
                             </div>
+                            <form method="" action="UsuarioServlet" >
+                                <input  name="id" style="display: none" type="text" id="valorEditar"/>
+                                <input  name="tarefa" style="display: none" type="text" value="Editando" />
+                                <button type="submit" style="display: none" id="enviarEditacao"></button>
+                            </form>
+                            <!-- /.span -->
                         </div>
+
                         <div class="footer">
                             <div class="footer-inner">
                                 <div class="footer-content">
@@ -728,8 +548,8 @@
         <script src="assets/js/jquery-1.11.3.min.js"></script>
         <![endif]-->
                     <script type="text/javascript">
-                    if ('ontouchstart' in document.documentElement)
-                        document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+                                                            if ('ontouchstart' in document.documentElement)
+                                                                document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
                     </script>
                     <script src="assets/js/bootstrap.min.js"></script>
 
@@ -754,27 +574,53 @@
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
                     jQuery(function ($) {
- <%
+
+                        window.displaymessage = function (user)
+                        {
+                            $('#valorEditar').val(user);
+                            $('#enviarEditacao').click();
+/*
+                            $.ajax({
+                                url: "UsuarioServlet",
+                                type: "POST",
+                                data: {
+                                    tarefa: 'Editar'
+                                },
+                            })
+                                    .success(function (e) {
+                                        //do success stuff
+                                console.log("Sucessor " + e)
+                                        //window.location = "UsuarioServlet?Teste=1";
+                                         $(location).attr('href','cadastroUsuario.jsp');
+                                    })
+                                    .error(function (e) {
+                                        //do error handling stuff
+                                        console.log('Erro' + e.toString())
+                                    })
+                                    */
+                        }
+
+                        <%
                             Cookie[] cookies = request.getCookies();
                             for (Cookie atual : cookies) {
                                 if (atual.getName().equals("Perfil")) {
                                     int auxilio = Integer.parseInt(atual.getValue());
                                     if (auxilio != 1) {
                         %>
-                        $('#liCadastro').hide()
+                                                                $('#liCadastro').hide()
                         <%
-                                    }
                                 }
-                                 if (atual.getName().equals("Nome")) {
-                                     String auxiliado = atual.getValue().substring(0, 8);
-                                 %>
-                                          $('#lblNome').text('<%= auxiliado %>');
-                                 <%    
-                                 }
+                            }
+                            if (atual.getName().equals("Nome")) {
+                                String auxiliado = atual.getValue().substring(0, 8);
+                        %>
+                                                                $('#lblNome').text('<%= auxiliado%>');
+                        <%
+                                }
 
                             }
                         %>
-                    })
+                                                            });
                     </script>
                     </body>
 

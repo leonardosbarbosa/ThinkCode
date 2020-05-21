@@ -12,4 +12,8 @@ public class EnderecoController {
     public boolean Save(EnderecoModel endereco) {
         return EnderecoDAO.cadastrarEndereco(endereco);
     }
+
+    public EnderecoModel EnderecoUsuario(int Id_Usuario) {
+        return EnderecoDAO.consultarEndrecoIdUsuario(Id_Usuario);
+    }
 }

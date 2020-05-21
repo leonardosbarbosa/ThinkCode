@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -397,15 +398,16 @@
                                                             <div class="form-group">
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Nome</label>
-                                                                    <input type="text" id="form-field-1-1" placeholder="Nome" class="form-control" name="nome" required/>
+                                                                    <input type="text" id="form-field-1-1" placeholder="Nome" class="form-control" name="nome" required value="${nome}"/>
+
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">CPF</label>
-                                                                    <input type="text" id="form-field-1-1" placeholder="000-000-000-00" class="form-control input-mask-cpf" name="cpf" required/>
+                                                                    <input type="text" id="form-field-1-1" placeholder="000-000-000-00" class="form-control input-mask-cpf" name="cpf" required value="${cpf}"/>
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">RG</label>
-                                                                    <input type="text" id="form-field-1-1" placeholder="00-000-000-0" class="form-control input-mask-rg" name="rg" required/>
+                                                                    <input type="text" id="form-field-1-1" placeholder="00-000-000-0" class="form-control input-mask-rg" name="rg" required value="${rg}"/>
                                                                 </div>
                                                                 <div class="col-lg-3">
 
@@ -413,7 +415,7 @@
                                                                         Nascimento</label>
 
                                                                     <div class="input-group">
-                                                                        <input class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="dd/mm/yyyy" name="dataNasc" required/>
+                                                                        <input class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="dd/mm/yyyy" name="dataNasc" required value="${dataNasc}"/>
                                                                         <span class="input-group-addon">
                                                                             <i class="fa fa-calendar bigger-110"></i>
                                                                         </span>
@@ -428,7 +430,7 @@
                                                                             <i class="ace-icon fa fa-phone"></i>
                                                                         </span>
 
-                                                                        <input class="form-control input-mask-phone" type="text" id="form-field-mask-2" name="telefone" required/>
+                                                                        <input class="form-control input-mask-phone" type="text" id="form-field-mask-2" name="telefone" required value="${telefone}"/>
                                                                     </div>
                                                                 </div>
 
@@ -436,12 +438,12 @@
 
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">E-mail</label>
-                                                                    <input type="email" id="form-field-1-1" placeholder="E-mail" class="form-control" name="email" required />
+                                                                    <input type="email" id="form-field-1-1" placeholder="E-mail" class="form-control" name="email" required value="${email}"/>
                                                                 </div>
 
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Senha</label>
-                                                                    <input type="password" id="form-field-1-1" placeholder="Senha" class="form-control" name="senha"  required/>
+                                                                    <input type="password" id="form-field-1-1" placeholder="Senha" class="form-control" name="senha"  required value="${senha}"/>
                                                                 </div>
 
 
@@ -451,7 +453,7 @@
                                                                     <div class="radio">
                                                                         <label>
                                                                             <input name="sexo" type="radio"
-                                                                                   class="ace" value="Masculino"/>
+                                                                                   class="ace" value="${sexo}"/>
                                                                             <span class="lbl"> Masculino</span>
                                                                         </label>
                                                                     </div>
@@ -494,7 +496,7 @@
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">CEP</label>
 
-                                                                    <input type="text" id="form-field-1-1" placeholder="Digite seu CEP" placeholder="000.00-000" class="form-control input-mask-cep" name="cep" />
+                                                                    <input type="text" id="form-field-1-1" placeholder="Digite seu CEP" placeholder="000.00-000" class="form-control input-mask-cep" name="cep"  value="${cep}"/>
 
                                                                 </div>
                                                                 <div class="col-lg-3">
@@ -503,22 +505,22 @@
                                                                         <span class="input-group-addon">
                                                                             <i class="ace-icon fa fa-map"></i>
                                                                         </span>
-                                                                        <input type="text" id="form-field-1-1" placeholder="Nome da rua" class="form-control" name="rua" />
+                                                                        <input type="text" id="form-field-1-1" placeholder="Nome da rua" class="form-control" name="rua" value="${rua}"/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Bairro</label>
-                                                                    <input type="text" id="form-field-1-1" placeholder="Nome do bairro" class="form-control" name="bairro" />
+                                                                    <input type="text" id="form-field-1-1" placeholder="Nome do bairro" class="form-control" name="bairro" value="${bairro}"/>
                                                                 </div>
                                                                 <div class="col-lg-3">
 
                                                                     <label for="number-button" class="block">Número </label>
-                                                                    <input class="form-control" type="text" placeholder="Número da casa/apto" id="form-field-mask-2" name="numero" />
+                                                                    <input class="form-control" type="text" placeholder="Número da casa/apto" id="form-field-mask-2" name="numero" value="${numero}"/>
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Complemento</label>
 
-                                                                    <input class="form-control" type="text" id="form-field-mask-2" name="complemento" />
+                                                                    <input class="form-control" type="text" id="form-field-mask-2" name="complemento" value="${complemento}"/>
 
                                                                 </div>
 
@@ -594,15 +596,26 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <input name="ID_USUARIO" style="display: none" value="${ID_USUARIO}"/>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <a src="index.html" class="btn btn-sm btn-danger right" style="float: right;">
+                                                <a src="gerenciamentoUsuarios.jsp" class="btn btn-sm btn-danger right" style="float: right;">
                                                     Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
-                                                </a>
-                                                <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="Cadastro" name="tarefa">
-                                                    Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
-                                                </button>
+                                                </a>                                            
+
+
+                                                <c:choose>
+                                                    <c:when test= "${empty tarefa}">
+                                                        <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="Cadastro" name="tarefa">
+                                                            Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="${tarefa}" name="tarefa">
+                                                                Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                                            </button>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                             </div>
                                         </div>
                                     </div>
@@ -688,11 +701,11 @@
                             autoclose: true,
                             todayHighlight: true
                         })
-                        $('#Sair').click(function(){
-                            
+                        $('#Sair').click(function () {
+
                             removeCookie();
                         })
-                       function removeCookie(){
+                        function removeCookie() {
                             alert('Entrou no método')
                         }
 
@@ -706,14 +719,14 @@
                         %>
                         $('#liCadastro').hide()
                         <%
-                                    }
                                 }
-                                 if (atual.getName().equals("Nome")) {
-                                     String auxiliado = atual.getValue().substring(0, 8);
-                                 %>
-                                          $('#lblNome').text('<%= auxiliado %>');
-                                 <%    
-                                 }
+                            }
+                            if (atual.getName().equals("Nome")) {
+                                String auxiliado = atual.getValue().substring(0, 8);
+                        %>
+                        $('#lblNome').text('<%= auxiliado%>');
+                        <%
+                                }
 
                             }
                         %>

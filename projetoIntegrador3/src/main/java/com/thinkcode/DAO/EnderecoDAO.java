@@ -44,24 +44,29 @@ public class EnderecoDAO {
         return ok;
     }
 
-    public static boolean consultarEndrecoIdUsuario(int idUuario) {
+    public static EnderecoModel consultarEndrecoIdUsuario(int idUuario) {
         Connection con;
+        EnderecoModel endereco = new EnderecoModel();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select id_Usuario from endereco where id_Usuario like '%" + idUuario + "%'");
+            PreparedStatement ps = con.prepareStatement("select * from endereco where id_usuario = " + idUuario);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                System.out.println(rs.getString("id_Uuario"));
+            while (rs.next()) {
+                endereco.setIdUsuario(Integer.parseInt(rs.getString("id_usuario")));
+                endereco.setBairro(rs.getString("bairro"));
+                endereco.setCep(rs.getString("cep"));
+                endereco.setRua(rs.getString("rua"));
+                endereco.setNumero(rs.getString("numero"));
+                endereco.setComplemento(rs.getString("complemento"));
+
             }
-            return true;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return endereco;
     }
-    
-    
-        public static boolean excluirEndereco(int idEndereco) {
+
+    public static boolean excluirEndereco(int idEndereco) {
         Connection con;
         Date date = new Date();
         try {
@@ -74,7 +79,8 @@ public class EnderecoDAO {
         }
         return false;
     }
-        public static boolean Delete(int idEndereco) {
+
+    public static boolean Delete(int idEndereco) {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();

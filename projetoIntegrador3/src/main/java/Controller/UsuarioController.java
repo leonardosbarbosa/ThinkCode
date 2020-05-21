@@ -14,6 +14,11 @@ public class UsuarioController {
         return UsuarioDAO.cadastrarUsuario(Usuario);
 
     }
+    
+    public boolean Update(UsuarioModel Usuario) {
+        return UsuarioDAO.atualizarUsuario(Usuario);
+
+    }
 
     public boolean Login(UsuarioModel Usuario) {
         return UsuarioDAO.consultarUsuarioCadastrado(Usuario);
@@ -24,7 +29,7 @@ public class UsuarioController {
         return user;
     }
 
-    public List<UsuarioModel> UsuariosCadastrados() {
-        return UsuarioDAO.UsuariosCadastrados();
+    public List<UsuarioModel> UsuariosCadastrados(String filtroFilial, String filtroPerfil) {
+        return UsuarioDAO.UsuariosCadastrados(filtroFilial, filtroPerfil);
     }
 }

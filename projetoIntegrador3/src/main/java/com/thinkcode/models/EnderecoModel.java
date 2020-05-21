@@ -21,6 +21,9 @@ public class EnderecoModel {
     private String dataExclusao;
     private String userExclusao;
 
+    public EnderecoModel() {
+    }
+
     public EnderecoModel(int idUsuario, String cep, String rua, String bairro, String numero, String complemento) {
         this.idUsuario = idUsuario;
         this.cep = cep;

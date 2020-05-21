@@ -60,6 +60,43 @@ public class UsuarioDAO {
         }
         return ok;
     }
+    
+    public static boolean atualizarUsuario(UsuarioModel usuario) {
+
+        boolean ok = false;
+        Connection con;
+        try {
+            con = ConnectionDB.obterConexao();
+
+            String sql = "update usuario set id_perfil = ?, id_filial = ?, cpf_cnpj = ?, rg = ?, nome = ?, email = ?, senha = ?, telefone = ?, sexo = ?, empresa = ?, data_nascimento = ?, data_inclusao = ?, usr_inclusao= ? "
+                    + "  where id_usuario = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, 1);
+            ps.setInt(2, 1);
+            ps.setString(3, usuario.getCpfCnpj());
+            ps.setString(4, usuario.getRg());
+            ps.setString(5, usuario.getNome());
+            ps.setString(6, usuario.getEmail());
+            ps.setString(7, usuario.getSenha());
+            ps.setLong(8, usuario.getTelefone());
+            ps.setString(9, usuario.getSexo());
+            ps.setInt(10, 1);
+
+            ps.setString(11, converteData(usuario.getDataNasc()));
+            String datinha = usuario.getDataNasc();
+            ps.setString(12, usuario.getDataInclusao());
+            ps.setInt(13, usuario.getUserInclusao());
+            ps.setInt(14, usuario.getIdUsuario());
+            ps.execute();
+            ok = true;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            String guts = ex.toString();
+            System.out.println(ex);
+        }
+        return ok;
+    }
 
     public static String converteData(String data) {
 
@@ -94,7 +131,26 @@ public class UsuarioDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select * from usuario where cpf_cnpj = '" + usuario.getCpfCnpj() + "' or email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'");
+            String sqlState = "select * from usuario";
+            if (usuario.getEmail() != null && usuario.getSenha() != null) {
+                sqlState += " where email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'";
+            }
+            if (usuario.getCpfCnpj() != null) {
+                if (usuario.getEmail() != null && usuario.getSenha() != null) {
+                    sqlState += " and cpf_cnpj = '" + usuario.getCpfCnpj() + "' ";
+                } else {
+                    sqlState += " where cpf_cnpj = '" + usuario.getCpfCnpj() + "' ";
+                }
+            }
+            if (usuario.getIdUsuario() != 0) {
+                if (usuario.getEmail() != null && usuario.getSenha() != null) {
+                    sqlState += " and id_usuario = '" + usuario.getIdUsuario() + "' ";
+                } else {
+                    sqlState += " where id_usuario = '" + usuario.getIdUsuario() + "' ";
+                }
+                
+            }
+            PreparedStatement ps = con.prepareStatement(sqlState);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 usuario.setCpfCnpj(rs.getString("cpf_cnpj"));
@@ -110,7 +166,7 @@ public class UsuarioDAO {
                 usuario.setRg(rs.getString("rg"));
                 usuario.setSenha(rs.getString("senha"));
                 usuario.setSexo(rs.getString("sexo"));
-                usuario.setTelefone(rs.getInt("telefone"));
+                usuario.setTelefone(rs.getLong("telefone"));
                 usuario.setUserExclusao(rs.getInt("usr_exclusao"));
                 usuario.setUserInclusao(rs.getInt("usr_inclusao"));
             }
@@ -147,13 +203,25 @@ public class UsuarioDAO {
         return false;
     }
 
-    public static List<UsuarioModel> UsuariosCadastrados() {
+    public static List<UsuarioModel> UsuariosCadastrados(String filtroFilial, String filtroPerfil) {
         Connection con;
         List<UsuarioModel> usuarios = new ArrayList<UsuarioModel>();
-        
+
         try {
+            String sqlState = "select * from usuario";
+            if (filtroFilial != null && !filtroFilial.equals("")) {
+                sqlState += " where id_filial = " + filtroFilial;
+            }
+            if (filtroPerfil != null && !filtroPerfil.equals("")) {
+                if (filtroFilial != null && !filtroFilial.equals("")) {
+                    sqlState += " and id_filial = " + filtroPerfil;
+                } else {
+                    sqlState += " where id_filial = " + filtroPerfil;
+                }
+
+            }
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select * from usuario");
+            PreparedStatement ps = con.prepareStatement(sqlState);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 UsuarioModel usuario = new UsuarioModel();

@@ -46,11 +46,13 @@ public class UsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String tarefa = request.getParameter("tarefa");
+        String id = request.getParameter("id");
 
         //Instância de objetos
         UsuarioModel usuario = new UsuarioModel();
         UsuarioController usuarioController = new UsuarioController();
         EnderecoController enderecoController = new EnderecoController();
+        EnderecoModel endereco = new EnderecoModel();
         Cookie cook = null;
         List<Cookie> cookies = new ArrayList<Cookie>();
         cookies = Arrays.asList(request.getCookies());
@@ -68,16 +70,56 @@ public class UsuarioServlet extends HttpServlet {
         }
 
         if (logado) {
+            if (tarefa != null) {
+                if (tarefa.equals("Editando")) {
+                    usuario.setId(Integer.parseInt(id));
+                    usuario = usuarioController.UsuarioPropriedades(usuario);
+                    endereco = enderecoController.EnderecoUsuario(usuario.getIdUsuario());
+                    url = "/cadastroUsuario.jsp";
+                    request.setAttribute("ID_USUARIO", usuario.getIdUsuario());
+                    request.setAttribute("cpf", usuario.getCpfCnpj());
+                    request.setAttribute("dataNasc", usuario.getDataNasc());
+                    request.setAttribute("email", usuario.getEmail());
+                    request.setAttribute("nome", usuario.getNome());
+                    request.setAttribute("rg", usuario.getRg());
+                    request.setAttribute("senha", usuario.getSenha());
+                    request.setAttribute("sexo", usuario.getSexo());
+                    request.setAttribute("telefone", usuario.getTelefone());
+                    request.setAttribute("cep",endereco.getCep());
+                    request.setAttribute("rua",endereco.getRua());
+                    request.setAttribute("bairro",endereco.getBairro());
+                    request.setAttribute("numero",endereco.getNumero());
+                    request.setAttribute("complemento",endereco.getComplemento());
+                    request.setAttribute("tarefa", "Editar");
+                    
+                }
+            }
 
-            List<UsuarioModel> usuarios = usuarioController.UsuariosCadastrados();
+            String filtroFilial = "";
+            String filtroPerfil = "";
+            if (request.getParameter("filtroFiliais") != null || request.getParameter("filtroPerfil") != null) {
+                filtroFilial = request.getParameter("filtroFiliais");
+                filtroPerfil = request.getParameter("filtroPerfil");
+            }
+            List<UsuarioModel> usuarios = usuarioController.UsuariosCadastrados(filtroFilial, filtroPerfil);
             request.setAttribute("usuarios", usuarios);
             url = "/gerenciamentoUsuarios.jsp";
+            if (tarefa != null) {
+                if (tarefa.equals("Editando")) {
+                    
+                    url = "/cadastroUsuario.jsp";
+                }
+            }
+
             //response.sendRedirect(request.getContextPath() + url);
             //response.sendRedirect(url);
-
             //Pegando parâmetros e atribuindo a model
             if (request.getParameter("cpf") != null && request.getParameter("rg") != null && request.getParameter("email") != null && request.getParameter("email") != null) {
                 url = "/cadastroUsuario.jsp";
+                if (request.getParameter("ID_USUARIO") != null) {
+                    usuario.setId(Integer.parseInt(request.getParameter("ID_USUARIO")));
+                }
+                
                 usuario.setUserInclusao(Integer.parseInt(cook.getValue()));
                 usuario.setCpfCnpj(request.getParameter("cpf").replace("-", ""));
                 usuario.setRg(request.getParameter("rg").replace("-", ""));
@@ -97,7 +139,10 @@ public class UsuarioServlet extends HttpServlet {
                 if (tarefa.equals("Cadastro")) {
                     ok = usuarioController.Save(usuario);
                 }
-                url = "/RelatorioServlet";
+                if (tarefa.equals("Editar")) {
+                    ok = usuarioController.Update(usuario);
+                }
+                url = "/gerenciamentoUsuarios.jsp";
                 //Fim cadastro
                 if (ok) {
                     //Retorno do usuário cadastrado
@@ -109,7 +154,7 @@ public class UsuarioServlet extends HttpServlet {
                     String numero = request.getParameter("numero");
                     String complemento = request.getParameter("complemento");
 
-                    EnderecoModel endereco = new EnderecoModel(usuario.getIdUsuario(), cep, rua, bairro, numero, complemento);
+                    
                 //Fim atribuição
 
                     //Cadastro endereço
@@ -123,8 +168,10 @@ public class UsuarioServlet extends HttpServlet {
                 }
 
             }
+
         }
         try {
+
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(request, response);
         } catch (Exception e) {
