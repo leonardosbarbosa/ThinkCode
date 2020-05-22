@@ -3,7 +3,6 @@ package com.thinkcode.servlet;
 import Controller.ProdutoController;
 import com.thinkcode.models.ProdutoModel;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,9 +29,10 @@ public class ProdutoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //Instância de objetos
+        String tarefa = "cadastro";
         ProdutoModel produto = new ProdutoModel();
         ProdutoController produtoController = new ProdutoController();
-        String url = "/login.html";
+        String url = "/login.jsp";
         //Fim instância
         //Pegando parâmetros e atribuindo a model
         produto.setNome(request.getParameter("nomeProduto"));
@@ -44,14 +44,31 @@ public class ProdutoServlet extends HttpServlet {
         produto.setIdUsuario(1);
         //Fim atribuição
 
-        //Salvando produto
-        boolean ok = produtoController.Save(produto);
-        //Fim
+        if (tarefa.equals("cadastro")) {
+            //Salvando produto
+            boolean ok = produtoController.save(produto);
+            //Fim
+            if (ok) {
+                url = "/index.jsp";
+            }
+        } else if (tarefa.equals("consulta")) {  //Consulta produto ALTERAR
+          
+            boolean ok = produtoController.save(produto);
+            if (ok) {
+                url = "/index.jsp";
+            }
+        } else if (tarefa.equals("editar")) { //Atualizando produto     
+            boolean ok = produtoController.update(produto);
+            if (ok) {
+                url = "/index.jsp";
+            }
 
-        if (ok) {
-
-            url = "/index.html";
-
+        } else {  //Excluindo Produto  
+            boolean ok = produtoController.delete(produto);
+            
+            if (ok) {
+                url = "/index.jsp";
+            }
         }
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

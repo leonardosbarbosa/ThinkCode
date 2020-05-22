@@ -13,7 +13,14 @@ import com.thinkcode.models.ProdutoModel;
  * @author gusta
  */
 public class ProdutoController {
-     public boolean Save(ProdutoModel produto) {
+     public boolean save(ProdutoModel produto) {
         return ProdutoDAO.cadastrarProduto(produto);
     }
+     
+         public boolean update(ProdutoModel produto) {
+        return ProdutoDAO.atualizarProduto(produto);
+    }
+         public boolean delete (ProdutoModel produto) {
+         return ProdutoDAO.excluirProduto(produto);
+         }
 }
