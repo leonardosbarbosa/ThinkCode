@@ -7,20 +7,31 @@ package Controller;
 
 import com.thinkcode.DAO.ProdutoDAO;
 import com.thinkcode.models.ProdutoModel;
+import java.util.List;
 
 /**
  *
  * @author gusta
  */
 public class ProdutoController {
-     public boolean save(ProdutoModel produto) {
+
+    public boolean save(ProdutoModel produto) {
         return ProdutoDAO.cadastrarProduto(produto);
     }
-     
-         public boolean update(ProdutoModel produto) {
+
+    public boolean update(ProdutoModel produto) {
         return ProdutoDAO.atualizarProduto(produto);
     }
-         public boolean delete (ProdutoModel produto) {
-         return ProdutoDAO.excluirProduto(produto);
-         }
+
+    public ProdutoModel produtoPropriedades(ProdutoModel produto) {
+       return ProdutoDAO.consultarProduto(produto);
+    }
+
+    public List<ProdutoModel> ProdutosCadastrados(String filtroFilial, String filtroPerfil) {
+        return ProdutoDAO.produtosCadastrados(filtroFilial, filtroPerfil);
+    }
+
+    public boolean delete(ProdutoModel produto) {
+        return ProdutoDAO.excluirProduto(produto);
+    }
 }

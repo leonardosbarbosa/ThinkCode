@@ -47,20 +47,19 @@ public class ProdutoDAO {
         return ok;
     }
 
-    public static boolean consultarProdutoNome(String nome) {
+    public static ProdutoModel consultarProduto(ProdutoModel produto) {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select nome from produto where nome like '%" + nome + "%'");
+            PreparedStatement ps = con.prepareStatement("select * from produto where id_produto = " + produto.getIdProduto());
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                System.out.println(rs.getString("nome"));
+            if (rs.first()) {
+                
             }
-            return true;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return produto;
     }
     
         public static boolean atualizarProduto(ProdutoModel produto) {

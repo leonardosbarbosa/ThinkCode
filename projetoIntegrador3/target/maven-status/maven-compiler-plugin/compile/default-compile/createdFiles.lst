@@ -1,10 +1,10 @@
 com\thinkcode\DAO\UsuarioDAO.class
 com\thinkcode\models\ItensVenda.class
-com\thinkcode\db\TestaDB.class
 com\thinkcode\models\Venda.class
 com\thinkcode\db\ConnectionDB.class
 com\thinkcode\models\UsuarioModel.class
 com\thinkcode\servlet\PerfilServlet.class
+com\thinkcode\models\RelatorioModel.class
 com\thinkcode\models\Status_Venda.class
 Controller\PerfilController.class
 com\thinkcode\models\ProdutoModel.class
@@ -21,6 +21,7 @@ com\thinkcode\servlet\IndexServlet.class
 com\thinkcode\DAO\StatusVendaDAO.class
 com\thinkcode\servlet\ControleAcessoServlet.class
 com\thinkcode\servlet\LoginServlet.class
+Controller\RelatorioController.class
 com\thinkcode\servlet\ProdutoServlet.class
 com\thinkcode\DAO\FilialDAO.class
 com\thinkcode\DAO\EnderecoDAO.class

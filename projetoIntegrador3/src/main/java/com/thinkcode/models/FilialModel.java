@@ -15,6 +15,8 @@ public class FilialModel {
 
     private int idFilial;
     private String nome;
+    private long telefone;
+
     private String descricao;
     private Long cnpj;
     private int cep;
@@ -23,16 +25,18 @@ public class FilialModel {
     private String numero;
     private String complemento;
     private String dataInclusao;
-    private int userInlcusao;
+    private int userInclusao;
     private String dataExclusao;
-    private String userExclusao;
+    private int userExclusao;
 
     public FilialModel() {
     }
 
-    public FilialModel(String nome, String descricao, Long cnpj, int cep, String rua, String bairro, String numero, String complemento, String dataInclusao, int userInlcusao) {
+    public FilialModel(int idFilial,String nome,int telefone, String descricao, Long cnpj, int cep, String rua, String bairro, String numero, String complemento, String dataInclusao, int userInclusao) {
 
+        this.idFilial = idFilial;
         this.nome = nome;
+        this.telefone = telefone;
         this.descricao = descricao;
         this.cnpj = cnpj;
         this.cep = cep;
@@ -41,15 +45,15 @@ public class FilialModel {
         this.numero = numero;
         this.complemento = complemento;
         this.dataInclusao = dataInclusao;
-        this.userInlcusao = userInlcusao;
+        this.userInclusao = userInclusao;
     }
 
-    public int getId() {
+    public int getIdFilial() {
         return idFilial;
     }
 
-    public void setId(int id) {
-        this.idFilial = id;
+    public void setIdFilial(int idFilial) {
+        this.idFilial = idFilial;
     }
 
     public String getNome() {
@@ -60,6 +64,14 @@ public class FilialModel {
         this.nome = nome;
     }
 
+    public long getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(long telefone) {
+        this.telefone = telefone;
+    }
+    
     public String getDescricao() {
         return descricao;
     }
@@ -125,11 +137,11 @@ public class FilialModel {
     }
 
     public int getUserInclusao() {
-        return userInlcusao;
+        return userInclusao;
     }
 
-    public void setUserInclusao(int userInlcusao) {
-        this.userInlcusao = userInlcusao;
+    public void setUserInclusao(int userInclusao) {
+        this.userInclusao = userInclusao;
     }
 
     public String getDataExclusao() {
@@ -140,11 +152,11 @@ public class FilialModel {
         this.dataExclusao = dataExclusao;
     }
 
-    public String getUserExclusao() {
+    public int getUserExclusao() {
         return userExclusao;
     }
 
-    public void setUserExclusao(String userExclusao) {
+    public void setUserExclusao(int userExclusao) {
         this.userExclusao = userExclusao;
     }
 

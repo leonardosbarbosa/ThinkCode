@@ -266,7 +266,7 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="cadastroFilial.html">
+                                <a href="FilialServlet">
                                     <i class="menu-icon glyphicon glyphicon-home"></i> Filial
                                 </a>
 
@@ -279,7 +279,7 @@
 
                             </li>
                             <li class="">
-                                <a  >
+                                <a  href="ProdutoServlet">
                                     <i class="menu-icon glyphicon glyphicon-barcode"></i> Produto
 
                                 </a>

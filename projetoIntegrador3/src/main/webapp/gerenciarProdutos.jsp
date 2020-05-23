@@ -375,7 +375,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <form method="POST" action="UsuarioServlet">
+                                    <form method="POST" action="ProdutoServlet">
                                         <div class="widget-body">
                                             <div class="widget-main">
                                                 <div class="form-group">
@@ -419,10 +419,11 @@
 
                                                 </div>
 
-                                                <label>  <a class="btn btn-sm btn-success " href="cadastroUsuario.jsp"
-                                                            style="float: right; margin-right: 2px;">
-                                                        Novo Usuario &nbsp; <i class="ace-icon glyphicon glyphicon-save"></i>
-                                                    </a>
+                                                <label>
+                                                    <button class="btn btn-sm btn-success " type="submit"
+                                                       style="float: right; margin-right: 2px;" name="tarefa" value="Cadastrando">
+                                                        Novo Produto &nbsp; <i class="ace-icon glyphicon glyphicon-save"></i>
+                                                    </button>
                                                     <button class="btn btn-sm btn-warning right" style="float: right; margin-right: 2px;" >
                                                         Limpar &nbsp;<i class="ace-icon fa fa-undo"></i>
                                                     </button>
@@ -455,46 +456,46 @@
                                     </thead>
 
                                     <tbody>
-                                        <c:forEach var="usuario" items="${usuarios}">
+                                    <c:forEach var="produto" items="${produtos}">
 
-                                            <tr>
-
-
-                                                <td class="center">${usuario.idUsuario}  </td>
-
-                                                <td>
-                                                    ${usuario.nome}
-                                                </td>
-                                                <td>
-                                                    ${usuario.email}
-                                                </td>
-                                                <td>
-                                                    ${usuario.telefone}
-                                                </td>
-                                                <td></td>
-
-                                                <td >
-
-                                                </td>
-
-                                                <td>
-                                                    <div class="hidden-sm hidden-xs btn-group">
+                                        <tr>
 
 
-                                                        <button class="btn btn-xs btn-info btn-edit" value="${usuario.idUsuario}" onclick="window.displaymessage(${usuario.idUsuario})" >
-                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                                        </button>
+                                            <td class="center">${produto.idProduto}  </td>
 
-                                                        <button class="btn btn-xs btn-danger">
-                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                        </button>
+                                            <td>
+                                                ${produto.nome}
+                                            </td>
+                                            <td>
+                                                ${produto.descricao}
+                                            </td>
+                                            <td>
+                                                ${produto.valor}
+                                            </td>
+                                            <td></td>
 
-                                                    </div>
+                                            <td >
+
+                                            </td>
+
+                                            <td>
+                                                <div class="hidden-sm hidden-xs btn-group">
 
 
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
+                                                    <button class="btn btn-xs btn-info btn-edit" value="${produto.idProduto}" onclick="window.displaymessage(${produto.idProduto})" >
+                                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                    </button>
+
+                                                    <button class="btn btn-xs btn-danger">
+                                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                    </button>
+
+                                                </div>
+
+
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -548,8 +549,8 @@
         <script src="assets/js/jquery-1.11.3.min.js"></script>
         <![endif]-->
                     <script type="text/javascript">
-                                                            if ('ontouchstart' in document.documentElement)
-                                                                document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+                                                        if ('ontouchstart' in document.documentElement)
+                                                            document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
                     </script>
                     <script src="assets/js/bootstrap.min.js"></script>
 
@@ -573,32 +574,32 @@
 
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
-                    jQuery(function ($) {
+                                                        jQuery(function ($) {
 
-                        window.displaymessage = function (user)
-                        {
-                            $('#valorEditar').val(user);
-                            $('#enviarEditacao').click();
-/*
-                            $.ajax({
-                                url: "UsuarioServlet",
-                                type: "POST",
-                                data: {
-                                    tarefa: 'Editar'
-                                },
-                            })
-                                    .success(function (e) {
-                                        //do success stuff
-                                console.log("Sucessor " + e)
-                                        //window.location = "UsuarioServlet?Teste=1";
-                                         $(location).attr('href','cadastroUsuario.jsp');
-                                    })
-                                    .error(function (e) {
-                                        //do error handling stuff
-                                        console.log('Erro' + e.toString())
-                                    })
-                                    */
-                        }
+                                                            window.displaymessage = function (user)
+                                                            {
+                                                                $('#valorEditar').val(user);
+                                                                $('#enviarEditacao').click();
+                                                                /*
+                                                                 $.ajax({
+                                                                 url: "UsuarioServlet",
+                                                                 type: "POST",
+                                                                 data: {
+                                                                 tarefa: 'Editar'
+                                                                 },
+                                                                 })
+                                                                 .success(function (e) {
+                                                                 //do success stuff
+                                                                 console.log("Sucessor " + e)
+                                                                 //window.location = "UsuarioServlet?Teste=1";
+                                                                 $(location).attr('href','cadastroUsuario.jsp');
+                                                                 })
+                                                                 .error(function (e) {
+                                                                 //do error handling stuff
+                                                                 console.log('Erro' + e.toString())
+                                                                 })
+                                                                 */
+                                                            }
 
                         <%
                             Cookie[] cookies = request.getCookies();
@@ -607,22 +608,22 @@
                                     int auxilio = Integer.parseInt(atual.getValue());
                                     if (auxilio != 1) {
                         %>
-                                                                $('#liCadastro').hide()
+                                                            $('#liCadastro').hide()
                         <%
                                 }
                             }
                             if (atual.getName().equals("Nome")) {
                                 String auxiliado = atual.getValue().substring(0, 8);
                         %>
-                                                                $('#lblNome').text('<%= auxiliado%>');
+                                                            $('#lblNome').text('<%= auxiliado%>');
                         <%
                                 }
 
                             }
                         %>
-                                                            });
+                                                        });
                     </script>
                     </body>
 
-      
-</html>
+
+                    </html>
