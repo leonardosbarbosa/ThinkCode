@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 16-Maio-2020 às 00:03
--- Versão do servidor: 10.1.31-MariaDB
--- PHP Version: 7.2.4
+-- Tempo de geração: 23-Maio-2020 às 04:56
+-- Versão do servidor: 10.4.11-MariaDB
+-- versão do PHP: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bdprojeto3`
+-- Banco de dados: `bdprojeto3`
 --
 
 -- --------------------------------------------------------
@@ -38,19 +37,15 @@ CREATE TABLE `endereco` (
   `complemento` varchar(100) DEFAULT NULL,
   `data_exclusao` date DEFAULT NULL,
   `usr_exclusao` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `endereco`
 --
 
 INSERT INTO `endereco` (`id_endereco`, `id_usuario`, `cep`, `rua`, `bairro`, `numero`, `complemento`, `data_exclusao`, `usr_exclusao`) VALUES
-(1, 1, '5780392', 'SEM RUA', 'SEM BAIRRO', '0', NULL, NULL, NULL),
-(2, 5, '45345-345', 'dfvghfdgh', 'gfhgf', '44', 'fdgdf', NULL, NULL),
-(3, 6, '04531-011', 'Pedroso Alvarenga', 'Itaim Bibi', '793', 'Apto 01', NULL, NULL),
-(4, 7, '00453-111', 'dfgsd', 'dsrf', '3', 'dsf50', NULL, NULL),
-(5, 8, '43534-534', 'dfgghdfgh', 'dfgh', '456789', 'fgf', NULL, NULL),
-(6, 16, '54054-054', 'LDFKSNGDSF', 'dffgfq', '23', 'fdlkmg', NULL, NULL);
+(1, 2, '05750-320', 'Rua Pedro Gomes da Costa', 'Vila Praia', '46', 'Casa', NULL, NULL),
+(2, 3, '05750-320', 'Rua Carum', 'Jardim das Palmas', '58', 'Casa', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -71,17 +66,17 @@ CREATE TABLE `filial` (
   `data_inclusao` date DEFAULT NULL,
   `usr_inclusao` int(11) DEFAULT NULL,
   `data_exclusao` date DEFAULT NULL,
-  `usr_exclusao` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `usr_exclusao` int(11) DEFAULT NULL,
+  `telefone` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `filial`
 --
 
-INSERT INTO `filial` (`id_filial`, `Nome`, `Descricao`, `cnpj`, `cep`, `rua`, `bairro`, `numero`, `complemento`, `data_inclusao`, `usr_inclusao`, `data_exclusao`, `usr_exclusao`) VALUES
-(1, 'Matriz', 'Matriz da loja', '1565656', 5780392, 'Rua Pedro Alvares Cabral', 'Vera Cruz', '168', NULL, NULL, NULL, NULL, NULL),
-(2, 'Filial Jardim Sul', 'Loja filial localizada no Jardim sul', '1565686', 5780397, 'Giovanni Gronchi', 'Vila Andrade', '208', NULL, NULL, NULL, NULL, NULL),
-(3, 'Test', 'dsf', '22222222222222', 44444444, 'dsfg', 'dfg', '323', 'dfg', '2020-05-13', 1, NULL, NULL);
+INSERT INTO `filial` (`id_filial`, `Nome`, `Descricao`, `cnpj`, `cep`, `rua`, `bairro`, `numero`, `complemento`, `data_inclusao`, `usr_inclusao`, `data_exclusao`, `usr_exclusao`, `telefone`) VALUES
+(1, 'Matriz', 'Matriz da loja', '1565656', 5780392, 'Rua Pedro Alvares Cabral', 'Vera Cruz', '168', NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'Filial Jardim Sul', 'Loja filial localizada no Jardim sul', '17261661008158', 5750320, 'Giovanni Gronchi', 'VilaAndrade', '208', 'Casa', '2020-05-22', 1, NULL, NULL, 11942616650);
 
 -- --------------------------------------------------------
 
@@ -95,7 +90,23 @@ CREATE TABLE `item_venda` (
   `id_venda` int(11) NOT NULL,
   `quantidade` int(11) NOT NULL,
   `valor` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `menu`
+--
+
+CREATE TABLE `menu` (
+  `id_menu` int(11) NOT NULL,
+  `pagina` varchar(50) NOT NULL,
+  `descricao` varchar(100) NOT NULL,
+  `data_inclusao` date DEFAULT NULL,
+  `usr_inclusao` int(11) DEFAULT NULL,
+  `data_exclusao` date DEFAULT NULL,
+  `usr_exclusao` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -111,7 +122,7 @@ CREATE TABLE `perfil` (
   `usr_inclusao` int(11) DEFAULT NULL,
   `data_exclusao` date DEFAULT NULL,
   `usr_exclusao` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `perfil`
@@ -119,7 +130,26 @@ CREATE TABLE `perfil` (
 
 INSERT INTO `perfil` (`id_perfil`, `tipo`, `descricao`, `data_inclusao`, `usr_inclusao`, `data_exclusao`, `usr_exclusao`) VALUES
 (1, 'DBA', 'Usuario do Banco para teste', NULL, NULL, NULL, NULL),
-(2, 'Gerente', 'Usuario gerente para teste', NULL, NULL, NULL, NULL);
+(2, 'Gerente', 'Usuario gerente para teste', NULL, NULL, NULL, NULL),
+(3, 'Vendedor', 'Usuario para vendas', NULL, NULL, NULL, NULL),
+(4, 'TI', 'Desenvolvedor', '2020-05-23', 2, NULL, NULL),
+(5, 'Faxineiro', 'Faxineiro do predio', '2020-05-23', 2, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `permissao`
+--
+
+CREATE TABLE `permissao` (
+  `id_permissao` int(11) NOT NULL,
+  `id_perfil` int(11) NOT NULL,
+  `id_menu` int(11) NOT NULL,
+  `data_inclusao` date DEFAULT NULL,
+  `usr_inclusao` int(11) DEFAULT NULL,
+  `data_exclusao` date DEFAULT NULL,
+  `usr_exclusao` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -138,18 +168,17 @@ CREATE TABLE `produto` (
   `valor` double NOT NULL,
   `data_exclusao` date DEFAULT NULL,
   `usr_exclusao` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `produto`
 --
 
 INSERT INTO `produto` (`id_produto`, `id_usuario`, `id_filial`, `tipo`, `nome`, `qtde`, `descricao`, `valor`, `data_exclusao`, `usr_exclusao`) VALUES
-(1, 1, 1, 'limpeza', 'Limpa vidro 30 ml', 8, 'limpador de vidro para automoveis', 10.2, NULL, NULL),
-(2, 1, 1, 'Rodas', 'Rodas aro 17', 4, 'Roda aro 17 importada', 40.5, NULL, NULL),
-(3, 1, 1, 'Carro', 'Roda', 500, 'Roda de viado', 300, NULL, NULL),
-(4, 1, 1, 'Caminhão', 'Banco', 500, 'Banco para o caminhão do gutão', 200.99, NULL, NULL),
-(5, 1, 1, 'Produto para teste', 'Produto Z', 5, 'dfgdfh', 500, NULL, NULL);
+(1, 2, 1, 'Rodas', 'Rodas aro 17', 4, 'Roda aro 17 importada', 40.5, NULL, NULL),
+(2, 2, 1, 'Suspensao', 'uno', 4, 'Roda aro 17 importada', 40.5, NULL, NULL),
+(3, 2, 2, 'Roda', 'Pneu', 2, 'Roda celta', 52.65, NULL, NULL),
+(4, 2, 1, 'Suspensão', 'Amortecedor ', 5, 'suspensão Mercedes', 52.65, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -165,7 +194,7 @@ CREATE TABLE `status_venda` (
   `usr_inclusao` int(11) DEFAULT NULL,
   `data_exclusao` date DEFAULT NULL,
   `usr_exclusao` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `status_venda`
@@ -190,7 +219,7 @@ CREATE TABLE `usuario` (
   `rg` varchar(9) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `senha` varchar(50) NOT NULL,
+  `senha` varchar(250) NOT NULL,
   `telefone` bigint(20) DEFAULT NULL,
   `sexo` varchar(10) NOT NULL,
   `empresa` tinyint(1) NOT NULL,
@@ -199,27 +228,16 @@ CREATE TABLE `usuario` (
   `usr_inclusao` int(11) DEFAULT NULL,
   `data_exclusao` date DEFAULT NULL,
   `usr_exclusao` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
 INSERT INTO `usuario` (`id_usuario`, `id_perfil`, `id_filial`, `cpf_cnpj`, `rg`, `nome`, `email`, `senha`, `telefone`, `sexo`, `empresa`, `data_nascimento`, `data_inclusao`, `usr_inclusao`, `data_exclusao`, `usr_exclusao`) VALUES
-(1, 1, 1, '23579852', '333355112', 'Carlos Antonio Lima', 'Carlos.lima@gmail.com', '123456', 58133158, 'masculino', 0, '0000-00-00', NULL, NULL, NULL, NULL),
-(2, 1, 1, '23579882', '334355112', 'Jéssica groove', 'je.groove@gmail.com', '1234567', 58133758, 'indefinido', 0, '0000-00-00', NULL, NULL, NULL, NULL),
-(3, 1, 1, '23222222222', '333333333', 'Gustavo', 'gustavo@email.com', '123456', 44444444444, 'Masculino', 2, '2020-05-06', '2020-05-06', NULL, NULL, NULL),
-(4, 1, 1, '44353456436', '324234234', 'Leozin', 'leo@email.com', '12345', 34244234234, 'Masculino', 2, '2020-05-06', '2020-05-06', NULL, NULL, NULL),
-(5, 1, 1, '54544545544', '444444444', 'dfgdsg', 'ff', 'hjj', 45454455445, 'Masculino', 2, '2020-05-06', '2020-05-06', NULL, NULL, NULL),
-(6, 1, 1, '46231805816', '548295700', 'Leonardo da Silva Barbosa', 'leonardo.sbarbosa2801@gmail.com', '123456', 11945154979, 'Masculino', 1, '2001-03-15', '2020-05-11', NULL, NULL, NULL),
-(7, 1, 1, '24324242342', '222222222', 'Leonardodsaf', 'rdf', '3', 34244444444, 'Masculino', 1, '2020-05-06', '2020-05-06', NULL, NULL, NULL),
-(8, 1, 1, '01010101011', '654613213', 'a', 'dsfgdsg', 'dd', 65410650145, 'Feminino', 1, '2020-05-06', '2020-05-06', NULL, NULL, NULL),
-(11, 1, 1, '', '555555555', 'Guts', 'leo@email.com', '123', 22222222222, 'Masculino', 1, '2020-04-27', '2020-05-11', NULL, NULL, NULL),
-(12, 1, 1, '33333333333', '333333333', 'g', 't', 't', 34455555555, 'Masculino', 1, '2020-04-27', '2020-05-11', NULL, NULL, NULL),
-(13, 1, 1, '34333333333', '333333333', 'g', 'g', 'g', 66666666666, 'Masculino', 1, '2020-03-30', '2020-05-11', NULL, NULL, NULL),
-(14, 1, 1, '45555555555', '444444444', 'Gutao', 'leo@email.com', '123', 11111111111, 'Masculino', 1, '2020-02-04', '2020-05-11', NULL, NULL, NULL),
-(15, 1, 1, '45454541000', '121210000', 'FILHO DA PUTA', 'FUNCIONA@PORRA.COM', '23456', 11010101159, 'Masculino', 1, '2013-10-02', '2020-05-11', NULL, NULL, NULL),
-(16, 1, 1, '12650505050', '444444444', 'Felippe', 'lipinho@email.com', '12345', 11111111111, 'Masculino', 1, '2000-10-09', '2020-05-15', NULL, NULL, NULL);
+(1, 1, 1, '23579852', '333355112', 'User teste', 'testeuser@gmail.com', '123456', 58133158, 'masculino', 0, '2020-05-21', NULL, NULL, NULL, NULL),
+(2, 2, 2, '40608550817', '525160280', 'GUSTAVO SANTOS NASCIMENTO', 'caous.g@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 11942616650, 'Masculino', 1, '2000-04-05', '2020-05-21', 49, NULL, NULL),
+(3, 1, 1, '44444444444', '658456586', 'Marisa Rozario Silva de Souza ', 'marisarozario@gmail.com', '25d55ad283aa400af464c76d713c07ad', 11969693404, 'Feminino', 1, '2000-05-28', '2020-05-21', 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -241,34 +259,27 @@ CREATE TABLE `venda` (
   `data_exclusao` date DEFAULT NULL,
   `usr_exclusao` int(11) DEFAULT NULL,
   `codigo_rastreio` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `venda`
---
-
-INSERT INTO `venda` (`id_venda`, `id_status`, `id_endereco`, `id_usuario`, `id_filial`, `cpf_cnpj`, `pagamento`, `parcelas`, `total`, `data`, `data_exclusao`, `usr_exclusao`, `codigo_rastreio`) VALUES
-(1, 3, 1, 1, 1, '00000000', 1, 1, NULL, '2020-04-27 00:00:00', NULL, NULL, NULL);
-
---
--- Indexes for dumped tables
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `endereco`
+-- Índices para tabela `endereco`
 --
 ALTER TABLE `endereco`
   ADD PRIMARY KEY (`id_endereco`),
   ADD KEY `usuario_endereco_fk` (`id_usuario`);
 
 --
--- Indexes for table `filial`
+-- Índices para tabela `filial`
 --
 ALTER TABLE `filial`
   ADD PRIMARY KEY (`id_filial`);
 
 --
--- Indexes for table `item_venda`
+-- Índices para tabela `item_venda`
 --
 ALTER TABLE `item_venda`
   ADD PRIMARY KEY (`id_item`),
@@ -276,13 +287,27 @@ ALTER TABLE `item_venda`
   ADD KEY `venda_item_venda_fk` (`id_venda`);
 
 --
--- Indexes for table `perfil`
+-- Índices para tabela `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`id_menu`);
+
+--
+-- Índices para tabela `perfil`
 --
 ALTER TABLE `perfil`
   ADD PRIMARY KEY (`id_perfil`);
 
 --
--- Indexes for table `produto`
+-- Índices para tabela `permissao`
+--
+ALTER TABLE `permissao`
+  ADD PRIMARY KEY (`id_permissao`),
+  ADD KEY `perfil_id_perfil_fk` (`id_perfil`),
+  ADD KEY `menu_id_menu_fk` (`id_menu`);
+
+--
+-- Índices para tabela `produto`
 --
 ALTER TABLE `produto`
   ADD PRIMARY KEY (`id_produto`),
@@ -290,13 +315,13 @@ ALTER TABLE `produto`
   ADD KEY `usuario_produto_fk` (`id_usuario`);
 
 --
--- Indexes for table `status_venda`
+-- Índices para tabela `status_venda`
 --
 ALTER TABLE `status_venda`
   ADD PRIMARY KEY (`id_status`);
 
 --
--- Indexes for table `usuario`
+-- Índices para tabela `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`),
@@ -304,7 +329,7 @@ ALTER TABLE `usuario`
   ADD KEY `perfil_usuario_fk` (`id_perfil`);
 
 --
--- Indexes for table `venda`
+-- Índices para tabela `venda`
 --
 ALTER TABLE `venda`
   ADD PRIMARY KEY (`id_venda`),
@@ -313,59 +338,71 @@ ALTER TABLE `venda`
   ADD KEY `endereco_venda_fk` (`id_endereco`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `endereco`
+-- AUTO_INCREMENT de tabela `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `id_endereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_endereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `filial`
+-- AUTO_INCREMENT de tabela `filial`
 --
 ALTER TABLE `filial`
-  MODIFY `id_filial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_filial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `item_venda`
+-- AUTO_INCREMENT de tabela `item_venda`
 --
 ALTER TABLE `item_venda`
   MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `perfil`
+-- AUTO_INCREMENT de tabela `menu`
+--
+ALTER TABLE `menu`
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `perfil`
 --
 ALTER TABLE `perfil`
-  MODIFY `id_perfil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_perfil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `produto`
+-- AUTO_INCREMENT de tabela `permissao`
+--
+ALTER TABLE `permissao`
+  MODIFY `id_permissao` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `status_venda`
+-- AUTO_INCREMENT de tabela `status_venda`
 --
 ALTER TABLE `status_venda`
   MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `venda`
+-- AUTO_INCREMENT de tabela `venda`
 --
 ALTER TABLE `venda`
-  MODIFY `id_venda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_venda` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Restrições para despejos de tabelas
 --
 
 --
@@ -380,6 +417,13 @@ ALTER TABLE `endereco`
 ALTER TABLE `item_venda`
   ADD CONSTRAINT `produto_item_venda_fk` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id_produto`),
   ADD CONSTRAINT `venda_item_venda_fk` FOREIGN KEY (`id_venda`) REFERENCES `venda` (`id_venda`);
+
+--
+-- Limitadores para a tabela `permissao`
+--
+ALTER TABLE `permissao`
+  ADD CONSTRAINT `menu_id_menu_fk` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`),
+  ADD CONSTRAINT `perfil_id_perfil_fk` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id_perfil`);
 
 --
 -- Limitadores para a tabela `produto`
