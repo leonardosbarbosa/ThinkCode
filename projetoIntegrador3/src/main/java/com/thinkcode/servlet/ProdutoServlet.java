@@ -60,18 +60,19 @@ public class ProdutoServlet extends HttpServlet {
         }
         if (logado) {
             if (tarefa != null) {
-                if (tarefa.equals("editar")) {
+                if (tarefa.equals("Editando")) {
 
                     produto.setIdProduto(Integer.parseInt(id));
                     produto = produtoController.produtoPropriedades(produto);
                     url = "/cadastroUsuario.jsp";
-                    produto.setNome(request.getParameter("nomeProduto"));
-                    produto.setDescricao(request.getParameter("descricaoProduto"));
-                    produto.setTipo(request.getParameter("tipoProduto").replace(".", "").replace("-", "").replace("/", ""));
-                    produto.setQuantidade(Integer.parseInt(request.getParameter("quantidadeProduto").replace(".", "").replace("-", "").replace("/", "")));
-                    produto.setValor(Double.parseDouble(request.getParameter("valorProduto")));
-                    produto.setIdFilial(1);
-                    produto.setIdUsuario(1);
+                    request.setAttribute("ID_PRODUTO", produto.getIdProduto());
+                    request.setAttribute("nomeProduto", produto.getNome());
+                    request.setAttribute("tipoProduto", produto.getTipo());
+                    request.setAttribute("quantidadeProduto", produto.getQuantidade());
+                    request.setAttribute("descricaoProduto", produto.getDescricao());
+                    request.setAttribute("valorProduto", produto.getValor());
+                    request.setAttribute("idFilial", produto.getIdFilial());
+                    request.setAttribute("tarefa", "Editar");
                 }
 
             }
@@ -81,7 +82,7 @@ public class ProdutoServlet extends HttpServlet {
             String filtroIDFilial = "";
             String filtroNome = "";
             if (request.getParameter("filtroFiliais") != null || request.getParameter("filtroPerfil") != null) {
-                filtroIDFilial = request.getParameter("filtroIDFilial");
+                filtroIDFilial = request.getParameter("filtroFiliais");
                 filtroNome = request.getParameter("filtroNome");
             }
             List<ProdutoModel> produtos = produtoController.ProdutosCadastrados(filtroIDFilial, filtroNome);
@@ -102,13 +103,16 @@ public class ProdutoServlet extends HttpServlet {
             if (request.getParameter("nomeProduto") != null && request.getParameter("quantidadeProduto") != null) {
                 UsuarioModel usuario = new UsuarioModel();
                 usuario.setId(Integer.parseInt(cook.getValue()));
-                UsuarioController  usuarioController = new UsuarioController();
+                UsuarioController usuarioController = new UsuarioController();
                 usuario = usuarioController.UsuarioPropriedades(usuario);
+               if (request.getParameter("ID_PRODUTO") != null) {
+                    produto.setIdProduto(Integer.parseInt(request.getParameter("ID_PRODUTO")));
+                }
                 produto.setNome(request.getParameter("nomeProduto"));
-                produto.setQuantidade(Integer.parseInt(request.getParameter("nomeProduto")));
-                produto.setTipo(request.getParameter("nomeProduto"));
-                produto.setValor(Double.parseDouble(request.getParameter("nomeProduto")));
-                produto.setDescricao(request.getParameter("nomeProduto"));
+                produto.setQuantidade(Integer.parseInt(request.getParameter("quantidadeProduto")));
+                produto.setTipo(request.getParameter("tipoProduto"));
+                produto.setValor(Double.parseDouble(request.getParameter("valorProduto")));
+                produto.setDescricao(request.getParameter("descricaoProduto"));
                 produto.setIdUsuario(usuario.getIdUsuario());
                 produto.setIdFilial(Integer.parseInt(request.getParameter("filialProduto")));
 
@@ -119,30 +123,23 @@ public class ProdutoServlet extends HttpServlet {
                     if (ok) {
                         url = "/gerenciarProdutos.jsp";
                     }
-                } else if (tarefa.equals("consulta")) {  //Consulta produto ALTERAR
-
-                    boolean ok = produtoController.save(produto);
-                    if (ok) {
-                        url = "/index.jsp";
-                    }
-                } else if (tarefa.equals("editar")) { //Atualizando produto     
+                } 
+                 if (tarefa.equals("Editar")) { //Atualizando produto     
                     boolean ok = produtoController.update(produto);
                     if (ok) {
-                        url = "/index.jsp";
+                        url = "/gerenciarProdutos.jsp";
                     }
 
-                } else {  //Excluindo Produto  
-                    boolean ok = produtoController.delete(produto);
-
-                    if (ok) {
-                        url = "/index.jsp";
-                    }
                 }
             }
         }
+        try {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(request, response);
+        } catch (Exception e) {
+            String error = e.toString();
+        }
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

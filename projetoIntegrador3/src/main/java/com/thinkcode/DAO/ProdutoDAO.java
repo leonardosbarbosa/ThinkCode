@@ -54,20 +54,25 @@ public class ProdutoDAO {
             PreparedStatement ps = con.prepareStatement("select * from produto where id_produto = " + produto.getIdProduto());
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
-                
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setNome(rs.getString("nome"));
+                produto.setQuantidade(Integer.parseInt(rs.getString("qtde")));
+                produto.setTipo(rs.getString("tipo"));
+                produto.setValor(Double.parseDouble(rs.getString("valor")));
+                produto.setIdProduto(rs.getInt("id_produto"));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return produto;
     }
-    
-        public static boolean atualizarProduto(ProdutoModel produto) {
+
+    public static boolean atualizarProduto(ProdutoModel produto) {
         boolean ok = false;
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "update produto set id_usuario = ?, id_filial = ?, tipo = ?, nome = ?, qtde = ?, descricao = ?, valor = ?)";
+            String sql = "update produto set id_usuario = ?, id_filial = ?, tipo = ?, nome = ?, qtde = ?, descricao = ?, valor = ? where id_produto = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, produto.getIdUsuario());
             ps.setInt(2, produto.getIdFilial());
@@ -76,6 +81,7 @@ public class ProdutoDAO {
             ps.setInt(5, produto.getQuantidade());
             ps.setString(6, produto.getDescricao());
             ps.setDouble(7, produto.getValor());
+            ps.setDouble(8, produto.getIdProduto());
             ps.execute();
             ok = true;
 
@@ -111,8 +117,8 @@ public class ProdutoDAO {
         }
         return false;
     }
-    
-        public static List<ProdutoModel> produtosCadastrados(String filtroFilial, String filtroTipo) {
+
+    public static List<ProdutoModel> produtosCadastrados(String filtroFilial, String filtroTipo) {
         Connection con;
         List<ProdutoModel> produtos = new ArrayList<>();
 

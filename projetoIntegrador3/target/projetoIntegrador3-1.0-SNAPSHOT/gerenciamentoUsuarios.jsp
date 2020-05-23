@@ -210,7 +210,7 @@
 
                 <!-- /.sidebar-shortcuts -->
 
-                <ul class="nav nav-list">
+                   <ul class="nav nav-list">
                     <li class="active">
                         <a href="index.html">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -224,7 +224,7 @@
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-book"></i>
                             <span class="menu-text">
-                                RelatÃ³rios
+                                Relatórios
                             </span>
 
                             <b class="arrow fa fa-angle-down"></b>
@@ -234,7 +234,7 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="typography.html">
+                                <a href="#">
                                     <i class="menu-icon fa fa-caret-right"></i> Vendas
                                 </a>
 
@@ -242,7 +242,7 @@
                             </li>
 
                             <li class="">
-                                <a href="elements.html">
+                                <a href="e#">
                                     <i class="menu-icon fa fa-caret-right"></i> Estoque
                                 </a>
 
@@ -251,15 +251,15 @@
 
 
                             <li class="">
-                                <a href="content-slider.html">
-                                    <i class="menu-icon fa fa-caret-right"></i> UsuÃ¡rios
+                                <a href="#">
+                                    <i class="menu-icon fa fa-caret-right"></i> Usuário
                                 </a>
 
                                 <b class="arrow"></b>
                             </li>
                             <li class="">
-                                <a href="content-slider.html">
-                                    <i class="menu-icon fa fa-caret-right"></i> SolicitaÃ§Ãµes
+                                <a href="#">
+                                    <i class="menu-icon fa fa-caret-right"></i> Solicitações
                                 </a>
 
                                 <b class="arrow"></b>
@@ -281,27 +281,27 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="cadastroFilial.html">
+                                <a href="FilialServlet">
                                     <i class="menu-icon glyphicon glyphicon-home"></i> Filial
                                 </a>
 
                             </li>
                             <li class="">
-                                <a href="cadastroPerfil.html">
+                                <a href="PerfilServlet">
                                     <i class="menu-icon glyphicon glyphicon-cog"></i> Perfil
 
                                 </a>
 
                             </li>
                             <li class="">
-                                <a href="cadastroProduto.html">
+                                <a  href="ProdutoServlet">
                                     <i class="menu-icon glyphicon glyphicon-barcode"></i> Produto
 
                                 </a>
 
                             </li>
                             <li class="">
-                                <a href="cadastroUsuario.html">
+                                <a href="UsuarioServlet" id="CadastroUsuario">
                                     <i class="menu-icon fa fa-user"></i> Usuario
 
                                 </a>
@@ -326,20 +326,13 @@
                         <ul class="submenu">
 
                             <li class="">
-                                <a href="typography.html">
+                                <a href="#" >
                                     <i class="menu-icon fa fa-money"></i> Vendas
                                 </a>
 
                                 <b class="arrow"></b>
                             </li>
-
-                            <li class="">
-                                <a href="elements.html">
-                                    <i class="menu-icon fa fa-caret-right"></i> Compras
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
+                           
 
                         </ul>
                     </li>
@@ -383,13 +376,6 @@
                                                                     ${filial.nome}
                                                                 </option>
                                                             </c:forEach>
-                                                            <option></option>
-                                                            <option value="1">
-                                                                Matriz
-                                                            </option>
-                                                            <option value="2">
-                                                                São Paulo
-                                                            </option>
                                                         </select>
                                                     </div>
 

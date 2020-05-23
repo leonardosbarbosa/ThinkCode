@@ -1,17 +1,12 @@
-<%-- 
-    Document   : cadastroProduto
-    Created on : May 21, 2020, 8:29:18 PM
-    Author     : Leonardo Silva
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
+
 
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta charset="utf-8" />
-        <title>Cadastro Produto</title>
+        <meta charset="UTF-8" />
+        <title>Dashboard - Ace Admin</title>
 
         <meta name="description" content="overview &amp; stats" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -29,14 +24,14 @@
         <link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 
         <!--[if lte IE 9]>
-                            <link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
-                    <![endif]-->
+                                <link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
+                        <![endif]-->
         <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
         <link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
 
         <!--[if lte IE 9]>
-                      <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-                    <![endif]-->
+                          <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+                        <![endif]-->
 
         <!-- inline styles related to this page -->
 
@@ -55,9 +50,10 @@
         <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
         <!--[if lte IE 8]>
-                    <script src="assets/js/html5shiv.min.js"></script>
-                    <script src="assets/js/respond.min.js"></script>
-                    <![endif]-->
+                        <script src="assets/js/html5shiv.min.js"></script>
+                        <script src="assets/js/respond.min.js"></script>
+                        <![endif]-->
+
     </head>
 
     <body class="no-skin">
@@ -76,7 +72,7 @@
                 <div class="navbar-header pull-left">
                     <a href="index.html" class="navbar-brand">
                         <small>
-                            <img src="assets/images/gallery/reparar.png">
+                            <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
                         </small>
                     </a>
@@ -160,7 +156,7 @@
                                 <img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
                                 <span class="user-info">
                                     <small>Bem-vindo,</small>
-                                    Administrador
+                                    <label id="lblNome"></label>
                                 </span>
 
                                 <i class="ace-icon fa fa-caret-down"></i>
@@ -214,7 +210,7 @@
 
                 <!-- /.sidebar-shortcuts -->
 
-                <ul class="nav nav-list">
+                  <ul class="nav nav-list">
                     <li class="active">
                         <a href="index.html">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -228,7 +224,7 @@
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-book"></i>
                             <span class="menu-text">
-                                RelatÃ³rios
+                                Relatórios
                             </span>
 
                             <b class="arrow fa fa-angle-down"></b>
@@ -238,7 +234,7 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="typography.html">
+                                <a href="#">
                                     <i class="menu-icon fa fa-caret-right"></i> Vendas
                                 </a>
 
@@ -246,7 +242,7 @@
                             </li>
 
                             <li class="">
-                                <a href="elements.html">
+                                <a href="e#">
                                     <i class="menu-icon fa fa-caret-right"></i> Estoque
                                 </a>
 
@@ -255,15 +251,15 @@
 
 
                             <li class="">
-                                <a href="content-slider.html">
-                                    <i class="menu-icon fa fa-caret-right"></i> UsuÃ¡rios
+                                <a href="#">
+                                    <i class="menu-icon fa fa-caret-right"></i> Usuário
                                 </a>
 
                                 <b class="arrow"></b>
                             </li>
                             <li class="">
-                                <a href="content-slider.html">
-                                    <i class="menu-icon fa fa-caret-right"></i> SolicitaÃ§Ãµes
+                                <a href="#">
+                                    <i class="menu-icon fa fa-caret-right"></i> Solicitações
                                 </a>
 
                                 <b class="arrow"></b>
@@ -285,27 +281,27 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="cadastroFilial.html">
+                                <a href="FilialServlet">
                                     <i class="menu-icon glyphicon glyphicon-home"></i> Filial
                                 </a>
 
                             </li>
                             <li class="">
-                                <a href="cadastroPerfil.html">
+                                <a href="PerfilServlet">
                                     <i class="menu-icon glyphicon glyphicon-cog"></i> Perfil
 
                                 </a>
 
                             </li>
                             <li class="">
-                                <a href="cadastroProduto.html">
+                                <a  href="ProdutoServlet">
                                     <i class="menu-icon glyphicon glyphicon-barcode"></i> Produto
 
                                 </a>
 
                             </li>
                             <li class="">
-                                <a href="cadastroUsuario.html">
+                                <a href="UsuarioServlet" id="CadastroUsuario">
                                     <i class="menu-icon fa fa-user"></i> Usuario
 
                                 </a>
@@ -330,20 +326,13 @@
                         <ul class="submenu">
 
                             <li class="">
-                                <a href="typography.html">
+                                <a href="#" >
                                     <i class="menu-icon fa fa-money"></i> Vendas
                                 </a>
 
                                 <b class="arrow"></b>
                             </li>
-
-                            <li class="">
-                                <a href="elements.html">
-                                    <i class="menu-icon fa fa-caret-right"></i> Compras
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
+                           
 
                         </ul>
                     </li>
@@ -361,6 +350,8 @@
 
 
                     <div class="page-content">
+                        <!-- /.ace-settings-container -->
+                        <!-- Filtros -->
                         <form action="ProdutoServlet" method="POST">
                             <div>
                                 <div>
@@ -375,7 +366,7 @@
                                             <div class="col-sm-12">
                                                 <div class="widget-box">
                                                     <div class="widget-header">
-                                                        <h4 class="widget-title center">InformaÃ§Ãµes Gerais</h4>
+                                                        <h4 class="widget-title center">Informações Gerais</h4>
 
                                                         <div class="widget-toolbar">
                                                             <a href="#" data-action="collapse">
@@ -391,27 +382,27 @@
                                                                     <label for="number-button" class="block">Nome</label>
                                                                     <input type="text" id="form-field-1-1"
                                                                            placeholder="Nome" class="form-control"
-                                                                           name="nomeProduto" required />
+                                                                           name="nomeProduto" required value="${nomeProduto}" />
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Tipo</label>
                                                                     <input type="text" id="form-field-1-1"
-                                                                           class="form-control" name="tipoProduto" required />
+                                                                           class="form-control" name="tipoProduto" required  value="${tipoProduto}"/>
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button"
                                                                            class="block">Quantidade</label>
                                                                     <input type="text" id="form-field-1-1"
                                                                            class="form-control" name="quantidadeProduto" onkeypress="return onlynumber()"
-                                                                           required />
+                                                                           required value="${quantidadeProduto}"/>
                                                                 </div>
 
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button"
-                                                                           class="block">DescriÃ§Ã£o</label>
+                                                                           class="block">Descrição</label>
                                                                     <input type="text" id="form-field-1-1"
                                                                            class="form-control" name="descricaoProduto"
-                                                                           required />
+                                                                           required value="${descricaoProduto}"/>
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Valor</label>
@@ -423,23 +414,21 @@
                                                                         <input class="form-control input-mask-phone"
                                                                                type="text" id="form-field-mask-2"
                                                                                placeholder="R$00,00" name="valorProduto" onkeypress="return onlynumber()"
-                                                                               required />
+                                                                               required value="${valorProduto}"/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Filial</label>
                                                                     <select class="form-group" style="width: 100%;" name="filialProduto">
+                                                                        <option value="${idFilial}">Filial</option>
                                                                         <c:forEach var="filial" items="${filiais}">
-                                                                            <label>${filial.nome}</label>
+                                                                            <option value="${filial.idFilial}">
+                                                                                ${filial.nome}
+                                                                            </option>
                                                                         </c:forEach>
 
                                                                     </select>
                                                                 </div>
-                                                                <c:forEach var="filial" items="${filiais}">
-                                                                    <option value="${filial.idFilial}">
-                                                                        ${filial.nome}
-                                                                    </option>
-                                                                </c:forEach>
 
                                                             </div>
                                                             <label>
@@ -454,23 +443,34 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <input name="ID_PRODUTO" style="display: none" value="${ID_PRODUTO}"/>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <a src="index.html" class="btn btn-sm btn-danger right" style="float: right;">
                                                 Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
                                             </a>
-                                            <button type="submit" class="btn btn-sm btn-success"
-                                                    style="float: right; margin-right: 2px;" name="tarefa" value="Cadastro">
-                                                Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
-                                            </button>
+                                            <c:choose>
+                                                <c:when test= "${empty tarefa}">
+                                                    <button type="submit" class="btn btn-sm btn-success"
+                                                            style="float: right; margin-right: 2px;" name="tarefa" value="cadastro" />
+                                                    Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                                    </button>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="${tarefa}" name="tarefa">
+                                                        Alterar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                                    </button>
+                                                </c:otherwise>
+                                            </c:choose>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                     </div>
                     </form>
-                    <!-- /.ace-settings-container -->
+
                     <div class="footer">
                         <div class="footer-inner">
                             <div class="footer-content">
@@ -530,8 +530,7 @@
                 <script src="assets/js/jquery.flot.min.js"></script>
                 <script src="assets/js/jquery.flot.pie.min.js"></script>
                 <script src="assets/js/jquery.flot.resize.min.js"></script>
-                <script src="assets/js/jquery.maskedinput.min.js"></script>
-                <script src="assets/js/bootstrap-datepicker.min.js"></script>
+
                 <!-- ace scripts -->
                 <script src="assets/js/ace-elements.min.js"></script>
                 <script src="assets/js/ace.min.js"></script>
@@ -541,24 +540,53 @@
                 <script type="text/javascript">
                                                                                    jQuery(function ($) {
 
-                                                                                   })
-                </script>
+                                                                                       window.displaymessage = function (user)
+                                                                                       {
+                                                                                           $('#valorEditar').val(user);
+                                                                                           $('#enviarEditacao').click();
+                                                                                           /*
+                                                                                            $.ajax({
+                                                                                            url: "UsuarioServlet",
+                                                                                            type: "POST",
+                                                                                            data: {
+                                                                                            tarefa: 'Editar'
+                                                                                            },
+                                                                                            })
+                                                                                            .success(function (e) {
+                                                                                            //do success stuff
+                                                                                            console.log("Sucessor " + e)
+                                                                                            //window.location = "UsuarioServlet?Teste=1";
+                                                                                            $(location).attr('href','cadastroUsuario.jsp');
+                                                                                            })
+                                                                                            .error(function (e) {
+                                                                                            //do error handling stuff
+                                                                                            console.log('Erro' + e.toString())
+                                                                                            })
+                                                                                            */
+                                                                                       }
 
-                <script>
-                    function onlynumber(evt) {
-                        var theEvent = evt || window.event;
-                        var key = theEvent.keyCode || theEvent.which;
-                        key = String.fromCharCode(key);
-                        //var regex = /^[0-9.,]+$/;
-                        var regex = /^[0-9.]+$/;
-                        if (!regex.test(key)) {
-                            theEvent.returnValue = false;
-                            if (theEvent.preventDefault)
-                                theEvent.preventDefault();
+                    <%
+                        Cookie[] cookies = request.getCookies();
+                        for (Cookie atual : cookies) {
+                            if (atual.getName().equals("Perfil")) {
+                                int auxilio = Integer.parseInt(atual.getValue());
+                                if (auxilio != 1) {
+                    %>
+                                                                                       $('#liCadastro').hide()
+                    <%
+                            }
                         }
-                    }
-                </script>
+                        if (atual.getName().equals("Nome")) {
+                            String auxiliado = atual.getValue().substring(0, 8);
+                    %>
+                                                                                       $('#lblNome').text('<%= auxiliado%>');
+                    <%
+                            }
 
+                        }
+                    %>
+                                                                                   });
+                </script>
                 </body>
 
                 </html>

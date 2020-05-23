@@ -15,7 +15,7 @@ public class PerfilModel {
     private String tipo;
     private String descricao;
     private String dataInclusao;
-    private String usrInclusao;
+    private int usrInclusao;
     private String dataExclusao;
     private String usrExclusao;
 
@@ -60,11 +60,11 @@ public class PerfilModel {
         this.dataInclusao = dataInclusao;
     }
 
-    public String getUsrInclusao() {
+    public int getUsrInclusao() {
         return usrInclusao;
     }
 
-    public void setUsrInclusao(String usrInclusao) {
+    public void setUsrInclusao(int usrInclusao) {
         this.usrInclusao = usrInclusao;
     }
 

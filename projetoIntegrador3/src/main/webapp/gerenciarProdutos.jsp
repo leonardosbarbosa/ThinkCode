@@ -1,16 +1,12 @@
-<%-- 
-    Document   : gerenciarProdutos
-    Created on : May 22, 2020, 12:32:34 AM
-    Author     : Leonardo Silva
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
+
+
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta charset="UTF-8" />
-        <title>ThinkCode - Gerenciar Produtos</title>
+        <title>Dashboard - Ace Admin</title>
 
         <meta name="description" content="overview &amp; stats" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -214,7 +210,7 @@
 
                 <!-- /.sidebar-shortcuts -->
 
-                <ul class="nav nav-list">
+                   <ul class="nav nav-list">
                     <li class="active">
                         <a href="index.html">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -228,7 +224,7 @@
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-book"></i>
                             <span class="menu-text">
-                                RelatÃ³rios
+                                Relatórios
                             </span>
 
                             <b class="arrow fa fa-angle-down"></b>
@@ -238,7 +234,7 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="typography.html">
+                                <a href="#">
                                     <i class="menu-icon fa fa-caret-right"></i> Vendas
                                 </a>
 
@@ -246,7 +242,7 @@
                             </li>
 
                             <li class="">
-                                <a href="elements.html">
+                                <a href="e#">
                                     <i class="menu-icon fa fa-caret-right"></i> Estoque
                                 </a>
 
@@ -255,15 +251,15 @@
 
 
                             <li class="">
-                                <a href="content-slider.html">
-                                    <i class="menu-icon fa fa-caret-right"></i> UsuÃ¡rios
+                                <a href="#">
+                                    <i class="menu-icon fa fa-caret-right"></i> Usuário
                                 </a>
 
                                 <b class="arrow"></b>
                             </li>
                             <li class="">
-                                <a href="content-slider.html">
-                                    <i class="menu-icon fa fa-caret-right"></i> SolicitaÃ§Ãµes
+                                <a href="#">
+                                    <i class="menu-icon fa fa-caret-right"></i> Solicitações
                                 </a>
 
                                 <b class="arrow"></b>
@@ -285,27 +281,27 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="cadastroFilial.html">
+                                <a href="FilialServlet">
                                     <i class="menu-icon glyphicon glyphicon-home"></i> Filial
                                 </a>
 
                             </li>
                             <li class="">
-                                <a href="cadastroPerfil.html">
+                                <a href="PerfilServlet">
                                     <i class="menu-icon glyphicon glyphicon-cog"></i> Perfil
 
                                 </a>
 
                             </li>
                             <li class="">
-                                <a href="cadastroProduto.html">
+                                <a  href="ProdutoServlet">
                                     <i class="menu-icon glyphicon glyphicon-barcode"></i> Produto
 
                                 </a>
 
                             </li>
                             <li class="">
-                                <a href="cadastroUsuario.html">
+                                <a href="UsuarioServlet" id="CadastroUsuario">
                                     <i class="menu-icon fa fa-user"></i> Usuario
 
                                 </a>
@@ -330,20 +326,13 @@
                         <ul class="submenu">
 
                             <li class="">
-                                <a href="typography.html">
+                                <a href="#" >
                                     <i class="menu-icon fa fa-money"></i> Vendas
                                 </a>
 
                                 <b class="arrow"></b>
                             </li>
-
-                            <li class="">
-                                <a href="elements.html">
-                                    <i class="menu-icon fa fa-caret-right"></i> Compras
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
+                           
 
                         </ul>
                     </li>
@@ -382,25 +371,20 @@
                                                     <div class="col-lg-6">
                                                         <label for="number-button" class="block">Filial</label>
                                                         <select class="form-group" style="width: 100%;" name="filtroFiliais">
-                                                            <c:forEach var="filial" items="${filiais}">
+                                                            <option></option> 
+                                                            <c:forEach var="filial" items="${filiais}">                                                                 
                                                                 <option value="${filial.idFilial}">
                                                                     ${filial.nome}
                                                                 </option>
                                                             </c:forEach>
-                                                            <option></option>
-                                                            <option value="1">
-                                                                Matriz
-                                                            </option>
-                                                            <option value="2">
-                                                                SÃ£o Paulo
-                                                            </option>
                                                         </select>
                                                     </div>
 
                                                     <div class="col-lg-6">
-                                                        <label for="number-button" class="block">Tipo</label>
+                                                        <label for="number-button" class="block">Perfil</label>
                                                         <select class="form-group" style="width: 100%;" name="filtroPerfil">
                                                             <c:forEach var="perfil" items="${perfils}">
+                                                                <option></option>
                                                                 <option value="${perfil.idPerfil}">
                                                                     ${perfil.tipo}
                                                                 </option>
@@ -419,16 +403,15 @@
 
                                                 </div>
 
-                                                <label>
-                                                    <button class="btn btn-sm btn-success " type="submit"
-                                                       style="float: right; margin-right: 2px;" name="tarefa" value="Cadastrando">
+                                                <label>  <button class="btn btn-sm btn-success " href="ProdutoServlet"
+                                                                 style="float: right; margin-right: 2px;" name="tarefa" value="Cadastrando" type="submit">
                                                         Novo Produto &nbsp; <i class="ace-icon glyphicon glyphicon-save"></i>
                                                     </button>
                                                     <button class="btn btn-sm btn-warning right" style="float: right; margin-right: 2px;" >
                                                         Limpar &nbsp;<i class="ace-icon fa fa-undo"></i>
                                                     </button>
                                                     <button class="btn btn-sm btn-info"
-                                                            style="float: right; margin-right: 2px;" type="submit">
+                                                            style="float: right; margin-right: 2px;" type="submit" name="tarefa" >
                                                         Buscar &nbsp; <i class="ace-icon glyphicon glyphicon-search"></i>
                                                     </button>
 
@@ -449,57 +432,57 @@
                                             <th> Nome </th>
                                             <th> Tipo </th>
                                             <th> Quantidade </th>
-                                            <th> DescriÃ§Ã£o </th>
+                                            <th> Descrição </th>
                                             <th> Valor </th>
                                             <th>Gerenciar</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                    <c:forEach var="produto" items="${produtos}">
+                                        <c:forEach var="produto" items="${produtos}">
 
-                                        <tr>
-
-
-                                            <td class="center">${produto.idProduto}  </td>
-
-                                            <td>
-                                                ${produto.nome}
-                                            </td>
-                                            <td>
-                                                ${produto.descricao}
-                                            </td>
-                                            <td>
-                                                ${produto.valor}
-                                            </td>
-                                            <td></td>
-
-                                            <td >
-
-                                            </td>
-
-                                            <td>
-                                                <div class="hidden-sm hidden-xs btn-group">
+                                            <tr>
 
 
-                                                    <button class="btn btn-xs btn-info btn-edit" value="${produto.idProduto}" onclick="window.displaymessage(${produto.idProduto})" >
-                                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                                    </button>
+                                                <td class="center">${produto.idProduto}  </td>
 
-                                                    <button class="btn btn-xs btn-danger">
-                                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                    </button>
+                                                <td>
+                                                    ${produto.nome}
+                                                </td>
+                                                <td>
+                                                    ${produto.tipo}
+                                                </td>
+                                                <td>
+                                                    ${produto.quantidade}
+                                                </td>
+                                                <td>
+                                                    ${produto.descricao}
+                                                </td>
+                                                <td>
+                                                    ${produto.valor}
+                                                </td>
+                                                <td>
+                                                    <div class="hidden-sm hidden-xs btn-group">
 
-                                                </div>
+
+                                                        <button class="btn btn-xs btn-info btn-edit" value="${produto.idProduto}" onclick="window.displaymessage(${produto.idProduto})" >
+                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                        </button>
+
+                                                        <button class="btn btn-xs btn-danger">
+                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                        </button>
+
+                                                    </div>
 
 
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
-                            <form method="" action="UsuarioServlet" >
+                            <form method="" action="ProdutoServlet" >
                                 <input  name="id" style="display: none" type="text" id="valorEditar"/>
                                 <input  name="tarefa" style="display: none" type="text" value="Editando" />
                                 <button type="submit" style="display: none" id="enviarEditacao"></button>
@@ -549,8 +532,8 @@
         <script src="assets/js/jquery-1.11.3.min.js"></script>
         <![endif]-->
                     <script type="text/javascript">
-                                                        if ('ontouchstart' in document.documentElement)
-                                                            document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+                                                            if ('ontouchstart' in document.documentElement)
+                                                                document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
                     </script>
                     <script src="assets/js/bootstrap.min.js"></script>
 
@@ -574,32 +557,32 @@
 
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
-                                                        jQuery(function ($) {
+                                                            jQuery(function ($) {
 
-                                                            window.displaymessage = function (user)
-                                                            {
-                                                                $('#valorEditar').val(user);
-                                                                $('#enviarEditacao').click();
-                                                                /*
-                                                                 $.ajax({
-                                                                 url: "UsuarioServlet",
-                                                                 type: "POST",
-                                                                 data: {
-                                                                 tarefa: 'Editar'
-                                                                 },
-                                                                 })
-                                                                 .success(function (e) {
-                                                                 //do success stuff
-                                                                 console.log("Sucessor " + e)
-                                                                 //window.location = "UsuarioServlet?Teste=1";
-                                                                 $(location).attr('href','cadastroUsuario.jsp');
-                                                                 })
-                                                                 .error(function (e) {
-                                                                 //do error handling stuff
-                                                                 console.log('Erro' + e.toString())
-                                                                 })
-                                                                 */
-                                                            }
+                                                                window.displaymessage = function (user)
+                                                                {
+                                                                    $('#valorEditar').val(user);
+                                                                    $('#enviarEditacao').click();
+                                                                    /*
+                                                                     $.ajax({
+                                                                     url: "UsuarioServlet",
+                                                                     type: "POST",
+                                                                     data: {
+                                                                     tarefa: 'Editar'
+                                                                     },
+                                                                     })
+                                                                     .success(function (e) {
+                                                                     //do success stuff
+                                                                     console.log("Sucessor " + e)
+                                                                     //window.location = "UsuarioServlet?Teste=1";
+                                                                     $(location).attr('href','cadastroUsuario.jsp');
+                                                                     })
+                                                                     .error(function (e) {
+                                                                     //do error handling stuff
+                                                                     console.log('Erro' + e.toString())
+                                                                     })
+                                                                     */
+                                                                }
 
                         <%
                             Cookie[] cookies = request.getCookies();
@@ -608,22 +591,21 @@
                                     int auxilio = Integer.parseInt(atual.getValue());
                                     if (auxilio != 1) {
                         %>
-                                                            $('#liCadastro').hide()
+                                                                $('#liCadastro').hide()
                         <%
                                 }
                             }
                             if (atual.getName().equals("Nome")) {
                                 String auxiliado = atual.getValue().substring(0, 8);
                         %>
-                                                            $('#lblNome').text('<%= auxiliado%>');
+                                                                $('#lblNome').text('<%= auxiliado%>');
                         <%
                                 }
 
                             }
                         %>
-                                                        });
+                                                            });
                     </script>
                     </body>
-
 
                     </html>

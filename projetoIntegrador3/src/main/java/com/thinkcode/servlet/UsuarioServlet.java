@@ -6,8 +6,10 @@
 package com.thinkcode.servlet;
 
 import Controller.EnderecoController;
+import Controller.FilialController;
 import Controller.UsuarioController;
 import com.thinkcode.models.EnderecoModel;
+import com.thinkcode.models.FilialModel;
 import com.thinkcode.models.UsuarioModel;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -103,6 +105,9 @@ public class UsuarioServlet extends HttpServlet {
             }
             List<UsuarioModel> usuarios = usuarioController.UsuariosCadastrados(filtroFilial, filtroPerfil);
             request.setAttribute("usuarios", usuarios);
+            FilialController FilialController = new FilialController();
+            List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");
+            request.setAttribute("filiais", filiais);
             url = "/gerenciamentoUsuarios.jsp";
             if (tarefa != null) {
                 if (tarefa.equals("Editando")) {
