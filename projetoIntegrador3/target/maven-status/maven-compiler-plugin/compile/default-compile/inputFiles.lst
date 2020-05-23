@@ -1,3 +1,4 @@
+C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\RelatorioDAO.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\PerfilServlet.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\Criptografia.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\EnderecoModel.java
@@ -22,6 +23,7 @@ C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoInteg
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\ProdutoDAO.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\db\ConnectionDB.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\DetalhePedido.java
+C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\VendaModel.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\PerfilModel.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\StatusVendaDAO.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\Controller\FilialController.java
@@ -33,4 +35,3 @@ C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoInteg
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\VendaDAO.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\PerfilDAO.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\ItensVendaDAO.java
-C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\PI\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\Venda.java
