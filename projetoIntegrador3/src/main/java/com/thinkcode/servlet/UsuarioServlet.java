@@ -7,9 +7,11 @@ package com.thinkcode.servlet;
 
 import Controller.EnderecoController;
 import Controller.FilialController;
+import Controller.PerfilController;
 import Controller.UsuarioController;
 import com.thinkcode.models.EnderecoModel;
 import com.thinkcode.models.FilialModel;
+import com.thinkcode.models.PerfilModel;
 import com.thinkcode.models.UsuarioModel;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -62,6 +64,7 @@ public class UsuarioServlet extends HttpServlet {
         boolean logado = false;
         //Fim instância       
 
+        //Varredura de cookie para verificar se usuário está logado
         if (cookies != null) {
             for (Cookie ck : cookies) {
                 if (ck.getName() != null && ck.getName().equals("Id_Usuario")) {
@@ -70,33 +73,12 @@ public class UsuarioServlet extends HttpServlet {
                 }
             }
         }
-
+        //Fim Varredura
+        //Se usuário estiver logado pode prosseguir para página
         if (logado) {
-            if (tarefa != null) {
-                if (tarefa.equals("Editando")) {
-                    usuario.setId(Integer.parseInt(id));
-                    usuario = usuarioController.UsuarioPropriedades(usuario);
-                    endereco = enderecoController.EnderecoUsuario(usuario.getIdUsuario());
-                    url = "/cadastroUsuario.jsp";
-                    request.setAttribute("ID_USUARIO", usuario.getIdUsuario());
-                    request.setAttribute("cpf", usuario.getCpfCnpj());
-                    request.setAttribute("dataNasc", usuario.getDataNasc());
-                    request.setAttribute("email", usuario.getEmail());
-                    request.setAttribute("nome", usuario.getNome());
-                    request.setAttribute("rg", usuario.getRg());
-                    request.setAttribute("senha", usuario.getSenha());
-                    request.setAttribute("sexo", usuario.getSexo());
-                    request.setAttribute("telefone", usuario.getTelefone());
-                    request.setAttribute("cep",endereco.getCep());
-                    request.setAttribute("rua",endereco.getRua());
-                    request.setAttribute("bairro",endereco.getBairro());
-                    request.setAttribute("numero",endereco.getNumero());
-                    request.setAttribute("complemento",endereco.getComplemento());
-                    request.setAttribute("tarefa", "Editar");
-                    
-                }
-            }
+            url = "/gerenciamentoUsuarios.jsp";
 
+            //Filtro para tela de gerenciamento de usuário
             String filtroFilial = "";
             String filtroPerfil = "";
             if (request.getParameter("filtroFiliais") != null || request.getParameter("filtroPerfil") != null) {
@@ -108,73 +90,144 @@ public class UsuarioServlet extends HttpServlet {
             FilialController FilialController = new FilialController();
             List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");
             request.setAttribute("filiais", filiais);
-            url = "/gerenciamentoUsuarios.jsp";
+            PerfilController perfilController = new PerfilController();
+            List<PerfilModel> perfis = perfilController.PerfisCadastrados("", "");
+            request.setAttribute("perfis", perfis);
+            //Fim filtros
+            
+            
+            //Se houve alguma tarefa a ser feita Seja Edita/Editar/Criando/Criar/Atualizar entra no IF
             if (tarefa != null) {
-                if (tarefa.equals("Editando")) {
-                    
-                    url = "/cadastroUsuario.jsp";
-                }
-            }
-
-            //response.sendRedirect(request.getContextPath() + url);
-            //response.sendRedirect(url);
-            //Pegando parâmetros e atribuindo a model
-            if (request.getParameter("cpf") != null && request.getParameter("rg") != null && request.getParameter("email") != null && request.getParameter("email") != null) {
-                url = "/cadastroUsuario.jsp";
-                if (request.getParameter("ID_USUARIO") != null) {
-                    usuario.setId(Integer.parseInt(request.getParameter("ID_USUARIO")));
-                }
-                
-                usuario.setUserInclusao(Integer.parseInt(cook.getValue()));
-                usuario.setCpfCnpj(request.getParameter("cpf").replace("-", ""));
-                usuario.setRg(request.getParameter("rg").replace("-", ""));
-                usuario.setNome(request.getParameter("nome"));
-                usuario.setEmail(request.getParameter("email"));
-                usuario.setSenha(request.getParameter("senha"));
-                usuario.setTelefone(Long.parseLong(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
-                usuario.setSexo(request.getParameter("sexo"));
-                usuario.setEmpresa(1);
-                usuario.setDataNasc(request.getParameter("dataNasc"));
-                Date dataIncl = new Date();
-                usuario.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
-            //Fim atribuição
-
-                //Cadastro de usuário
-                boolean ok = true;
-                if (tarefa.equals("Cadastro")) {
-                    ok = usuarioController.Save(usuario);
-                }
-                if (tarefa.equals("Editar")) {
-                    ok = usuarioController.Update(usuario);
-                }
-                url = "/gerenciamentoUsuarios.jsp";
-                //Fim cadastro
-                if (ok) {
-                    //Retorno do usuário cadastrado
-                    usuario = usuarioController.UsuarioPropriedades(usuario);
-                    //Pegando parâmetros e atribuindo a model
-                    String cep = request.getParameter("cep");
-                    String rua = request.getParameter("rua");
-                    String bairro = request.getParameter("bairro");
-                    String numero = request.getParameter("numero");
-                    String complemento = request.getParameter("complemento");
-
-                    
-                //Fim atribuição
-
-                    //Cadastro endereço
-                    boolean okEndereco = enderecoController.Save(endereco);
-                    //Fim cadastro
-
-                    if (okEndereco) {
-                        url = "/gerenciamentoUsuarios.jsp";
+                if (!tarefa.equals("Cancelar")) {
+                    //Se o usuário estiver editando um cadastro o select será feito e passado para o front para ser manipulado
+                    if (tarefa.equals("Editando")) {
+                        usuario.setId(Integer.parseInt(id));
+                        usuario = usuarioController.UsuarioPropriedades(usuario);
+                        endereco = enderecoController.EnderecoUsuario(usuario.getIdUsuario());
+                        url = "/cadastroUsuario.jsp";
+                        request.setAttribute("ID_USUARIO", usuario.getIdUsuario());
+                        request.setAttribute("cpf", usuario.getCpfCnpj());
+                        request.setAttribute("dataNasc", usuario.getDataNasc());
+                        request.setAttribute("email", usuario.getEmail());
+                        request.setAttribute("nome", usuario.getNome());
+                        request.setAttribute("rg", usuario.getRg());
+                        request.setAttribute("senha", usuario.getSenha());
+                        request.setAttribute("sexo", usuario.getSexo());
+                        request.setAttribute("telefone", usuario.getTelefone());
+                        request.setAttribute("cep", endereco.getCep());
+                        request.setAttribute("rua", endereco.getRua());
+                        request.setAttribute("bairro", endereco.getBairro());
+                        request.setAttribute("numero", endereco.getNumero());
+                        request.setAttribute("complemento", endereco.getComplemento());
+                        request.setAttribute("tarefa", "Editar");
+                        request.setAttribute("ID_ENDERECO", endereco.getId());
+                        url = "/cadastroUsuario.jsp";
                     }
+                    //Fim carregamento
+                    //Se o usuário estiver criando um usuário novo ele é direcionado para a página de criação
+                    if (tarefa.equals("Criando")) {
 
+                        url = "/cadastroUsuario.jsp";
+                    }
+                    //Fim criação
+                    //Se o usuário estiver excluindo será encaminhado para mesma página
+                    if (tarefa.equals("Excluir")) {
+
+                        url = "/gerenciamentoUsuarios.jsp";
+                        usuarioController.Delete(Integer.parseInt(id), Integer.parseInt(cook.getValue()));
+                    }
+                    //Fim exclusão
+                    
+                    //Se o usuário tiver preenchido os campos na tela de cadastro mesmo que editando entrar neste if
+                    if (request.getParameter("cpf") != null && request.getParameter("rg") != null && request.getParameter("email") != null && request.getParameter("email") != null) {
+                        url = "/cadastroUsuario.jsp";
+                        
+                        //Se o usuário estiver editando ele irá pegar o ID_usuario passado pro front em uma label hiden
+                        if (request.getParameter("ID_USUARIO") != null && !request.getParameter("ID_USUARIO").equals("")) {
+                            usuario.setId(Integer.parseInt(request.getParameter("ID_USUARIO")));
+                        }
+                        //Fim resgate de ID
+                        
+                        //Recuperando informações inputadas ou que consistem na tela
+                        usuario.setUserInclusao(Integer.parseInt(cook.getValue()));
+                        usuario.setCpfCnpj(request.getParameter("cpf").replace("-", ""));
+                        usuario.setRg(request.getParameter("rg").replace("-", ""));
+                        usuario.setNome(request.getParameter("nome"));
+                        usuario.setEmail(request.getParameter("email"));
+                        usuario.setSenha(request.getParameter("senha"));
+                        usuario.setTelefone(Long.parseLong(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
+                        usuario.setSexo(request.getParameter("sexo"));
+                        usuario.setEmpresa(1);
+                        usuario.setDataNasc(request.getParameter("dataNasc"));
+                        Date dataIncl = new Date();
+                        usuario.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
+                        usuario.setIdFilial(Integer.parseInt(request.getParameter("filial")));
+                        usuario.setIdPerfil(Integer.parseInt(request.getParameter("perfil")));
+                        //Fim atribuição
+
+                        
+                        boolean ok = true;
+                        //Cadastro de usuário
+                        if (tarefa.equals("Cadastro")) {
+                            ok = usuarioController.Save(usuario);
+                        }
+                        //Fim cadastro
+                        //Editando usuário
+                        if (tarefa.equals("Editar")) {
+                            ok = usuarioController.Update(usuario);
+                        }
+                        //Fim edição
+                        
+                        url = "/gerenciamentoUsuarios.jsp";
+                        //Se o usuário do cadastro foi efetuado com sucesso ele irá cadastrar/atualizar o endereço
+                        if (ok) {
+                            
+                            //Retorno do usuário cadastrado
+                            usuario = usuarioController.UsuarioPropriedades(usuario);
+                            //Pegando parâmetros e atribuindo a model
+                            
+                            //Se estiver editando irá pegar o ID_endereço enviado ao front
+                            if (request.getParameter("ID_ENDERECO") != null && !request.getParameter("ID_ENDERECO").equals("")) {
+                                endereco.setId(Integer.parseInt(request.getParameter("ID_ENDERECO")));
+                            }
+                            //Fim get
+                            
+                            //Recuperando valores e setando na model
+                            endereco.setIdUsuario(usuario.getIdUsuario());
+                            endereco.setCep(request.getParameter("cep"));
+                            endereco.setRua(request.getParameter("rua"));
+                            endereco.setBairro(request.getParameter("bairro"));
+                            endereco.setNumero(request.getParameter("numero"));
+                            endereco.setComplemento(request.getParameter("complemento"));
+                            //Fim atribuição
+                            
+                            //Cadastro endereço
+                            boolean okEndereco = false;
+                            if (tarefa.equals("Cadastro")) {
+                                okEndereco = enderecoController.Save(endereco);
+                            }
+                            //Fim cadastro
+                            
+                            //Atualizar endereço
+                            if (tarefa.equals("Editar")) {
+                                okEndereco = enderecoController.Update(endereco);
+                            }
+                            //Fim atualização
+                            
+                            
+                            url = "/gerenciamentoUsuarios.jsp";
+
+                        }
+                        //Fim cadastro endereço
+
+                    }
+                    //Fim preenchimento
                 }
-
             }
-
+            //Fim tarefas
         }
+        //Fim usuario Logado
+        
         try {
 
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

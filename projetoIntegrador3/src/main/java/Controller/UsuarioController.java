@@ -14,7 +14,7 @@ public class UsuarioController {
         return UsuarioDAO.cadastrarUsuario(Usuario);
 
     }
-    
+
     public boolean Update(UsuarioModel Usuario) {
         return UsuarioDAO.atualizarUsuario(Usuario);
 
@@ -31,5 +31,9 @@ public class UsuarioController {
 
     public List<UsuarioModel> UsuariosCadastrados(String filtroFilial, String filtroPerfil) {
         return UsuarioDAO.UsuariosCadastrados(filtroFilial, filtroPerfil);
+    }
+
+    public boolean Delete(int idUsuarioExclusao, int idUsuarioExcluindo) {
+        return UsuarioDAO.excluirUsuario(idUsuarioExclusao, idUsuarioExcluindo);
     }
 }

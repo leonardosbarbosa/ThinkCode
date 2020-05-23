@@ -58,6 +58,7 @@ public class EnderecoDAO {
                 endereco.setRua(rs.getString("rua"));
                 endereco.setNumero(rs.getString("numero"));
                 endereco.setComplemento(rs.getString("complemento"));
+                endereco.setId(Integer.parseInt(rs.getString("id_endereco")));
 
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -91,5 +92,28 @@ public class EnderecoDAO {
             Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    
+    public static boolean atualizarEndereco(EnderecoModel endereco) {
+        boolean ok = false;
+        Connection con;
+        try {
+            con = ConnectionDB.obterConexao();
+            String sql = "update endereco set id_usuario = ?, cep = ?, rua = ?, bairro = ?, numero = ?, complemento= ? where id_endereco = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, endereco.getIdUsuario());
+            ps.setString(2, endereco.getCep());
+            ps.setString(3, endereco.getRua());
+            ps.setString(4, endereco.getBairro());
+            ps.setString(5, endereco.getNumero());
+            ps.setString(6, endereco.getComplemento());
+            ps.setInt(7, endereco.getId());
+            ps.execute();
+            ok = true;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ok;
     }
 }

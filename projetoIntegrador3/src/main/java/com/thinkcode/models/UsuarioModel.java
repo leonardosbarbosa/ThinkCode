@@ -27,6 +27,8 @@ public class UsuarioModel extends Criptografia {
     private int userInclusao;
     private String dataExclusao;
     private int userExclusao;
+    private String nomeFilial;
+    private String nomePerfil;
 
     public UsuarioModel() {
     
@@ -184,5 +186,20 @@ public class UsuarioModel extends Criptografia {
 
     public void setUserExclusao(int userExclusao) {
         this.userExclusao = userExclusao;
+    }
+    
+    public String getNomeFilial() {
+        return nomeFilial;
+    }
+
+    public void setNomeFilial(String nomeFilial) {
+        this.nomeFilial = nomeFilial;
+    }
+     public String getNomePerfil() {
+        return nomePerfil;
+    }
+
+    public void setNomePerfil(String nomePerfil) {
+        this.nomePerfil = nomePerfil;
     }
 }

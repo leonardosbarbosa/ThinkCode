@@ -207,7 +207,7 @@
 
                 <!-- /.sidebar-shortcuts -->
 
-                    <ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="index.html">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -329,7 +329,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                           
+
 
                         </ul>
                     </li>
@@ -362,7 +362,7 @@
                                                 <div class="inline position-relative">
                                                     <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
                                                         <i class="ace-icon fa fa-circle light-green"></i> &nbsp;
-                                                        <span class="white">{nomeUsuario}</span>
+                                                        <span class="white">${nome}</span>
                                                     </a>
 
 
@@ -553,30 +553,24 @@
                                                                             <i class="ace-icon fa fa-user"></i>
                                                                         </span>
                                                                         <select class="" style="width: 100%;" name="perfil">
-                                                                            <option>
-                                                                                Cliente
-                                                                            </option>
-                                                                            <option>
-                                                                                Vendedor
-                                                                            </option>
-                                                                            <option>
-                                                                                Fornecedor
-                                                                            </option>
+                                                                            <option></option>
+                                                                            <c:forEach var="perfil" items="${perfis}">
+                                                                                <option value="${perfil.idPerfil}">
+                                                                                    ${perfil.tipo}
+                                                                                </option>
+                                                                            </c:forEach>
                                                                         </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Filial</label>
                                                                     <select class="form-group" style="width: 100%;" name="filial">
-                                                                        <option>
-                                                                            Matriz
-                                                                        </option>
-                                                                        <option>
-                                                                            Belo Horizonte
-                                                                        </option>
-                                                                        <option>
-                                                                            Santos
-                                                                        </option>
+                                                                        <option></option>
+                                                                        <c:forEach var="filial" items="${filiais}">
+                                                                            <option value="${filial.idFilial}">
+                                                                                ${filial.nome}
+                                                                            </option>
+                                                                        </c:forEach>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -589,12 +583,13 @@
                                                 </div>
                                             </div>
                                             <input name="ID_USUARIO" style="display: none" value="${ID_USUARIO}"/>
+                                            <input name="ID_ENDERECO" style="display: none" value="${ID_ENDERECO}"/>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <a src="gerenciamentoUsuarios.jsp" class="btn btn-sm btn-danger right" style="float: right;">
+                                                <button type="submit" name="tarefa" value="Cancelar" class="btn btn-sm btn-danger right" style="float: right;">
                                                     Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
-                                                </a>                                            
+                                                </button>                                            
 
 
                                                 <c:choose>
@@ -604,7 +599,7 @@
                                                         </c:when>
                                                         <c:otherwise>
                                                             <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="${tarefa}" name="tarefa">
-                                                                Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                                                Editar &nbsp; <i class="ace-icon fa fa-save"></i>
                                                             </button>
                                                         </c:otherwise>
                                                     </c:choose>

@@ -29,6 +29,10 @@
         <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
         <link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
 
+        <!--Data Table import-->
+        <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+
+
         <!--[if lte IE 9]>
                           <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
                         <![endif]-->
@@ -210,7 +214,7 @@
 
                 <!-- /.sidebar-shortcuts -->
 
-                   <ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="index.html">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -332,7 +336,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                           
+
 
                         </ul>
                     </li>
@@ -371,6 +375,7 @@
                                                     <div class="col-lg-6">
                                                         <label for="number-button" class="block">Filial</label>
                                                         <select class="form-group" style="width: 100%;" name="filtroFiliais">
+                                                            <option></option>
                                                             <c:forEach var="filial" items="${filiais}">
                                                                 <option value="${filial.idFilial}">
                                                                     ${filial.nome}
@@ -382,18 +387,14 @@
                                                     <div class="col-lg-6">
                                                         <label for="number-button" class="block">Perfil</label>
                                                         <select class="form-group" style="width: 100%;" name="filtroPerfil">
-                                                            <c:forEach var="perfil" items="${perfils}">
+                                                            <option></option>
+                                                            <c:forEach var="perfil" items="${perfis}">
                                                                 <option value="${perfil.idPerfil}">
                                                                     ${perfil.tipo}
                                                                 </option>
                                                             </c:forEach>
-                                                            <option></option>
-                                                            <option value="1">
-                                                                Administrador
-                                                            </option>
-                                                            <option value="2">
-                                                                Diretoria
-                                                            </option>
+
+
                                                         </select>
                                                     </div>
 
@@ -401,15 +402,15 @@
 
                                                 </div>
 
-                                                <label>  <a class="btn btn-sm btn-success " href="cadastroUsuario.jsp"
-                                                            style="float: right; margin-right: 2px;">
+                                                <label>  <button class="btn btn-sm btn-success " type="submit" name="tarefa"
+                                                                 style="float: right; margin-right: 2px;" value="Criando">
                                                         Novo Usuario &nbsp; <i class="ace-icon glyphicon glyphicon-save"></i>
-                                                    </a>
+                                                    </button>
                                                     <button class="btn btn-sm btn-warning right" style="float: right; margin-right: 2px;" >
                                                         Limpar &nbsp;<i class="ace-icon fa fa-undo"></i>
                                                     </button>
                                                     <button class="btn btn-sm btn-info"
-                                                            style="float: right; margin-right: 2px;" type="submit">
+                                                            style="float: right; margin-right: 2px;" type="submit" id="btnBuscar">
                                                         Buscar &nbsp; <i class="ace-icon glyphicon glyphicon-search"></i>
                                                     </button>
 
@@ -423,17 +424,16 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <table id="simple-table" class="table  table-bordered table-hover">
+                                <table id="tabelaUsuarios" class="table  table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th id="id"> ID </th>
                                             <th> Nome </th>
                                             <th> E-mail </th>
                                             <th> Telefone </th>
-                                            <th> Filial </th>
-                                            <th> Cargo </th>
-                                            <th> Cadastro </th>
+                                            <th> Filial </th>                                           
                                             <th> Perfil</th>
+                                            <th> Cadastro </th>
                                             <th>Gerenciar</th>
                                         </tr>
                                     </thead>
@@ -455,14 +455,17 @@
                                                 <td>
                                                     ${usuario.telefone}
                                                 </td>
-                                                <td></td>
-                                                <td ></td>
-                                                <td></td>
-
-                                                <td >
-
+                                                <td>
+                                                    ${usuario.nomeFilial}
                                                 </td>
 
+                                                <td>
+                                                    ${usuario.nomePerfil}
+                                                </td>
+
+                                                <td >
+                                                    ${usuario.dataInclusao} 
+                                                </td>
                                                 <td>
                                                     <div class="hidden-sm hidden-xs btn-group">
 
@@ -471,7 +474,7 @@
                                                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                         </button>
 
-                                                        <button class="btn btn-xs btn-danger">
+                                                        <button class="btn btn-xs btn-danger" value="${usuario.idUsuario}" onclick="window.delete(${usuario.idUsuario})">
                                                             <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                         </button>
 
@@ -488,6 +491,11 @@
                                 <input  name="id" style="display: none" type="text" id="valorEditar"/>
                                 <input  name="tarefa" style="display: none" type="text" value="Editando" />
                                 <button type="submit" style="display: none" id="enviarEditacao"></button>
+                            </form>
+                              <form method="" action="UsuarioServlet" >
+                                <input  name="id" style="display: none" type="text" id="valorExcluir"/>
+                                <input  name="tarefa" style="display: none" type="text" value="Excluir" />
+                                <button type="submit" style="display: none" id="enviarExclusao"></button>
                             </form>
                             <!-- /.span -->
                         </div>
@@ -556,35 +564,28 @@
                     <script src="assets/js/ace-elements.min.js"></script>
                     <script src="assets/js/ace.min.js"></script>
 
-
+                    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
-                    jQuery(function ($) {
-
-                        window.displaymessage = function (user)
-                        {
-                            $('#valorEditar').val(user);
-                            $('#enviarEditacao').click();
-/*
-                            $.ajax({
-                                url: "UsuarioServlet",
-                                type: "POST",
-                                data: {
-                                    tarefa: 'Editar'
-                                },
-                            })
-                                    .success(function (e) {
-                                        //do success stuff
-                                console.log("Sucessor " + e)
-                                        //window.location = "UsuarioServlet?Teste=1";
-                                         $(location).attr('href','cadastroUsuario.jsp');
-                                    })
-                                    .error(function (e) {
-                                        //do error handling stuff
-                                        console.log('Erro' + e.toString())
-                                    })
-                                    */
-                        }
+                                                            jQuery(function ($) {
+                                                                $('#tabelaUsuarios').DataTable({
+                                                                    "language": {
+                                                                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                                                                    }
+                                                                });
+                                                                window.displaymessage = function (user)
+                                                                {
+                                                                    $('#valorEditar').val(user);
+                                                                    $('#enviarEditacao').click();
+                                                                    
+                                                                    
+                                                                }
+                                                                window.delete = function (user)
+                                                                {                                                                    
+                                                                    $('#valorExcluir').val(user);
+                                                                    $('#enviarExclusao').click();
+                                                                   
+                                                                }
 
                         <%
                             Cookie[] cookies = request.getCookies();

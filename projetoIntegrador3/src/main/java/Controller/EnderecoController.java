@@ -16,4 +16,8 @@ public class EnderecoController {
     public EnderecoModel EnderecoUsuario(int Id_Usuario) {
         return EnderecoDAO.consultarEndrecoIdUsuario(Id_Usuario);
     }
+    
+      public boolean Update(EnderecoModel endereco) {
+        return EnderecoDAO.atualizarEndereco(endereco);
+    }
 }

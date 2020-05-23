@@ -1,5 +1,6 @@
 com\thinkcode\DAO\UsuarioDAO.class
 com\thinkcode\models\ItensVenda.class
+com\thinkcode\models\AcompanheModel.class
 com\thinkcode\models\Venda.class
 com\thinkcode\db\ConnectionDB.class
 com\thinkcode\models\UsuarioModel.class
@@ -8,6 +9,8 @@ com\thinkcode\models\RelatorioModel.class
 com\thinkcode\models\Status_Venda.class
 Controller\PerfilController.class
 com\thinkcode\models\ProdutoModel.class
+com\thinkcode\models\DetalhePedido.class
+com\thinkcode\models\PedidoModel.class
 Controller\ProdutoController.class
 com\thinkcode\servlet\UsuarioServlet.class
 com\thinkcode\models\Criptografia.class

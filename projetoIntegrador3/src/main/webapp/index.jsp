@@ -56,7 +56,7 @@
   <div>
     <div class="card" style="width:50%; ;">
       <div style="width: -90%;;">
-        <img class="card-img-top" src="img/imgHistoria.jpg">
+          <img class="card-img-top" src="/img/imgHistoria.jpg">
       </div>
       <div class="card-body">
         <p class="card-text">Fundada em fevereiro de 2000, Tink Code vem obtendo um crescimento grande na aréa de vendas

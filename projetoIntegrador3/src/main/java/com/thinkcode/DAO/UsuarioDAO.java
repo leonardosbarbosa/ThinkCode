@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -35,8 +37,8 @@ public class UsuarioDAO {
             String sql = "insert into usuario (id_perfil, id_filial, cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, data_nascimento, data_inclusao, usr_inclusao)"
                     + " values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, 1);
-            ps.setInt(2, 1);
+            ps.setInt(1, usuario.getIdPerfil());
+            ps.setInt(2, usuario.getIdFilial());
             ps.setString(3, usuario.getCpfCnpj());
             ps.setString(4, usuario.getRg());
             ps.setString(5, usuario.getNome());
@@ -71,8 +73,8 @@ public class UsuarioDAO {
             String sql = "update usuario set id_perfil = ?, id_filial = ?, cpf_cnpj = ?, rg = ?, nome = ?, email = ?, senha = ?, telefone = ?, sexo = ?, empresa = ?, data_nascimento = ?, data_inclusao = ?, usr_inclusao= ? "
                     + "  where id_usuario = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, 1);
-            ps.setInt(2, 1);
+            ps.setInt(1, usuario.getIdPerfil());
+            ps.setInt(2, usuario.getIdFilial());
             ps.setString(3, usuario.getCpfCnpj());
             ps.setString(4, usuario.getRg());
             ps.setString(5, usuario.getNome());
@@ -176,13 +178,17 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    public static boolean excluirUsuario(int idUsuario) {
+    public static boolean excluirUsuario(int idUsuarioExclusao , int idUsuarioExcluindo) {
         Connection con;
-        Date date = new Date();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+        LocalDateTime now = LocalDateTime.now();  
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update from usuario set dt_exclusao = " + date + " where id_usuario like '%" + idUsuario + "%'");
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement ps = con.prepareStatement("update  usuario set data_exclusao = ?, usr_exclusao = ? where id_usuario = ?" );
+            ps.setString(1, dtf.format(now));
+            ps.setInt(2, idUsuarioExcluindo);
+            ps.setInt(3, idUsuarioExclusao);
+            ps.executeUpdate();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -208,15 +214,18 @@ public class UsuarioDAO {
         List<UsuarioModel> usuarios = new ArrayList<UsuarioModel>();
 
         try {
-            String sqlState = "select * from usuario";
+            String sqlState = "select * from usuario as us"
+                              + " left join filial as fi on us.id_filial = fi.id_filial"
+                              + " left join perfil as pe on us.id_perfil = pe.id_perfil"
+                              + " where us.data_exclusao is null";
             if (filtroFilial != null && !filtroFilial.equals("")) {
-                sqlState += " where id_filial = " + filtroFilial;
+                sqlState += " and us.id_filial = " + filtroFilial;
             }
             if (filtroPerfil != null && !filtroPerfil.equals("")) {
                 if (filtroFilial != null && !filtroFilial.equals("")) {
-                    sqlState += " and id_filial = " + filtroPerfil;
+                    sqlState += " and us.id_perfil = " + filtroPerfil;
                 } else {
-                    sqlState += " where id_filial = " + filtroPerfil;
+                    sqlState += " and us.id_perfil = " + filtroPerfil;
                 }
 
             }
@@ -241,6 +250,8 @@ public class UsuarioDAO {
                 usuario.setTelefone(rs.getLong("telefone"));
                 usuario.setUserExclusao(rs.getInt("usr_exclusao"));
                 usuario.setUserInclusao(rs.getInt("usr_inclusao"));
+                usuario.setNomeFilial(rs.getString("fi.Nome"));
+                usuario.setNomePerfil(rs.getString("pe.tipo"));
                 usuarios.add(usuario);
             }
         } catch (ClassNotFoundException | SQLException ex) {

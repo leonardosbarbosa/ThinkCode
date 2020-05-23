@@ -47,6 +47,12 @@
         <!-- ace settings handler -->
         <script src="assets/js/ace-extra.min.js"></script>
 
+        <!--Data Table import-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+
         <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
         <!--[if lte IE 8]>
@@ -210,7 +216,7 @@
 
                 <!-- /.sidebar-shortcuts -->
 
-                   <ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="index.html">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -332,7 +338,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                           
+
 
                         </ul>
                     </li>
@@ -425,7 +431,7 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <table id="simple-table" class="table  table-bordered table-hover">
+                                <table id="tabelaUsuarios" class="table  table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th id="id"> ID Produto </th>
@@ -558,6 +564,8 @@
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
                                                             jQuery(function ($) {
+
+                                                                $('#tabelaUsuarios').DataTable();
 
                                                                 window.displaymessage = function (user)
                                                                 {
