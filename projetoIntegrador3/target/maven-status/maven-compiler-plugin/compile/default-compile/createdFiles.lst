@@ -24,6 +24,7 @@ Controller\EnderecoController.class
 com\thinkcode\servlet\IndexServlet.class
 com\thinkcode\DAO\StatusVendaDAO.class
 com\thinkcode\servlet\ControleAcessoServlet.class
+com\thinkcode\servlet\ModalServlet.class
 com\thinkcode\servlet\LoginServlet.class
 Controller\RelatorioController.class
 com\thinkcode\servlet\ProdutoServlet.class

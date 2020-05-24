@@ -234,7 +234,7 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="#">
+                                <a href="RelatorioServlet">
                                     <i class="menu-icon fa fa-caret-right"></i> Vendas
                                 </a>
 
@@ -370,8 +370,9 @@
                                                 <div class="form-group">
                                                     <div class="col-lg-6">
                                                         <label for="number-button" class="block">Tipo</label>
-                                                        <select class="form-group" style="width: 100%;" name="filtroFiliais">
-                                                            <c:forEach var="perfil" items="${perfis}">
+                                                        <select class="form-group" style="width: 100%;" name="filtroTipoPerfil">
+                                                            <option></option>
+                                                            <c:forEach var="perfil" items="${perfis}">                                                                
                                                                 <option value="${perfil.idPerfil}">
                                                                     ${perfil.tipo}
                                                                 </option>
@@ -381,25 +382,15 @@
 
                                                     <div class="col-lg-6">
                                                         <label for="number-button" class="block">Descricao</label>
-                                                        <select class="form-group" style="width: 100%;" name="filtroPerfil">
-                                                            <c:forEach var="perfil" items="${perfis}">
-                                                                <option value="${perfil.idPerfil}">
-                                                                    ${perfil.descricao}
-                                                                </option>
-                                                            </c:forEach>
-                                                            <option></option>
-                                                            <option value="1">
-                                                                Administrador
-                                                            </option>
-                                                            <option value="2">
-                                                                Diretoria
-                                                            </option>
-                                                        </select>
+                                                        <input type="text" name="filtroPerfilDescricao" class="form-control" >
                                                     </div>
 
 
 
                                                 </div>
+                                                <br> &nbsp;
+                                                <br> &nbsp;
+                                                
 
                                                 <label>  <a class="btn btn-sm btn-success " href="cadastroPerfil.jsp"
                                                             style="float: right; margin-right: 2px;"  >

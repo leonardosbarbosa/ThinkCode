@@ -72,11 +72,11 @@ public class PerfilDAO {
         Connection con;
         Date date = new Date();
         String data = date.toInstant().toString().substring(0, 10);
-        
+
         try {
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("update perfil set data_exclusao = '" + data + "', usr_exclusao = " + userExclusao + " where id_perfil = " + idPerfil);
-            
+
             ps.executeUpdate();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -104,8 +104,11 @@ public class PerfilDAO {
 
         try {
             String sqlState = "select * from perfil WHERE data_exclusao is null";
-            if (filtroDescricao != null && !filtroDescricao.equals("") && filtroTipo != null && !filtroTipo.equals("")) {
-                sqlState += " and id_filial = " + filtroDescricao + " and tipo = '" + filtroTipo + "'";
+            if (filtroDescricao != null && !filtroDescricao.equals("")) {
+                sqlState += " and descricao like '%" + filtroDescricao + "%'";
+            }
+            if (filtroTipo != null && !filtroTipo.equals("")) {
+                sqlState += " and id_perfil = " + filtroTipo;
             }
 
             con = ConnectionDB.obterConexao();

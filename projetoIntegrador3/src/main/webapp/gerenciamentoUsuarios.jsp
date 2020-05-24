@@ -238,7 +238,7 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="#">
+                                <a href="RelatorioServlet">
                                     <i class="menu-icon fa fa-caret-right"></i> Vendas
                                 </a>
 

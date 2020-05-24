@@ -1,3 +1,10 @@
+<%@page import="java.util.List"%>
+<%@page import="com.thinkcode.models.RelatorioModel"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -356,7 +363,7 @@
                     <div class="page-content">
                         <!-- /.ace-settings-container -->
                         <!-- Filtros -->
-                      <div class="row">
+                        <div class="row">
                             <div class="col-sm-12">
                                 <div class="widget-box">
                                     <div class="widget-header">
@@ -483,7 +490,7 @@
                                                 </td>
 
                                                 <td >
-                                                   R$ ${relatorio.total} 
+                                                    R$ ${relatorio.total} 
                                                 </td>                
                                                 <td >
                                                     ${relatorio.data} 
@@ -504,17 +511,17 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <form method="" action="UsuarioServlet" >
+                            <form method="POST" action="" >
                                 <input  name="id" style="display: none" type="text" id="valorEditar"/>
-                                <input  name="tarefa" style="display: none" type="text" value="Editando" />
+                                <input  name="tarefa" style="display: none" type="text" value="modal" />
                                 <button type="submit" style="display: none" id="enviarEditacao"></button>
                             </form>
-                              <form method="" action="UsuarioServlet" >
-                                <input  name="id" style="display: none" type="text" id="valorExcluir"/>
-                                <input  name="tarefa" style="display: none" type="text" value="Excluir" />
-                                <button type="submit" style="display: none" id="enviarExclusao"></button>
-                            </form>
+
                             <!-- /.span -->
+                        </div>
+
+                        <div id="Modal" >
+
                         </div>
 
                         <div class="footer">
@@ -592,20 +599,34 @@
                                                                 });
                                                                 window.displaymessage = function (user)
                                                                 {
-                                                                    $('#valorEditar').val(user);
-                                                                    $('#enviarEditacao').click();
-                                                                    
-                                                                    
-                                                                }
-                                                                window.delete = function (user)
-                                                                {                                                                    
-                                                                    $('#valorExcluir').val(user);
-                                                                    $('#enviarExclusao').click();
-                                                                   
+                                                                    //$('#valorEditar').val(user);
+                                                                    //$('#enviarEditacao').click();
+                                                                    $.ajax({
+                                                                        url: "ModalServlet",
+                                                                        data: {
+                                                                            "id": user,
+                                                                            "tarefa": "modal"
+                                                                        },
+                                                                        type: 'POST',
+                                                                        success: function (response) {
+                                                                            //  Add in what to do when ajax call is successful
+                                                                            $('#Modal').html(response)
+                                                                            $('#my-modal').modal('show')
+                                                                            $('#tabelaprodutos').DataTable({
+                                                                                "language": {
+                                                                                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                                                                                }
+                                                                            })
+                                                                        },
+                                                                        error: function (xhr, ajaxOptions, thrownError) {
+                                                                            alert('error');
+                                                                        }
+
+
+                                                                    });
                                                                 }
 
-                        <%
-                            Cookie[] cookies = request.getCookies();
+                        <%                            Cookie[] cookies = request.getCookies();
                             for (Cookie atual : cookies) {
                                 if (atual.getName().equals("Perfil")) {
                                     int auxilio = Integer.parseInt(atual.getValue());

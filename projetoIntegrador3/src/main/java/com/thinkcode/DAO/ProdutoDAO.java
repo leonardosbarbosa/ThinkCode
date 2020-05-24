@@ -96,7 +96,7 @@ public class ProdutoDAO {
         Date date = new Date();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update produto set data_exclusao = '" + date.toInstant().toString().substring(0,10) + "',"
+            PreparedStatement ps = con.prepareStatement("update produto set data_exclusao = '" + date.toInstant().toString().substring(0, 10) + "',"
                     + "usr_exclusao = " + userExclusao + " where id_produto = " + idProduto);
             ps.execute();
             return true;
@@ -119,14 +119,20 @@ public class ProdutoDAO {
         return false;
     }
 
-    public static List<ProdutoModel> produtosCadastrados(String filtroFilial, String filtroTipo) {
+    public static List<ProdutoModel> produtosCadastrados(String filtroFilial, String filtroTipo, String filtroNome) {
         Connection con;
         List<ProdutoModel> produtos = new ArrayList<>();
 
         try {
             String sqlState = "select * from produto where data_exclusao is null ";
-            if (filtroFilial != null && !filtroFilial.equals("") && filtroTipo != null && !filtroTipo.equals("")) {
-                sqlState += "and id_filial = " + filtroFilial + " and tipo = '" + filtroTipo + "'";
+            if (filtroFilial != null && !filtroFilial.equals("") ) {
+                sqlState += "and id_filial = " + filtroFilial ;
+            }
+            if (filtroTipo != null && !filtroTipo.equals("")) {
+                sqlState += " and tipo = '" + filtroTipo + "'";
+            }
+             if (filtroNome != null && !filtroNome.equals("")) {
+                sqlState += "and nome = '" + filtroNome + "'";
             }
 
             con = ConnectionDB.obterConexao();

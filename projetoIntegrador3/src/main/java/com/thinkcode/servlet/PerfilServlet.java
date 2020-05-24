@@ -74,11 +74,11 @@ public class PerfilServlet extends HttpServlet {
 
             String filtroIDFilial = "";
             String filtroNome = "";
-            if (request.getParameter("filtroFiliais") != null || request.getParameter("filtroPerfil") != null) {
-                filtroIDFilial = request.getParameter("filtroFiliais");
-                filtroNome = request.getParameter("filtroNome");
+            if (request.getParameter("filtroPerfilDescricao") != null || request.getParameter("filtroTipoPerfil") != null) {
+                filtroIDFilial = request.getParameter("filtroTipoPerfil");
+                filtroNome = request.getParameter("filtroPerfilDescricao");
             }
-            List<PerfilModel> perfis = perfilController.PerfisCadastrados(filtroIDFilial, filtroNome);
+            List<PerfilModel> perfis = perfilController.PerfisCadastrados(filtroNome, filtroIDFilial);
             request.setAttribute("perfis", perfis);
             url = "/gerenciarPerfis.jsp";
             if (tarefa != null) {

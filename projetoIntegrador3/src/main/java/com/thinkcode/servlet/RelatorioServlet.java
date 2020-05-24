@@ -54,6 +54,7 @@ public class RelatorioServlet extends HttpServlet {
         cookies = Arrays.asList(request.getCookies());
         String url = "/login.jsp";
         boolean logado = false;
+        PrintWriter out = response.getWriter();
         //Fim instância       
 
         //Varredura de cookie para verificar se usuário está logado
@@ -65,17 +66,8 @@ public class RelatorioServlet extends HttpServlet {
                 }
             }
         }
-        //Fim Varredura
 
-        if (cookies != null) {
-            for (Cookie ck : cookies) {
-                if (ck.getName() != null && ck.getName().equals("Id_Usuario")) {
-                    cook = ck;
-                    logado = true;
-                }
-            }
-        }
-
+        //Fim Varredura        
         if (logado) {
             url = "/relatorio.jsp";
             FilialController FilialController = new FilialController();
@@ -88,6 +80,9 @@ public class RelatorioServlet extends HttpServlet {
             List<RelatorioModel> _relatorio = relatorioController.ProdutosCadastrados(relatorioModel);
             request.setAttribute("relatorio", _relatorio);
             ProdutoModel produto = relatorioModel.getProduto();
+            if (tarefa != null) {
+
+            }
         }
 
         try {
@@ -125,7 +120,9 @@ public class RelatorioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         processRequest(request, response);
+
     }
 
     /**

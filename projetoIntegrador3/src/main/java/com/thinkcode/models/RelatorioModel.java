@@ -22,6 +22,9 @@ public class RelatorioModel {
     private int parcelas;
     private Double total;
     private String data;
+    private String NomeProduto;
+    private int QuantidadeProduto;
+    private Double ValorProduto;
 
     public RelatorioModel() {
 
@@ -99,22 +102,22 @@ public class RelatorioModel {
         this.pagamento = pagamento;
     }
 
-      public int getparcelas() {
+    public int getparcelas() {
         return this.parcelas;
     }
 
     public void setparcelas(int parcelas) {
         this.parcelas = parcelas;
     }
-    
-      public Double gettotal() {
+
+    public Double gettotal() {
         return this.total;
     }
 
     public void settotal(Double total) {
         this.total = total;
     }
-    
+
     public void setdata(String data) {
         this.data = data;
     }
@@ -123,5 +126,28 @@ public class RelatorioModel {
         return this.data;
     }
 
+    public void setNomeProduto(String _produto) {
+        this.NomeProduto = _produto;
+    }
+
+    public String getNomeProduto() {
+        return this.NomeProduto;
+    }
+
+    public Double getValorProduto() {
+        return this.ValorProduto;
+    }
+
+    public void setValorProduto(Double valorProduto) {
+        this.ValorProduto = valorProduto;
+    }
+
+    public int getQuantidadeProduto() {
+        return this.QuantidadeProduto;
+    }
+
+    public void setQuantidadeProduto(int qtd) {
+        this.QuantidadeProduto = qtd;
+    }
 
 }

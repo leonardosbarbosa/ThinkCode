@@ -27,8 +27,8 @@ public class ProdutoController {
        return ProdutoDAO.consultarProduto(produto);
     }
 
-    public List<ProdutoModel> ProdutosCadastrados(String filtroFilial, String filtroPerfil) {
-        return ProdutoDAO.produtosCadastrados(filtroFilial, filtroPerfil);
+    public List<ProdutoModel> ProdutosCadastrados(String filtroFilial, String filtroTipo, String filtroNome) {
+        return ProdutoDAO.produtosCadastrados(filtroFilial, filtroTipo, filtroNome);
     }
 
     public boolean delete(int idProduto, int idUserExclusao) {

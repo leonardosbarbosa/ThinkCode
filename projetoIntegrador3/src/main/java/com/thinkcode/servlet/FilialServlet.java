@@ -101,7 +101,7 @@ public class FilialServlet extends HttpServlet {
 
             String filtroIDFilial = "";
             String filtroNome = "";
-            if (request.getParameter("filtroFiliais") != null || request.getParameter("filtroPerfil") != null) {
+            if (request.getParameter("filtroIDFilial") != null || request.getParameter("filtroNome") != null) {
                 filtroIDFilial = request.getParameter("filtroIDFilial");
                 filtroNome = request.getParameter("filtroNome");
             }
@@ -117,12 +117,12 @@ public class FilialServlet extends HttpServlet {
 
             //response.sendRedirect(request.getContextPath() + url);
             //response.sendRedirect(url);
-            //Pegando parâmetros e atribuindo a model
+            //Pegando parâmetros e atribuindo a  model
             if (request.getParameter("cnpj") != null && request.getParameter("nome") != null) {
                 url = "/cadastroFilial.jsp";
-//                if (request.getParameter("ID_FILIAL") != null && !request.getParameter("ID_FILIAL").equals("")) {
-//                    filial.setIdFilial(Integer.parseInt(request.getParameter("ID_FILIAL")));
-//                }
+                if (request.getParameter("ID_FILIAL") != null && !request.getParameter("ID_FILIAL").equals("")) {
+                    filial.setIdFilial(Integer.parseInt(request.getParameter("ID_FILIAL")));
+                }
                 filial.setUserInclusao(Integer.parseInt(cook.getValue()));
                 filial.setNome(request.getParameter("nome"));
                 filial.setTelefone(Long.parseLong(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));

@@ -237,7 +237,7 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="#">
+                                <a href="RelatorioServlet">
                                     <i class="menu-icon fa fa-caret-right"></i> Vendas
                                 </a>
 
@@ -372,45 +372,28 @@
                                             <div class="widget-main">
                                                 <div class="form-group">
                                                     <div class="col-lg-6">
-                                                        <label for="number-button" class="block">ID Filial</label>
+                                                        <label for="number-button" class="block">Filial</label>
                                                         <select class="form-group" style="width: 100%;" name="filtroIDFilial">
+                                                            <option></option>
                                                             <c:forEach var="filial" items="${filiais}">
                                                                 <option value="${filial.idFilial}">
                                                                     ${filial.nome}
                                                                 </option>
-                                                            </c:forEach>
-                                                            <option></option>
-                                                            <option value="1">
-                                                                Matriz
-                                                            </option>
-                                                            <option value="2">
-                                                                São Paulo
-                                                            </option>
+                                                            </c:forEach>                                                            
                                                         </select>
                                                     </div>
 
                                                     <div class="col-lg-6">
-                                                        <label for="number-button" class="block">Nome</label>
-                                                        <select class="form-group" style="width: 100%;" name="filtroNome">
-                                                            <c:forEach var="perfil" items="${perfils}">
-                                                                <option value="${perfil.idPerfil}">
-                                                                    ${perfil.tipo}
-                                                                </option>
-                                                            </c:forEach>
-                                                            <option></option>
-                                                            <option value="1">
-                                                                Administrador
-                                                            </option>
-                                                            <option value="2">
-                                                                Diretoria
-                                                            </option>
-                                                        </select>
+                                                        <label for="number-button" class="block">Endereço</label>
+                                                        <input type="text" name="filtroNome" class="form-control" >
                                                     </div>
 
 
 
                                                 </div>
 
+                                                <br> &nbsp;
+                                                <br> &nbsp;
                                                 <label>  <a class="btn btn-sm btn-success " href="cadastroFilial.jsp"
                                                             style="float: right; margin-right: 2px;">
                                                         Novo Usuario &nbsp; <i class="ace-icon glyphicon glyphicon-save"></i>
@@ -594,25 +577,6 @@
                                                                 {
                                                                     $('#valorEditar').val(user);
                                                                     $('#enviarEditacao').click();
-                                                                    /*
-                                                                     $.ajax({
-                                                                     url: "UsuarioServlet",
-                                                                     type: "POST",
-                                                                     data: {
-                                                                     tarefa: 'Editar'
-                                                                     },
-                                                                     })
-                                                                     .success(function (e) {
-                                                                     //do success stuff
-                                                                     console.log("Sucessor " + e)
-                                                                     //window.location = "UsuarioServlet?Teste=1";
-                                                                     $(location).attr('href','cadastroUsuario.jsp');
-                                                                     })
-                                                                     .error(function (e) {
-                                                                     //do error handling stuff
-                                                                     console.log('Erro' + e.toString())
-                                                                     })
-                                                                     */
                                                                 }
 
                         <%

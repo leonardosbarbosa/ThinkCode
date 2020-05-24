@@ -151,7 +151,7 @@
                                 <img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
                                 <span class="user-info">
                                     <small>Bem-vindo,</small>
-                                     <label id="lblNome"></label>
+                                    <label id="lblNome"></label>
                                 </span>
 
                                 <i class="ace-icon fa fa-caret-down"></i>
@@ -204,7 +204,7 @@
 
                 <!-- /.sidebar-shortcuts -->
 
-                   <ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="index.html">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -228,7 +228,7 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="#">
+                                <a href="RelatorioServlet">
                                     <i class="menu-icon fa fa-caret-right"></i> Vendas
                                 </a>
 
@@ -326,7 +326,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                           
+
 
                         </ul>
                     </li>
@@ -466,7 +466,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                                            <input name="ID_FILIAL" style="display: none" value="${ID_FILIAL}"/>
+                                    <input name="ID_FILIAL" style="display: none" value="${ID_FILIAL}"/>
                                 </div>
 
                                 <div class="row">
@@ -474,17 +474,18 @@
                                         <a src="index.html" class="btn btn-sm btn-danger right" style="float: right;">
                                             Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
                                         </a>
-                                         <c:choose>
-                                                        <c:when test= "${empty tarefa}">                                                           
-                                                         <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" name="tarefa" value="Cadastro">
-                                            Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                          <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" name="tarefa" value="${tarefa}">
-                                            Atualizar &nbsp; <i class="ace-icon fa fa-save"></i>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                      
+                                        <c:choose>
+                                            <c:when test= "${empty tarefa}">
+                                                <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" name="tarefa" value="Cadastro">
+                                                    Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" name="tarefa" value="${tarefa}">
+                                                    Atualizar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                            </c:otherwise>
+                                        </c:choose>
+
+
                                         </button>
                                     </div>
                                 </div>
@@ -569,23 +570,23 @@
                             autoclose: true,
                             todayHighlight: true
                         })
-                        
-                        
-                          <%
-                            Cookie[] cookies = request.getCookies();
-                            for (Cookie atual : cookies) {
-                                if (atual.getName().equals("Perfil")) {
-                                    int auxilio = Integer.parseInt(atual.getValue());
-                                    if (auxilio != 1) {
+
+
+                        <%
+                              Cookie[] cookies = request.getCookies();
+                              for (Cookie atual : cookies) {
+                                  if (atual.getName().equals("Perfil")) {
+                                      int auxilio = Integer.parseInt(atual.getValue());
+                                      if (auxilio != 1) {
                         %>
-                                                                $('#liCadastro').hide()
+                        $('#liCadastro').hide()
                         <%
                                 }
                             }
                             if (atual.getName().equals("Nome")) {
                                 String auxiliado = atual.getValue().substring(0, 8);
                         %>
-                                                                $('#lblNome').text('<%= auxiliado%>');
+                        $('#lblNome').text('<%= auxiliado%>');
                         <%
                                 }
 

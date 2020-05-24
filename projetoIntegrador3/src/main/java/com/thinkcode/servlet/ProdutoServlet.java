@@ -81,11 +81,11 @@ public class ProdutoServlet extends HttpServlet {
             //Fim atribuição
             String filtroIDFilial = "";
             String filtroNome = "";
-            if (request.getParameter("filtroFiliais") != null || request.getParameter("filtroPerfil") != null) {
+            if (request.getParameter("filtroFiliais") != null || request.getParameter("filtroNome") != null) {
                 filtroIDFilial = request.getParameter("filtroFiliais");
                 filtroNome = request.getParameter("filtroNome");
             }
-            List<ProdutoModel> produtos = produtoController.ProdutosCadastrados(filtroIDFilial, filtroNome);
+            List<ProdutoModel> produtos = produtoController.ProdutosCadastrados(filtroIDFilial, "", filtroNome);
             request.setAttribute("produtos", produtos);
             FilialController FilialController = new FilialController();
             List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");

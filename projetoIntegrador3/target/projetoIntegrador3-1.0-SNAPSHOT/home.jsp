@@ -6,8 +6,8 @@
 <%@ page import="java.util.*" %>  
 
 <%!
-    // --- String Join Function converts from Java array to javascript string.  
-    public String join(ArrayList<?> arr, String del) {
+   
+    public String joinLine(ArrayList<?> arr, String del) {
 
         StringBuilder output = new StringBuilder();
 
@@ -30,11 +30,38 @@
         return output.toString();
     }
 
-    public String joinPie(ArrayList<?> arr, String del) {
+    // --- String Join Function converts from Java array to javascript string.  
+    public String joinBar(ArrayList<?> arr, ArrayList<?> arr2, String del) {
+
+        StringBuilder output = new StringBuilder();
+        Random randColor = new Random();
+        for (int i = 0; i < arr.size(); i++) {
+            int r = randColor.nextInt(256);
+            int g = randColor.nextInt(256);
+            int b = randColor.nextInt(256);
+            output.append("{  \"values\": ");
+
+            // --- Quote strings, only, for JS syntax  
+            if (arr.get(i) instanceof String) {
+                output.append("\"");
+            }
+            output.append("[" + arr.get(i) + "]");
+            if (arr.get(i) instanceof String) {
+                output.append("\"");
+            }
+            output.append(", 'alpha': 0.6,'text': '" + arr2.get(i) + "'}, 'rgb(" + r + "," + g + "," + b + ")',");
+        }
+        return output.toString();
+    }
+
+    public String joinPie(ArrayList<?> arr, ArrayList<?> arr2, String del) {
+        Random randColor = new Random();
 
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < arr.size(); i++) {
-
+            int r = randColor.nextInt(256);
+            int g = randColor.nextInt(256);
+            int b = randColor.nextInt(256);
             if (i > 0) {
                 output.append(del);
             }
@@ -47,7 +74,7 @@
             if (arr.get(i) instanceof String) {
                 output.append("\"");
             }
-            output.append("  }  ");
+            output.append("  , 'background-color': 'rgb(" + r + "," + g + "," + b + ")',  'text':'" + arr2.get(i) + "' }");
         }
 
         return output.toString();
@@ -125,15 +152,12 @@
                     filial.add(Double.parseDouble(rs2.getString("total")));
                 }
                 conn.close();
-                
-                String Coisa = joinPie(filial, ",");
-            %>
 
-            // --- add a comma after each value in the array and convert to javascript string representing an array  
-            var monthData = [<%= join(months, ",")%>];
-            var userData = [<%= join(users, ",")%>];
-            var vendas = [<%= join(vendas, ",")%>];
-            var filial = '<%= joinPie(filial, ",")%>';
+                String DataPie = joinPie(filial, filialnome, ",");
+                String DataBar = joinBar(users, months, ",");
+                String DataLine = joinLine(vendas, ",");
+            %>
+                console.log(<%=DataPie%>)
         </script> 
         <script>
             window.onload = function () {
@@ -146,15 +170,44 @@
                         "title": {
                             "text": "Produtos Vendidos"
                         },
-                        "scale-x": {
-                            "labels": monthData
-                        },
                         "plot": {
+                            "border-color": "#636363",
+                            "border-width": 2,
+                            "border-radius": "3px",
+                            "line-style": "solid",
                             "line-width": 1
                         },
-                        "series": [{
-                                "values": userData
-                            }]
+                        "scale-y": {
+                            "line-color": "#7E7E7E",
+                            "item": {
+                                "font-color": "#7e7e7e"
+                            },
+                            "values": "0:60:10",
+                            "guide": {
+                                "visible": true
+                            },
+                            "label": {
+                                "text": " Quantidade",
+                                "font-family": "arial",
+                                "bold": true,
+                                "font-size": "14px",
+                                "font-color": "#7E7E7E",
+                            },
+                        },
+                        "scale-x": {
+                            "labels": ['Produtos']
+
+                        },
+                        "crosshair-x": {
+                            "line-width": "100%",
+                            "alpha": 0.18,
+                            "plot-label": {
+                                "header-text": "Quantidade"
+                            }
+                        },
+                        "series": [
+            <%=DataBar%>
+                        ]
                     }
                 });
                 zingchart.render({
@@ -162,9 +215,99 @@
                     height: 400,
                     id: 'chart-div',
                     data: {type: 'line',
+                        "utc": true,
+                        "title": {
+                            "text": "Vendas",
+                            "font-size": "24px",
+                            "adjust-layout": true
+                        }, "plotarea": {
+                            "margin": "dynamic 45 60 dynamic",
+                        },
+                        "legend": {
+                            "layout": "float",
+                            "background-color": "none",
+                            "border-width": 0,
+                            "shadow": 0,
+                            "align": "center",
+                            "adjust-layout": true,
+                            "toggle-action": "remove",
+                            "item": {
+                                "padding": 7,
+                                "marginRight": 17,
+                                "cursor": "hand"
+                            }
+                        },
+                        "scale-y": {
+                            "line-color": "#f6f7f8",
+                            "shadow": 0,
+                            "guide": {
+                                "line-style": "dashed"
+                            },
+                            "label": {
+                                "text": "Vendas(R$)",
+                            },
+                            "minor-ticks": 0,
+                            "thousands-separator": ","
+                        },
+                        "crosshair-x": {
+                            "line-color": "#efefef",
+                            "plot-label": {
+                                "border-radius": "5px",
+                                "border-width": "1px",
+                                "border-color": "#f6f7f8",
+                                "padding": "10px",
+                                "font-weight": "bold"
+                            },
+                            "scale-label": {
+                                "font-color": "#000",
+                                "background-color": "#f6f7f8",
+                                "border-radius": "5px"
+                            }
+                        },
+                        "tooltip": {
+                            "visible": false
+                        },
+                        "plot": {
+                            "highlight": true,
+                            "tooltip-text": "%t views: R$ %v<br>%k",
+                            "shadow": 0,
+                            "line-width": "2px",
+                            "marker": {
+                                "type": "circle",
+                                "size": 3
+                            },
+                            "highlight-state": {
+                                "line-width": 3
+                            },
+                            "animation": {
+                                "effect": 1,
+                                "sequence": 2,
+                                "speed": 100,
+                            }
+                        },
                         series: [
                             {
-                                values: vendas
+                                values: [<%=DataLine%>],
+                                "text": "Venda R$",
+                                "line-color": "#007790",
+                                "legend-item": {
+                                    "background-color": "#007790",
+                                    "borderRadius": 5,
+                                    "font-color": "white"
+                                },
+                                "legend-marker": {
+                                    "visible": false
+                                },
+                                "marker": {
+                                    "background-color": "#007790",
+                                    "border-width": 1,
+                                    "shadow": 0,
+                                    "border-color": "#69dbf1"
+                                },
+                                "highlight-marker": {
+                                    "size": 6,
+                                    "background-color": "#007790",
+                                }
                             }
                         ]}
                 });
@@ -172,7 +315,68 @@
                     id: 'chartpie',
                     data: {
                         type: 'pie',
-                        "series": [<%=Coisa%>]
+                        "title": {
+                            "text": "Venda por Filiais"
+                        },
+                        "legend": {
+                            "x": "75%",
+                            "y": "25%",
+                            "border-width": 1,
+                            "border-color": "gray",
+                            "border-radius": "5px",
+                            "header": {
+                                "text": "Filiais",
+                                "font-family": "Verdana",
+                                "font-size": 12,
+                                "font-color": "#3333cc",
+                                "font-weight": "normal"
+                            },
+                            "marker": {
+                                "type": "circle"
+                            },
+                            "toggle-action": "remove",
+                            "minimize": true,
+                            "icon": {
+                                "line-color": "#9999ff"
+                            },
+                            "max-items": 8,
+                            "overflow": "scroll"
+                        },
+                        "plot": {
+                            "animation": {
+                                "on-legend-toggle": true, //set to true to show animation and false to turn off
+                                "effect": 5,
+                                "method": 1,
+                                "sequence": 1,
+                                "speed": 2
+                            },
+                            "value-box": {
+                                "text": "%v",
+                                "font-size": 12,
+                                "font-family": "Georgia",
+                                "font-weight": "normal",
+                                "placement": "out",
+                                "font-color": "gray",
+                            },
+                            "tooltip": {
+                                "text": "%t: R$ %v <br> (%npv%)",
+                                "font-color": "black",
+                                "font-family": "Verdana",
+                                "text-alpha": 1,
+                                "background-color": "white",
+                                "alpha": 0.7,
+                                "border-width": 1,
+                                "border-color": "#cccccc",
+                                "line-style": "dotted",
+                                "border-radius": "10px",
+                                "padding": "10%",
+                                "placement": "node:center"
+                            },
+                            "border-width": 1,
+                            "border-color": "#cccccc",
+                            "line-style": "dotted"
+                        },
+                        "series": [<%=DataPie%>]
                     }
                 });
             };
@@ -474,15 +678,18 @@
 
 
                     <div class="page-content">
-
-                        <div class="col-lg-6">
-                            <div id="myChart"></div>  
+                        <div class="col-lg-12">
+                            <div class="col-lg-6" style="border: 1px solid #dbdbdb; border-radius: 4px;">
+                                <div id="myChart"></div>  
+                            </div>
+                            <div class="col-lg-6" style="border: 1px solid #dbdbdb; border-radius: 4px; ">
+                                <div id="chart-div"></div>
+                            </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div id="chart-div"></div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div id="chartpie"></div>  
+                        <div class="col-lg-12" style="margin-top: 10px;">
+                            <div class="col-lg-6" style="border: 1px solid #dbdbdb; border-radius: 4px;">
+                                <div id="chartpie"></div>  
+                            </div>
                         </div>
                         <!-- /.page-header -->
 
@@ -584,239 +791,6 @@
 
                 }
             %>
-                        $('.easy-pie-chart.percentage').each(function () {
-                            var $box = $(this).closest('.infobox');
-                            var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
-                            var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
-                            var size = parseInt($(this).data('size')) || 50;
-                            $(this).easyPieChart({
-                                barColor: barColor,
-                                trackColor: trackColor,
-                                scaleColor: false,
-                                lineCap: 'butt',
-                                lineWidth: parseInt(size / 10),
-                                animate: ace.vars['old_ie'] ? false : 1000,
-                                size: size
-                            });
-                        })
-
-                        $('.sparkline').each(function () {
-                            var $box = $(this).closest('.infobox');
-                            var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
-                            $(this).sparkline('html', {
-                                tagValuesAttribute: 'data-values',
-                                type: 'bar',
-                                barColor: barColor,
-                                chartRangeMin: $(this).data('min') || 0
-                            });
-                        });
-                        //flot chart resize plugin, somehow manipulates default browser resize event to optimize it!
-                        //but sometimes it brings up errors with normal resize event handlers
-                        $.resize.throttleWindow = false;
-                        var placeholder = $('#piechart-placeholder').css({
-                            'width': '90%',
-                            'min-height': '150px'
-                        });
-                        var data = [{
-                                label: "social networks",
-                                data: 38.7,
-                                color: "#68BC31"
-                            }, {
-                                label: "search engines",
-                                data: 24.5,
-                                color: "#2091CF"
-                            }, {
-                                label: "ad campaigns",
-                                data: 8.2,
-                                color: "#AF4E96"
-                            }, {
-                                label: "direct traffic",
-                                data: 18.6,
-                                color: "#DA5430"
-                            }, {
-                                label: "other",
-                                data: 10,
-                                color: "#FEE074"
-                            }]
-
-                        function drawPieChart(placeholder, data, position) {
-                            $.plot(placeholder, data, {
-                                series: {
-                                    pie: {
-                                        show: true,
-                                        tilt: 0.8,
-                                        highlight: {
-                                            opacity: 0.25
-                                        },
-                                        stroke: {
-                                            color: '#fff',
-                                            width: 2
-                                        },
-                                        startAngle: 2
-                                    }
-                                },
-                                legend: {
-                                    show: true,
-                                    position: position || "ne",
-                                    labelBoxBorderColor: null,
-                                    margin: [-30, 15]
-                                },
-                                grid: {
-                                    hoverable: true,
-                                    clickable: true
-                                }
-                            })
-                        }
-                        drawPieChart(placeholder, data);
-                        /**
-                         we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
-                         so that's not needed actually.
-                         */
-                        placeholder.data('chart', data);
-                        placeholder.data('draw', drawPieChart);
-                        //pie chart tooltip example
-                        var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
-                        var previousPoint = null;
-                        placeholder.on('plothover', function (event, pos, item) {
-                            if (item) {
-                                if (previousPoint != item.seriesIndex) {
-                                    previousPoint = item.seriesIndex;
-                                    var tip = item.series['label'] + " : " + item.series['percent'] + '%';
-                                    $tooltip.show().children(0).text(tip);
-                                }
-                                $tooltip.css({
-                                    top: pos.pageY + 10,
-                                    left: pos.pageX + 10
-                                });
-                            } else {
-                                $tooltip.hide();
-                                previousPoint = null;
-                            }
-
-                        });
-                        /////////////////////////////////////
-                        $(document).one('ajaxloadstart.page', function (e) {
-                            $tooltip.remove();
-                        });
-                        var d1 = [];
-                        for (var i = 0; i < Math.PI * 2; i += 0.5) {
-                            d1.push([i, Math.sin(i)]);
-                        }
-
-                        var d2 = [];
-                        for (var i = 0; i < Math.PI * 2; i += 0.5) {
-                            d2.push([i, Math.cos(i)]);
-                        }
-
-                        var d3 = [];
-                        for (var i = 0; i < Math.PI * 2; i += 0.2) {
-                            d3.push([i, Math.tan(i)]);
-                        }
-
-
-                        var sales_charts = $('#sales-charts').css({
-                            'width': '100%',
-                            'height': '220px'
-                        });
-                        $.plot("#sales-charts", [{
-                                label: "Domains",
-                                data: d1
-                            }, {
-                                label: "Hosting",
-                                data: d2
-                            }, {
-                                label: "Services",
-                                data: d3
-                            }], {
-                            hoverable: true,
-                            shadowSize: 0,
-                            series: {
-                                lines: {
-                                    show: true
-                                },
-                                points: {
-                                    show: true
-                                }
-                            },
-                            xaxis: {
-                                tickLength: 0
-                            },
-                            yaxis: {
-                                ticks: 10,
-                                min: -2,
-                                max: 2,
-                                tickDecimals: 3
-                            },
-                            grid: {
-                                backgroundColor: {
-                                    colors: ["#fff", "#fff"]
-                                },
-                                borderWidth: 1,
-                                borderColor: '#555'
-                            }
-                        });
-                        $('#recent-box [data-rel="tooltip"]').tooltip({
-                            placement: tooltip_placement
-                        });
-                        function tooltip_placement(context, source) {
-                            var $source = $(source);
-                            var $parent = $source.closest('.tab-content')
-                            var off1 = $parent.offset();
-                            var w1 = $parent.width();
-                            var off2 = $source.offset();
-                            //var w2 = $source.width();
-
-                            if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2))
-                                return 'right';
-                            return 'left';
-                        }
-
-
-                        $('.dialogs,.comments').ace_scroll({
-                            size: 300
-                        });
-                        //Android's default browser somehow is confused when tapping on label which will lead to dragging the task
-                        //so disable dragging when clicking on label
-                        var agent = navigator.userAgent.toLowerCase();
-                        if (ace.vars['touch'] && ace.vars['android']) {
-                            $('#tasks').on('touchstart', function (e) {
-                                var li = $(e.target).closest('#tasks li');
-                                if (li.length == 0)
-                                    return;
-                                var label = li.find('label.inline').get(0);
-                                if (label == e.target || $.contains(label, e.target))
-                                    e.stopImmediatePropagation();
-                            });
-                        }
-
-                        $('#tasks').sortable({
-                            opacity: 0.8,
-                            revert: true,
-                            forceHelperSize: true,
-                            placeholder: 'draggable-placeholder',
-                            forcePlaceholderSize: true,
-                            tolerance: 'pointer',
-                            stop: function (event, ui) {
-                                //just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
-                                $(ui.item).css('z-index', 'auto');
-                            }
-                        });
-                        $('#tasks').disableSelection();
-                        $('#tasks input:checkbox').removeAttr('checked').on('click', function () {
-                            if (this.checked)
-                                $(this).closest('li').addClass('selected');
-                            else
-                                $(this).closest('li').removeClass('selected');
-                        });
-                        //show the dropdowns on top or bottom depending on window height and menu position
-                        $('#task-tab .dropdown-hover').on('mouseenter', function (e) {
-                            var offset = $(this).offset();
-                            var $w = $(window)
-                            if (offset.top > $w.scrollTop() + $w.innerHeight() - 100)
-                                $(this).addClass('dropup');
-                            else
-                                $(this).removeClass('dropup');
-                        });
                     })
         </script>
     </body>

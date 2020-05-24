@@ -107,15 +107,10 @@ public class FilialDAO {
         try {
             String sqlState = "select * from filial WHERE data_exclusao is null ";
             if (filtroFilial != null && !filtroFilial.equals("")) {
-                sqlState += "and id_filial = " + filtroFilial;
+                sqlState += " and id_filial = " + filtroFilial;
             }
-            if (filtroNome != null && !filtroNome.equals("")) {
-                if (filtroFilial != null && !filtroFilial.equals("")) {
-                    sqlState += "and Nome = " + filtroNome;
-                } else {
-                    sqlState += "where Nome = " + filtroNome;
-                }
-
+            if (filtroNome != null && !filtroNome.equals("")) {               
+                    sqlState += " and rua like '%" + filtroNome + "%'";     
             }
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement(sqlState);
