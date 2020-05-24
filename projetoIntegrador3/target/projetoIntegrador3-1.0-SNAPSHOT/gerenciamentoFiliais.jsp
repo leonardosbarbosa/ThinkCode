@@ -44,6 +44,9 @@
         <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css" />
         <link rel="stylesheet" href="assets/css/bootstrap-colorpicker.min.css" />
 
+        <!--Data Table import-->
+        <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+
         <!-- ace settings handler -->
         <script src="assets/js/ace-extra.min.js"></script>
 
@@ -210,7 +213,7 @@
 
                 <!-- /.sidebar-shortcuts -->
 
-                    <ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="index.html">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -332,7 +335,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                           
+
 
                         </ul>
                     </li>
@@ -430,7 +433,7 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <table id="simple-table" class="table  table-bordered table-hover">
+                                <table id="tabelaFiliais" class="table  table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th id="id"> ID </th>
@@ -480,7 +483,7 @@
                                                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                         </button>
 
-                                                        <button class="btn btn-xs btn-danger">
+                                                        <button class="btn btn-xs btn-danger" value="${filiais.idFilial}" onclick="window.delete(${filiais.idFilial})">
                                                             <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                         </button>
 
@@ -493,10 +496,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <form method="" action="FilialServlet" >
+                            <form method="POST" action="FilialServlet" >
                                 <input  name="id" style="display: none" type="text" id="valorEditar"/>
                                 <input  name="tarefa" style="display: none" type="text" value="Editando" />
                                 <button type="submit" style="display: none" id="enviarEditacao"></button>
+                            </form>
+                            <form method="POST" action="FilialServlet" >
+                                <input  name="id" style="display: none" type="text" id="valorExcluir"/>
+                                <input  name="tarefa" style="display: none" type="text" value="Excluir" />
+                                <button type="submit" style="display: none" id="enviarExclusao"></button>
                             </form>
                             <!-- /.span -->
                         </div>
@@ -560,7 +568,7 @@
                     <script src="assets/js/jquery.flot.min.js"></script>
                     <script src="assets/js/jquery.flot.pie.min.js"></script>
                     <script src="assets/js/jquery.flot.resize.min.js"></script>
-
+                    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
                     <!-- ace scripts -->
                     <script src="assets/js/ace-elements.min.js"></script>
                     <script src="assets/js/ace.min.js"></script>
@@ -568,32 +576,44 @@
 
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
-                    jQuery(function ($) {
+                                                            jQuery(function ($) {
 
-                        window.display = function (user)
-                        {
-                            $('#valorEditar').val(user);
-                            $('#enviarEditacao').click();
-/*
-                            $.ajax({
-                                url: "UsuarioServlet",
-                                type: "POST",
-                                data: {
-                                    tarefa: 'Editar'
-                                },
-                            })
-                                    .success(function (e) {
-                                        //do success stuff
-                                console.log("Sucessor " + e)
-                                        //window.location = "UsuarioServlet?Teste=1";
-                                         $(location).attr('href','cadastroUsuario.jsp');
-                                    })
-                                    .error(function (e) {
-                                        //do error handling stuff
-                                        console.log('Erro' + e.toString())
-                                    })
-                                    */
-                        }
+                                                                $('#tabelaFiliais').DataTable({
+                                                                    "language": {
+                                                                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                                                                    }
+                                                                });
+
+                                                                window.delete = function (user)
+                                                                {
+                                                                    $('#valorExcluir').val(user);
+                                                                    $('#enviarExclusao').click();
+
+                                                                }
+                                                                window.display = function (user)
+                                                                {
+                                                                    $('#valorEditar').val(user);
+                                                                    $('#enviarEditacao').click();
+                                                                    /*
+                                                                     $.ajax({
+                                                                     url: "UsuarioServlet",
+                                                                     type: "POST",
+                                                                     data: {
+                                                                     tarefa: 'Editar'
+                                                                     },
+                                                                     })
+                                                                     .success(function (e) {
+                                                                     //do success stuff
+                                                                     console.log("Sucessor " + e)
+                                                                     //window.location = "UsuarioServlet?Teste=1";
+                                                                     $(location).attr('href','cadastroUsuario.jsp');
+                                                                     })
+                                                                     .error(function (e) {
+                                                                     //do error handling stuff
+                                                                     console.log('Erro' + e.toString())
+                                                                     })
+                                                                     */
+                                                                }
 
                         <%
                             Cookie[] cookies = request.getCookies();

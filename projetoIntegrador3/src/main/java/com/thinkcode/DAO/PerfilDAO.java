@@ -68,13 +68,16 @@ public class PerfilDAO {
         return perfil;
     }
 
-    public static boolean excluirPerfil(PerfilModel perfil) {
+    public static boolean excluirPerfil(int idPerfil, int userExclusao) {
         Connection con;
         Date date = new Date();
+        String data = date.toInstant().toString().substring(0, 10);
+        
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update perfil set dt_exclusao = " + date + " where id_perfil = " + perfil.getIdPerfil());
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement ps = con.prepareStatement("update perfil set data_exclusao = '" + data + "', usr_exclusao = " + userExclusao + " where id_perfil = " + idPerfil);
+            
+            ps.executeUpdate();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PerfilDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,9 +103,9 @@ public class PerfilDAO {
         List<PerfilModel> perfis = new ArrayList<>();
 
         try {
-            String sqlState = "select * from perfil";
+            String sqlState = "select * from perfil WHERE data_exclusao is null";
             if (filtroDescricao != null && !filtroDescricao.equals("") && filtroTipo != null && !filtroTipo.equals("")) {
-                sqlState += " where id_filial = " + filtroDescricao + "and tipo = '" + filtroTipo + "'";
+                sqlState += " and id_filial = " + filtroDescricao + " and tipo = '" + filtroTipo + "'";
             }
 
             con = ConnectionDB.obterConexao();

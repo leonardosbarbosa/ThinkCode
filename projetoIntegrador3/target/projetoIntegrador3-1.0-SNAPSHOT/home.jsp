@@ -811,26 +811,7 @@
                          }
                          */
 
-            <%
-     Cookie[] cookies = request.getCookies();
-     for (Cookie atual : cookies) {
-         if (atual.getName().equals("Perfil")) {
-             int auxilio = Integer.parseInt(atual.getValue());
-             if (auxilio != 1) {
-            %>
-                        $('#liCadastro').hide()
-            <%
-                                }
-                            }
-                            if (atual.getName().equals("Nome")) {
-                                String auxiliado = atual.getValue().substring(0, 8);
-            %>
-                        $('#lblNome').text('<%= auxiliado%>');
-            <%
-                                         }
-
-                                     }
-            %>
+          
                         $('.easy-pie-chart.percentage').each(function () {
                             var $box = $(this).closest('.infobox');
                             var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');

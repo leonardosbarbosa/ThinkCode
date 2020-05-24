@@ -86,8 +86,8 @@ public class LoginServlet extends HttpServlet {
                     response.addCookie(cook3);
 
                     //url = "/index.jsp";
-                    url = "/IndexServlet";
-                } else {
+                    url = "/home.jsp";
+                 } else {
                     url = "/login.jsp";
                 }
             }

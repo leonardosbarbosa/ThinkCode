@@ -14,7 +14,7 @@
         <!-- bootstrap & fontawesome -->
         <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
         <link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
-
+        <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
         <!-- page specific plugin styles -->
 
         <!-- text fonts -->
@@ -210,7 +210,7 @@
 
                 <!-- /.sidebar-shortcuts -->
 
-                   <ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="index.html">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -332,7 +332,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                           
+
 
                         </ul>
                     </li>
@@ -364,7 +364,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <form method="POST" action="UsuarioServlet">
+                                    <form method="POST" action="PerfilServlet">
                                         <div class="widget-body">
                                             <div class="widget-main">
                                                 <div class="form-group">
@@ -423,7 +423,7 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <table id="simple-table" class="table  table-bordered table-hover">
+                                <table id="tabelaPerfis" class="table  table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th id="id"> ID Perfil </th>
@@ -452,8 +452,8 @@
                                                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                         </button>
 
-                                                        <button class="btn btn-xs btn-danger">
-                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                        <button class="btn btn-xs btn-danger" value="${perfil.idPerfil}" onclick="window.delete(${perfil.idPerfil})">
+                                                            <i class ="ace-icon fa fa-trash-o bigger-120"></i>
                                                         </button>
 
                                                     </div>
@@ -465,10 +465,16 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <form method="" action="PerfilServlet" >
+                            <form method="POST" action="PerfilServlet" >
                                 <input  name="id" style="display: none" type="text" id="valorEditar"/>
                                 <input  name="tarefa" style="display: none" type="text" value="Editando" />
                                 <button type="submit" style="display: none" id="enviarEditacao"></button>
+                            </form>
+
+                            <form method="POST" action="PerfilServlet" >
+                                <input  name="id" style="display: none" type="text" id="valorExcluir"/>
+                                <input  name="tarefa" style="display: none" type="text" value="Excluir" />
+                                <button type="submit" style="display: none" id="enviarExclusao"></button>
                             </form>
                             <!-- /.span -->
                         </div>
@@ -532,7 +538,7 @@
                     <script src="assets/js/jquery.flot.min.js"></script>
                     <script src="assets/js/jquery.flot.pie.min.js"></script>
                     <script src="assets/js/jquery.flot.resize.min.js"></script>
-
+                    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
                     <!-- ace scripts -->
                     <script src="assets/js/ace-elements.min.js"></script>
                     <script src="assets/js/ace.min.js"></script>
@@ -540,32 +546,43 @@
 
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
-                    jQuery(function ($) {
+                                                            jQuery(function ($) {
+                                                                $('#tabelaPerfis').DataTable({
+                                                                    "language": {
+                                                                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                                                                    }
+                                                                });
+                                                                window.displaymessage = function (user)
+                                                                {
+                                                                    $('#valorEditar').val(user);
+                                                                    $('#enviarEditacao').click();
+                                                                    /*
+                                                                     $.ajax({
+                                                                     url: "UsuarioServlet",
+                                                                     type: "POST",
+                                                                     data: {
+                                                                     tarefa: 'Editar'
+                                                                     },
+                                                                     })
+                                                                     .success(function (e) {
+                                                                     //do success stuff
+                                                                     console.log("Sucessor " + e)
+                                                                     //window.location = "UsuarioServlet?Teste=1";
+                                                                     $(location).attr('href','cadastroUsuario.jsp');
+                                                                     })
+                                                                     .error(function (e) {
+                                                                     //do error handling stuff
+                                                                     console.log('Erro' + e.toString())
+                                                                     })
+                                                                     */
+                                                                }
 
-                        window.displaymessage = function (user)
-                        {
-                            $('#valorEditar').val(user);
-                            $('#enviarEditacao').click();
-/*
-                            $.ajax({
-                                url: "UsuarioServlet",
-                                type: "POST",
-                                data: {
-                                    tarefa: 'Editar'
-                                },
-                            })
-                                    .success(function (e) {
-                                        //do success stuff
-                                console.log("Sucessor " + e)
-                                        //window.location = "UsuarioServlet?Teste=1";
-                                         $(location).attr('href','cadastroUsuario.jsp');
-                                    })
-                                    .error(function (e) {
-                                        //do error handling stuff
-                                        console.log('Erro' + e.toString())
-                                    })
-                                    */
-                        }
+                                                                window.delete = function (user)
+                                                                {
+                                                                    $('#valorExcluir').val(user);
+                                                                    $('#enviarExclusao').click();
+
+                                                                }
 
                         <%
                             Cookie[] cookies = request.getCookies();

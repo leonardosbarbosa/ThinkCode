@@ -101,9 +101,10 @@ public class PerfilServlet extends HttpServlet {
                     request.setAttribute("tarefa", "Editar");
 
                 }
-                if (request.getParameter("ID_PERFIL") != null) {
+                if (request.getParameter("ID_PERFIL") != null && !request.getParameter("ID_PERFIL").equals("")) {
                     perfil.setIdPerfil(Integer.parseInt(request.getParameter("ID_PERFIL")));
                 }
+
                 perfil.setTipo(request.getParameter("tipoPerfil"));
                 perfil.setDescricao(request.getParameter("descricaoPerfil"));
                 Date dataIncl = new Date();
@@ -116,6 +117,14 @@ public class PerfilServlet extends HttpServlet {
                     //Fim 
                     if (ok) {
                         url = "/gerenciarPerfis.jsp";
+                    }
+                }
+
+                if (tarefa.equals("Excluir")) {
+                    perfil.setIdPerfil(Integer.parseInt(request.getParameter("id")));            
+                    boolean ok = perfilController.Delete(perfil.getIdPerfil(), Integer.parseInt(cook.getValue()));
+                    if (ok) {
+                       url = "/gerenciarPerfis.jsp"; 
                     }
                 }
 

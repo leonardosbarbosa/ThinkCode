@@ -14,7 +14,7 @@
         <!-- bootstrap & fontawesome -->
         <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
         <link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
-
+        <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
         <!-- page specific plugin styles -->
 
         <!-- text fonts -->
@@ -431,7 +431,7 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <table id="tabelaUsuarios" class="table  table-bordered table-hover">
+                                <table id="tabelaProdutos" class="table  table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th id="id"> ID Produto </th>
@@ -475,7 +475,7 @@
                                                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                         </button>
 
-                                                        <button class="btn btn-xs btn-danger">
+                                                        <button class="btn btn-xs btn-danger" value="${produto.idProduto}" onclick="window.delete(${produto.idProduto})">
                                                             <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                         </button>
 
@@ -488,10 +488,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <form method="" action="ProdutoServlet" >
+                            <form method="POST" action="ProdutoServlet" >
                                 <input  name="id" style="display: none" type="text" id="valorEditar"/>
                                 <input  name="tarefa" style="display: none" type="text" value="Editando" />
                                 <button type="submit" style="display: none" id="enviarEditacao"></button>
+                            </form>
+                            <form method="POST" action="ProdutoServlet" >
+                                <input  name="id" style="display: none" type="text" id="valorExcluir"/>
+                                <input  name="tarefa" style="display: none" type="text" value="Excluir" />
+                                <button type="submit" style="display: none" id="enviarExclusao"></button>
                             </form>
                             <!-- /.span -->
                         </div>
@@ -555,7 +560,7 @@
                     <script src="assets/js/jquery.flot.min.js"></script>
                     <script src="assets/js/jquery.flot.pie.min.js"></script>
                     <script src="assets/js/jquery.flot.resize.min.js"></script>
-
+                    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
                     <!-- ace scripts -->
                     <script src="assets/js/ace-elements.min.js"></script>
                     <script src="assets/js/ace.min.js"></script>
@@ -565,7 +570,11 @@
                     <script type="text/javascript">
                                                             jQuery(function ($) {
 
-                                                                $('#tabelaUsuarios').DataTable();
+                                                                $('#tabelaProdutos').DataTable({
+                                                                    "language": {
+                                                                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                                                                    }
+                                                                });
 
                                                                 window.displaymessage = function (user)
                                                                 {
@@ -591,6 +600,13 @@
                                                                      })
                                                                      */
                                                                 }
+                                                                window.delete = function (user)
+                                                                {
+                                                                    $('#valorExcluir').val(user);
+                                                                    $('#enviarExclusao').click();
+
+                                                                }
+
 
                         <%
                             Cookie[] cookies = request.getCookies();

@@ -99,13 +99,21 @@ public class ProdutoServlet extends HttpServlet {
                 if (tarefa.equals("Cadastrando")) {
                     url = "/cadastroProduto.jsp";
                 }
+
+                if (tarefa.equals("Excluir")) {
+                    produto.setIdProduto(Integer.parseInt(id));
+                    boolean ok = produtoController.delete(produto.getIdProduto(), Integer.parseInt(cook.getValue()));
+                    if (ok) {
+                        url = "/gerenciarProdutos.jsp";
+                    }
+                }
             }
             if (request.getParameter("nomeProduto") != null && request.getParameter("quantidadeProduto") != null) {
                 UsuarioModel usuario = new UsuarioModel();
                 usuario.setId(Integer.parseInt(cook.getValue()));
                 UsuarioController usuarioController = new UsuarioController();
                 usuario = usuarioController.UsuarioPropriedades(usuario);
-               if (request.getParameter("ID_PRODUTO") != null) {
+                if (request.getParameter("ID_PRODUTO") != null && !request.getParameter("ID_PRODUTO").equals("")) {
                     produto.setIdProduto(Integer.parseInt(request.getParameter("ID_PRODUTO")));
                 }
                 produto.setNome(request.getParameter("nomeProduto"));
@@ -123,14 +131,14 @@ public class ProdutoServlet extends HttpServlet {
                     if (ok) {
                         url = "/gerenciarProdutos.jsp";
                     }
-                } 
-                 if (tarefa.equals("Editar")) { //Atualizando produto     
+                } else if (tarefa.equals("Editar")) { //Atualizando produto     
                     boolean ok = produtoController.update(produto);
                     if (ok) {
                         url = "/gerenciarProdutos.jsp";
                     }
 
                 }
+
             }
         }
         try {

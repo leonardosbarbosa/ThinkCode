@@ -20,6 +20,11 @@ public class FilialController {
         return FilialDAO.atualizarFilial(Filial);
 
     }
+     
+     public boolean Delete (int idFilial, int idUser) {
+     
+     return FilialDAO.excluirFilial(idFilial, idUser);
+     }
     
   public List<FilialModel> FiliaisCadastradas(String filtroFilial, String filtroPerfil){
         return FilialDAO.FiliaisCadastradas(filtroFilial, filtroPerfil);

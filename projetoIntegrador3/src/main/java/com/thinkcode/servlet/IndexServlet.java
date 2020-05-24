@@ -36,7 +36,7 @@ public class IndexServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //Instância de objetos
-        UsuarioModel usuario = new UsuarioModel();
+         UsuarioModel usuario = new UsuarioModel();
         UsuarioController usuarioController = new UsuarioController();
         String url = "/LoginServlet";
         //Fim instância

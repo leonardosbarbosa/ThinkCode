@@ -91,13 +91,14 @@ public class ProdutoDAO {
         return ok;
     }
 
-    public static boolean excluirProduto(ProdutoModel produto) {
+    public static boolean excluirProduto(int idProduto, int userExclusao) {
         Connection con;
         Date date = new Date();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update produto set dt_exclusao = " + date + " where id_produto like '%" + produto.getIdProduto() + "%'");
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement ps = con.prepareStatement("update produto set data_exclusao = '" + date.toInstant().toString().substring(0,10) + "',"
+                    + "usr_exclusao = " + userExclusao + " where id_produto = " + idProduto);
+            ps.execute();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -123,9 +124,9 @@ public class ProdutoDAO {
         List<ProdutoModel> produtos = new ArrayList<>();
 
         try {
-            String sqlState = "select * from produto";
+            String sqlState = "select * from produto where data_exclusao is null ";
             if (filtroFilial != null && !filtroFilial.equals("") && filtroTipo != null && !filtroTipo.equals("")) {
-                sqlState += " where id_filial = " + filtroFilial + "and tipo = '" + filtroTipo + "'";
+                sqlState += "and id_filial = " + filtroFilial + " and tipo = '" + filtroTipo + "'";
             }
 
             con = ConnectionDB.obterConexao();

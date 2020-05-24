@@ -71,13 +71,14 @@ public class FilialDAO {
     }
     
 
-    public static boolean excluirFilial(int idFilial) {
+    public static boolean excluirFilial(int idFilial, int idUsuario) {
         Connection con;
         Date date = new Date();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update filial set data_exclusao = " + date + " id_filial like '%" + idFilial + "%'");
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement ps = con.prepareStatement("update filial set data_exclusao = '" + date.toInstant().toString().substring(0,10) + "'"
+                    + ", usr_exclusao = " + idUsuario + " WHERE id_filial = " + idFilial);
+            ps.executeUpdate();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(FilialDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,15 +105,15 @@ public class FilialDAO {
         List<FilialModel> filiais = new ArrayList<FilialModel>();
 
         try {
-            String sqlState = "select * from filial";
+            String sqlState = "select * from filial WHERE data_exclusao is null ";
             if (filtroFilial != null && !filtroFilial.equals("")) {
-                sqlState += " where id_filial = " + filtroFilial;
+                sqlState += "and id_filial = " + filtroFilial;
             }
             if (filtroNome != null && !filtroNome.equals("")) {
                 if (filtroFilial != null && !filtroFilial.equals("")) {
-                    sqlState += " and Nome = " + filtroNome;
+                    sqlState += "and Nome = " + filtroNome;
                 } else {
-                    sqlState += " where Nome = " + filtroNome;
+                    sqlState += "where Nome = " + filtroNome;
                 }
 
             }

@@ -41,22 +41,20 @@ public class FilialServlet extends HttpServlet {
         FilialModel filial = new FilialModel();
         FilialController filialController = new FilialController();
         String url = "/login.html";
-        
-        //Fim instância
 
+        //Fim instância
         //Pegando parâmetros e atribuindo a model
        /* filial.setNome(request.getParameter("nome"));
-        filial.setDescricao(request.getParameter("descricao"));
-        filial.setCnpj(Long.parseLong(request.getParameter("cnpj").replace(".", "").replace("-", "").replace("/", "")));
-        filial.setCep(Integer.parseInt(request.getParameter("cepFilial").replace(".", "").replace("-", "").replace("/", "")));
-        filial.setRua(request.getParameter("ruaFilial"));
-        filial.setBairro(request.getParameter("bairroFilial").replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));
-        filial.setNumero(request.getParameter("numeroFilial"));
-        filial.setComplemento(request.getParameter("complementoFilial"));
-        Date dataIncl = new Date();
-        filial.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
-        filial.setUserInclusao(1);*/
-
+         filial.setDescricao(request.getParameter("descricao"));
+         filial.setCnpj(Long.parseLong(request.getParameter("cnpj").replace(".", "").replace("-", "").replace("/", "")));
+         filial.setCep(Integer.parseInt(request.getParameter("cepFilial").replace(".", "").replace("-", "").replace("/", "")));
+         filial.setRua(request.getParameter("ruaFilial"));
+         filial.setBairro(request.getParameter("bairroFilial").replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));
+         filial.setNumero(request.getParameter("numeroFilial"));
+         filial.setComplemento(request.getParameter("complementoFilial"));
+         Date dataIncl = new Date();
+         filial.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
+         filial.setUserInclusao(1);*/
         //Fim atribuição
         //Salvando produto
         //boolean ok = filialController.Save(filial);
@@ -81,10 +79,10 @@ public class FilialServlet extends HttpServlet {
                     filial.setIdFilial(Integer.parseInt(id));
                     filial = filialController.FilialPropriedades(filial);
                     url = "/cadastroFilial.jsp";
-                    
+
                     request.setAttribute("ID_FILIAL", filial.getIdFilial());
                     request.setAttribute("nome", filial.getNome());
-                    request.setAttribute("telefone",filial.getTelefone());
+                    request.setAttribute("telefone", filial.getTelefone());
                     request.setAttribute("cnpj", filial.getCnpj());
                     request.setAttribute("descricao", filial.getDescricao());
                     request.setAttribute("cepFilial", filial.getCep());
@@ -94,6 +92,10 @@ public class FilialServlet extends HttpServlet {
                     request.setAttribute("complementoFilial", filial.getComplemento());
                     request.setAttribute("tarefa", "Editar");
 
+                }
+                if (tarefa.equals("Excluir")) {
+                    filial.setIdFilial(Integer.parseInt(id));
+                    boolean ok = filialController.Delete(filial.getIdFilial(), Integer.parseInt(cook.getValue()));
                 }
             }
 
@@ -116,11 +118,11 @@ public class FilialServlet extends HttpServlet {
             //response.sendRedirect(request.getContextPath() + url);
             //response.sendRedirect(url);
             //Pegando parâmetros e atribuindo a model
-            if (request.getParameter("cnpj") != null && request.getParameter("nome")!= null) {
+            if (request.getParameter("cnpj") != null && request.getParameter("nome") != null) {
                 url = "/cadastroFilial.jsp";
-                if (request.getParameter("ID_FILIAL") != null) {
-                    filial.setIdFilial(Integer.parseInt(request.getParameter("ID_FILIAL")));
-                }
+//                if (request.getParameter("ID_FILIAL") != null && !request.getParameter("ID_FILIAL").equals("")) {
+//                    filial.setIdFilial(Integer.parseInt(request.getParameter("ID_FILIAL")));
+//                }
                 filial.setUserInclusao(Integer.parseInt(cook.getValue()));
                 filial.setNome(request.getParameter("nome"));
                 filial.setTelefone(Long.parseLong(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
@@ -134,9 +136,8 @@ public class FilialServlet extends HttpServlet {
                 Date dataIncl = new Date();
                 filial.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
                 filial.setUserInclusao(1);
-                
-            //Fim atribuição
 
+                //Fim atribuição
                 //Cadastro de usuário
                 boolean ok = true;
                 if (tarefa.equals("Cadastro")) {
@@ -145,10 +146,11 @@ public class FilialServlet extends HttpServlet {
                 if (tarefa.equals("Editar")) {
                     ok = filialController.Update(filial);
                 }
+
                 url = "/gerenciamentoFiliais.jsp";
                 //Fim cadastro
                 if (ok) {
-                    
+
                     url = "/gerenciamentoFiliais.jsp";
 
                 }

@@ -31,7 +31,7 @@ public class ProdutoController {
         return ProdutoDAO.produtosCadastrados(filtroFilial, filtroPerfil);
     }
 
-    public boolean delete(ProdutoModel produto) {
-        return ProdutoDAO.excluirProduto(produto);
+    public boolean delete(int idProduto, int idUserExclusao) {
+        return ProdutoDAO.excluirProduto(idProduto, idUserExclusao);
     }
 }

@@ -25,5 +25,9 @@ public class PerfilController {
     public List<PerfilModel> PerfisCadastrados(String filtroDescricao, String filtroTipo) {
         return PerfilDAO.PerfisCadastrados(filtroDescricao, filtroTipo);
     }
+    
+        public boolean Delete(int idPerfilExclusao, int idUsuarioExcluindo) {
+        return PerfilDAO.excluirPerfil(idPerfilExclusao, idUsuarioExcluindo);
+    }
 
 }
