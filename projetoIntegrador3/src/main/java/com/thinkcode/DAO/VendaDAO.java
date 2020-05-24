@@ -6,7 +6,7 @@
 package com.thinkcode.DAO;
 
 import com.thinkcode.db.ConnectionDB;
-import com.thinkcode.models.Venda;
+import com.thinkcode.models.VendaModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * @author Leonardo Silva
  */
 public class VendaDAO {
-    public static boolean cadastraraVenda(Venda produto) throws SQLException {
+    public static boolean cadastraraVenda(VendaModel produto) throws SQLException {
         boolean ok = false;
         Connection con;
         try {

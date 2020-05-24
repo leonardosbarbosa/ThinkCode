@@ -1,3 +1,59 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@ page import="java.io.*" %>  
+<%@ page import="java.util.*" %>  
+
+<%!
+    // --- String Join Function converts from Java array to javascript string.  
+    public String join(ArrayList<?> arr, String del) {
+
+        StringBuilder output = new StringBuilder();
+
+        for (int i = 0; i < arr.size(); i++) {
+
+            if (i > 0) {
+                output.append(del);
+            }
+
+            // --- Quote strings, only, for JS syntax  
+            if (arr.get(i) instanceof String) {
+                output.append("\"");
+            }
+            output.append(arr.get(i));
+            if (arr.get(i) instanceof String) {
+                output.append("\"");
+            }
+        }
+
+        return output.toString();
+    }
+
+    public String joinPie(ArrayList<?> arr, String del) {
+
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < arr.size(); i++) {
+
+            if (i > 0) {
+                output.append(del);
+            }
+            output.append("{  \"values\": ");
+            // --- Quote strings, only, for JS syntax  
+            if (arr.get(i) instanceof String) {
+                output.append("\"");
+            }
+            output.append("[" + arr.get(i) + "]");
+            if (arr.get(i) instanceof String) {
+                output.append("\"");
+            }
+            output.append("  }  ");
+        }
+
+        return output.toString();
+    }
+%>  
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -36,6 +92,91 @@
 
         <!-- ace settings handler -->
         <script src="assets/js/ace-extra.min.js"></script>
+
+        <script type="text/javascript" src="https://cdn.zingchart.com/zingchart.min.js"></script>  
+
+        <script>
+            <%
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                final String host = "jdbc:mysql://localhost:3306/bdprojeto3?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=UTC";
+                final Connection conn = DriverManager.getConnection(host, "root", "");
+                final Statement stmt = conn.createStatement();
+                final ResultSet rs = stmt.executeQuery("SELECT produto.nome , sum(item_venda.quantidade) as qtde FROM item_venda INNER JOIN produto ON item_venda.id_produto = produto.id_produto group by produto.nome;");
+                ArrayList<String> months = new ArrayList<String>();
+                ArrayList<Integer> users = new ArrayList<Integer>();
+                while (rs.next()) {
+                    months.add(rs.getString("produto.nome"));
+                    users.add(Integer.parseInt(rs.getString("qtde")));
+                }
+
+                final ResultSet rs1 = stmt.executeQuery("select * from venda");
+
+                ArrayList<Double> vendas = new ArrayList<Double>();
+                while (rs1.next()) {
+                    vendas.add(Double.parseDouble(rs1.getString("total")));
+                }
+
+                final ResultSet rs2 = stmt.executeQuery("select fi.nome, sum(ve.total) as total from venda ve inner join filial fi on ve.id_filial = fi.id_filial group by ve.id_filial;");
+
+                ArrayList<Double> filial = new ArrayList<Double>();
+                ArrayList<String> filialnome = new ArrayList<String>();
+                while (rs2.next()) {
+                    filialnome.add(rs2.getString("fi.nome"));
+                    filial.add(Double.parseDouble(rs2.getString("total")));
+                }
+                conn.close();
+                
+                String Coisa = joinPie(filial, ",");
+            %>
+
+            // --- add a comma after each value in the array and convert to javascript string representing an array  
+            var monthData = [<%= join(months, ",")%>];
+            var userData = [<%= join(users, ",")%>];
+            var vendas = [<%= join(vendas, ",")%>];
+            var filial = '<%= joinPie(filial, ",")%>';
+        </script> 
+        <script>
+            window.onload = function () {
+                zingchart.render({
+                    id: "myChart",
+                    width: "100%",
+                    height: 400,
+                    data: {
+                        "type": "bar",
+                        "title": {
+                            "text": "Produtos Vendidos"
+                        },
+                        "scale-x": {
+                            "labels": monthData
+                        },
+                        "plot": {
+                            "line-width": 1
+                        },
+                        "series": [{
+                                "values": userData
+                            }]
+                    }
+                });
+                zingchart.render({
+                    width: "100%",
+                    height: 400,
+                    id: 'chart-div',
+                    data: {type: 'line',
+                        series: [
+                            {
+                                values: vendas
+                            }
+                        ]}
+                });
+                zingchart.render({
+                    id: 'chartpie',
+                    data: {
+                        type: 'pie',
+                        "series": [<%=Coisa%>]
+                    }
+                });
+            };
+        </script>
 
         <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
@@ -219,7 +360,7 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="#">
+                                <a href="RelatorioServlet">
                                     <i class="menu-icon fa fa-caret-right"></i> Vendas
                                 </a>
 
@@ -317,7 +458,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                           
+
 
                         </ul>
                     </li>
@@ -333,384 +474,19 @@
 
 
                     <div class="page-content">
-                       
 
-                        
+                        <div class="col-lg-6">
+                            <div id="myChart"></div>  
+                        </div>
+                        <div class="col-lg-6">
+                            <div id="chart-div"></div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div id="chartpie"></div>  
+                        </div>
                         <!-- /.page-header -->
 
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <!-- PAGE CONTENT BEGINS -->
-                               
 
-                                <div class="row">
-                                    <div class="space-6"></div>
-
-                                    <div class="col-sm-7 infobox-container">
-                                        <div class="infobox infobox-green">
-                                            <div class="infobox-icon">
-                                                <i class="ace-icon fa fa-comments"></i>
-                                            </div>
-
-                                            <div class="infobox-data">
-                                                <span class="infobox-data-number">32</span>
-                                                <div class="infobox-content">comments + 2 reviews</div>
-                                            </div>
-
-                                            <div class="stat stat-success">8%</div>
-                                        </div>
-
-                                        <div class="infobox infobox-blue">
-                                            <div class="infobox-icon">
-                                                <i class="ace-icon fa fa-twitter"></i>
-                                            </div>
-
-                                            <div class="infobox-data">
-                                                <span class="infobox-data-number">11</span>
-                                                <div class="infobox-content">new followers</div>
-                                            </div>
-
-                                            <div class="badge badge-success">
-                                                +32%
-                                                <i class="ace-icon fa fa-arrow-up"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="infobox infobox-pink">
-                                            <div class="infobox-icon">
-                                                <i class="ace-icon fa fa-shopping-cart"></i>
-                                            </div>
-
-                                            <div class="infobox-data">
-                                                <span class="infobox-data-number">8</span>
-                                                <div class="infobox-content">new orders</div>
-                                            </div>
-                                            <div class="stat stat-important">4%</div>
-                                        </div>
-
-                                        <div class="infobox infobox-red">
-                                            <div class="infobox-icon">
-                                                <i class="ace-icon fa fa-flask"></i>
-                                            </div>
-
-                                            <div class="infobox-data">
-                                                <span class="infobox-data-number">7</span>
-                                                <div class="infobox-content">experiments</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="infobox infobox-orange2">
-                                            <div class="infobox-chart">
-                                                <span class="sparkline" data-values="196,128,202,177,154,94,100,170,224"></span>
-                                            </div>
-
-                                            <div class="infobox-data">
-                                                <span class="infobox-data-number">6,251</span>
-                                                <div class="infobox-content">pageviews</div>
-                                            </div>
-
-                                            <div class="badge badge-success">
-                                                7.2%
-                                                <i class="ace-icon fa fa-arrow-up"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="infobox infobox-blue2">
-                                            <div class="infobox-progress">
-                                                <div class="easy-pie-chart percentage" data-percent="42" data-size="46">
-                                                    <span class="percent">42</span>%
-                                                </div>
-                                            </div>
-
-                                            <div class="infobox-data">
-                                                <span class="infobox-text">traffic used</span>
-
-                                                <div class="infobox-content">
-                                                    <span class="bigger-110">~</span> 58GB remaining
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="space-6"></div>
-
-                                        <div class="infobox infobox-green infobox-small infobox-dark">
-                                            <div class="infobox-progress">
-                                                <div class="easy-pie-chart percentage" data-percent="61" data-size="39">
-                                                    <span class="percent">61</span>%
-                                                </div>
-                                            </div>
-
-                                            <div class="infobox-data">
-                                                <div class="infobox-content">Task</div>
-                                                <div class="infobox-content">Completion</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="infobox infobox-blue infobox-small infobox-dark">
-                                            <div class="infobox-chart">
-                                                <span class="sparkline" data-values="3,4,2,3,4,4,2,2"></span>
-                                            </div>
-
-                                            <div class="infobox-data">
-                                                <div class="infobox-content">Earnings</div>
-                                                <div class="infobox-content">$32,000</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="infobox infobox-grey infobox-small infobox-dark">
-                                            <div class="infobox-icon">
-                                                <i class="ace-icon fa fa-download"></i>
-                                            </div>
-
-                                            <div class="infobox-data">
-                                                <div class="infobox-content">Downloads</div>
-                                                <div class="infobox-content">1,205</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="vspace-12-sm"></div>
-
-                                    <div class="col-sm-5">
-                                        <div class="widget-box">
-                                            <div class="widget-header widget-header-flat widget-header-small">
-                                                <h5 class="widget-title">
-                                                    <i class="ace-icon fa fa-signal"></i> Traffic Sources
-                                                </h5>
-
-                                                <div class="widget-toolbar no-border">
-                                                    <div class="inline dropdown-hover">
-                                                        <button class="btn btn-minier btn-primary">
-                                                            This Week
-                                                            <i
-                                                                class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
-                                                        </button>
-
-                                                        <ul class="dropdown-menu dropdown-menu-right dropdown-125 dropdown-lighter dropdown-close dropdown-caret">
-                                                            <li class="active">
-                                                                <a href="#" class="blue">
-                                                                    <i class="ace-icon fa fa-caret-right bigger-110">&nbsp;</i> This Week
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                                <a href="#">
-                                                                    <i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i> Last Week
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                                <a href="#">
-                                                                    <i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i> This Month
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                                <a href="#">
-                                                                    <i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i> Last Month
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="widget-body">
-                                                <div class="widget-main">
-                                                    <div id="piechart-placeholder"></div>
-
-                                                    <div class="hr hr8 hr-double"></div>
-
-                                                    <div class="clearfix">
-                                                        <div class="grid3">
-                                                            <span class="grey">
-                                                                <i class="ace-icon fa fa-facebook-square fa-2x blue"></i>
-                                                                &nbsp; likes
-                                                            </span>
-                                                            <h4 class="bigger pull-right">1,255</h4>
-                                                        </div>
-
-                                                        <div class="grid3">
-                                                            <span class="grey">
-                                                                <i class="ace-icon fa fa-twitter-square fa-2x purple"></i>
-                                                                &nbsp; tweets
-                                                            </span>
-                                                            <h4 class="bigger pull-right">941</h4>
-                                                        </div>
-
-                                                        <div class="grid3">
-                                                            <span class="grey">
-                                                                <i class="ace-icon fa fa-pinterest-square fa-2x red"></i>
-                                                                &nbsp; pins
-                                                            </span>
-                                                            <h4 class="bigger pull-right">1,050</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /.widget-main -->
-                                            </div>
-                                            <!-- /.widget-body -->
-                                        </div>
-                                        <!-- /.widget-box -->
-                                    </div>
-                                    <!-- /.col -->
-                                </div>
-                                <!-- /.row -->
-
-                                <div class="hr hr32 hr-dotted"></div>
-
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="widget-box transparent">
-                                            <div class="widget-header widget-header-flat">
-                                                <h4 class="widget-title lighter">
-                                                    <i class="ace-icon fa fa-star orange"></i> Popular Domains
-                                                </h4>
-
-                                                <div class="widget-toolbar">
-                                                    <a href="#" data-action="collapse">
-                                                        <i class="ace-icon fa fa-chevron-up"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="widget-body">
-                                                <div class="widget-main no-padding">
-                                                    <table class="table table-bordered table-striped">
-                                                        <thead class="thin-border-bottom">
-                                                            <tr>
-                                                                <th>
-                                                                    <i class="ace-icon fa fa-caret-right blue"></i>name
-                                                                </th>
-
-                                                                <th>
-                                                                    <i class="ace-icon fa fa-caret-right blue"></i>price
-                                                                </th>
-
-                                                                <th class="hidden-480">
-                                                                    <i class="ace-icon fa fa-caret-right blue"></i>status
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>internet.com</td>
-
-                                                                <td>
-                                                                    <small>
-                                                                        <s class="red">$29.99</s>
-                                                                    </small>
-                                                                    <b class="green">$19.99</b>
-                                                                </td>
-
-                                                                <td class="hidden-480">
-                                                                    <span class="label label-info arrowed-right arrowed-in">on
-                                                                        sale</span>
-                                                                </td>
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td>online.com</td>
-
-                                                                <td>
-                                                                    <b class="blue">$16.45</b>
-                                                                </td>
-
-                                                                <td class="hidden-480">
-                                                                    <span class="label label-success arrowed-in arrowed-in-right">approved</span>
-                                                                </td>
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td>newnet.com</td>
-
-                                                                <td>
-                                                                    <b class="blue">$15.00</b>
-                                                                </td>
-
-                                                                <td class="hidden-480">
-                                                                    <span class="label label-danger arrowed">pending</span>
-                                                                </td>
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td>web.com</td>
-
-                                                                <td>
-                                                                    <small>
-                                                                        <s class="red">$24.99</s>
-                                                                    </small>
-                                                                    <b class="green">$19.95</b>
-                                                                </td>
-
-                                                                <td class="hidden-480">
-                                                                    <span class="label arrowed">
-                                                                        <s>out of stock</s>
-                                                                    </span>
-                                                                </td>
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td>domain.com</td>
-
-                                                                <td>
-                                                                    <b class="blue">$12.00</b>
-                                                                </td>
-
-                                                                <td class="hidden-480">
-                                                                    <span class="label label-warning arrowed arrowed-right">SOLD</span>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <!-- /.widget-main -->
-                                            </div>
-                                            <!-- /.widget-body -->
-                                        </div>
-                                        <!-- /.widget-box -->
-                                    </div>
-                                    <!-- /.col -->
-
-                                    <div class="col-sm-7">
-                                        <div class="widget-box transparent">
-                                            <div class="widget-header widget-header-flat">
-                                                <h4 class="widget-title lighter">
-                                                    <i class="ace-icon fa fa-signal"></i> Sale Stats
-                                                </h4>
-
-                                                <div class="widget-toolbar">
-                                                    <a href="#" data-action="collapse">
-                                                        <i class="ace-icon fa fa-chevron-up"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="widget-body">
-                                                <div class="widget-main padding-4">
-                                                    <div id="sales-charts"></div>
-                                                </div>
-                                                <!-- /.widget-main -->
-                                            </div>
-                                            <!-- /.widget-body -->
-                                        </div>
-                                        <!-- /.widget-box -->
-                                    </div>
-                                    <!-- /.col -->
-                                </div>
-                                <!-- /.row -->
-
-                                <div class="hr hr32 hr-dotted"></div>
-
-                                
-                                <!-- /.row -->
-
-                                <!-- PAGE CONTENT ENDS -->
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
                     </div>
                     <!-- /.page-content -->
                 </div>
@@ -787,31 +563,27 @@
 
 
 
-                        /*$('#CadastroUsuario').click(function () {
-                         //                            UsuarioServlet('Cadastro');
-                         UsuarioServlet('GerenciaUsuarios');                          
-                         })
-                         function UsuarioServlet(tarefas) {
-                         var taf = tarefas
-                         $.ajax({
-                         url: "UsuarioServlet",
-                         type: "POST",
-                         data: {
-                         tarefa: taf
-                         },
-                         })
-                         .success(function (e) {
-                         //do success stuff
-                         // window.location = "gerenciamentoUsuarios.jsp";
-                         })
-                         .error(function (e) {
-                         //do error handling stuff
-                         console.log('Erro' + e.toString())
-                         });
-                         }
-                         */
 
-          
+            <%
+                Cookie[] cookies = request.getCookies();
+                for (Cookie atual : cookies) {
+                    if (atual.getName().equals("Perfil")) {
+                        int auxilio = Integer.parseInt(atual.getValue());
+                        if (auxilio != 1) {
+            %>
+                        $('#liCadastro').hide()
+            <%
+                    }
+                }
+                if (atual.getName().equals("Nome")) {
+                    String auxiliado = atual.getValue().substring(0, 8);
+            %>
+                        $('#lblNome').text('<%= auxiliado%>');
+            <%
+                    }
+
+                }
+            %>
                         $('.easy-pie-chart.percentage').each(function () {
                             var $box = $(this).closest('.infobox');
                             var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');

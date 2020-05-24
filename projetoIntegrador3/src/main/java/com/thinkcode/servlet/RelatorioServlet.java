@@ -5,11 +5,19 @@
  */
 package com.thinkcode.servlet;
 
+import Controller.FilialController;
+import Controller.RelatorioController;
+import Controller.UsuarioController;
+import com.thinkcode.models.FilialModel;
+import com.thinkcode.models.ProdutoModel;
+import com.thinkcode.models.RelatorioModel;
+import com.thinkcode.models.UsuarioModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -35,14 +43,29 @@ public class RelatorioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        //Instância de objetos
+        String tarefa = request.getParameter("tarefa");
+        RelatorioModel relatorioModel = new RelatorioModel();
+        RelatorioController relatorioController = new RelatorioController();
+        UsuarioModel usuario = new UsuarioModel();
+        UsuarioController usuarioController = new UsuarioController();
+        Cookie cook = null;
         List<Cookie> cookies = new ArrayList<Cookie>();
         cookies = Arrays.asList(request.getCookies());
-        Cookie cook = null;
         String url = "/login.jsp";
         boolean logado = false;
-        
         //Fim instância       
+
+        //Varredura de cookie para verificar se usuário está logado
+        if (cookies != null) {
+            for (Cookie ck : cookies) {
+                if (ck.getName() != null && ck.getName().equals("Id_Usuario")) {
+                    cook = ck;
+                    logado = true;
+                }
+            }
+        }
+        //Fim Varredura
 
         if (cookies != null) {
             for (Cookie ck : cookies) {
@@ -54,7 +77,25 @@ public class RelatorioServlet extends HttpServlet {
         }
 
         if (logado) {
+            url = "/relatorio.jsp";
+            FilialController FilialController = new FilialController();
+            List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");
+            request.setAttribute("filiais", filiais);
+            List<UsuarioModel> vendedores = usuarioController.UsuariosCadastrados("", "");
+            request.setAttribute("vendedores", vendedores);
+            List<UsuarioModel> clientes = usuarioController.UsuariosCadastrados("", "");
+            request.setAttribute("clientes", clientes);
+            List<RelatorioModel> _relatorio = relatorioController.ProdutosCadastrados(relatorioModel);
+            request.setAttribute("relatorio", _relatorio);
+            ProdutoModel produto = relatorioModel.getProduto();
+        }
 
+        try {
+
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(request, response);
+        } catch (Exception e) {
+            String error = e.toString();
         }
     }
 

@@ -9,7 +9,7 @@ package com.thinkcode.models;
  *
  * @author Leonardo Silva
  */
-public class Venda {
+public class VendaModel {
 
     private int idVenda;
     private int idStatus; // Chave Estrangeira 
@@ -25,7 +25,7 @@ public class Venda {
     private String userExclusao;
     private String codRastreio;
 
-    public Venda(int idVenda, int idStatus, int idEndereco, int idUsuario, int idFilial, String cpfCnpj, int pagamento, int parcelas, double total, String data) {
+    public VendaModel(int idVenda, int idStatus, int idEndereco, int idUsuario, int idFilial, String cpfCnpj, int pagamento, int parcelas, double total, String data) {
         this.idVenda = idVenda;
         this.idStatus = idStatus;
         this.idEndereco = idEndereco;

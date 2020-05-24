@@ -1,13 +1,14 @@
 com\thinkcode\DAO\UsuarioDAO.class
 com\thinkcode\models\ItensVenda.class
 com\thinkcode\models\AcompanheModel.class
-com\thinkcode\models\Venda.class
+com\thinkcode\DAO\RelatorioDAO.class
 com\thinkcode\db\ConnectionDB.class
 com\thinkcode\models\UsuarioModel.class
 com\thinkcode\servlet\PerfilServlet.class
 com\thinkcode\models\RelatorioModel.class
 com\thinkcode\models\Status_Venda.class
 Controller\PerfilController.class
+com\thinkcode\models\VendaModel.class
 com\thinkcode\models\ProdutoModel.class
 com\thinkcode\models\DetalhePedido.class
 com\thinkcode\models\PedidoModel.class
