@@ -37,6 +37,10 @@ public class VendaModel {
         this.total = total;
         this.data = data;
     }
+    
+    public VendaModel(){
+    
+    }
 
     public int getIdVenda() {
         return idVenda;
@@ -141,5 +145,7 @@ public class VendaModel {
     public void setCodRastreio(String codRastreio) {
         this.codRastreio = codRastreio;
     }
+    
+    
 
 }

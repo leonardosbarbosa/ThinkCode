@@ -18,6 +18,11 @@ public class ItensVenda {
     private int Qntd;
     private double valor;
 
+    
+    public ItensVenda(){
+        
+    }
+    
     public ItensVenda(int idItem, int idProduto, int idUsuario, int idVenda, int idQntd, double valor) {
         this.idItem = idItem;
         this.idProduto = idProduto;

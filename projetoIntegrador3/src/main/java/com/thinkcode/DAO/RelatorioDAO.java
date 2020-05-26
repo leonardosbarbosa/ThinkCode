@@ -83,7 +83,7 @@ public class RelatorioDAO {
                 relatorio.setcpfCnpj(rs.getString("venda.cpf_cnpj"));
                 if (Integer.parseInt(rs.getString("venda.pagamento")) == 1) {
                     relatorio.setformaPagamento("Cartão de Crédito");
-                } else if (Integer.parseInt(rs.getString("venda.pagamento")) == 1) {
+                } else if (Integer.parseInt(rs.getString("venda.pagamento")) == 2) {
                     relatorio.setformaPagamento("Cartão de Débito");
                 } else {
                     relatorio.setformaPagamento("Dinheiro");

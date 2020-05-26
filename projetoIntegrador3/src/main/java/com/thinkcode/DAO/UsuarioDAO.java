@@ -259,5 +259,31 @@ public class UsuarioDAO {
         }
         return usuarios;
     }
+    
+    public static UsuarioModel UsuariosPorCPFPERFIL(String CPF, String PERFIL) {
+        Connection con;
+        UsuarioModel usuarioDB = new UsuarioModel();
+        try {
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("SELECT * from usuario where id_perfil = 3 and cpf_cnpj = '" +CPF+ "' ");
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.first()){
+
+                usuarioDB.setNome(rs.getString("nome"));
+                usuarioDB.setRg(rs.getString("rg"));
+                usuarioDB.setDataNasc(rs.getString("data_nascimento"));
+                usuarioDB.setTelefone(rs.getLong("telefone"));
+                usuarioDB.setEmail(rs.getString("email"));
+                usuarioDB.setSexo(rs.getString("sexo"));
+                usuarioDB.setId(rs.getInt("id_usuario"));
+
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return usuarioDB;
+        }
 
 }

@@ -2,6 +2,7 @@ com\thinkcode\DAO\UsuarioDAO.class
 com\thinkcode\models\ItensVenda.class
 com\thinkcode\models\AcompanheModel.class
 com\thinkcode\DAO\RelatorioDAO.class
+Controller\VendaController.class
 com\thinkcode\db\ConnectionDB.class
 com\thinkcode\models\UsuarioModel.class
 com\thinkcode\servlet\PerfilServlet.class
@@ -18,6 +19,7 @@ com\thinkcode\models\Criptografia.class
 Controller\FilialController.class
 com\thinkcode\DAO\ItensVendaDAO.class
 com\thinkcode\servlet\FilialServlet.class
+Controller\ItensVendaController.class
 com\thinkcode\models\EnderecoModel.class
 com\thinkcode\servlet\RelatorioServlet.class
 Controller\EnderecoController.class
@@ -34,5 +36,6 @@ com\thinkcode\DAO\PerfilDAO.class
 com\thinkcode\DAO\ProdutoDAO.class
 com\thinkcode\models\FilialModel.class
 com\thinkcode\models\PerfilModel.class
+com\thinkcode\servlet\VendaServlet.class
 com\thinkcode\DAO\VendaDAO.class
 Controller\UsuarioController.class

@@ -656,7 +656,7 @@
                         <ul class="submenu">
 
                             <li class="">
-                                <a href="#" >
+                                <a href="VendaServlet" >
                                     <i class="menu-icon fa fa-money"></i> Vendas
                                 </a>
 

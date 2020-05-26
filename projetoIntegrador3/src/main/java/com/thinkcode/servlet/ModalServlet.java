@@ -140,7 +140,7 @@ public class ModalServlet extends HttpServlet {
                     + "											<div class=\"modal-footer\">\n"
                     + "												<button class=\"btn btn-sm btn-danger pull-right\" data-dismiss=\"modal\">\n"
                     + "													<i class=\"ace-icon fa fa-times\"></i>\n"
-                    + "													Close\n"
+                    + "													Fechar\n"
                     + "												</button>\n"
                     + "											</div>\n"
                     + "										</div><!-- /.modal-content -->\n"

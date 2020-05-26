@@ -132,7 +132,7 @@ public class ProdutoDAO {
                 sqlState += " and tipo = '" + filtroTipo + "'";
             }
              if (filtroNome != null && !filtroNome.equals("")) {
-                sqlState += "and nome = '" + filtroNome + "'";
+                sqlState += "and nome like '%" + filtroNome + "%' and qtde > 0";
             }
 
             con = ConnectionDB.obterConexao();
@@ -154,5 +154,23 @@ public class ProdutoDAO {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return produtos;
+    }
+    
+    public static boolean atualizarQtdeProduto(int id,int qtde) {
+        boolean ok = false;
+        Connection con;
+        try {
+            con = ConnectionDB.obterConexao();
+            String sql = "update produto  set qtde = qtde-(?)  where id_produto = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, qtde);
+            ps.setInt(2, id);
+            ps.execute();
+            ok = true;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ok;
     }
 }

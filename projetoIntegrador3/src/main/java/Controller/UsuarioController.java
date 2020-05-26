@@ -36,4 +36,8 @@ public class UsuarioController {
     public boolean Delete(int idUsuarioExclusao, int idUsuarioExcluindo) {
         return UsuarioDAO.excluirUsuario(idUsuarioExclusao, idUsuarioExcluindo);
     }
+
+    public static UsuarioModel selectFromCPFPERFIL(String cpf, String filtroPerfil) {
+        return UsuarioDAO.UsuariosPorCPFPERFIL(cpf, filtroPerfil);
+    }
 }

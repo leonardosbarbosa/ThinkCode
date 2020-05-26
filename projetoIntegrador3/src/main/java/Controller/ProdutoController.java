@@ -24,7 +24,7 @@ public class ProdutoController {
     }
 
     public ProdutoModel produtoPropriedades(ProdutoModel produto) {
-       return ProdutoDAO.consultarProduto(produto);
+        return ProdutoDAO.consultarProduto(produto);
     }
 
     public List<ProdutoModel> ProdutosCadastrados(String filtroFilial, String filtroTipo, String filtroNome) {
@@ -33,5 +33,9 @@ public class ProdutoController {
 
     public boolean delete(int idProduto, int idUserExclusao) {
         return ProdutoDAO.excluirProduto(idProduto, idUserExclusao);
+    }
+
+    public boolean UpdateQtde(int id, int qtde) {
+        return ProdutoDAO.atualizarQtdeProduto(id, qtde);
     }
 }
