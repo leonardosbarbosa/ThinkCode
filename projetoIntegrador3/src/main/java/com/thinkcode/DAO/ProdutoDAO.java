@@ -82,7 +82,7 @@ public class ProdutoDAO {
             ps.setString(6, produto.getDescricao());
             ps.setDouble(7, produto.getValor());
             ps.setDouble(8, produto.getIdProduto());
-            ps.execute();
+            ps.executeUpdate();
             ok = true;
 
         } catch (ClassNotFoundException | SQLException ex) {

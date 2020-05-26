@@ -245,7 +245,7 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="#">
+                                <a href="RelatorioServlet">
                                     <i class="menu-icon fa fa-caret-right"></i> Vendas
                                 </a>
 
@@ -253,7 +253,7 @@
                             </li>
 
                             <li class="">
-                                <a href="e#">
+                                <a href="#">
                                     <i class="menu-icon fa fa-caret-right"></i> Estoque
                                 </a>
 
@@ -393,7 +393,7 @@
 
                                                     <div class="col-lg-3">
                                                         <label for="number-button" class="block">Vendedor</label>
-                                                        <select class="form-group" style="width: 100%;" name="filtroPerfil">
+                                                        <select class="form-group" style="width: 100%;" name="filtroVendedor">
                                                             <option></option>
                                                             <c:forEach var="vendedor" items="${vendedores}">
                                                                 <option value="${vendedor.idUsuario}">
@@ -406,10 +406,10 @@
                                                     </div>
                                                     <div class="col-lg-3">
                                                         <label for="number-button" class="block">Cliente</label>
-                                                        <select class="form-group" style="width: 100%;" name="filtroPerfil">
+                                                        <select class="form-group" style="width: 100%;" name="filtroCliente">
                                                             <option></option>
                                                             <c:forEach var="cliente" items="${clientes}">
-                                                                <option value="${cliente.idUsuario}">
+                                                                <option value="${cliente.cpfCnpj}">
                                                                     ${cliente.nome}
                                                                 </option>
                                                             </c:forEach>
@@ -419,9 +419,10 @@
                                                     </div>
                                                     <div class="col-lg-3">
                                                         <label for="number-button" class="block">Forma Pagamento</label>
-                                                        <select class="form-group" style="width: 100%;" name="filtroPerfil">
-                                                            <option value="1">Cartão de débito</option>
-                                                            <option value="2">Cartão de crédito</option>
+                                                        <select class="form-group" style="width: 100%;" name="filtroPagamento">
+                                                            <option ></option>
+                                                            <option value="1">Cartão de crédito</option>
+                                                            <option value="2">Cartão de débito</option>                                                            
                                                             <option value="3">Dinheiro</option>
                                                         </select>
                                                     </div>
@@ -454,6 +455,7 @@
                                         <tr>
                                             <th id="id"> Nr.Venda </th>
                                             <th> Filial</th>
+                                            <th> Vendedor </th>
                                             <th> Cliente </th>
                                             <th> CPF/CNPJ </th>
                                             <th> Pagamento </th>                                           
@@ -479,10 +481,13 @@
                                                     ${relatorio.usuarioNome}
                                                 </td>
                                                 <td>
+                                                    ${relatorio.nomeCliente}
+                                                </td>
+                                                <td>
                                                     ${relatorio.cpfCnpj}
                                                 </td>
                                                 <td>
-                                                    ${relatorio.pagamento}
+                                                    ${relatorio.formaPagamento}
                                                 </td>
 
                                                 <td>

@@ -25,6 +25,11 @@ public class RelatorioModel {
     private String NomeProduto;
     private int QuantidadeProduto;
     private Double ValorProduto;
+    private int idVendedor;
+    private String CpfCliente;
+    private int idPagamento;
+    private String formaPagamento;
+    private String nomeCliente;
 
     public RelatorioModel() {
 
@@ -148,6 +153,46 @@ public class RelatorioModel {
 
     public void setQuantidadeProduto(int qtd) {
         this.QuantidadeProduto = qtd;
+    }
+
+    public int getidVendedor() {
+        return this.idVendedor;
+    }
+
+    public void setidVendedor(int _idVendedor) {
+        this.idVendedor = _idVendedor;
+    }
+
+    public String getCpfCliente() {
+        return this.CpfCliente;
+    }
+
+    public void setCpfCliente(String CpfCliente) {
+        this.CpfCliente = CpfCliente;
+    }
+
+    public int getidPagamento() {
+        return this.idPagamento;
+    }
+
+    public void setidPagamento(int _idPagamento) {
+        this.idPagamento = _idPagamento;
+    }
+
+    public String getformaPagamento() {
+        return this.formaPagamento;
+    }
+
+    public void setformaPagamento(String _formaPagamento) {
+        this.formaPagamento = _formaPagamento;
+    }
+
+    public String getnomeCliente() {
+        return this.nomeCliente;
+    }
+
+    public void setnomeCliente(String _nomeCliente) {
+        this.nomeCliente = _nomeCliente;
     }
 
 }

@@ -420,7 +420,6 @@
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Filial</label>
                                                                     <select class="form-group" style="width: 100%;" name="filialProduto">
-                                                                        <option value="${idFilial}">Filial</option>
                                                                         <c:forEach var="filial" items="${filiais}">
                                                                             <option value="${filial.idFilial}">
                                                                                 ${filial.nome}

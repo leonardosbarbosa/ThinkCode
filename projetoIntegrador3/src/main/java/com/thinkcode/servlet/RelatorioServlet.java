@@ -77,6 +77,23 @@ public class RelatorioServlet extends HttpServlet {
             request.setAttribute("vendedores", vendedores);
             List<UsuarioModel> clientes = usuarioController.UsuariosCadastrados("", "");
             request.setAttribute("clientes", clientes);
+            String id_filial = request.getParameter("filtroFiliais");
+            if (id_filial != null && !id_filial.equals("")) {
+                relatorioModel.setIdFilial(Integer.parseInt(id_filial));
+            }
+            String id_vendedor = request.getParameter("filtroVendedor");
+            if (id_vendedor != null && !id_vendedor.equals("")) {
+                relatorioModel.setidVendedor((Integer.parseInt(id_vendedor)));
+            }
+            String cpf_cliente = request.getParameter("filtroCliente");
+            if (cpf_cliente != null && !cpf_cliente.equals("")) {
+                relatorioModel.setCpfCliente(cpf_cliente);
+            }
+            String id_pagamento = request.getParameter("filtroPagamento");
+            if (id_pagamento != null && !id_pagamento.equals("")) {
+                relatorioModel.setidPagamento((Integer.parseInt(id_pagamento)));
+            }
+            
             List<RelatorioModel> _relatorio = relatorioController.ProdutosCadastrados(relatorioModel);
             request.setAttribute("relatorio", _relatorio);
             ProdutoModel produto = relatorioModel.getProduto();
