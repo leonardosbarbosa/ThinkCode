@@ -72,7 +72,9 @@ public class RelatorioDAO {
             }
 
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement(sqlState);
+            PreparedStatement ps = con.prepareStatement(sqlState,
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 RelatorioModel relatorio = new RelatorioModel();

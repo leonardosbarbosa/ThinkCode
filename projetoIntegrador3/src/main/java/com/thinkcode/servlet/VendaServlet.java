@@ -169,9 +169,7 @@ public class VendaServlet extends HttpServlet {
                         + "                                                                        </div>\n"
                         + "                                                                    </div>\n"
                         + "                                                                    &nbsp;\n"
-                        + "                                                                </div>\n"
-                        + "                                                            </div>\n"
-                        + "                                                        </div>";
+                        + "                                                                </div>\n";
 
             }
 

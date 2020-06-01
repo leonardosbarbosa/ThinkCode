@@ -31,6 +31,9 @@
 
         <!--Data Table import-->
         <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.2.7/css/rowReorder.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.4/css/responsive.dataTables.min.css"/>
 
 
         <!--[if lte IE 9]>
@@ -74,7 +77,7 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="IndexServlet" class="navbar-brand">
                         <small>
                             <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
@@ -216,7 +219,7 @@
 
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
@@ -330,7 +333,7 @@
                         <ul class="submenu">
 
                             <li class="">
-                                <a href="#" >
+                                <a href="VendaServlet" >
                                     <i class="menu-icon fa fa-money"></i> Vendas
                                 </a>
 
@@ -424,7 +427,7 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <table id="tabelaUsuarios" class="table  table-bordered table-hover">
+                                <table id="tabelaUsuarios" class="table table-hover display  table-striped table-bordered nowrap" style="width: 100%">
                                     <thead>
                                         <tr>
                                             <th id="id"> ID </th>
@@ -492,7 +495,7 @@
                                 <input  name="tarefa" style="display: none" type="text" value="Editando" />
                                 <button type="submit" style="display: none" id="enviarEditacao"></button>
                             </form>
-                              <form method="" action="UsuarioServlet" >
+                            <form method="" action="UsuarioServlet" >
                                 <input  name="id" style="display: none" type="text" id="valorExcluir"/>
                                 <input  name="tarefa" style="display: none" type="text" value="Excluir" />
                                 <button type="submit" style="display: none" id="enviarExclusao"></button>
@@ -565,26 +568,30 @@
                     <script src="assets/js/ace.min.js"></script>
 
                     <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.7/js/dataTables.rowReorder.min.js"></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.4/js/dataTables.responsive.min.js"></script>
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
                                                             jQuery(function ($) {
                                                                 $('#tabelaUsuarios').DataTable({
                                                                     "language": {
                                                                         "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-                                                                    }
+                                                                    },
+                                                                    responsive: true
                                                                 });
                                                                 window.displaymessage = function (user)
                                                                 {
                                                                     $('#valorEditar').val(user);
                                                                     $('#enviarEditacao').click();
-                                                                    
-                                                                    
+
+
                                                                 }
                                                                 window.delete = function (user)
-                                                                {                                                                    
+                                                                {
                                                                     $('#valorExcluir').val(user);
                                                                     $('#enviarExclusao').click();
-                                                                   
+
                                                                 }
 
                         <%

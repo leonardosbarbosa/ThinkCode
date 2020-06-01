@@ -1,3 +1,5 @@
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="com.thinkcode.db.ConnectionDB"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -6,7 +8,6 @@
 <%@ page import="java.util.*" %>  
 
 <%!
-   
     public String joinLine(ArrayList<?> arr, String del) {
 
         StringBuilder output = new StringBuilder();
@@ -124,11 +125,16 @@
 
         <script>
             <%
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-                final String host = "jdbc:mysql://localhost:3306/bdprojeto3?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=UTC";
-                final Connection conn = DriverManager.getConnection(host, "root", "");
-                final Statement stmt = conn.createStatement();
-                final ResultSet rs = stmt.executeQuery("SELECT produto.nome , sum(item_venda.quantidade) as qtde FROM item_venda INNER JOIN produto ON item_venda.id_produto = produto.id_produto group by produto.nome;");
+                //Class.forName("com.mysql.jdbc.Driver").newInstance();
+                //final String host = "jdbc:mysql://localhost:3306/bdprojeto3?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=UTC";
+                //final Connection conn = DriverManager.getConnection(host, "root", "");
+                //final Statement stmt = conn.createStatement();
+                //final ResultSet rs = stmt.executeQuery("SELECT produto.nome , sum(item_venda.quantidade) as qtde FROM item_venda INNER JOIN produto ON item_venda.id_produto = produto.id_produto group by produto.nome;");
+                Connection conn = ConnectionDB.obterConexao();
+                PreparedStatement ps = conn.prepareStatement("SELECT produto.nome , sum(item_venda.quantidade) as qtde FROM item_venda INNER JOIN produto ON item_venda.id_produto = produto.id_produto group by produto.nome;",
+                        ResultSet.TYPE_SCROLL_SENSITIVE,
+                        ResultSet.CONCUR_UPDATABLE);
+                ResultSet rs = ps.executeQuery();
                 ArrayList<String> months = new ArrayList<String>();
                 ArrayList<Integer> users = new ArrayList<Integer>();
                 while (rs.next()) {
@@ -136,14 +142,14 @@
                     users.add(Integer.parseInt(rs.getString("qtde")));
                 }
 
-                final ResultSet rs1 = stmt.executeQuery("select * from venda");
+                final ResultSet rs1 = ps.executeQuery("select * from venda");
 
                 ArrayList<Double> vendas = new ArrayList<Double>();
                 while (rs1.next()) {
                     vendas.add(Double.parseDouble(rs1.getString("total")));
                 }
 
-                final ResultSet rs2 = stmt.executeQuery("select fi.nome, sum(ve.total) as total from venda ve inner join filial fi on ve.id_filial = fi.id_filial group by ve.id_filial;");
+                final ResultSet rs2 = ps.executeQuery("select fi.nome, sum(ve.total) as total from venda ve inner join filial fi on ve.id_filial = fi.id_filial group by ve.id_filial;");
 
                 ArrayList<Double> filial = new ArrayList<Double>();
                 ArrayList<String> filialnome = new ArrayList<String>();
@@ -151,13 +157,26 @@
                     filialnome.add(rs2.getString("fi.nome"));
                     filial.add(Double.parseDouble(rs2.getString("total")));
                 }
+                
+                
+                ps = conn.prepareStatement("SELECT US.NOME, SUM(VE.TOTAL) as total FROM VENDA AS VE INNER JOIN USUARIO AS US ON VE.ID_USUARIO = US.ID_USUARIO GROUP BY VE.ID_USUARIO;",
+                        ResultSet.TYPE_SCROLL_SENSITIVE,
+                        ResultSet.CONCUR_UPDATABLE);
+                ResultSet rs3 = ps.executeQuery();
+                ArrayList<String> Vendedores = new ArrayList<String>();
+                ArrayList<Double> ValorVendedores = new ArrayList<Double>();
+                while (rs3.next()) {
+                    Vendedores.add(rs3.getString("US.NOME"));
+                    ValorVendedores.add(Double.parseDouble(rs3.getString("total")));
+                }
+                
                 conn.close();
 
                 String DataPie = joinPie(filial, filialnome, ",");
                 String DataBar = joinBar(users, months, ",");
+                String DataBarVend = joinBar(ValorVendedores, Vendedores, ",");
                 String DataLine = joinLine(vendas, ",");
             %>
-                console.log(<%=DataPie%>)
         </script> 
         <script>
             window.onload = function () {
@@ -168,7 +187,7 @@
                     data: {
                         "type": "bar",
                         "title": {
-                            "text": "Produtos Vendidos"
+                            "text": "Produtos"
                         },
                         "plot": {
                             "border-color": "#636363",
@@ -207,6 +226,55 @@
                         },
                         "series": [
             <%=DataBar%>
+                        ]
+                    }
+                });
+                zingchart.render({
+                    id: "myChart2",
+                    width: "100%",
+                    height: 450,
+                    data: {
+                        "type": "bar",
+                        "title": {
+                            "text": "Vendedores"
+                        },
+                        "plot": {
+                            "border-color": "#636363",
+                            "border-width": 2,
+                            "border-radius": "3px",
+                            "line-style": "solid",
+                            "line-width": 1
+                        },
+                        "scale-y": {
+                            "line-color": "#7E7E7E",
+                            "item": {
+                                "font-color": "#7e7e7e"
+                            },
+                            "values": "0:10000:10",
+                            "guide": {
+                                "visible": true
+                            },
+                            "label": {
+                                "text": "Valor",
+                                "font-family": "arial",
+                                "bold": true,
+                                "font-size": "14px",
+                                "font-color": "#7E7E7E",
+                            },
+                        },
+                        "scale-x": {
+                            "labels": ['Vendedores']
+
+                        },
+                        "crosshair-x": {
+                            "line-width": "100%",
+                            "alpha": 0.18,
+                            "plot-label": {
+                                "header-text": "Valor"
+                            }
+                        },
+                        "series": [
+            <%=DataBarVend%>
                         ]
                     }
                 });
@@ -404,7 +472,7 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="#" class="navbar-brand">
                         <small>
                             <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
@@ -542,7 +610,7 @@
                 <!-- /.sidebar-shortcuts -->
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="#">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
@@ -689,6 +757,9 @@
                         <div class="col-lg-12" style="margin-top: 10px;">
                             <div class="col-lg-6" style="border: 1px solid #dbdbdb; border-radius: 4px;">
                                 <div id="chartpie"></div>  
+                            </div>
+                            <div class="col-lg-6" style="border: 1px solid #dbdbdb; border-radius: 4px;">
+                                <div id="myChart2"></div>  
                             </div>
                         </div>
                         <!-- /.page-header -->

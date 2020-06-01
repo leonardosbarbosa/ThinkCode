@@ -36,13 +36,15 @@ public class ProdutoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Instância de objetos
         String tarefa = request.getParameter("tarefa");
         String id = request.getParameter("id");
 
+        //Instância de objetos     
         ProdutoModel produto = new ProdutoModel();
         ProdutoController produtoController = new ProdutoController();
-
+        FilialController FilialController = new FilialController();
+        UsuarioModel usuario = new UsuarioModel();
+        UsuarioController usuarioController = new UsuarioController();
         Cookie cook = null;
         List<Cookie> cookies = new ArrayList<Cookie>();
         cookies = Arrays.asList(request.getCookies());
@@ -50,6 +52,7 @@ public class ProdutoServlet extends HttpServlet {
         boolean logado = false;
         //Fim instância       
 
+        //Varredura de cookie para verificar se usuário está logado
         if (cookies != null) {
             for (Cookie ck : cookies) {
                 if (ck.getName() != null && ck.getName().equals("Id_Usuario")) {
@@ -58,8 +61,14 @@ public class ProdutoServlet extends HttpServlet {
                 }
             }
         }
+        //Fim Varredura
+        //Se usuário estiver logado pode prosseguir para página
         if (logado) {
+            url = "/gerenciarProdutos.jsp";
+
+            //Se houve alguma tarefa a ser feita Seja Edita/Editar/Criando/Criar/Atualizar entra no IF
             if (tarefa != null) {
+                //Se ele estiver editando um cadastro irá entra nesta condição e preencher todos campos
                 if (tarefa.equals("Editando")) {
 
                     produto.setIdProduto(Integer.parseInt(id));
@@ -73,12 +82,62 @@ public class ProdutoServlet extends HttpServlet {
                     request.setAttribute("valorProduto", produto.getValor());
                     request.setAttribute("idFilial", produto.getIdFilial());
                     request.setAttribute("tarefa", "Editar");
+                    url = "/cadastroProduto.jsp";
                 }
+                // Fim edição
+                //Se estiver cadastrando um usuário novo será redirecionado diretamente
+                if (tarefa.equals("Cadastrando")) {
+                    url = "/cadastroProduto.jsp";
+                }
+                //Fim redirecionamento
+                //Se estiver excluindo um usuário
+                if (tarefa.equals("Excluir")) {
+                    produto.setIdProduto(Integer.parseInt(id));
+                    boolean ok = produtoController.delete(produto.getIdProduto(), Integer.parseInt(cook.getValue()));
+                    if (ok) {
+                        url = "/gerenciarProdutos.jsp";
+                    }
+                }
+                //Fim exclusão
+                //Cadastro de produtos
+                if (request.getParameter("nomeProduto") != null && request.getParameter("quantidadeProduto") != null) {
+
+                    usuario.setId(Integer.parseInt(cook.getValue()));
+
+                    usuario = usuarioController.UsuarioPropriedades(usuario);
+                    if (request.getParameter("ID_PRODUTO") != null && !request.getParameter("ID_PRODUTO").equals("")) {
+                        produto.setIdProduto(Integer.parseInt(request.getParameter("ID_PRODUTO")));
+                    }
+                    produto.setNome(request.getParameter("nomeProduto"));
+                    produto.setQuantidade(Integer.parseInt(request.getParameter("quantidadeProduto")));
+                    produto.setTipo(request.getParameter("tipoProduto"));
+                    produto.setValor(Double.parseDouble(request.getParameter("valorProduto")));
+                    produto.setDescricao(request.getParameter("descricaoProduto"));
+                    produto.setIdUsuario(usuario.getIdUsuario());
+                    produto.setIdFilial(Integer.parseInt(request.getParameter("filialProduto")));
+
+                    if (tarefa.equals("cadastro")) {
+                        //Salvando produto
+                        boolean ok = produtoController.save(produto);
+                        //Fim
+                        if (ok) {
+                            url = "/gerenciarProdutos.jsp";
+                        }
+                    } else if (tarefa.equals("Editar")) { //Atualizando produto     
+                        boolean ok = produtoController.update(produto);
+                        if (ok) {
+                            url = "/gerenciarProdutos.jsp";
+                        }
+
+                    }
+
+                }
+                //Fim cadastro
 
             }
-            //Pegando parâmetros e atribuindo a model
+             //Fim tarefas
 
-            //Fim atribuição
+            //Filtro para tela de gerenciamento de usuário
             String filtroIDFilial = "";
             String filtroNome = "";
             if (request.getParameter("filtroFiliais") != null || request.getParameter("filtroNome") != null) {
@@ -87,59 +146,10 @@ public class ProdutoServlet extends HttpServlet {
             }
             List<ProdutoModel> produtos = produtoController.ProdutosCadastrados(filtroIDFilial, "", filtroNome);
             request.setAttribute("produtos", produtos);
-            FilialController FilialController = new FilialController();
+
             List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");
             request.setAttribute("filiais", filiais);
-            url = "/gerenciarProdutos.jsp";
-            if (tarefa != null) {
-                if (tarefa.equals("Editando")) {
-
-                    url = "/cadastroProduto.jsp";
-                }
-                if (tarefa.equals("Cadastrando")) {
-                    url = "/cadastroProduto.jsp";
-                }
-
-                if (tarefa.equals("Excluir")) {
-                    produto.setIdProduto(Integer.parseInt(id));
-                    boolean ok = produtoController.delete(produto.getIdProduto(), Integer.parseInt(cook.getValue()));
-                    if (ok) {
-                        url = "/gerenciarProdutos.jsp";
-                    }
-                }
-            }
-            if (request.getParameter("nomeProduto") != null && request.getParameter("quantidadeProduto") != null) {
-                UsuarioModel usuario = new UsuarioModel();
-                usuario.setId(Integer.parseInt(cook.getValue()));
-                UsuarioController usuarioController = new UsuarioController();
-                usuario = usuarioController.UsuarioPropriedades(usuario);
-                if (request.getParameter("ID_PRODUTO") != null && !request.getParameter("ID_PRODUTO").equals("")) {
-                    produto.setIdProduto(Integer.parseInt(request.getParameter("ID_PRODUTO")));
-                }
-                produto.setNome(request.getParameter("nomeProduto"));
-                produto.setQuantidade(Integer.parseInt(request.getParameter("quantidadeProduto")));
-                produto.setTipo(request.getParameter("tipoProduto"));
-                produto.setValor(Double.parseDouble(request.getParameter("valorProduto")));
-                produto.setDescricao(request.getParameter("descricaoProduto"));
-                produto.setIdUsuario(usuario.getIdUsuario());
-                produto.setIdFilial(Integer.parseInt(request.getParameter("filialProduto")));
-
-                if (tarefa.equals("cadastro")) {
-                    //Salvando produto
-                    boolean ok = produtoController.save(produto);
-                    //Fim
-                    if (ok) {
-                        url = "/gerenciarProdutos.jsp";
-                    }
-                } else if (tarefa.equals("Editar")) { //Atualizando produto     
-                    boolean ok = produtoController.update(produto);
-                    if (ok) {
-                        url = "/gerenciarProdutos.jsp";
-                    }
-
-                }
-
-            }
+            //Fim filtros
         }
         try {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

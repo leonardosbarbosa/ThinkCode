@@ -37,30 +37,17 @@ public class FilialServlet extends HttpServlet {
             throws ServletException, IOException {
         String tarefa = request.getParameter("tarefa");
         String id = request.getParameter("id");
+
         //Instância de objetos
         FilialModel filial = new FilialModel();
         FilialController filialController = new FilialController();
         String url = "/login.html";
-
-        //Fim instância
-        //Pegando parâmetros e atribuindo a model
-       /* filial.setNome(request.getParameter("nome"));
-         filial.setDescricao(request.getParameter("descricao"));
-         filial.setCnpj(Long.parseLong(request.getParameter("cnpj").replace(".", "").replace("-", "").replace("/", "")));
-         filial.setCep(Integer.parseInt(request.getParameter("cepFilial").replace(".", "").replace("-", "").replace("/", "")));
-         filial.setRua(request.getParameter("ruaFilial"));
-         filial.setBairro(request.getParameter("bairroFilial").replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));
-         filial.setNumero(request.getParameter("numeroFilial"));
-         filial.setComplemento(request.getParameter("complementoFilial"));
-         Date dataIncl = new Date();
-         filial.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
-         filial.setUserInclusao(1);*/
-        //Fim atribuição
-        //Salvando produto
-        //boolean ok = filialController.Save(filial);
-        //Fim
         Cookie cook = null;
         List<Cookie> cookies = new ArrayList<Cookie>();
+        Date dataIncl = new Date();
+        //Fim instância
+
+        //Varredura de cookie para verificar se usuário está logado
         cookies = Arrays.asList(request.getCookies());
         boolean logado = true;
 
@@ -72,9 +59,12 @@ public class FilialServlet extends HttpServlet {
                 }
             }
         }
-
+        //Fim Varredura
+        //Se usuário estiver logado pode prosseguir para página
         if (logado) {
+            url = "/gerenciamentoFiliais.jsp";
             if (tarefa != null) {
+                //Se ele estiver editando um cadastro irá entra nesta condição e preencher todos campos
                 if (tarefa.equals("Editando")) {
                     filial.setIdFilial(Integer.parseInt(id));
                     filial = filialController.FilialPropriedades(filial);
@@ -93,12 +83,52 @@ public class FilialServlet extends HttpServlet {
                     request.setAttribute("tarefa", "Editar");
 
                 }
+                //Fim preenchimento
+                //Se estiver excluíndo um usuário
                 if (tarefa.equals("Excluir")) {
                     filial.setIdFilial(Integer.parseInt(id));
                     boolean ok = filialController.Delete(filial.getIdFilial(), Integer.parseInt(cook.getValue()));
                 }
-            }
+                //Fim exclusão
+                //Pegando parâmetros e atribuindo a  model
+                if (request.getParameter("cnpj") != null && request.getParameter("nome") != null) {
 
+                    url = "/cadastroFilial.jsp";
+
+                    if (request.getParameter("ID_FILIAL") != null && !request.getParameter("ID_FILIAL").equals("")) {
+                        filial.setIdFilial(Integer.parseInt(request.getParameter("ID_FILIAL")));
+                    }
+
+                    filial.setUserInclusao(Integer.parseInt(cook.getValue()));
+                    filial.setNome(request.getParameter("nome"));
+                    filial.setTelefone(Long.parseLong(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
+                    filial.setDescricao(request.getParameter("descricao"));
+                    filial.setCnpj(Long.parseLong(request.getParameter("cnpj").replace(".", "").replace("-", "").replace("/", "")));
+                    filial.setCep(Integer.parseInt(request.getParameter("cepFilial").replace(".", "").replace("-", "").replace("/", "")));
+                    filial.setRua(request.getParameter("ruaFilial"));
+                    filial.setBairro(request.getParameter("bairroFilial").replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));
+                    filial.setNumero(request.getParameter("numeroFilial"));
+                    filial.setComplemento(request.getParameter("complementoFilial"));
+
+                    filial.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
+                    filial.setUserInclusao(1);
+
+                    //Fim atribuição
+                    //Cadastro de usuário
+                    boolean ok = true;
+                    if (tarefa.equals("Cadastro")) {
+                        ok = filialController.Save(filial);
+                    }
+                    if (tarefa.equals("Editar")) {
+                        ok = filialController.Update(filial);
+                    }
+
+                    url = "/gerenciamentoFiliais.jsp";
+                    //Fim cadastro
+
+                }
+            }
+            //Filtro para tela de gerenciamento de filial
             String filtroIDFilial = "";
             String filtroNome = "";
             if (request.getParameter("filtroIDFilial") != null || request.getParameter("filtroNome") != null) {
@@ -107,57 +137,16 @@ public class FilialServlet extends HttpServlet {
             }
             List<FilialModel> filiais = filialController.FiliaisCadastradas(filtroIDFilial, filtroNome);
             request.setAttribute("filiais", filiais);
-            url = "/gerenciamentoFiliais.jsp";
+
             if (tarefa != null) {
                 if (tarefa.equals("Editando")) {
 
                     url = "/cadastroFilial.jsp";
                 }
             }
-
-            //response.sendRedirect(request.getContextPath() + url);
-            //response.sendRedirect(url);
-            //Pegando parâmetros e atribuindo a  model
-            if (request.getParameter("cnpj") != null && request.getParameter("nome") != null) {
-                url = "/cadastroFilial.jsp";
-                if (request.getParameter("ID_FILIAL") != null && !request.getParameter("ID_FILIAL").equals("")) {
-                    filial.setIdFilial(Integer.parseInt(request.getParameter("ID_FILIAL")));
-                }
-                filial.setUserInclusao(Integer.parseInt(cook.getValue()));
-                filial.setNome(request.getParameter("nome"));
-                filial.setTelefone(Long.parseLong(request.getParameter("telefone").replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
-                filial.setDescricao(request.getParameter("descricao"));
-                filial.setCnpj(Long.parseLong(request.getParameter("cnpj").replace(".", "").replace("-", "").replace("/", "")));
-                filial.setCep(Integer.parseInt(request.getParameter("cepFilial").replace(".", "").replace("-", "").replace("/", "")));
-                filial.setRua(request.getParameter("ruaFilial"));
-                filial.setBairro(request.getParameter("bairroFilial").replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));
-                filial.setNumero(request.getParameter("numeroFilial"));
-                filial.setComplemento(request.getParameter("complementoFilial"));
-                Date dataIncl = new Date();
-                filial.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
-                filial.setUserInclusao(1);
-
-                //Fim atribuição
-                //Cadastro de usuário
-                boolean ok = true;
-                if (tarefa.equals("Cadastro")) {
-                    ok = filialController.Save(filial);
-                }
-                if (tarefa.equals("Editar")) {
-                    ok = filialController.Update(filial);
-                }
-
-                url = "/gerenciamentoFiliais.jsp";
-                //Fim cadastro
-                if (ok) {
-
-                    url = "/gerenciamentoFiliais.jsp";
-
-                }
-
-            }
-
+            //Fim filtro
         }
+        //Fim logado
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);

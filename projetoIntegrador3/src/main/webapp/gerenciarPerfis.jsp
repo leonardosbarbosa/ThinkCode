@@ -14,7 +14,13 @@
         <!-- bootstrap & fontawesome -->
         <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
         <link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+        
+         <!--Data Table import-->
         <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.2.7/css/rowReorder.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.4/css/responsive.dataTables.min.css"/>
+
         <!-- page specific plugin styles -->
 
         <!-- text fonts -->
@@ -70,7 +76,7 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="IndexServlet" class="navbar-brand">
                         <small>
                             <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
@@ -212,7 +218,7 @@
 
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
@@ -326,7 +332,7 @@
                         <ul class="submenu">
 
                             <li class="">
-                                <a href="#" >
+                                <a href="VendaServlet" >
                                     <i class="menu-icon fa fa-money"></i> Vendas
                                 </a>
 
@@ -390,7 +396,7 @@
                                                 </div>
                                                 <br> &nbsp;
                                                 <br> &nbsp;
-                                                
+
 
                                                 <label>  <a class="btn btn-sm btn-success " href="cadastroPerfil.jsp"
                                                             style="float: right; margin-right: 2px;"  >
@@ -414,7 +420,7 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <table id="tabelaPerfis" class="table  table-bordered table-hover">
+                                <table id="tabelaPerfis" class="table table-hover display  table-striped table-bordered nowrap" style="width: 100%">
                                     <thead>
                                         <tr>
                                             <th id="id"> ID Perfil </th>
@@ -529,19 +535,25 @@
                     <script src="assets/js/jquery.flot.min.js"></script>
                     <script src="assets/js/jquery.flot.pie.min.js"></script>
                     <script src="assets/js/jquery.flot.resize.min.js"></script>
-                    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+
                     <!-- ace scripts -->
                     <script src="assets/js/ace-elements.min.js"></script>
                     <script src="assets/js/ace.min.js"></script>
 
+                    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.7/js/dataTables.rowReorder.min.js"></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.4/js/dataTables.responsive.min.js"></script>
 
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
                                                             jQuery(function ($) {
                                                                 $('#tabelaPerfis').DataTable({
                                                                     "language": {
-                                                                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-                                                                    }
+                                                                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json" 
+                                                                   }
+                                                                    ,
+                                                                    responsive: true
                                                                 });
                                                                 window.displaymessage = function (user)
                                                                 {

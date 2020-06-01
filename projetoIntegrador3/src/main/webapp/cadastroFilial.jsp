@@ -1,10 +1,11 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta charset="utf-8" />
-        <title>Cadastro Filial</title>
+        <meta charset="UTF-8" />
+        <title>Dashboard - Ace Admin</title>
 
         <meta name="description" content="overview &amp; stats" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -67,7 +68,7 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="IndexServlet" class="navbar-brand">
                         <small>
                             <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
@@ -152,6 +153,7 @@
                                 <span class="user-info">
                                     <small>Bem-vindo,</small>
                                     <label id="lblNome"></label>
+
                                 </span>
 
                                 <i class="ace-icon fa fa-caret-down"></i>
@@ -173,7 +175,7 @@
                                 <li class="divider"></li>
 
                                 <li>
-                                    <a href="#">
+                                    <a href="#" id="Sair">
                                         <i class="ace-icon fa fa-power-off"></i> Logout
                                     </a>
                                 </li>
@@ -195,6 +197,7 @@
 
             <div id="sidebar" class="sidebar                  responsive                    ace-save-state">
                 <script type="text/javascript">
+
                     try {
                         ace.settings.loadState('sidebar')
                     } catch (e) {
@@ -206,7 +209,7 @@
 
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
@@ -320,7 +323,7 @@
                         <ul class="submenu">
 
                             <li class="">
-                                <a href="#" >
+                                <a href="VendaServlet" >
                                     <i class="menu-icon fa fa-money"></i> Vendas
                                 </a>
 
@@ -344,7 +347,7 @@
 
                     <div class="page-content">
                         <form action="FilialServlet" method="POST"> 
-                            <div class="row">
+                            <div class="row">                               
                                 <div class="col-lg-12">
                                     <p>
                                     <h4>Cadastro de Filial <i class="fa fa-university" aria-hidden="true"></i> </h1>
@@ -471,22 +474,22 @@
 
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <a src="index.html" class="btn btn-sm btn-danger right" style="float: right;">
+                                         <a href="FilialServlet"  class="btn btn-sm btn-danger right" style="float: right;">
                                             Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
                                         </a>
                                         <c:choose>
                                             <c:when test= "${empty tarefa}">
                                                 <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" name="tarefa" value="Cadastro">
                                                     Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" name="tarefa" value="${tarefa}">
-                                                    Atualizar &nbsp; <i class="ace-icon fa fa-save"></i>
-                                            </c:otherwise>
-                                        </c:choose>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" name="tarefa" value="${tarefa}">
+                                                        Atualizar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                                    </c:otherwise>
+                                                </c:choose>
 
 
-                                        </button>
+                                            </button>
                                     </div>
                                 </div>
                             </div>
@@ -531,8 +534,8 @@
                     <!-- <![endif]-->
 
                     <!--[if IE]>
-        <script src="assets/js/jquery-1.11.3.min.js"></script>
-        <![endif]-->
+    <script src="assets/js/jquery-1.11.3.min.js"></script>
+    <![endif]-->
                     <script type="text/javascript">
                     if ('ontouchstart' in document.documentElement)
                         document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
@@ -542,8 +545,8 @@
                     <!-- page specific plugin scripts -->
 
                     <!--[if lte IE 8]>
-                          <script src="assets/js/excanvas.min.js"></script>
-                        <![endif]-->
+                      <script src="assets/js/excanvas.min.js"></script>
+                    <![endif]-->
                     <script src="assets/js/jquery-ui.custom.min.js"></script>
                     <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
                     <script src="assets/js/jquery.easypiechart.min.js"></script>
@@ -560,40 +563,40 @@
 
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
-                    jQuery(function ($) {
-                        $.mask.definitions['~'] = '[+-]';
-                        $('.input-mask-phone').mask('(99) 99999-9999');
-                        $('.input-mask-cnpj').mask('99.999.999/9999-99');
-                        $('.input-mask-rg').mask('99-999-999-9');
-                        $('.input-mask-cep').mask('99999-999')
-                        $('.date-picker').datepicker({
-                            autoclose: true,
-                            todayHighlight: true
-                        })
+                   jQuery(function ($) {
+                       $.mask.definitions['~'] = '[+-]';
+                       $('.input-mask-phone').mask('(99) 99999-9999');
+                       $('.input-mask-cnpj').mask('99.999.999/9999-99');
+                       $('.input-mask-rg').mask('99-999-999-9');
+                       $('.input-mask-cep').mask('99999-999')
+                       $('.date-picker').datepicker({
+                           autoclose: true,
+                           todayHighlight: true
+                       })
 
 
                         <%
-                              Cookie[] cookies = request.getCookies();
-                              for (Cookie atual : cookies) {
-                                  if (atual.getName().equals("Perfil")) {
-                                      int auxilio = Integer.parseInt(atual.getValue());
-                                      if (auxilio != 1) {
+                           Cookie[] cookies = request.getCookies();
+                           for (Cookie atual : cookies) {
+                               if (atual.getName().equals("Perfil")) {
+                                   int auxilio = Integer.parseInt(atual.getValue());
+                                   if (auxilio != 1) {
                         %>
-                        $('#liCadastro').hide()
+                       $('#liCadastro').hide()
                         <%
-                                }
-                            }
-                            if (atual.getName().equals("Nome")) {
-                                String auxiliado = atual.getValue().substring(0, 8);
+                               }
+                           }
+                           if (atual.getName().equals("Nome")) {
+                               String auxiliado = atual.getValue().substring(0, 8);
                         %>
-                        $('#lblNome').text('<%= auxiliado%>');
+                       $('#lblNome').text('<%= auxiliado%>');
                         <%
-                                }
+                               }
 
-                            }
+                           }
                         %>
-                    })
-                    </script>
+                   })
+                    </script>   
                     </body>
 
                     </html>

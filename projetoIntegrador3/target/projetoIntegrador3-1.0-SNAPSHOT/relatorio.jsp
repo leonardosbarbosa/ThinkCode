@@ -38,6 +38,9 @@
 
         <!--Data Table import-->
         <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.2.7/css/rowReorder.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.4/css/responsive.dataTables.min.css"/>
 
 
         <!--[if lte IE 9]>
@@ -81,7 +84,7 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="IndexServlet" class="navbar-brand">
                         <small>
                             <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
@@ -223,7 +226,7 @@
 
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
@@ -337,7 +340,7 @@
                         <ul class="submenu">
 
                             <li class="">
-                                <a href="#" >
+                                <a href="VendaServlet" >
                                     <i class="menu-icon fa fa-money"></i> Vendas
                                 </a>
 
@@ -450,7 +453,7 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <table id="tabelaUsuarios" class="table  table-bordered table-hover">
+                                <table id="tabelaUsuarios" class="table table-hover display  table-striped table-bordered nowrap" style="width: 100%">
                                     <thead>
                                         <tr>
                                             <th id="id"> Nr.Venda </th>
@@ -494,8 +497,8 @@
                                                     ${relatorio.parcelas}
                                                 </td>
 
-                                                <td >
-                                                    R$ ${relatorio.total} 
+                                                <td class="row_currency" >
+                                                    ${relatorio.total} 
                                                 </td>                
                                                 <td >
                                                     ${relatorio.data} 
@@ -594,13 +597,28 @@
                     <script src="assets/js/ace.min.js"></script>
 
                     <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.7/js/dataTables.rowReorder.min.js"></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.4/js/dataTables.responsive.min.js"></script>
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
+
+                                                            let
+                                                            cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency"));
+// Loop over the array
+                                                                    cells.forEach(function (cell) {
+                                                                        // Convert cell data to a number, call .toLocaleString()
+                                                                        // on that number and put result back into the cell
+                                                                        cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+
+                                                                    });
                                                             jQuery(function ($) {
                                                                 $('#tabelaUsuarios').DataTable({
                                                                     "language": {
                                                                         "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-                                                                    }
+                                                                    },
+                                                                    responsive: true
+
                                                                 });
                                                                 window.displaymessage = function (user)
                                                                 {
@@ -618,10 +636,18 @@
                                                                             $('#Modal').html(response)
                                                                             $('#my-modal').modal('show')
                                                                             $('#tabelaprodutos').DataTable({
-                                                                                "language": {
-                                                                                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-                                                                                }
+                                                                            "language": {
+                                                                            "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                                                                            }
                                                                             })
+                                                                                    let cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency2"));
+// Loop over the array
+                                                                                    cells.forEach(function (cell) {
+                                                                                        // Convert cell data to a number, call .toLocaleString()
+                                                                                        // on that number and put result back into the cell
+                                                                                        cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+
+                                                                                    });
                                                                         },
                                                                         error: function (xhr, ajaxOptions, thrownError) {
                                                                             alert('error');

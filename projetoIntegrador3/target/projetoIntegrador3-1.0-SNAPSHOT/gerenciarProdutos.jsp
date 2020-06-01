@@ -49,8 +49,10 @@
 
         <!--Data Table import-->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.2.7/css/rowReorder.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.4/css/responsive.dataTables.min.css"/>
 
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
 
 
         <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
@@ -76,7 +78,7 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="IndexServlet" class="navbar-brand">
                         <small>
                             <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
@@ -218,7 +220,7 @@
 
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
@@ -332,7 +334,7 @@
                         <ul class="submenu">
 
                             <li class="">
-                                <a href="#" >
+                                <a href="VendaServlet" >
                                     <i class="menu-icon fa fa-money"></i> Vendas
                                 </a>
 
@@ -431,7 +433,7 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <table id="tabelaProdutos" class="table  table-bordered table-hover">
+                                <table id="tabelaProdutos" class="table table-hover display  table-striped table-bordered nowrap" style="width: 100%">
                                     <thead>
                                         <tr>
                                             <th id="id"> ID Produto </th>
@@ -464,7 +466,7 @@
                                                 <td>
                                                     ${produto.descricao}
                                                 </td>
-                                                <td>
+                                                <td class="row_currency">
                                                     ${produto.valor}
                                                 </td>
                                                 <td>
@@ -560,20 +562,34 @@
                     <script src="assets/js/jquery.flot.min.js"></script>
                     <script src="assets/js/jquery.flot.pie.min.js"></script>
                     <script src="assets/js/jquery.flot.resize.min.js"></script>
-                    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+
                     <!-- ace scripts -->
                     <script src="assets/js/ace-elements.min.js"></script>
                     <script src="assets/js/ace.min.js"></script>
 
+                    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.7/js/dataTables.rowReorder.min.js"></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.4/js/dataTables.responsive.min.js"></script>
+
 
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
+                         let cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency"));
+// Loop over the array
+                                                                                    cells.forEach(function (cell) {
+                                                                                        // Convert cell data to a number, call .toLocaleString()
+                                                                                        // on that number and put result back into the cell
+                                                                                        cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+
+                                                                                    });
                                                             jQuery(function ($) {
 
                                                                 $('#tabelaProdutos').DataTable({
                                                                     "language": {
                                                                         "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-                                                                    }
+                                                                    },
+                                                                    responsive: true
                                                                 });
 
                                                                 window.displaymessage = function (user)

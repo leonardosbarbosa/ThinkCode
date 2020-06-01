@@ -1,11 +1,11 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta charset="UTF-8" />
-        <title>ThinkCode - Cadastro Perfil</title>
+        <title>Dashboard - Ace Admin</title>
 
         <meta name="description" content="overview &amp; stats" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -68,7 +68,7 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="IndexServlet" class="navbar-brand">
                         <small>
                             <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
@@ -85,8 +85,7 @@
                                 <span class="badge badge-important">8</span>
                             </a>
 
-                            <ul
-                                class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+                            <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
                                 <li class="dropdown-header">
                                     <i class="ace-icon fa fa-exclamation-triangle"></i> 8 Notifications
                                 </li>
@@ -107,8 +106,7 @@
 
                                         <li>
                                             <a href="#">
-                                                <i class="btn btn-xs btn-primary fa fa-user"></i> Bob just signed up as an
-                                                editor ...
+                                                <i class="btn btn-xs btn-primary fa fa-user"></i> Bob just signed up as an editor ...
                                             </a>
                                         </li>
 
@@ -154,14 +152,14 @@
                                 <img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
                                 <span class="user-info">
                                     <small>Bem-vindo,</small>
-                                   <label id="lblNome"></label>
+                                    <label id="lblNome"></label>
+
                                 </span>
 
                                 <i class="ace-icon fa fa-caret-down"></i>
                             </a>
 
-                            <ul
-                                class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                            <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                                 <li>
                                     <a href="#">
                                         <i class="ace-icon fa fa-cog"></i> Settings
@@ -177,7 +175,7 @@
                                 <li class="divider"></li>
 
                                 <li>
-                                    <a href="#">
+                                    <a href="#" id="Sair">
                                         <i class="ace-icon fa fa-power-off"></i> Logout
                                     </a>
                                 </li>
@@ -199,6 +197,7 @@
 
             <div id="sidebar" class="sidebar                  responsive                    ace-save-state">
                 <script type="text/javascript">
+
                     try {
                         ace.settings.loadState('sidebar')
                     } catch (e) {
@@ -210,7 +209,7 @@
 
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
@@ -222,7 +221,7 @@
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-book"></i>
                             <span class="menu-text">
-                                RelatÃ³rios
+                                Relatórios
                             </span>
 
                             <b class="arrow fa fa-angle-down"></b>
@@ -250,14 +249,14 @@
 
                             <li class="">
                                 <a href="#">
-                                    <i class="menu-icon fa fa-caret-right"></i> UsuÃ¡rio
+                                    <i class="menu-icon fa fa-caret-right"></i> Usuário
                                 </a>
 
                                 <b class="arrow"></b>
                             </li>
                             <li class="">
                                 <a href="#">
-                                    <i class="menu-icon fa fa-caret-right"></i> SolicitaÃ§Ãµes
+                                    <i class="menu-icon fa fa-caret-right"></i> Solicitações
                                 </a>
 
                                 <b class="arrow"></b>
@@ -324,7 +323,7 @@
                         <ul class="submenu">
 
                             <li class="">
-                                <a href="#" >
+                                <a href="VendaServlet" >
                                     <i class="menu-icon fa fa-money"></i> Vendas
                                 </a>
 
@@ -338,8 +337,7 @@
                 <!-- /.nav-list -->
 
                 <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-                    <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state"
-                       data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+                    <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
                 </div>
             </div>
 
@@ -362,7 +360,7 @@
                                             <div class="col-sm-12">
                                                 <div class="widget-box">
                                                     <div class="widget-header">
-                                                        <h4 class="widget-title center">InformaÃ§Ãµes Gerais</h4>
+                                                        <h4 class="widget-title center">Informações Gerais</h4>
 
                                                         <div class="widget-toolbar">
                                                             <a href="#" data-action="collapse">
@@ -382,7 +380,7 @@
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button"
-                                                                           class="block">DescriÃ§Ã£o</label>
+                                                                           class="block">Descrição</label>
                                                                     <input type="text" id="form-field-1-1"
                                                                            class="form-control" name="descricaoPerfil"
                                                                            required value="${descricaoPerfil}"/>
@@ -404,139 +402,138 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <a src="index.html" class="btn btn-sm btn-danger right" style="float: right;">
+                                            <a href="PerfilServlet"   class="btn btn-sm btn-danger right" style="float: right;">
                                                 Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
                                             </a>
-                                            <c:choose>
+
+
+                                            <c:choose>  
                                                 <c:when test= "${empty tarefa}">
-                                                    <button type="submit" class="btn btn-sm btn-success"
-                                                            style="float: right; margin-right: 2px;" name="tarefa" value="cadastro">
-                                                        Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
-                                                    </button>
+                                                    <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="cadastro" name="tarefa">
+                                                        Registrar &nbsp; <i class="ace-icon fa fa-save"></i>                                                     
                                                 </c:when>
                                                 <c:otherwise>
                                                     <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="${tarefa}" name="tarefa">
-                                                        Alterar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                                        Editar &nbsp; <i class="ace-icon fa fa-save"></i>
                                                     </button>
                                                 </c:otherwise>
-                                            </c:choose>
-
-                                        </div>
+                                            </c:choose>                                            </div>
                                     </div>
+
                                 </div>
                             </div>
                     </div>
                     </form>
-                    <!-- /.ace-settings-container -->
-                    <div class="footer">
-                        <div class="footer-inner">
-                            <div class="footer-content">
-                                <span class="bigger-120">
-                                    <span class="blue bolder">Ace</span> Application &copy; 2013-2014
-                                </span>
+                        <!-- /.ace-settings-container -->
+                        <div class="footer">
+                            <div class="footer-inner">
+                                <div class="footer-content">
+                                    <span class="bigger-120">
+                                        <span class="blue bolder">Ace</span> Application &copy; 2013-2014
+                                    </span>
 
-                                &nbsp; &nbsp;
-                                <span class="action-buttons">
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-                                    </a>
+                                    &nbsp; &nbsp;
+                                    <span class="action-buttons">
+                                        <a href="#">
+                                            <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+                                        </a>
 
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-                                    </a>
+                                        <a href="#">
+                                            <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                                        </a>
 
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
-                                    </a>
-                                </span>
+                                        <a href="#">
+                                            <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+                                        </a>
+                                    </span>
+                                </div>
                             </div>
                         </div>
+
+                        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+                        </a>
                     </div>
+                    <!-- /.main-container -->
 
-                    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-                        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-                    </a>
-                </div>
-                <!-- /.main-container -->
+                    <!-- basic scripts -->
 
-                <!-- basic scripts -->
+                    <!--[if !IE]> -->
+                    <script src="assets/js/jquery-2.1.4.min.js"></script>
 
-                <!--[if !IE]> -->
-                <script src="assets/js/jquery-2.1.4.min.js"></script>
+                    <!-- <![endif]-->
 
-                <!-- <![endif]-->
-
-                <!--[if IE]>
+                    <!--[if IE]>
     <script src="assets/js/jquery-1.11.3.min.js"></script>
     <![endif]-->
-                <script type="text/javascript">
+                    <script type="text/javascript">
                     if ('ontouchstart' in document.documentElement)
                         document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
-                </script>
-                <script src="assets/js/bootstrap.min.js"></script>
+                    </script>
+                    <script src="assets/js/bootstrap.min.js"></script>
 
-                <!-- page specific plugin scripts -->
+                    <!-- page specific plugin scripts -->
 
-                <!--[if lte IE 8]>
+                    <!--[if lte IE 8]>
                       <script src="assets/js/excanvas.min.js"></script>
                     <![endif]-->
-                <script src="assets/js/jquery-ui.custom.min.js"></script>
-                <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
-                <script src="assets/js/jquery.easypiechart.min.js"></script>
-                <script src="assets/js/jquery.sparkline.index.min.js"></script>
-                <script src="assets/js/jquery.flot.min.js"></script>
-                <script src="assets/js/jquery.flot.pie.min.js"></script>
-                <script src="assets/js/jquery.flot.resize.min.js"></script>
-                <script src="assets/js/jquery.maskedinput.min.js"></script>
-                <script src="assets/js/bootstrap-datepicker.min.js"></script>
-                <!-- ace scripts -->
-                <script src="assets/js/ace-elements.min.js"></script>
-                <script src="assets/js/ace.min.js"></script>
+                    <script src="assets/js/jquery-ui.custom.min.js"></script>
+                    <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+                    <script src="assets/js/jquery.easypiechart.min.js"></script>
+                    <script src="assets/js/jquery.sparkline.index.min.js"></script>
+                    <script src="assets/js/jquery.flot.min.js"></script>
+                    <script src="assets/js/jquery.flot.pie.min.js"></script>
+                    <script src="assets/js/jquery.flot.resize.min.js"></script>
+                    <script src="assets/js/jquery.maskedinput.min.js"></script>
+                    <script src="assets/js/bootstrap-datepicker.min.js"></script>
+                    <!-- ace scripts -->
+                    <script src="assets/js/ace-elements.min.js"></script>
+                    <script src="assets/js/ace.min.js"></script>
 
 
-                <!-- inline scripts related to this page -->
-                <script type="text/javascript">
+                    <!-- inline scripts related to this page -->
+                    <script type="text/javascript">
                     jQuery(function ($) {
-                    <%
-     Cookie[] cookies = request.getCookies();
-     for (Cookie atual : cookies) {
-         if (atual.getName().equals("Perfil")) {
-             int auxilio = Integer.parseInt(atual.getValue());
-             if (auxilio != 1) {
-                    %>
+                        $.mask.definitions['~'] = '[+-]';
+                        $('.input-mask-phone').mask('(99) 99999-9999');
+                        $('.input-mask-cpf').mask('999-999-999-99');
+                        $('.input-mask-rg').mask('99-999-999-9');
+                        $('.input-mask-cep').mask('99999-999')
+                        $('.date-picker').datepicker({
+                            autoclose: true,
+                            todayHighlight: true
+                        })
+                        $('#Sair').click(function () {
+
+                            removeCookie();
+                        })
+                        function removeCookie() {
+                            alert('Entrou no método')
+                        }
+
+
+                        <%
+                            Cookie[] cookies = request.getCookies();
+                            for (Cookie atual : cookies) {
+                                if (atual.getName().equals("Perfil")) {
+                                    int auxilio = Integer.parseInt(atual.getValue());
+                                    if (auxilio != 1) {
+                        %>
                         $('#liCadastro').hide()
-                    <%
+                        <%
                                 }
                             }
                             if (atual.getName().equals("Nome")) {
                                 String auxiliado = atual.getValue().substring(0, 8);
-                    %>
+                        %>
                         $('#lblNome').text('<%= auxiliado%>');
-                    <%
+                        <%
                                 }
 
                             }
-                    %>
+                        %>
                     })
-                </script>
+                    </script>
+                    </body>
 
-                <script>
-                    function onlynumber(evt) {
-                        var theEvent = evt || window.event;
-                        var key = theEvent.keyCode || theEvent.which;
-                        key = String.fromCharCode(key);
-                        //var regex = /^[0-9.,]+$/;
-                        var regex = /^[0-9.]+$/;
-                        if (!regex.test(key)) {
-                            theEvent.returnValue = false;
-                            if (theEvent.preventDefault)
-                                theEvent.preventDefault();
-                        }
-                    }
-
-
-                </script>
-
-                </body>
-
-                </html>
+                    </html>

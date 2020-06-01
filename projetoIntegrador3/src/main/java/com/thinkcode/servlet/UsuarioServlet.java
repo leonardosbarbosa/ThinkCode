@@ -77,25 +77,6 @@ public class UsuarioServlet extends HttpServlet {
         //Se usuário estiver logado pode prosseguir para página
         if (logado) {
             url = "/gerenciamentoUsuarios.jsp";
-
-            //Filtro para tela de gerenciamento de usuário
-            String filtroFilial = "";
-            String filtroPerfil = "";
-            if (request.getParameter("filtroFiliais") != null || request.getParameter("filtroPerfil") != null) {
-                filtroFilial = request.getParameter("filtroFiliais");
-                filtroPerfil = request.getParameter("filtroPerfil");
-            }
-            List<UsuarioModel> usuarios = usuarioController.UsuariosCadastrados(filtroFilial, filtroPerfil);
-            request.setAttribute("usuarios", usuarios);
-            FilialController FilialController = new FilialController();
-            List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");
-            request.setAttribute("filiais", filiais);
-            PerfilController perfilController = new PerfilController();
-            List<PerfilModel> perfis = perfilController.PerfisCadastrados("", "");
-            request.setAttribute("perfis", perfis);
-            //Fim filtros
-            
-            
             //Se houve alguma tarefa a ser feita Seja Edita/Editar/Criando/Criar/Atualizar entra no IF
             if (tarefa != null) {
                 if (!tarefa.equals("Cancelar")) {
@@ -137,17 +118,17 @@ public class UsuarioServlet extends HttpServlet {
                         usuarioController.Delete(Integer.parseInt(id), Integer.parseInt(cook.getValue()));
                     }
                     //Fim exclusão
-                    
+
                     //Se o usuário tiver preenchido os campos na tela de cadastro mesmo que editando entrar neste if
                     if (request.getParameter("cpf") != null && request.getParameter("rg") != null && request.getParameter("email") != null && request.getParameter("email") != null) {
                         url = "/cadastroUsuario.jsp";
-                        
+
                         //Se o usuário estiver editando ele irá pegar o ID_usuario passado pro front em uma label hiden
                         if (request.getParameter("ID_USUARIO") != null && !request.getParameter("ID_USUARIO").equals("")) {
                             usuario.setId(Integer.parseInt(request.getParameter("ID_USUARIO")));
                         }
                         //Fim resgate de ID
-                        
+
                         //Recuperando informações inputadas ou que consistem na tela
                         usuario.setUserInclusao(Integer.parseInt(cook.getValue()));
                         usuario.setCpfCnpj(request.getParameter("cpf").replace("-", ""));
@@ -165,7 +146,6 @@ public class UsuarioServlet extends HttpServlet {
                         usuario.setIdPerfil(Integer.parseInt(request.getParameter("perfil")));
                         //Fim atribuição
 
-                        
                         boolean ok = true;
                         //Cadastro de usuário
                         if (tarefa.equals("Cadastro")) {
@@ -177,21 +157,21 @@ public class UsuarioServlet extends HttpServlet {
                             ok = usuarioController.Update(usuario);
                         }
                         //Fim edição
-                        
+
                         url = "/gerenciamentoUsuarios.jsp";
                         //Se o usuário do cadastro foi efetuado com sucesso ele irá cadastrar/atualizar o endereço
                         if (ok) {
-                            
+
                             //Retorno do usuário cadastrado
                             usuario = usuarioController.UsuarioPropriedades(usuario);
                             //Pegando parâmetros e atribuindo a model
-                            
+
                             //Se estiver editando irá pegar o ID_endereço enviado ao front
                             if (request.getParameter("ID_ENDERECO") != null && !request.getParameter("ID_ENDERECO").equals("")) {
                                 endereco.setId(Integer.parseInt(request.getParameter("ID_ENDERECO")));
                             }
                             //Fim get
-                            
+
                             //Recuperando valores e setando na model
                             endereco.setIdUsuario(usuario.getIdUsuario());
                             endereco.setCep(request.getParameter("cep"));
@@ -200,21 +180,20 @@ public class UsuarioServlet extends HttpServlet {
                             endereco.setNumero(request.getParameter("numero"));
                             endereco.setComplemento(request.getParameter("complemento"));
                             //Fim atribuição
-                            
+
                             //Cadastro endereço
                             boolean okEndereco = false;
                             if (tarefa.equals("Cadastro")) {
                                 okEndereco = enderecoController.Save(endereco);
                             }
                             //Fim cadastro
-                            
+
                             //Atualizar endereço
                             if (tarefa.equals("Editar")) {
                                 okEndereco = enderecoController.Update(endereco);
                             }
                             //Fim atualização
-                            
-                            
+
                             url = "/gerenciamentoUsuarios.jsp";
 
                         }
@@ -225,9 +204,26 @@ public class UsuarioServlet extends HttpServlet {
                 }
             }
             //Fim tarefas
+            //Filtro para tela de gerenciamento de usuário
+            String filtroFilial = "";
+            String filtroPerfil = "";
+            if (request.getParameter("filtroFiliais") != null || request.getParameter("filtroPerfil") != null) {
+                filtroFilial = request.getParameter("filtroFiliais");
+                filtroPerfil = request.getParameter("filtroPerfil");
+            }
+            List<UsuarioModel> usuarios = usuarioController.UsuariosCadastrados(filtroFilial, filtroPerfil);
+            request.setAttribute("usuarios", usuarios);
+            FilialController FilialController = new FilialController();
+            List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");
+            request.setAttribute("filiais", filiais);
+            PerfilController perfilController = new PerfilController();
+            List<PerfilModel> perfis = perfilController.PerfisCadastrados("", "");
+            request.setAttribute("perfis", perfis);
+            //Fim filtros
+
         }
         //Fim usuario Logado
-        
+
         try {
 
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

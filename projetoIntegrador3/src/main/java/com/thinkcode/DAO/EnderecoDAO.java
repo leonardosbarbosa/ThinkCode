@@ -49,7 +49,9 @@ public class EnderecoDAO {
         EnderecoModel endereco = new EnderecoModel();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select * from endereco where id_usuario = " + idUuario);
+            PreparedStatement ps = con.prepareStatement("select * from endereco where id_usuario = " + idUuario,
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 endereco.setIdUsuario(Integer.parseInt(rs.getString("id_usuario")));

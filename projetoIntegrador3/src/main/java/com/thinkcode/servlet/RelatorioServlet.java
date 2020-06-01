@@ -43,6 +43,7 @@ public class RelatorioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         //Instância de objetos
         String tarefa = request.getParameter("tarefa");
         RelatorioModel relatorioModel = new RelatorioModel();
@@ -54,7 +55,6 @@ public class RelatorioServlet extends HttpServlet {
         cookies = Arrays.asList(request.getCookies());
         String url = "/login.jsp";
         boolean logado = false;
-        PrintWriter out = response.getWriter();
         //Fim instância       
 
         //Varredura de cookie para verificar se usuário está logado

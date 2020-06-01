@@ -5,6 +5,7 @@
  */
 package com.thinkcode.DAO;
 
+
 import com.thinkcode.db.ConnectionDB;
 import com.thinkcode.models.UsuarioModel;
 import java.sql.Connection;
@@ -25,7 +26,7 @@ import java.util.List;
  *
  * @author Leonardo Silva
  */
-public class UsuarioDAO {
+public class UsuarioDAO extends ConnectionDB {
 
     public static boolean cadastrarUsuario(UsuarioModel usuario) {
 
@@ -117,7 +118,9 @@ public class UsuarioDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select email from usuario where email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'");
+            PreparedStatement ps = con.prepareStatement("select email from usuario where email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'",
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 return true;
@@ -152,7 +155,9 @@ public class UsuarioDAO {
                 }
                 
             }
-            PreparedStatement ps = con.prepareStatement(sqlState);
+            PreparedStatement ps = con.prepareStatement(sqlState,
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 usuario.setCpfCnpj(rs.getString("cpf_cnpj"));
@@ -230,7 +235,9 @@ public class UsuarioDAO {
 
             }
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement(sqlState);
+            PreparedStatement ps = con.prepareStatement(sqlState,
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 UsuarioModel usuario = new UsuarioModel();
@@ -265,7 +272,9 @@ public class UsuarioDAO {
         UsuarioModel usuarioDB = new UsuarioModel();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("SELECT * from usuario where id_perfil = 3 and cpf_cnpj = '" +CPF+ "' ");
+            PreparedStatement ps = con.prepareStatement("SELECT * from usuario where id_perfil = 3 and cpf_cnpj = '" +CPF+ "' ",
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
 
             if(rs.first()){

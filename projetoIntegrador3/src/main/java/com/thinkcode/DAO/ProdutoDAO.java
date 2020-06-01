@@ -51,7 +51,9 @@ public class ProdutoDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select * from produto where id_produto = " + produto.getIdProduto());
+            PreparedStatement ps = con.prepareStatement("select * from produto where id_produto = " + produto.getIdProduto(),
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 produto.setDescricao(rs.getString("descricao"));
@@ -110,7 +112,9 @@ public class ProdutoDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("delete nome from produto where id_produto like '%" + idProduto + "%'");
+            PreparedStatement ps = con.prepareStatement("delete nome from produto where id_produto like '%" + idProduto + "%'",
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -136,7 +140,9 @@ public class ProdutoDAO {
             }
 
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement(sqlState);
+            PreparedStatement ps = con.prepareStatement(sqlState,
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ProdutoModel produto = new ProdutoModel();

@@ -70,7 +70,7 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="IndexServlet" class="navbar-brand">
                         <small>
                             <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
@@ -212,7 +212,7 @@
 
                   <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
@@ -326,7 +326,7 @@
                         <ul class="submenu">
 
                             <li class="">
-                                <a href="#" >
+                                <a href="VendaServlet" >
                                     <i class="menu-icon fa fa-money"></i> Vendas
                                 </a>
 
@@ -446,7 +446,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <a src="index.html" class="btn btn-sm btn-danger right" style="float: right;">
+                                            <a href="ProdutoServlet"  class="btn btn-sm btn-danger right" style="float: right;">
                                                 Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
                                             </a>
                                             <c:choose>

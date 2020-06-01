@@ -58,7 +58,9 @@ public class FilialDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select id_filial from filial where id_filial like '%" + idFilial + "%'");
+            PreparedStatement ps = con.prepareStatement("select id_filial from filial where id_filial like '%" + idFilial + "%'",
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 System.out.println(rs.getString("id_filial"));
@@ -113,7 +115,9 @@ public class FilialDAO {
                     sqlState += " and rua like '%" + filtroNome + "%'";     
             }
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement(sqlState);
+            PreparedStatement ps = con.prepareStatement(sqlState,
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 FilialModel filial = new FilialModel();
@@ -196,7 +200,9 @@ public class FilialDAO {
                 }
                 
             }
-            PreparedStatement ps = con.prepareStatement(sqlState);
+            PreparedStatement ps = con.prepareStatement(sqlState,
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 filial.setIdFilial(rs.getInt("id_filial"));

@@ -52,7 +52,9 @@ public class PerfilDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select * from perfil where id_perfil = " + perfil.getIdPerfil());
+            PreparedStatement ps = con.prepareStatement("select * from perfil where id_perfil = " + perfil.getIdPerfil(),
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 perfil.setIdPerfil(rs.getInt("id_perfil"));
@@ -112,7 +114,9 @@ public class PerfilDAO {
             }
 
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement(sqlState);
+            PreparedStatement ps = con.prepareStatement(sqlState,
+                            ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 PerfilModel perfil = new PerfilModel();

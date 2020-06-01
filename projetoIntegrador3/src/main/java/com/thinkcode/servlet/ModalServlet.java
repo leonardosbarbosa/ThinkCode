@@ -131,7 +131,7 @@ public class ModalServlet extends HttpServlet {
                     + "\n"
                     + "                                    <tbody>\n";
             for (RelatorioModel relatorio : relatorios) {
-                modal += "<tr><th>" + relatorio.getIdProduto() + "</th><th>" + relatorio.getNomeProduto() + "</th><th>" + relatorio.getQuantidadeProduto() + "</th><th>" + relatorio.getValorProduto() + "</th></tr>";
+                modal += "<tr><th>" + relatorio.getIdProduto() + "</th><th>" + relatorio.getNomeProduto() + "</th><th>" + relatorio.getQuantidadeProduto() + "</th><th class='row_currency2'>" + relatorio.getValorProduto() + "</th></tr>";
             }
             modal += "                                    </tbody>\n"
                     + "                                </table>"

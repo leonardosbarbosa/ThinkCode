@@ -68,7 +68,7 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="IndexServlet" class="navbar-brand">
                         <small>
                             <img src="assets/images/gallery/reparar.png" width="15%">
                             ThinkCode
@@ -209,7 +209,7 @@
 
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
@@ -323,7 +323,7 @@
                         <ul class="submenu">
 
                             <li class="">
-                                <a href="#" >
+                                <a href="VendaServlet" >
                                     <i class="menu-icon fa fa-money"></i> Vendas
                                 </a>
 
@@ -348,6 +348,12 @@
                     <div class="page-content">
                         <form action="UsuarioServlet" method="POST">
                             <div>
+                                 <div class="col-lg-12">
+                                        <p>
+                                        <h4>Cadastro de Usuário</h4>
+                                        <hr>
+                                        </p>
+                                    </div>
                                 <div id="user-profile-1" class="user-profile row">
                                     <div class="col-xs-12 col-sm-3 center">
                                         <div>
@@ -587,9 +593,9 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <button type="submit" name="tarefa" value="Cancelar" class="btn btn-sm btn-danger right" style="float: right;">
+                                                <a href="UsuarioServlet" class="btn btn-sm btn-danger right" style="float: right;">
                                                     Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
-                                                </button>                                            
+                                                </a>                                            
 
 
                                                 <c:choose>

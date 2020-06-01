@@ -34,19 +34,21 @@ public class PerfilServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String tarefa = request.getParameter("tarefa");
+        String id = request.getParameter("id");
+
         //Instância de objetos
         PerfilModel perfil = new PerfilModel();
         PerfilController perfilController = new PerfilController();
         String url = "/login.jsp";
         boolean logado = false;
-        String tarefa = request.getParameter("tarefa");
-        String id = request.getParameter("id");
-
+        Date dataIncl = new Date();
         Cookie cook = null;
         List<Cookie> cookies = new ArrayList<>();
         cookies = Arrays.asList(request.getCookies());
-        //Fim instância       
+        //Fim instância   
 
+        //Varredura de cookie para verificar se usuário está logado
         if (cookies != null) {
             for (Cookie ck : cookies) {
                 if (ck.getName() != null && ck.getName().equals("Id_Usuario")) {
@@ -55,11 +57,15 @@ public class PerfilServlet extends HttpServlet {
                 }
             }
         }
-        //Fim instância
+        //Fim varredura login
 
+        //Se usuário estiver logado pode prosseguir para página
         if (logado) {
+            url = "/gerenciarPerfis.jsp";
+            //Se houve alguma tarefa a ser feita Seja Edita/Editar/Criando/Criar/Atualizar entra no IF
             if (tarefa != null) {
 
+                //Tarefa editando se estiver edirando será redirecionado com os campos preenchidos
                 if (tarefa.equals("Editando")) {
 
                     perfil.setIdPerfil(Integer.parseInt(id));
@@ -69,8 +75,53 @@ public class PerfilServlet extends HttpServlet {
                     request.setAttribute("descricaoPerfil", perfil.getDescricao());
                     request.setAttribute("tipoPerfil", perfil.getTipo());
                     request.setAttribute("tarefa", "Editar");
+                    url = "/cadastroPerfil.jsp";
                 }
+                //Fim tarefa editando
+                //Excluíndo perfil
+                if (tarefa.equals("Excluir")) {
+                    perfil.setIdPerfil(Integer.parseInt(request.getParameter("id")));
+                    boolean ok = perfilController.Delete(perfil.getIdPerfil(), Integer.parseInt(cook.getValue()));
+                    if (ok) {
+                        url = "/gerenciarPerfis.jsp";
+                    }
+                }
+                //Fim exclusão
+                //Se estiver acabado a edição envia para atualização 
+                if (tarefa.equals("Editar")) {
+                    if (request.getParameter("ID_PERFIL") != null && !request.getParameter("ID_PERFIL").equals("")) {
+                        perfil.setIdPerfil(Integer.parseInt(request.getParameter("ID_PERFIL")));
+                    }
+                    perfil.setTipo(request.getParameter("tipoPerfil"));
+                    perfil.setDescricao(request.getParameter("descricaoPerfil"));
+
+                    perfil.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
+                    perfil.setUsrInclusao(Integer.parseInt(cook.getValue()));
+                    boolean ok = perfilController.Update(perfil);
+                    //Fim 
+                    if (ok) {
+                        url = "/gerenciarPerfis.jsp";
+                    }
+                }
+                //Fim atualização
+                //Se estiver criando um produto
+                if (tarefa.equals("cadastro")) {
+                    perfil.setTipo(request.getParameter("tipoPerfil"));
+                    perfil.setDescricao(request.getParameter("descricaoPerfil"));
+
+                    perfil.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
+                    perfil.setUsrInclusao(Integer.parseInt(cook.getValue()));
+                    //Salvando produto
+                    boolean ok = perfilController.Save(perfil);
+                    //Fim 
+                    if (ok) {
+                        url = "/gerenciarPerfis.jsp";
+                    }
+                }
+                //Fim registro produto
+
             }
+            //Fim se estiver logado
 
             String filtroIDFilial = "";
             String filtroNome = "";
@@ -80,7 +131,7 @@ public class PerfilServlet extends HttpServlet {
             }
             List<PerfilModel> perfis = perfilController.PerfisCadastrados(filtroNome, filtroIDFilial);
             request.setAttribute("perfis", perfis);
-            url = "/gerenciarPerfis.jsp";
+
             if (tarefa != null) {
 
                 if (tarefa.equals("Editando")) {
@@ -88,57 +139,8 @@ public class PerfilServlet extends HttpServlet {
                 }
             }
 
-            if (tarefa != null) {
-
-                if (tarefa.equals("editar")) {
-                    perfil.setIdPerfil(Integer.parseInt(id));
-                    perfil = perfilController.PerfilPropriedades(perfil);
-                    url = "/cadastroPerfil.jsp";
-                    request.setAttribute("ID_PERFIL", perfil.getIdPerfil());
-                    request.setAttribute("tipo", perfil.getTipo());
-                    request.setAttribute("descricao", perfil.getDescricao());
-
-                    request.setAttribute("tarefa", "Editar");
-
-                }
-                if (request.getParameter("ID_PERFIL") != null && !request.getParameter("ID_PERFIL").equals("")) {
-                    perfil.setIdPerfil(Integer.parseInt(request.getParameter("ID_PERFIL")));
-                }
-
-                perfil.setTipo(request.getParameter("tipoPerfil"));
-                perfil.setDescricao(request.getParameter("descricaoPerfil"));
-                Date dataIncl = new Date();
-                perfil.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
-                perfil.setUsrInclusao(Integer.parseInt(cook.getValue()));
-
-                if (tarefa.equals("cadastro")) {
-                    //Salvando produto
-                    boolean ok = perfilController.Save(perfil);
-                    //Fim 
-                    if (ok) {
-                        url = "/gerenciarPerfis.jsp";
-                    }
-                }
-
-                if (tarefa.equals("Excluir")) {
-                    perfil.setIdPerfil(Integer.parseInt(request.getParameter("id")));            
-                    boolean ok = perfilController.Delete(perfil.getIdPerfil(), Integer.parseInt(cook.getValue()));
-                    if (ok) {
-                       url = "/gerenciarPerfis.jsp"; 
-                    }
-                }
-
-                if (tarefa.equals("Editar")) {
-                    //Salvando produto
-                    boolean ok = perfilController.Update(perfil);
-                    //Fim 
-                    if (ok) {
-                        url = "/gerenciarPerfis.jsp";
-                    }
-                }
-            }
-
         }
+        //Fim usuario Logado
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

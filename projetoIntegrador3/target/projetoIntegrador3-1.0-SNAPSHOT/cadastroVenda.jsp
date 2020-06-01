@@ -74,7 +74,7 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="IndexServlet" class="navbar-brand">
                         <small>
                             <img src="assets/images/gallery/reparar.png" width="12%;">
                             <!-- <i class="fa fa-leaf"></i> -->
@@ -152,9 +152,9 @@
                     }
                 </script>
 
-                 <ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
@@ -313,12 +313,12 @@
 
                                                 <li data-step="3">
                                                     <span class="step">3</span>
-                                                    <span class="title">InformaÃ§Ãµes de pagamento</span>
+                                                    <span class="title">Informações de pagamento</span>
                                                 </li>
 
                                                 <li data-step="4">
                                                     <span class="step">4</span>
-                                                    <span class="title">ConfirmaÃ§Ã£o</span>
+                                                    <span class="title">Confirmação</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -554,7 +554,7 @@
                                                         <span id="mostrarProdutos"></span>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-12 thumbnail" style="width: 500px">
+                                                <div class="col-lg-12 thumbnail" style="width: 500px; ">
                                                     <div class="form-group" id="carrinho">
                                                         <div class="col-lg-6">
                                                             <label for="form-field-select-2">Carrinho</label>
@@ -570,9 +570,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-
+                                                
                                             </div>
 
                                             <div class="step-pane" data-step="3">
@@ -583,11 +581,10 @@
                                                                 pagamento</label>
 
                                                             <br />
-                                                            <select class="chosen-select form-control" id="selectPagamento"
-                                                                    data-placeholder="Choose a State...">
+                                                            <select class="chosen-select form-control" id="selectPagamento">
                                                                 <option value="0"> Selecione o metodo de pagamento</option>
-                                                                <option value="1">CartÃ£o de credito</option>
-                                                                <option value="2">CartÃ£o de dÃ©bito</option>
+                                                                <option value="1">Cartão de crédito</option>
+                                                                <option value="2">Cartão de débito</option>
                                                                 <option value="3">Dinheiro</option>
 
                                                             </select>
@@ -646,7 +643,7 @@
                                                     <label for="number-button" class="block">CEP</label>
 
                                                     <input type="text" id="cepFinal" 
-                                                            class="form-control input-mask-cep"
+                                                           class="form-control input-mask-cep"
                                                            name="cep" disabled/>
 
                                                 </div>
@@ -670,7 +667,7 @@
 
                                                 <div class="col-lg-3">
 
-                                                    <label for="number-button" class="block">NÃºmero </label>
+                                                    <label for="number-button" class="block">Número </label>
                                                     <input class="form-control" type="text"
                                                            disabled id="numeroFinal"
                                                            name="numero" />
@@ -689,8 +686,8 @@
                                                 <div class="col-lg-10">
                                                     <label for="form-field-select-2">Produtos selecionados</label>
 
-                                                            <div id="itensFinal"></div>
-                                                                                                          
+                                                    <div id="itensFinal"></div>
+
                                                 </div>
 
                                                 <div class="col-lg-3">
@@ -808,7 +805,7 @@
             </div>
             <!-- /.ace-settings-container -->
             <div class="footer">
-                <div class="footer-inner">
+                <div class="footer-inner" >
                     <!-- <div class="footer-content">
                             <span class="bigger-120">
                                 <span class="blue bolder">Ace</span>
@@ -894,15 +891,15 @@
 
                         $('#btnProximo').click(function () {
                             pagAtual++;
-                            if (pagAtual === 4) {                             
+                            if (pagAtual === 4) {
                                 var cpfcnpjSALVAR = $('#cpfCad').val();
                                 var metodopagSALVAR = $("#selectPagamento option:selected").val();
                                 var parcelasSALVAR = "0";
-                                var totalSALVAR = $('#totalCarrinho').val(); 
+                                var totalSALVAR = $('#totalCarrinho').val();
                                 var id_produto = "";
                                 var quantidade_produto = "";
                                 var valor_produto = "";
-                                
+
 
                                 for (var i = 1; i <= posicaoCarrinho - 1; i++) {
                                     var atual = localStorage.getItem("salvar" + i);
@@ -966,36 +963,36 @@
                                 var numero = $('#numeroCad').val();
                                 console.log(numero);
                                 var metodo = $("#selectPagamento option:selected").val();
-                                
-                                var nomeCad =  $('#nomeCad').val()
-                                $('#nomeFinal').attr('placeholder',nomeCad);
-                                
-                                var cpfCad =  $('#cpfCad').val()
-                                $('#cpfFinal').attr('placeholder',cpfCad);
-                                
-                                var rgCad =  $('#rgCad').val()
-                                $('#rgFinal').attr('placeholder',rgCad);
-                                
-                                var cepCad =  $('#cepCad').val()
-                                $('#cepFinal').attr('placeholder',rgCad);
-                                
-                                var ruaCad =  $('#ruaCad').val()
-                                $('#ruaFinal').attr('placeholder',ruaCad);
-                                
-                                var bairroCad =  $('#bairroCad').val()
-                                $('#bairroFinal').attr('placeholder',bairroCad);
-                                
-                                var numeroCad =  $('#numeroCad').val()
-                                $('#numeroFinal').attr('placeholder',numeroCad);
-                                
-                                var complementoCad =  $('#complementoCad').val()
-                                $('#complementoFinal').attr('placeholder',complementoCad);
-                                
-                                $('#metodoFinal').attr('placeholder',metodo);
-                                
-                                var totalCarrin =  $('#totalCarrinho').val();
-                                $('#totalFinal').attr('placeholder',totalCarrin);
-                                
+
+                                var nomeCad = $('#nomeCad').val()
+                                $('#nomeFinal').attr('placeholder', nomeCad);
+
+                                var cpfCad = $('#cpfCad').val()
+                                $('#cpfFinal').attr('placeholder', cpfCad);
+
+                                var rgCad = $('#rgCad').val()
+                                $('#rgFinal').attr('placeholder', rgCad);
+
+                                var cepCad = $('#cepCad').val()
+                                $('#cepFinal').attr('placeholder', rgCad);
+
+                                var ruaCad = $('#ruaCad').val()
+                                $('#ruaFinal').attr('placeholder', ruaCad);
+
+                                var bairroCad = $('#bairroCad').val()
+                                $('#bairroFinal').attr('placeholder', bairroCad);
+
+                                var numeroCad = $('#numeroCad').val()
+                                $('#numeroFinal').attr('placeholder', numeroCad);
+
+                                var complementoCad = $('#complementoCad').val()
+                                $('#complementoFinal').attr('placeholder', complementoCad);
+
+                                $('#metodoFinal').attr('placeholder', metodo);
+
+                                var totalCarrin = $('#totalCarrinho').val();
+                                $('#totalFinal').attr('placeholder', totalCarrin);
+
                                 console.log($('#totalFinal').html);
                             }
                             if (nome == "" || cpf == "" || rg == "" || data == "" || tel == "" || email == "" || rua == "" || cep == "" || bairro == "" || numero == "" || metodo == 0) {
@@ -1033,10 +1030,10 @@
 
                                 },
                                 success: function (result) {
-                                    if(result=="erroPerfil"){
+                                    if (result == "erroPerfil") {
                                         alert("Perfil de usuário não condiz com a ação solicitada!                              -----[Perfil não é comprador]-----")
-                                    }else{
-                                    $('#infosClientes').html(result);
+                                    } else {
+                                        $('#infosClientes').html(result);
                                     }
                                 }
                             });
@@ -1107,7 +1104,7 @@
                                 //.on('changed.fu.wizard', function() {
                                 //})
                                 .on('finished.fu.wizard', function (e) {
-                                    bootbox.dialog({
+                                    /*bootbox.dialog({
                                         message: "Thank you! Your information was successfully saved!",
                                         buttons: {
                                             "success": {
@@ -1115,7 +1112,7 @@
                                                 "className": "btn-sm btn-primary"
                                             }
                                         }
-                                    });
+                                    });*/
                                 }).on('stepclick.fu.wizard', function (e) {
                             //e.preventDefault();//this will prevent clicking and selecting steps
                         });
@@ -1283,7 +1280,7 @@
                             document.getElementById("itens").innerHTML += localStorage.getItem("produto" + posicaoCarrinho);
                             document.getElementById("itens").innerHTML += " : TOTAL ";
                             document.getElementById("itens").innerHTML += "R$ " + localStorage.getItem("valor" + posicaoCarrinho) + "<hr>";
-                            
+
                             document.getElementById("itensFinal").innerHTML += localStorage.getItem("qtd" + posicaoCarrinho) + " x ";
                             document.getElementById("itensFinal").innerHTML += localStorage.getItem("produto" + posicaoCarrinho);
                             document.getElementById("itensFinal").innerHTML += " : TOTAL ";
@@ -1293,8 +1290,8 @@
                             //total = (total + valor); // arredonda para 2 casas decimais com o .toFixed(2)
 
                             posicaoCarrinho += 1;
-                            document.getElementById("quantiaCompra" + id).placeholder = "Qtd disponível: "+resultCompr;
-                            var anteriorCarrinho = parseFloat(document.getElementById("totalCarrinho").value);                           
+                            document.getElementById("quantiaCompra" + id).placeholder = "Qtd disponível: " + resultCompr;
+                            var anteriorCarrinho = parseFloat(document.getElementById("totalCarrinho").value);
                             var valorAtual = parseFloat(valor);
                             var totalCarrinho = anteriorCarrinho + valorAtual;
                             document.getElementById("totalCarrinho").value = totalCarrinho;
