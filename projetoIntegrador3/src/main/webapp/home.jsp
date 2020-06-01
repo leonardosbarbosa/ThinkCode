@@ -159,7 +159,7 @@
                 }
                 
                 
-                ps = conn.prepareStatement("SELECT US.NOME, SUM(VE.TOTAL) as total FROM VENDA AS VE INNER JOIN USUARIO AS US ON VE.ID_USUARIO = US.ID_USUARIO GROUP BY VE.ID_USUARIO;",
+                ps = conn.prepareStatement("SELECT US.NOME, SUM(VE.TOTAL) as total FROM venda AS VE INNER JOIN usuario AS US ON VE.ID_USUARIO = US.ID_USUARIO GROUP BY VE.ID_USUARIO;",
                         ResultSet.TYPE_SCROLL_SENSITIVE,
                         ResultSet.CONCUR_UPDATABLE);
                 ResultSet rs3 = ps.executeQuery();
