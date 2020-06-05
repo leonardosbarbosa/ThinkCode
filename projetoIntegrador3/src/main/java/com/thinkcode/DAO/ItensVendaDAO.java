@@ -26,7 +26,7 @@ public class ItensVendaDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "insert into item_venda (id_item, id_produto, id_venda, quantidade, valor)"
+            String sql = "insert into tb_item_venda (id_item, id_produto, id_venda, quantidade, valor)"
                     + " values (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, itensVenda.getIdItem());
@@ -48,7 +48,7 @@ public class ItensVendaDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select id_venda from item_venda where id_venda like '%" + idVenda + "%'");
+            PreparedStatement ps = con.prepareStatement("select tb_id_venda from item_venda where id_venda like '%" + idVenda + "%'");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 System.out.println(rs.getString("idVenda"));
@@ -65,7 +65,7 @@ public class ItensVendaDAO {
         Date date = new Date();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update item_venda set dt_exclusao = " + date + " where id_item like '%" + idVendas + "%'");
+            PreparedStatement ps = con.prepareStatement("update tb_item_venda set dt_exclusao = " + date + " where id_item like '%" + idVendas + "%'");
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -78,7 +78,7 @@ public class ItensVendaDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("delete id_item from item_venda where id_item like '%" + idVendas + "%'");
+            PreparedStatement ps = con.prepareStatement("delete id_item from tb_item_venda where id_item like '%" + idVendas + "%'");
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {

@@ -28,7 +28,7 @@ public class PerfilDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "insert into perfil (id_perfil, tipo, descricao, data_inclusao,usr_inclusao,data_exclusao,usr_exclusao)"
+            String sql = "insert into tb_perfil (id_perfil, tipo, descricao, data_inclusao,usr_inclusao,data_exclusao,usr_exclusao)"
                     + " values (?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, perfil.getIdPerfil());
@@ -52,7 +52,7 @@ public class PerfilDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select * from perfil where id_perfil = " + perfil.getIdPerfil(),
+            PreparedStatement ps = con.prepareStatement("select * from tb_perfil where id_perfil = " + perfil.getIdPerfil(),
                             ResultSet.TYPE_SCROLL_SENSITIVE, 
                         ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
@@ -77,7 +77,7 @@ public class PerfilDAO {
 
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update perfil set data_exclusao = '" + data + "', usr_exclusao = " + userExclusao + " where id_perfil = " + idPerfil);
+            PreparedStatement ps = con.prepareStatement("update tb_perfil set data_exclusao = '" + data + "', usr_exclusao = " + userExclusao + " where id_perfil = " + idPerfil);
 
             ps.executeUpdate();
             return true;
@@ -91,7 +91,7 @@ public class PerfilDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("delete id_perfil from perfil where id_perfil like '%" + idPerfil + "%'");
+            PreparedStatement ps = con.prepareStatement("delete tb_id_perfil from perfil where id_perfil like '%" + idPerfil + "%'");
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -105,7 +105,7 @@ public class PerfilDAO {
         List<PerfilModel> perfis = new ArrayList<>();
 
         try {
-            String sqlState = "select * from perfil WHERE data_exclusao is null";
+            String sqlState = "select * from tb_perfil WHERE data_exclusao is null";
             if (filtroDescricao != null && !filtroDescricao.equals("")) {
                 sqlState += " and descricao like '%" + filtroDescricao + "%'";
             }
@@ -136,7 +136,7 @@ public class PerfilDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "update perfil set tipo = ?, descricao = ? where id_perfil = ?";
+            String sql = "update tb_perfil set tipo = ?, descricao = ? where id_perfil = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, perfil.getTipo());
             ps.setString(2, perfil.getDescricao());

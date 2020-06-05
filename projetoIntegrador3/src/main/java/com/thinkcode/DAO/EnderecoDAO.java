@@ -26,7 +26,7 @@ public class EnderecoDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "insert into endereco (id_usuario, cep, rua, bairro, numero, complemento)"
+            String sql = "insert into tb_endereco (id_usuario, cep, rua, bairro, numero, complemento)"
                     + " values (?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, endereco.getIdUsuario());
@@ -49,7 +49,7 @@ public class EnderecoDAO {
         EnderecoModel endereco = new EnderecoModel();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select * from endereco where id_usuario = " + idUuario,
+            PreparedStatement ps = con.prepareStatement("select * from tb_endereco where id_usuario = " + idUuario,
                             ResultSet.TYPE_SCROLL_SENSITIVE, 
                         ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
@@ -74,7 +74,7 @@ public class EnderecoDAO {
         Date date = new Date();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update endereco set dt_exclusao = " + date + " where id_endereco like '%" + idEndereco + "%'");
+            PreparedStatement ps = con.prepareStatement("update tb_endereco set dt_exclusao = " + date + " where id_endereco like '%" + idEndereco + "%'");
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -87,7 +87,7 @@ public class EnderecoDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("delete id_endereco from endereco where id_endereco like '%" + idEndereco + "%'");
+            PreparedStatement ps = con.prepareStatement("delete id_endereco from tb_endereco where id_endereco like '%" + idEndereco + "%'");
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -101,7 +101,7 @@ public class EnderecoDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "update endereco set id_usuario = ?, cep = ?, rua = ?, bairro = ?, numero = ?, complemento= ? where id_endereco = ?";
+            String sql = "update tb_endereco set id_usuario = ?, cep = ?, rua = ?, bairro = ?, numero = ?, complemento= ? where id_endereco = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, endereco.getIdUsuario());
             ps.setString(2, endereco.getCep());

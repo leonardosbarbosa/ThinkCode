@@ -218,8 +218,7 @@
 
 
                 <!-- /.sidebar-shortcuts -->
-
-                <ul class="nav nav-list">
+<ul class="nav nav-list">
                     <li class="active">
                         <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -251,7 +250,7 @@
                             </li>
 
                             <li class="">
-                                <a href="#">
+                                <a href="e#">
                                     <i class="menu-icon fa fa-caret-right"></i> Estoque
                                 </a>
 
@@ -267,7 +266,7 @@
                                 <b class="arrow"></b>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="SolicitacaoServlet">
                                     <i class="menu-icon fa fa-caret-right"></i> Solicitações
                                 </a>
 
@@ -341,7 +340,13 @@
 
                                 <b class="arrow"></b>
                             </li>
+                            <li class="">
+                                <a href="SolicitacaoServlet?tarefa=Cadastrando" >
+                                    <i class="menu-icon fa fa-product-hunt"></i> Solicitações
+                                </a>
 
+                                <b class="arrow"></b>
+                            </li>
 
                         </ul>
                     </li>
@@ -440,7 +445,6 @@
                                 <table id="tabelaUsuarios" class="table table-hover display  table-striped table-bordered nowrap" style="width: 100%">
                                     <thead>
                                         <tr>
-                                            <th id="id"> Nr.Solicitação </th>
                                             <th> Filial Solicitante</th>
                                             <th> Solicitante </th>
                                             <th> Produto</th>
@@ -451,14 +455,16 @@
                                     </thead>
 
                                     <tbody>
-                                        <!--<c:forEach var="relatorio" items="${relatorio}">
-
+                                        <c:forEach var="pedido" items="${pedidos}">
                                             <tr>
-
-
-                                                
+                                                <th>${pedido.nomeFilial}</th>
+                                                <th>${pedido.nomeSolicitante}</th>
+                                                <th>${pedido.nomeProduto}</th>
+                                                <th>${pedido.qtd}</th>
+                                                <th>${pedido.valor}</th>
+                                                <th>${pedido.observacao}</th>
                                             </tr>
-                                        </c:forEach>-->
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

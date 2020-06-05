@@ -23,4 +23,8 @@ public class PedidoController {
     public boolean delete(int id_pedido) {
         return PedidoDAO.DeletePedido(id_pedido);
     }
+    
+    public int UltimoPedido(int Id_vendedor){
+        return PedidoDAO.consultarUltimoPedido(Id_vendedor);
+    }
 }

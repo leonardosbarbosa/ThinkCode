@@ -17,19 +17,20 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+public class PedidoDAO extends ConnectionDB {
 
-public class PedidoDAO {
-     public static boolean cadastrarPedido(PedidoModel pedido) {
+    public static boolean cadastrarPedido(PedidoModel pedido) {
         boolean ok = false;
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "INSERT INTO tb_pedido (id_filial, id_acompanhe, data_inclusao,usr_inclusao) VALUES (?,?,?, ?,)";
+            String sql = "INSERT INTO tb_pedido (id_filial, id_acompanhe, Valor, data_inclusao,usr_inclusao) VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, pedido.getIdFilial());
-            ps.setInt(2,pedido.getIdAcompanhe());
-            ps.setString(3,pedido.getDataInclusao());
-            ps.setInt(4,pedido.getUserInclusao());
+            ps.setInt(2, pedido.getIdAcompanhe());
+            ps.setDouble(3, pedido.getValor());
+            ps.setString(4, pedido.getDataInclusao());
+            ps.setInt(5, pedido.getUserInclusao());
 
             ps.execute();
             ok = true;
@@ -39,22 +40,38 @@ public class PedidoDAO {
         }
         return ok;
     }
-     public static List<PedidoModel> consultarTodosPedido() {
+
+    public static List<PedidoModel> consultarTodosPedido() {
         Connection con;
         List<PedidoModel> pedidos = new ArrayList<PedidoModel>();
 
         try {
-           con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select tb_pedido.id_pedido , filial.nome ,tb_acompanhe.descricao , tb_pedido.valor , tb_pedido.data_inclusao \n" +
-"from tb_pedido INNER JOIN filial ON tb_pedido.id_filial = filial.id_filial \n" +
-"INNER JOIN tb_acompanhe ON tb_pedido.id_acompanhe = tb_acompanhe.id_acompanhe");
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("select \n"
+                    + "	tb_pedido.id_pedido ,\n"
+                    + "	fi.nome as nomeFilial,\n"
+                    + "	us.nome as nomeSolicitante,\n"
+                    + "	pt.nome as nomeProduto,\n"
+                    + "	dp.qtde as qtde,\n"
+                    + "	tb_pedido.valor,\n"
+                    + "	tb_pedido.data_inclusao \n"
+                    + "from tb_pedido \n"
+                    + "INNER JOIN tb_filial as fi ON tb_pedido.id_filial = fi.id_filial \n"
+                    + "INNER JOIN tb_acompanhe as ac ON tb_pedido.id_acompanhe = ac.id_acompanhe\n"
+                    + "INNER JOIN tb_usuario as us on tb_pedido.usr_inclusao = us.id_usuario\n"
+                    + "INNER JOIN tb_detalhe_pedido as dp on tb_pedido.id_pedido = dp.id_pedido\n"
+                    + "INNER JOIN tb_produto as pt on dp.id_produto = pt.id_produto;",
+                    ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 PedidoModel pedido = new PedidoModel();
-                pedido.setIdPedido(rs.getInt("id_pedido"));
-                pedido.setNomeFilial(rs.getString("nome"));
-                pedido.setDescricaoAcompanhe(rs.getString("descricao"));
-                pedido.setValor(rs.getDouble("valor"));
+                pedido.setIdPedido(rs.getInt("tb_pedido.id_pedido"));
+                pedido.setNomeFilial(rs.getString("nomeFilial"));
+                pedido.setnomeSolicitante(rs.getString("nomeSolicitante"));
+                pedido.setnomeProduto(rs.getString("nomeProduto"));
+                pedido.setValor(rs.getDouble("tb_pedido.valor"));
+                pedido.setQtd(Integer.parseInt(rs.getString("qtde")));
                 pedido.setDataInclusao(rs.getString("data_inclusao"));
                 pedidos.add(pedido);
             }
@@ -69,7 +86,7 @@ public class PedidoDAO {
         Date date = new Date();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("UPDATE tb_pedido SET data_exclusao =" + date + " usr_exclusao = " + userExclusao +" WHERE tb_pedido.id_pedido = " + id_pedido);
+            PreparedStatement ps = con.prepareStatement("UPDATE tb_pedido SET data_exclusao =" + date + " usr_exclusao = " + userExclusao + " WHERE tb_pedido.id_pedido = " + id_pedido);
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -82,12 +99,31 @@ public class PedidoDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM tb_pedido WHERE tb_pedido.id_pedido = "+id_pedido);
+            PreparedStatement ps = con.prepareStatement("DELETE FROM tb_pedido WHERE tb_pedido.id_pedido = " + id_pedido);
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public static int consultarUltimoPedido(int id_vendedor) {
+        int id_pedido = 0;
+        Connection con;
+        try {
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("select id_pedido from tb_pedido where usr_inclusao = " + id_vendedor + "  order by id_pedido desc limit 1;",
+                    ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                id_pedido = rs.getInt("id_pedido");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id_pedido;
     }
 }

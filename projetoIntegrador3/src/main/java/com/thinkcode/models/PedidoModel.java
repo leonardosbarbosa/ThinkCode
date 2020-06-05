@@ -10,21 +10,26 @@ package com.thinkcode.models;
  * @author Leonardo Moreno
  */
 public class PedidoModel {
+
     private int idpedido;
     private int idfilial;
     private String nomeFilial;
     private int idacompanhe;
     private String descricaoAcompanhe;
-     private double valor;
+    private double valor;
     private String dataInclusao;
     private int userInlcusao;
     private String dataExclusao;
     private int userExclusao;
+    private String nomeSolicitante;
+    private String nomeProduto;
+    private int qtd;
+    private String observacao;
 
     public PedidoModel() {
     }
 
-    public PedidoModel( int idfilial, String nomeFilial, int idacompanhe,String descricaoAcompanhe , double valor, String dataInclusao, int userInlcusao) {
+    public PedidoModel(int idfilial, String nomeFilial, int idacompanhe, String descricaoAcompanhe, double valor, String dataInclusao, int userInlcusao) {
         this.idfilial = idfilial;
         this.nomeFilial = nomeFilial;
         this.idacompanhe = idacompanhe;
@@ -33,13 +38,15 @@ public class PedidoModel {
         this.dataInclusao = dataInclusao;
         this.userInlcusao = userInlcusao;
     }
+
     public int getIdPedido() {
         return idpedido;
     }
 
     public void setIdPedido(int id) {
-        this.idpedido = idpedido;
+        this.idpedido = id;
     }
+
     public int getIdFilial() {
         return idfilial;
     }
@@ -47,6 +54,7 @@ public class PedidoModel {
     public void setIdFilial(int idfilial) {
         this.idfilial = idfilial;
     }
+
     public String getNomeFilial() {
         return nomeFilial;
     }
@@ -54,6 +62,7 @@ public class PedidoModel {
     public void setNomeFilial(String nomeFilial) {
         this.nomeFilial = nomeFilial;
     }
+
     public int getIdAcompanhe() {
         return idacompanhe;
     }
@@ -61,7 +70,8 @@ public class PedidoModel {
     public void setIdAcompanhe(int idacompanhe) {
         this.idacompanhe = idacompanhe;
     }
-     public String getDescricaoAcompanhe() {
+
+    public String getDescricaoAcompanhe() {
         return descricaoAcompanhe;
     }
 
@@ -69,7 +79,7 @@ public class PedidoModel {
         this.descricaoAcompanhe = descricaoAcompanhe;
     }
 
-      public double getValor() {
+    public double getValor() {
         return valor;
     }
 
@@ -107,5 +117,36 @@ public class PedidoModel {
 
     public void setUserExclusao(int userExclusao) {
         this.userExclusao = userExclusao;
+    }
+    
+    public String getnomeSolicitante() {
+        return nomeSolicitante;
+    }
+
+    public void setnomeSolicitante(String nomeSolicitante) {
+        this.nomeSolicitante = nomeSolicitante;
+    }
+     public String getnomeProduto() {
+        return nomeProduto;
+    }
+
+    public void setnomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
+    
+    public String getobservacao() {
+        return observacao;
+    }
+
+    public void setobservacao (String observacao) {
+        this.observacao = observacao;
+    }
+       
+    public int getqtd() {
+        return qtd;
+    }
+
+    public void setQtd(int qtd) {
+        this.qtd = qtd;
     }
 }

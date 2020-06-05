@@ -78,9 +78,9 @@ public class ModalServlet extends HttpServlet {
         List<RelatorioModel> relatorios = new ArrayList<RelatorioModel>();
 
         try {
-            String sqlState = "SELECT po.nome, iv.quantidade, iv.valor, po.id_produto FROM item_venda iv \n"
-                    + "	INNER JOIN venda ve ON iv.id_venda = ve.id_venda\n"
-                    + "	INNER JOIN produto po on iv.id_produto = po.id_produto\n"
+            String sqlState = "SELECT po.nome, iv.quantidade, iv.valor, po.id_produto FROM tb_item_venda iv \n"
+                    + "	INNER JOIN tb_venda ve ON iv.id_venda = ve.id_venda\n"
+                    + "	INNER JOIN tb_produto po on iv.id_produto = po.id_produto\n"
                     + "	where iv.id_venda =  " + id;
 //            if (filtroFilial != null && !filtroFilial.equals("")) {
 //                sqlState += " and us.id_filial = " + filtroFilial;

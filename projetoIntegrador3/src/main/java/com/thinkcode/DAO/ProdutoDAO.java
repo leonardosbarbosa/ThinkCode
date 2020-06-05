@@ -28,7 +28,7 @@ public class ProdutoDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "insert into produto (id_usuario, id_filial, tipo, nome, qtde, descricao, valor)"
+            String sql = "insert into tb_produto (id_usuario, id_filial, tipo, nome, qtde, descricao, valor)"
                     + " values (?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, produto.getIdUsuario());
@@ -51,7 +51,7 @@ public class ProdutoDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select * from produto where id_produto = " + produto.getIdProduto(),
+            PreparedStatement ps = con.prepareStatement("select * from tb_produto where id_produto = " + produto.getIdProduto(),
                             ResultSet.TYPE_SCROLL_SENSITIVE, 
                         ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
@@ -74,7 +74,7 @@ public class ProdutoDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "update produto set id_usuario = ?, id_filial = ?, tipo = ?, nome = ?, qtde = ?, descricao = ?, valor = ? where id_produto = ?";
+            String sql = "update tb_produto set id_usuario = ?, id_filial = ?, tipo = ?, nome = ?, qtde = ?, descricao = ?, valor = ? where id_produto = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, produto.getIdUsuario());
             ps.setInt(2, produto.getIdFilial());
@@ -98,7 +98,7 @@ public class ProdutoDAO {
         Date date = new Date();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update produto set data_exclusao = '" + date.toInstant().toString().substring(0, 10) + "',"
+            PreparedStatement ps = con.prepareStatement("update tb_produto set data_exclusao = '" + date.toInstant().toString().substring(0, 10) + "',"
                     + "usr_exclusao = " + userExclusao + " where id_produto = " + idProduto);
             ps.execute();
             return true;
@@ -112,7 +112,7 @@ public class ProdutoDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("delete nome from produto where id_produto like '%" + idProduto + "%'",
+            PreparedStatement ps = con.prepareStatement("delete nome from tb_produto where id_produto like '%" + idProduto + "%'",
                             ResultSet.TYPE_SCROLL_SENSITIVE, 
                         ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
@@ -128,7 +128,7 @@ public class ProdutoDAO {
         List<ProdutoModel> produtos = new ArrayList<>();
 
         try {
-            String sqlState = "select * from produto where data_exclusao is null ";
+            String sqlState = "select * from tb_produto where data_exclusao is null ";
             if (filtroFilial != null && !filtroFilial.equals("") ) {
                 sqlState += "and id_filial = " + filtroFilial ;
             }
@@ -167,7 +167,7 @@ public class ProdutoDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "update produto  set qtde = qtde-(?)  where id_produto = ?";
+            String sql = "update tb_produto  set qtde = qtde-(?)  where id_produto = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, qtde);
             ps.setInt(2, id);

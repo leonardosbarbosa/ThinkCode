@@ -29,7 +29,7 @@ public class FilialDAO {
         try {
             con = ConnectionDB.obterConexao();
 
-            String sql = "insert into filial (Nome, telefone, Descricao, cnpj, cep, rua, bairro, numero,"
+            String sql = "insert into tb_filial (Nome, telefone, Descricao, cnpj, cep, rua, bairro, numero,"
                     + " complemento, data_inclusao,usr_inclusao)"
                     + " values (?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -58,7 +58,7 @@ public class FilialDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select id_filial from filial where id_filial like '%" + idFilial + "%'",
+            PreparedStatement ps = con.prepareStatement("select id_filial from tb_filial where id_filial like '%" + idFilial + "%'",
                             ResultSet.TYPE_SCROLL_SENSITIVE, 
                         ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
@@ -78,7 +78,7 @@ public class FilialDAO {
         Date date = new Date();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update filial set data_exclusao = '" + date.toInstant().toString().substring(0,10) + "'"
+            PreparedStatement ps = con.prepareStatement("update tb_filial set data_exclusao = '" + date.toInstant().toString().substring(0,10) + "'"
                     + ", usr_exclusao = " + idUsuario + " WHERE id_filial = " + idFilial);
             ps.executeUpdate();
             return true;
@@ -92,7 +92,7 @@ public class FilialDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("delete id_filial from filial where id_filial like '%" + idFilial + "%'");
+            PreparedStatement ps = con.prepareStatement("delete id_filial from tb_filial where id_filial like '%" + idFilial + "%'");
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -107,7 +107,7 @@ public class FilialDAO {
         List<FilialModel> filiais = new ArrayList<FilialModel>();
 
         try {
-            String sqlState = "select * from filial WHERE data_exclusao is null ";
+            String sqlState = "select * from tb_filial WHERE data_exclusao is null ";
             if (filtroFilial != null && !filtroFilial.equals("")) {
                 sqlState += " and id_filial = " + filtroFilial;
             }
@@ -150,7 +150,7 @@ public class FilialDAO {
         try {
             con = ConnectionDB.obterConexao();
 
-            String sql = "update filial set Nome = ?, telefone = ?, Descricao = ?, cnpj = ?, cep = ?, rua = ?, bairro = ?, numero = ?, complemento = ?, data_inclusao = ?, usr_inclusao= ? "
+            String sql = "update tb_filial set Nome = ?, telefone = ?, Descricao = ?, cnpj = ?, cep = ?, rua = ?, bairro = ?, numero = ?, complemento = ?, data_inclusao = ?, usr_inclusao= ? "
                     + "  where id_filial = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, filial.getNome());
@@ -180,7 +180,7 @@ public class FilialDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sqlState = "select * from filial";
+            String sqlState = "select * from tb_filial";
             
             if (filial.getCnpj() != null ) {
                 sqlState += " where cnpj = '" + filial.getCnpj()+ "'";

@@ -35,7 +35,7 @@ public class UsuarioDAO extends ConnectionDB {
         try {
             con = ConnectionDB.obterConexao();
 
-            String sql = "insert into usuario (id_perfil, id_filial, cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, data_nascimento, data_inclusao, usr_inclusao)"
+            String sql = "insert into tb_usuario (id_perfil, id_filial, cpf_cnpj, rg, nome, email, senha, telefone, sexo, empresa, data_nascimento, data_inclusao, usr_inclusao)"
                     + " values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, usuario.getIdPerfil());
@@ -71,7 +71,7 @@ public class UsuarioDAO extends ConnectionDB {
         try {
             con = ConnectionDB.obterConexao();
 
-            String sql = "update usuario set id_perfil = ?, id_filial = ?, cpf_cnpj = ?, rg = ?, nome = ?, email = ?, senha = ?, telefone = ?, sexo = ?, empresa = ?, data_nascimento = ?, data_inclusao = ?, usr_inclusao= ? "
+            String sql = "update tb_usuario set id_perfil = ?, id_filial = ?, cpf_cnpj = ?, rg = ?, nome = ?, email = ?, senha = ?, telefone = ?, sexo = ?, empresa = ?, data_nascimento = ?, data_inclusao = ?, usr_inclusao= ? "
                     + "  where id_usuario = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, usuario.getIdPerfil());
@@ -118,7 +118,7 @@ public class UsuarioDAO extends ConnectionDB {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select email from usuario where email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'",
+            PreparedStatement ps = con.prepareStatement("select email from tb_usuario where email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'",
                             ResultSet.TYPE_SCROLL_SENSITIVE, 
                         ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
@@ -136,7 +136,7 @@ public class UsuarioDAO extends ConnectionDB {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sqlState = "select * from usuario";
+            String sqlState = "select * from tb_usuario";
             if (usuario.getEmail() != null && usuario.getSenha() != null) {
                 sqlState += " where email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'";
             }
@@ -189,7 +189,7 @@ public class UsuarioDAO extends ConnectionDB {
         LocalDateTime now = LocalDateTime.now();  
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update  usuario set data_exclusao = ?, usr_exclusao = ? where id_usuario = ?" );
+            PreparedStatement ps = con.prepareStatement("update  tb_usuario set data_exclusao = ?, usr_exclusao = ? where id_usuario = ?" );
             ps.setString(1, dtf.format(now));
             ps.setInt(2, idUsuarioExcluindo);
             ps.setInt(3, idUsuarioExclusao);
@@ -205,7 +205,7 @@ public class UsuarioDAO extends ConnectionDB {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("delete id_usuario from usuario where id_usuario like '%" + idUsuario + "%'");
+            PreparedStatement ps = con.prepareStatement("delete id_usuario from tb_usuario where id_usuario like '%" + idUsuario + "%'");
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -219,9 +219,9 @@ public class UsuarioDAO extends ConnectionDB {
         List<UsuarioModel> usuarios = new ArrayList<UsuarioModel>();
 
         try {
-            String sqlState = "select * from usuario as us"
-                              + " left join filial as fi on us.id_filial = fi.id_filial"
-                              + " left join perfil as pe on us.id_perfil = pe.id_perfil"
+            String sqlState = "select * from tb_usuario as us"
+                              + " left join tb_filial as fi on us.id_filial = fi.id_filial"
+                              + " left join tb_perfil as pe on us.id_perfil = pe.id_perfil"
                               + " where us.data_exclusao is null";
             if (filtroFilial != null && !filtroFilial.equals("")) {
                 sqlState += " and us.id_filial = " + filtroFilial;
@@ -272,7 +272,7 @@ public class UsuarioDAO extends ConnectionDB {
         UsuarioModel usuarioDB = new UsuarioModel();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("SELECT * from usuario where id_perfil = 3 and cpf_cnpj = '" +CPF+ "' ",
+            PreparedStatement ps = con.prepareStatement("SELECT * from tb_usuario where id_perfil = 3 and cpf_cnpj = '" +CPF+ "' ",
                             ResultSet.TYPE_SCROLL_SENSITIVE, 
                         ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();

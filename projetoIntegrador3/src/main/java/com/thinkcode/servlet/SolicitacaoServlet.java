@@ -86,7 +86,7 @@ public class SolicitacaoServlet extends HttpServlet {
                 if (tarefa.equals("Cadastrando")) {
                     url = "/cadastroSolicitacao.jsp";
                 }
-                if (tarefa.equals("Cadastro")) {
+                if (tarefa.equals("cadastro")) {
 
                         
                     if (request.getParameter("filialProduto") != null && request.getParameter("produtos") != null && request.getParameter("quantidadeProduto") != null && request.getParameter("valorProduto") != null && request.getParameter("observacaoProduto") != null) {
@@ -99,7 +99,8 @@ public class SolicitacaoServlet extends HttpServlet {
                         if (cadastro) {
                             
                             dataIncl = new Date();
-                            //detalhePedido.setIdPedido(idpedido);
+                            int id_pedido =  pedidoC.UltimoPedido(Integer.parseInt(cook.getValue()));
+                            detalhePedido.setIdPedido(id_pedido);
                             detalhePedido.setIdProduto(Integer.parseInt(request.getParameter("produtos")));
                             detalhePedido.setQtde(Integer.parseInt(request.getParameter("quantidadeProduto")));
                             detalhePedido.setValor(Double.parseDouble(request.getParameter("valorProduto")));
@@ -114,8 +115,10 @@ public class SolicitacaoServlet extends HttpServlet {
             }
             List<ProdutoModel> produtos = produtoController.ProdutosCadastrados("", "", "");
             List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");
+            List<PedidoModel> pedidos = pedidoC.todosPedidos();
             request.setAttribute("filiais", filiais);
             request.setAttribute("produtos", produtos);
+            request.setAttribute("pedidos", pedidos);
 
         }
         try {

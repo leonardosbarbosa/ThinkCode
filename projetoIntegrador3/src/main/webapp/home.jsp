@@ -131,25 +131,25 @@
                 //final Statement stmt = conn.createStatement();
                 //final ResultSet rs = stmt.executeQuery("SELECT produto.nome , sum(item_venda.quantidade) as qtde FROM item_venda INNER JOIN produto ON item_venda.id_produto = produto.id_produto group by produto.nome;");
                 Connection conn = ConnectionDB.obterConexao();
-                PreparedStatement ps = conn.prepareStatement("SELECT produto.nome , sum(item_venda.quantidade) as qtde FROM item_venda INNER JOIN produto ON item_venda.id_produto = produto.id_produto group by produto.nome;",
+                PreparedStatement ps = conn.prepareStatement("SELECT tb_produto.nome , sum(tb_item_venda.quantidade) as qtde FROM tb_item_venda INNER JOIN tb_produto ON tb_item_venda.id_produto = tb_produto.id_produto group by tb_produto.nome;",
                         ResultSet.TYPE_SCROLL_SENSITIVE,
                         ResultSet.CONCUR_UPDATABLE);
                 ResultSet rs = ps.executeQuery();
                 ArrayList<String> months = new ArrayList<String>();
                 ArrayList<Integer> users = new ArrayList<Integer>();
                 while (rs.next()) {
-                    months.add(rs.getString("produto.nome"));
+                    months.add(rs.getString("tb_produto.nome"));
                     users.add(Integer.parseInt(rs.getString("qtde")));
                 }
 
-                final ResultSet rs1 = ps.executeQuery("select * from venda");
+                final ResultSet rs1 = ps.executeQuery("select * from tb_venda");
 
                 ArrayList<Double> vendas = new ArrayList<Double>();
                 while (rs1.next()) {
                     vendas.add(Double.parseDouble(rs1.getString("total")));
                 }
 
-                final ResultSet rs2 = ps.executeQuery("select fi.nome, sum(ve.total) as total from venda ve inner join filial fi on ve.id_filial = fi.id_filial group by ve.id_filial;");
+                final ResultSet rs2 = ps.executeQuery("select fi.nome, sum(ve.total) as total from tb_venda ve inner join tb_filial fi on ve.id_filial = fi.id_filial group by ve.id_filial;");
 
                 ArrayList<Double> filial = new ArrayList<Double>();
                 ArrayList<String> filialnome = new ArrayList<String>();
@@ -158,7 +158,7 @@
                     filial.add(Double.parseDouble(rs2.getString("total")));
                 }
 
-                ps = conn.prepareStatement("SELECT US.NOME, SUM(VE.TOTAL) as total FROM venda AS VE INNER JOIN usuario AS US ON VE.ID_USUARIO = US.ID_USUARIO GROUP BY VE.ID_USUARIO;",
+                ps = conn.prepareStatement("SELECT US.NOME, SUM(VE.TOTAL) as total FROM tb_venda AS VE INNER JOIN tb_usuario AS US ON VE.ID_USUARIO = US.ID_USUARIO GROUP BY VE.ID_USUARIO;",
                         ResultSet.TYPE_SCROLL_SENSITIVE,
                         ResultSet.CONCUR_UPDATABLE);
                 ResultSet rs3 = ps.executeQuery();
@@ -609,7 +609,7 @@
                 <!-- /.sidebar-shortcuts -->
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="#">
+                        <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
@@ -730,7 +730,7 @@
                                 <b class="arrow"></b>
                             </li>
                             <li class="">
-                                <a href="SolicitacaoServlet?tarefa='Cadastrando'" >
+                                <a href="SolicitacaoServlet?tarefa=Cadastrando" >
                                     <i class="menu-icon fa fa-product-hunt"></i> Solicitações
                                 </a>
 

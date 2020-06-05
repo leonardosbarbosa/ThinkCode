@@ -209,8 +209,7 @@
 
 
                 <!-- /.sidebar-shortcuts -->
-
-                  <ul class="nav nav-list">
+<ul class="nav nav-list">
                     <li class="active">
                         <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -258,7 +257,7 @@
                                 <b class="arrow"></b>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="SolicitacaoServlet">
                                     <i class="menu-icon fa fa-caret-right"></i> Solicitações
                                 </a>
 
@@ -332,7 +331,13 @@
 
                                 <b class="arrow"></b>
                             </li>
-                           
+                            <li class="">
+                                <a href="SolicitacaoServlet?tarefa=Cadastrando" >
+                                    <i class="menu-icon fa fa-product-hunt"></i> Solicitações
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
 
                         </ul>
                     </li>

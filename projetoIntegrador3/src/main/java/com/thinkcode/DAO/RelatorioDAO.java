@@ -28,19 +28,19 @@ public class RelatorioDAO {
 
         try {
             String sqlState = "SELECT \n"
-                    + "	venda.id_venda,\n"
+                    + "	tb_venda.id_venda,\n"
                     + "	fi.nome as nomeFilial,\n"
                     + "	us.nome as nomeVendedor, \n"
                     + "	cli.nome as nomeCliente,	\n"
-                    + "	venda.cpf_cnpj,\n"
-                    + "	venda.pagamento,\n"
-                    + "	venda.parcelas,\n"
-                    + "	venda.total,\n"
-                    + "	venda.data\n"
-                    + "FROM venda  \n"
-                    + "INNER JOIN usuario as us ON venda.id_usuario = us.id_usuario  \n"
-                    + "INNER JOIN usuario as cli ON venda.cpf_cnpj = cli.cpf_cnpj  \n"
-                    + "INNER JOIN filial as fi ON venda.id_filial = fi.id_filial";
+                    + "	tb_venda.cpf_cnpj,\n"
+                    + "	tb_venda.pagamento,\n"
+                    + "	tb_venda.parcelas,\n"
+                    + "	tb_venda.total,\n"
+                    + "	tb_venda.data\n"
+                    + "FROM tb_venda  \n"
+                    + "INNER JOIN tb_usuario as us ON tb_venda.id_usuario = us.id_usuario  \n"
+                    + "INNER JOIN tb_usuario as cli ON tb_venda.cpf_cnpj = cli.cpf_cnpj  \n"
+                    + "INNER JOIN tb_filial as fi ON tb_venda.id_filial = fi.id_filial";
 
             if (_filtro != null && _filtro.getIdFilial() != 0) {
                 sqlState += " where fi.id_filial = " + _filtro.getIdFilial();
@@ -64,10 +64,10 @@ public class RelatorioDAO {
             }
             if (_filtro != null && _filtro.getidPagamento() != 0) {
                 if (_filtro.getIdFilial() != 0 || _filtro.getidVendedor() != 0 || _filtro.getCpfCliente() != null) {
-                    sqlState += " and venda.pagamento = " + _filtro.getidPagamento();
+                    sqlState += " and tb_venda.pagamento = " + _filtro.getidPagamento();
                 } else {
 
-                    sqlState += " where venda.pagamento = " + _filtro.getidPagamento();
+                    sqlState += " where tb_venda.pagamento = " + _filtro.getidPagamento();
                 }
             }
 
@@ -78,22 +78,22 @@ public class RelatorioDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 RelatorioModel relatorio = new RelatorioModel();
-                relatorio.setIdVenda(Integer.parseInt(rs.getString("venda.id_venda")));
+                relatorio.setIdVenda(Integer.parseInt(rs.getString("tb_venda.id_venda")));
                 relatorio.setfilialNome(rs.getString("nomeFilial"));
                 relatorio.setusuarioNome(rs.getString("nomeVendedor"));
                 relatorio.setnomeCliente(rs.getString("nomeCliente"));
-                relatorio.setcpfCnpj(rs.getString("venda.cpf_cnpj"));
-                if (Integer.parseInt(rs.getString("venda.pagamento")) == 1) {
+                relatorio.setcpfCnpj(rs.getString("tb_venda.cpf_cnpj"));
+                if (Integer.parseInt(rs.getString("tb_venda.pagamento")) == 1) {
                     relatorio.setformaPagamento("Cartão de Crédito");
-                } else if (Integer.parseInt(rs.getString("venda.pagamento")) == 2) {
+                } else if (Integer.parseInt(rs.getString("tb_venda.pagamento")) == 2) {
                     relatorio.setformaPagamento("Cartão de Débito");
                 } else {
                     relatorio.setformaPagamento("Dinheiro");
                 }
 
-                relatorio.setparcelas(Integer.parseInt(rs.getString("venda.parcelas")));
-                relatorio.settotal(Double.parseDouble(rs.getString("venda.total")));
-                relatorio.setdata(rs.getString("venda.data").toString());
+                relatorio.setparcelas(Integer.parseInt(rs.getString("tb_venda.parcelas")));
+                relatorio.settotal(Double.parseDouble(rs.getString("tb_venda.total")));
+                relatorio.setdata(rs.getString("tb_venda.data").toString());
 
                 relatorios.add(relatorio);
             }

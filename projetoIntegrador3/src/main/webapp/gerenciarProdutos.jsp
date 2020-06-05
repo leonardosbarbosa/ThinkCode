@@ -217,7 +217,6 @@
 
 
                 <!-- /.sidebar-shortcuts -->
-
                 <ul class="nav nav-list">
                     <li class="active">
                         <a href="IndexServlet">
@@ -266,7 +265,7 @@
                                 <b class="arrow"></b>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="SolicitacaoServlet">
                                     <i class="menu-icon fa fa-caret-right"></i> Solicitações
                                 </a>
 
@@ -340,7 +339,13 @@
 
                                 <b class="arrow"></b>
                             </li>
+                            <li class="">
+                                <a href="SolicitacaoServlet?tarefa=Cadastrando" >
+                                    <i class="menu-icon fa fa-product-hunt"></i> Solicitações
+                                </a>
 
+                                <b class="arrow"></b>
+                            </li>
 
                         </ul>
                     </li>
@@ -575,14 +580,14 @@
 
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
-                         let cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency"));
+                                                            let cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency"));
 // Loop over the array
-                                                                                    cells.forEach(function (cell) {
-                                                                                        // Convert cell data to a number, call .toLocaleString()
-                                                                                        // on that number and put result back into the cell
-                                                                                        cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+                                                            cells.forEach(function (cell) {
+                                                                // Convert cell data to a number, call .toLocaleString()
+                                                                // on that number and put result back into the cell
+                                                                cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
 
-                                                                                    });
+                                                            });
                                                             jQuery(function ($) {
 
                                                                 $('#tabelaProdutos').DataTable({

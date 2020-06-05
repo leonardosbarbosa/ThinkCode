@@ -28,7 +28,7 @@ public class VendaDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "INSERT INTO venda ( id_status, id_endereco, id_usuario, id_filial, cpf_cnpj, pagamento, parcelas, total, data) VALUES (? ,? ,? ,? ,? , ?, ?, ?, ?)";
+            String sql = "INSERT INTO tb_venda ( id_status, id_endereco, id_usuario, id_filial, cpf_cnpj, pagamento, parcelas, total, data) VALUES (? ,? ,? ,? ,? , ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, venda.getIdStatus());
             ps.setInt(2, venda.getIdEndereco());
@@ -52,7 +52,7 @@ public class VendaDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select nome from venda where id_venda like '%" + idVenda + "%'");
+            PreparedStatement ps = con.prepareStatement("select nome from tb_venda where id_venda like '%" + idVenda + "%'");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 System.out.println(rs.getString("id_usuario"));
@@ -69,7 +69,7 @@ public class VendaDAO {
         Date date = new Date();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update venda set dt_exlusao = " + date + " where id_venda like '%" + idVenda + "%'");
+            PreparedStatement ps = con.prepareStatement("update tb_venda set dt_exlusao = " + date + " where id_venda like '%" + idVenda + "%'");
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -82,7 +82,7 @@ public class VendaDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("delete nome from venda where id_venda like '%" + idVenda + "%'");
+            PreparedStatement ps = con.prepareStatement("delete nome from tb_venda where id_venda like '%" + idVenda + "%'");
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -96,7 +96,7 @@ public class VendaDAO {
         List<VendaModel> venda = new ArrayList<VendaModel>();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("SELEC * from venda where id_venda = '" + idVenda + "'");
+            PreparedStatement ps = con.prepareStatement("SELEC * from tb_venda where id_venda = '" + idVenda + "'");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 VendaModel vendaDB = new VendaModel();
@@ -126,7 +126,7 @@ public class VendaDAO {
         int id = 1;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select id_venda from venda order by id_venda desc limit 1");
+            PreparedStatement ps = con.prepareStatement("select id_venda from tb_venda order by id_venda desc limit 1");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 id = rs.getInt("id_venda");
