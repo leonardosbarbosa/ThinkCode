@@ -461,7 +461,7 @@
                                                 <th>${pedido.nomeSolicitante}</th>
                                                 <th>${pedido.nomeProduto}</th>
                                                 <th>${pedido.qtd}</th>
-                                                <th>${pedido.valor}</th>
+                                                <th class="row_currency">${pedido.valor}</th>
                                                 <th>${pedido.observacao}</th>
                                             </tr>
                                         </c:forEach>
@@ -553,14 +553,14 @@
                     <script type="text/javascript">
 
                     let
-                    cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency"));
+                                                            cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency"));
 // Loop over the array
-                    cells.forEach(function (cell) {
-                        // Convert cell data to a number, call .toLocaleString()
-                        // on that number and put result back into the cell
-                        cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+                                                            cells.forEach(function (cell) {
+                                                                // Convert cell data to a number, call .toLocaleString()
+                                                                // on that number and put result back into the cell
+                                                                cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
 
-                    });
+                                                            });
                     jQuery(function ($) {
                         $('#tabelaUsuarios').DataTable({
                             "language": {
