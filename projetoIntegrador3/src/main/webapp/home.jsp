@@ -157,8 +157,7 @@
                     filialnome.add(rs2.getString("fi.nome"));
                     filial.add(Double.parseDouble(rs2.getString("total")));
                 }
-                
-                
+
                 ps = conn.prepareStatement("SELECT US.NOME, SUM(VE.TOTAL) as total FROM venda AS VE INNER JOIN usuario AS US ON VE.ID_USUARIO = US.ID_USUARIO GROUP BY VE.ID_USUARIO;",
                         ResultSet.TYPE_SCROLL_SENSITIVE,
                         ResultSet.CONCUR_UPDATABLE);
@@ -169,7 +168,7 @@
                     Vendedores.add(rs3.getString("US.NOME"));
                     ValorVendedores.add(Double.parseDouble(rs3.getString("total")));
                 }
-                
+
                 conn.close();
 
                 String DataPie = joinPie(filial, filialnome, ",");
@@ -656,7 +655,7 @@
                                 <b class="arrow"></b>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="SolicitacaoServlet">
                                     <i class="menu-icon fa fa-caret-right"></i> Solicitações
                                 </a>
 
@@ -730,7 +729,13 @@
 
                                 <b class="arrow"></b>
                             </li>
+                            <li class="">
+                                <a href="SolicitacaoServlet?tarefa='Cadastrando'" >
+                                    <i class="menu-icon fa fa-product-hunt"></i> Solicitações
+                                </a>
 
+                                <b class="arrow"></b>
+                            </li>
 
                         </ul>
                     </li>

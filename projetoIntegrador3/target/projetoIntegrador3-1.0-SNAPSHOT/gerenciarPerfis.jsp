@@ -444,7 +444,7 @@
                                                     ${perfil.descricao}
                                                 </td>
                                                 <td>
-                                                    <div class="hidden-sm hidden-xs btn-group">
+                                                    <div class="btn-group">
                                                         <button class="btn btn-xs btn-info btn-edit" value="${perfil.idPerfil}" onclick="window.displaymessage(${perfil.idPerfil})" >
                                                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                         </button>

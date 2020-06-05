@@ -119,7 +119,7 @@ public class ModalServlet extends HttpServlet {
                     + "											</div>\n"
                     + "\n"
                     + "											<div class=\"modal-body\">\n"
-                    + "												<table id=\"tabelaprodutos\" class=\"table  table-bordered table-hover\">\n"
+                    + "												<table id=\"tabelaprodutos\" class=\"table table-hover display  table-striped table-bordered nowrap\" style=\"width: 100%\">"
                     + "                                    <thead>\n"
                     + "                                        <tr>\n"
                     + "                                            <th id=\"id\"> Nr.Produto </th>\n"

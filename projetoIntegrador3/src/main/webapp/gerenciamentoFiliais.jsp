@@ -462,7 +462,7 @@
                                                 </td>
 
                                                 <td>
-                                                    <div class="hidden-sm hidden-xs btn-group">
+                                                    <div class="btn-group">
 
 
                                                         <button class="btn btn-xs btn-info btn-edit" value="${filiais.idFilial}" onclick="window.display(${filiais.idFilial})" >

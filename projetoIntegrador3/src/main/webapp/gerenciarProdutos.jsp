@@ -470,7 +470,7 @@
                                                     ${produto.valor}
                                                 </td>
                                                 <td>
-                                                    <div class="hidden-sm hidden-xs btn-group">
+                                                    <div class=" btn-group">
 
 
                                                         <button class="btn btn-xs btn-info btn-edit" value="${produto.idProduto}" onclick="window.displaymessage(${produto.idProduto})" >

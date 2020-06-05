@@ -1,10 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="com.thinkcode.models.RelatorioModel"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -504,9 +499,7 @@
                                                     ${relatorio.data} 
                                                 </td>
                                                 <td>
-                                                    <div class="hidden-sm hidden-xs btn-group">
-
-
+                                                    <div class="btn-group">
                                                         <button class="btn btn-xs btn-info btn-edit" value="${relatorio.idVenda}" onclick="window.displaymessage(${relatorio.idVenda})" >
                                                             <i class="ace-icon fa fa-list bigger-120"></i>
                                                         </button>
@@ -606,12 +599,12 @@
                                                             let
                                                             cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency"));
 // Loop over the array
-                                                                    cells.forEach(function (cell) {
-                                                                        // Convert cell data to a number, call .toLocaleString()
-                                                                        // on that number and put result back into the cell
-                                                                        cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+                                                            cells.forEach(function (cell) {
+                                                                // Convert cell data to a number, call .toLocaleString()
+                                                                // on that number and put result back into the cell
+                                                                cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
 
-                                                                    });
+                                                            });
                                                             jQuery(function ($) {
                                                                 $('#tabelaUsuarios').DataTable({
                                                                     "language": {
@@ -633,21 +626,25 @@
                                                                         type: 'POST',
                                                                         success: function (response) {
                                                                             //  Add in what to do when ajax call is successful
+                                                                            
                                                                             $('#Modal').html(response)
                                                                             $('#my-modal').modal('show')
+                                                                            var table = $('#tabelaprodutos').DataTable();
+                                                                            table.destroy();
                                                                             $('#tabelaprodutos').DataTable({
-                                                                            "language": {
-                                                                            "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-                                                                            }
+                                                                                "language": {
+                                                                                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                                                                                },
+                                                                                responsive: true
                                                                             })
-                                                                                    let cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency2"));
+                                                                            let cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency2"));
 // Loop over the array
-                                                                                    cells.forEach(function (cell) {
-                                                                                        // Convert cell data to a number, call .toLocaleString()
-                                                                                        // on that number and put result back into the cell
-                                                                                        cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+                                                                            cells.forEach(function (cell) {
+                                                                                // Convert cell data to a number, call .toLocaleString()
+                                                                                // on that number and put result back into the cell
+                                                                                cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
 
-                                                                                    });
+                                                                            });
                                                                         },
                                                                         error: function (xhr, ajaxOptions, thrownError) {
                                                                             alert('error');

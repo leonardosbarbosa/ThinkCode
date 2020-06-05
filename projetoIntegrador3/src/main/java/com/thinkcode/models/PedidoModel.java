@@ -12,7 +12,9 @@ package com.thinkcode.models;
 public class PedidoModel {
     private int idpedido;
     private int idfilial;
+    private String nomeFilial;
     private int idacompanhe;
+    private String descricaoAcompanhe;
      private double valor;
     private String dataInclusao;
     private int userInlcusao;
@@ -22,9 +24,11 @@ public class PedidoModel {
     public PedidoModel() {
     }
 
-    public PedidoModel( int idfilial, int idacompanhe, double valor, String dataInclusao, int userInlcusao) {
+    public PedidoModel( int idfilial, String nomeFilial, int idacompanhe,String descricaoAcompanhe , double valor, String dataInclusao, int userInlcusao) {
         this.idfilial = idfilial;
+        this.nomeFilial = nomeFilial;
         this.idacompanhe = idacompanhe;
+        this.descricaoAcompanhe = descricaoAcompanhe;
         this.valor = valor;
         this.dataInclusao = dataInclusao;
         this.userInlcusao = userInlcusao;
@@ -43,12 +47,26 @@ public class PedidoModel {
     public void setIdFilial(int idfilial) {
         this.idfilial = idfilial;
     }
+    public String getNomeFilial() {
+        return nomeFilial;
+    }
+
+    public void setNomeFilial(String nomeFilial) {
+        this.nomeFilial = nomeFilial;
+    }
     public int getIdAcompanhe() {
         return idacompanhe;
     }
 
     public void setIdAcompanhe(int idacompanhe) {
         this.idacompanhe = idacompanhe;
+    }
+     public String getDescricaoAcompanhe() {
+        return descricaoAcompanhe;
+    }
+
+    public void setDescricaoAcompanhe(String descricaoAcompanhe) {
+        this.descricaoAcompanhe = descricaoAcompanhe;
     }
 
       public double getValor() {
