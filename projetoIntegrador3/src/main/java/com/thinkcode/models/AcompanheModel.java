@@ -10,7 +10,7 @@ package com.thinkcode.models;
  * @author Leonardo Moreno
  */
 public class AcompanheModel {
-    private int idacompanhe;
+    private int idAcompanhe;
     private String descricao;
     private String dataInclusao;
     private int userInlcusao;
@@ -27,11 +27,11 @@ public class AcompanheModel {
     }
 
     public int getIdAcompanhe() {
-        return idacompanhe;
+        return idAcompanhe;
     }
 
     public void setIdAcompanhe(int id) {
-        this.idacompanhe = id;
+        this.idAcompanhe = id;
     }
 
     public String getDescricao() {

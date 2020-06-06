@@ -218,7 +218,7 @@
 
 
                 <!-- /.sidebar-shortcuts -->
-<ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -445,24 +445,41 @@
                                 <table id="tabelaUsuarios" class="table table-hover display  table-striped table-bordered nowrap" style="width: 100%">
                                     <thead>
                                         <tr>
+                                            <th> Nr. Solicitação</th>
                                             <th> Filial Solicitante</th>
-                                            <th> Solicitante </th>
-                                            <th> Produto</th>
-                                            <th> Quantidade </th>
-                                            <th> Valor </th>                                           
-                                            <th> Observação</th>                                            
+                                            <th> Solicitante </th>                                                                           
+                                            <th> Observação</th>  
+                                            <th> Status</th>  
+                                            <th> Data Solicitação</th>  
+                                            <th> Gerenciar</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         <c:forEach var="pedido" items="${pedidos}">
                                             <tr>
-                                                <th>${pedido.nomeFilial}</th>
-                                                <th>${pedido.nomeSolicitante}</th>
-                                                <th>${pedido.nomeProduto}</th>
-                                                <th>${pedido.qtd}</th>
-                                                <th class="row_currency">${pedido.valor}</th>
-                                                <th>${pedido.observacao}</th>
+                                                <td>${pedido.idPedido}</td>
+                                                <td>${pedido.nomeFilial}</td>
+                                                <td>${pedido.nomeSolicitante}</td>                                               
+                                                <td>${pedido.observacao}</td>
+                                                <td>${pedido.acompanhamento}</td>
+                                                <td>${pedido.dataInclusao}</td>
+                                                <td>
+                                                    <div class=" btn-group">
+
+                                                        <button class="btn btn-xs btn-info btn-edit" value="${pedido.idPedido}" onclick="window.displaymessage(${pedido.idPedido})" >
+                                                            <i class="ace-icon fa fa-list bigger-120"></i>
+                                                        </button>
+                                                        <button class="btn btn-xs btn-success btn-edit" value="${pedido.idPedido}" onclick="window.displaymessage(${pedido.idPedido})" >
+                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                        </button>
+
+
+
+                                                    </div>
+
+
+                                                </td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
@@ -473,6 +490,10 @@
                                 <input  name="tarefa" style="display: none" type="text" value="modal" />
                                 <button type="submit" style="display: none" id="enviarEditacao"></button>
                             </form>
+
+                            <div id="Modal" >
+
+                            </div>
 
                             <!-- /.span -->
                         </div>
@@ -523,8 +544,10 @@
         <script src="assets/js/jquery-1.11.3.min.js"></script>
         <![endif]-->
                     <script type="text/javascript">
-                    if ('ontouchstart' in document.documentElement)
-                        document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+                                                            if ('ontouchstart' in document.documentElement)
+                                                                document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+
+
                     </script>
                     <script src="assets/js/bootstrap.min.js"></script>
 
@@ -552,7 +575,7 @@
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
 
-                    let
+                                                            let
                                                             cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency"));
 // Loop over the array
                                                             cells.forEach(function (cell) {
@@ -561,55 +584,54 @@
                                                                 cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
 
                                                             });
-                    jQuery(function ($) {
-                        $('#tabelaUsuarios').DataTable({
-                            "language": {
-                                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-                            },
-                            responsive: true
+                                                            jQuery(function ($) {
+                                                                $('#tabelaUsuarios').DataTable({
+                                                                    "language": {
+                                                                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                                                                    },
+                                                                    responsive: true
 
-                        });
-                        window.displaymessage = function (user)
-                        {
-                            //$('#valorEditar').val(user);
-                            //$('#enviarEditacao').click();
-                            $.ajax({
-                                url: "ModalServlet",
-                                data: {
-                                    "id": user,
-                                    "tarefa": "modal"
-                                },
-                                type: 'POST',
-                                success: function (response) {
-                                    //  Add in what to do when ajax call is successful
+                                                                });
+                                                                window.displaymessage = function (user)
+                                                                {
+                                                                    //$('#valorEditar').val(user);
+                                                                    //$('#enviarEditacao').click();
+                                                                    $.ajax({
+                                                                        url: "ModalServlet",
+                                                                        data: {
+                                                                            "id": user,
+                                                                            "tarefa": "modelPedidos"
+                                                                        },
+                                                                        type: 'POST',
+                                                                        success: function (response) {
+                                                                            //  Add in what to do when ajax call is successful
 
-                                    $('#Modal').html(response)
-                                    $('#my-modal').modal('show')
-                                    var table = $('#tabelaprodutos').DataTable();
-                                    table.destroy();
-                                    alert('chamou')
-                                    $('#tabelaprodutos').DataTable({
-                                        "language": {
-                                            "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-                                        },
-                                        responsive: true
-                                    })
-                                    let cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency2"));
+                                                                            $('#Modal').html(response)
+                                                                            $('#my-modal').modal('show')
+                                                                            var table = $('#tabelaprodutos').DataTable();
+                                                                            table.destroy();
+                                                                            $('#tabelaprodutos').DataTable({
+                                                                                "language": {
+                                                                                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                                                                                }
+                                                                                //,responsive: true
+                                                                            })
+                                                                            let cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency2"));
 // Loop over the array
-                                    cells.forEach(function (cell) {
-                                        // Convert cell data to a number, call .toLocaleString()
-                                        // on that number and put result back into the cell
-                                        cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+                                                                            cells.forEach(function (cell) {
+                                                                                // Convert cell data to a number, call .toLocaleString()
+                                                                                // on that number and put result back into the cell
+                                                                                cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
 
-                                    });
-                                },
-                                error: function (xhr, ajaxOptions, thrownError) {
-                                    alert('error');
-                                }
+                                                                            });
+                                                                        },
+                                                                        error: function (xhr, ajaxOptions, thrownError) {
+                                                                            alert('error');
+                                                                        }
 
 
-                            });
-                        }
+                                                                    });
+                                                                }
 
                         <%                            Cookie[] cookies = request.getCookies();
                             for (Cookie atual : cookies) {
@@ -617,20 +639,20 @@
                                     int auxilio = Integer.parseInt(atual.getValue());
                                     if (auxilio != 1) {
                         %>
-                        $('#liCadastro').hide()
+                                                                $('#liCadastro').hide()
                         <%
                                 }
                             }
                             if (atual.getName().equals("Nome")) {
                                 String auxiliado = atual.getValue().substring(0, 8);
                         %>
-                        $('#lblNome').text('<%= auxiliado%>');
+                                                                $('#lblNome').text('<%= auxiliado%>');
                         <%
                                 }
 
                             }
                         %>
-                    });
+                                                            });
                     </script>
                     </body>
 

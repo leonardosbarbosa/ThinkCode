@@ -5,11 +5,13 @@
  */
 package com.thinkcode.servlet;
 
+import Controller.AcompanheController;
 import Controller.DetalhePedidoController;
 import Controller.FilialController;
 import Controller.PedidoController;
 import Controller.ProdutoController;
 import Controller.UsuarioController;
+import com.thinkcode.models.AcompanheModel;
 import com.thinkcode.models.DetalhePedidoModel;
 import com.thinkcode.models.FilialModel;
 import com.thinkcode.models.PedidoModel;
@@ -60,6 +62,8 @@ public class SolicitacaoServlet extends HttpServlet {
         PedidoController pedidoC = new PedidoController();
         DetalhePedidoModel detalhePedido = new DetalhePedidoModel();
         DetalhePedidoController detalhePedidoC = new DetalhePedidoController();
+        AcompanheModel acompanhamento = new AcompanheModel();
+        AcompanheController acompanhamentoC = new AcompanheController();
         Boolean cadastro = false;
         Date dataIncl = new Date();
         Cookie cook = null;
@@ -84,6 +88,7 @@ public class SolicitacaoServlet extends HttpServlet {
             url = "/acompanhamentoSolicitacao.jsp";
             if (tarefa != null) {
                 if (tarefa.equals("Cadastrando")) {
+                    request.setAttribute("AcompanheCadastro", "");
                     url = "/cadastroSolicitacao.jsp";
                 }
                 if (tarefa.equals("cadastro")) {
@@ -116,9 +121,11 @@ public class SolicitacaoServlet extends HttpServlet {
             List<ProdutoModel> produtos = produtoController.ProdutosCadastrados("", "", "");
             List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");
             List<PedidoModel> pedidos = pedidoC.todosPedidos();
+            List<AcompanheModel> acompanhamentos = acompanhamentoC.todosAcompanhes();
             request.setAttribute("filiais", filiais);
             request.setAttribute("produtos", produtos);
             request.setAttribute("pedidos", pedidos);
+            request.setAttribute("acompanhamentos", acompanhamentos);
 
         }
         try {

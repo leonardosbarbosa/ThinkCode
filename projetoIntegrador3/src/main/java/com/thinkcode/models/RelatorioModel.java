@@ -30,6 +30,8 @@ public class RelatorioModel {
     private int idPagamento;
     private String formaPagamento;
     private String nomeCliente;
+    private String descricao;
+    private String tipoProduto;
 
     public RelatorioModel() {
 
@@ -194,5 +196,21 @@ public class RelatorioModel {
     public void setnomeCliente(String _nomeCliente) {
         this.nomeCliente = _nomeCliente;
     }
+    public String getdescricao() {
+        return this.descricao;
+    }
+
+    public void setdescricao(String _descricao) {
+        this.descricao = _descricao;
+    }
+    
+    public String gettipoProduto() {
+        return this.tipoProduto;
+    }
+
+    public void settipoProduto(String _tipoProduto) {
+        this.tipoProduto = _tipoProduto;
+    }
+    
 
 }

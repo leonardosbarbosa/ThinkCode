@@ -18,7 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AcompanheDAO {
-      public static boolean cadastrarAcompanhe(AcompanheModel acompanhe) {
+
+    public static boolean cadastrarAcompanhe(AcompanheModel acompanhe) {
         boolean ok = false;
         Connection con;
         try {
@@ -38,16 +39,18 @@ public class AcompanheDAO {
         }
         return ok;
     }
-     public static List<AcompanheModel> consultarTodosAcompanhe() {
+
+    public static List<AcompanheModel> consultarTodosAcompanhe() {
         Connection con;
         List<AcompanheModel> acompanhes = new ArrayList<AcompanheModel>();
 
         try {
-           con = ConnectionDB.obterConexao();
+            con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("select * from tb_acompanhe");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 AcompanheModel acompanhe = new AcompanheModel();
+                acompanhe.setIdAcompanhe(Integer.parseInt(rs.getString("id_acompanhe")));
                 acompanhe.setDescricao(rs.getString("descricao"));
                 acompanhes.add(acompanhe);
             }
@@ -78,7 +81,7 @@ public class AcompanheDAO {
         Date date = new Date();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("UPDATE tb_acompanhe SET data_exclusao =" + date + " usr_exclusao = " + userExclusao +" WHERE tb_acompanhe.id_acompanhe = " + id_acompanhe);
+            PreparedStatement ps = con.prepareStatement("UPDATE tb_acompanhe SET data_exclusao =" + date + " usr_exclusao = " + userExclusao + " WHERE tb_acompanhe.id_acompanhe = " + id_acompanhe);
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -91,7 +94,7 @@ public class AcompanheDAO {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM tb_acompanhe WHERE tb_acompanhe.id_acompanhe = "+id_acompanhe);
+            PreparedStatement ps = con.prepareStatement("DELETE FROM tb_acompanhe WHERE tb_acompanhe.id_acompanhe = " + id_acompanhe);
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {

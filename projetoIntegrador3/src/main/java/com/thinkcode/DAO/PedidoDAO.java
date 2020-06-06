@@ -51,16 +51,12 @@ public class PedidoDAO extends ConnectionDB {
                     + "	tb_pedido.id_pedido ,\n"
                     + "	fi.nome as nomeFilial,\n"
                     + "	us.nome as nomeSolicitante,\n"
-                    + "	pt.nome as nomeProduto,\n"
-                    + "	dp.qtde as qtde,\n"
-                    + "	tb_pedido.valor,\n"
-                    + "	tb_pedido.data_inclusao \n"
+                    + "	ac.descricao,\n"
+                    + "	tb_pedido.data_inclusao\n"
                     + "from tb_pedido \n"
                     + "INNER JOIN tb_filial as fi ON tb_pedido.id_filial = fi.id_filial \n"
                     + "INNER JOIN tb_acompanhe as ac ON tb_pedido.id_acompanhe = ac.id_acompanhe\n"
-                    + "INNER JOIN tb_usuario as us on tb_pedido.usr_inclusao = us.id_usuario\n"
-                    + "INNER JOIN tb_detalhe_pedido as dp on tb_pedido.id_pedido = dp.id_pedido\n"
-                    + "INNER JOIN tb_produto as pt on dp.id_produto = pt.id_produto;",
+                    + "INNER JOIN tb_usuario as us on tb_pedido.usr_inclusao = us.id_usuario",
                     ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
@@ -69,9 +65,7 @@ public class PedidoDAO extends ConnectionDB {
                 pedido.setIdPedido(rs.getInt("tb_pedido.id_pedido"));
                 pedido.setNomeFilial(rs.getString("nomeFilial"));
                 pedido.setnomeSolicitante(rs.getString("nomeSolicitante"));
-                pedido.setnomeProduto(rs.getString("nomeProduto"));
-                pedido.setValor(rs.getDouble("tb_pedido.valor"));
-                pedido.setQtd(Integer.parseInt(rs.getString("qtde")));
+                pedido.setAcompanhamento(rs.getString("ac.descricao"));
                 pedido.setDataInclusao(rs.getString("data_inclusao"));
                 pedidos.add(pedido);
             }

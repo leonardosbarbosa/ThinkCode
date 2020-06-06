@@ -434,12 +434,17 @@
                                                                     </div>
 
                                                                 </div>
-                                                                <div class="col-lg-12"><div class="col-lg-3">
-                                                                        <label for="number-button"
-                                                                               class="block">Observação</label>
-                                                                        <input type="text" id="form-field-1-1"
-                                                                               class="form-control" name="observacaoProduto"
-                                                                               required value="${descricaoProduto}"/>
+                                                                <div class="col-lg-12">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="number-button" class="block">Acompanhamento</label>
+                                                                        <select class="form-group" style="width: 100%;" name="acompanhamento">
+                                                                            <c:forEach var="acompanhamento" items="${acompanhamentos}">
+                                                                                <option value="${acompanhamento.idAcompanhe}">
+                                                                                    ${acompanhamento.descricao}
+                                                                                </option>
+                                                                            </c:forEach>
+
+                                                                        </select>
                                                                     </div>
 
                                                                 </div>
