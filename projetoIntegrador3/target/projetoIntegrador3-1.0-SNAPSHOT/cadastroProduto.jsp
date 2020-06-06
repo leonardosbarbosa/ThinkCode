@@ -357,7 +357,7 @@
                     <div class="page-content">
                         <!-- /.ace-settings-container -->
                         <!-- Filtros -->
-                        <form action="ProdutoServlet" method="POST">
+                        <form action="ProdutoServlet" method="POST" id="formCadProduto">
                             <div>
                                 <div>
                                     <div class="col-lg-12">
@@ -385,19 +385,19 @@
                                                             <div class="form-group">
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Nome</label>
-                                                                    <input type="text" id="form-field-1-1"
+                                                                    <input type="text" id="nomeProduto"
                                                                            placeholder="Nome" class="form-control"
                                                                            name="nomeProduto" required value="${nomeProduto}" />
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Tipo</label>
-                                                                    <input type="text" id="form-field-1-1"
+                                                                    <input type="text" id="Tipo"
                                                                            class="form-control" name="tipoProduto" required  value="${tipoProduto}"/>
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button"
                                                                            class="block">Quantidade</label>
-                                                                    <input type="text" id="form-field-1-1"
+                                                                    <input type="number" onkeypress="return event.charCode >= 48" min="1" id="quantidadeProduto"
                                                                            class="form-control" name="quantidadeProduto" onkeypress="return onlynumber()"
                                                                            required value="${quantidadeProduto}"/>
                                                                 </div>
@@ -405,7 +405,7 @@
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button"
                                                                            class="block">Descrição</label>
-                                                                    <input type="text" id="form-field-1-1"
+                                                                    <input type="text" id="descricaoProduto"
                                                                            class="form-control" name="descricaoProduto"
                                                                            required value="${descricaoProduto}"/>
                                                                 </div>
@@ -416,8 +416,8 @@
                                                                             <i class="ace-icon fa fa-money"></i>
                                                                         </span>
 
-                                                                        <input class="form-control input-mask-phone"
-                                                                               type="text" id="form-field-mask-2"
+                                                                        <input class="form-control money"
+                                                                               type="text" id="valorProduto"
                                                                                placeholder="R$00,00" name="valorProduto" onkeypress="return onlynumber()"
                                                                                required value="${valorProduto}"/>
                                                                     </div>
@@ -534,6 +534,8 @@
                 <script src="assets/js/jquery.flot.min.js"></script>
                 <script src="assets/js/jquery.flot.pie.min.js"></script>
                 <script src="assets/js/jquery.flot.resize.min.js"></script>
+                <script src="assets/js/jquery.mask.js"></script>
+                <script src="assets/js/jquery.validate.js"></script>
 
                 <!-- ace scripts -->
                 <script src="assets/js/ace-elements.min.js"></script>
@@ -568,6 +570,10 @@
                                                                                             })
                                                                                             */
                                                                                        }
+                    $(document).ready(function(){
+                        $('.money').mask('000.000.000.000.000,00', {reverse: true});                        
+                    });
+
 
                     <%
                         Cookie[] cookies = request.getCookies();

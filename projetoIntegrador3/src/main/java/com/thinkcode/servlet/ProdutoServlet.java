@@ -111,7 +111,7 @@ public class ProdutoServlet extends HttpServlet {
                     produto.setNome(request.getParameter("nomeProduto"));
                     produto.setQuantidade(Integer.parseInt(request.getParameter("quantidadeProduto")));
                     produto.setTipo(request.getParameter("tipoProduto"));
-                    produto.setValor(Double.parseDouble(request.getParameter("valorProduto")));
+                    produto.setValor(Double.parseDouble(request.getParameter("valorProduto").replace(".", "").replace(",",".")));
                     produto.setDescricao(request.getParameter("descricaoProduto"));
                     produto.setIdUsuario(usuario.getIdUsuario());
                     produto.setIdFilial(Integer.parseInt(request.getParameter("filialProduto")));

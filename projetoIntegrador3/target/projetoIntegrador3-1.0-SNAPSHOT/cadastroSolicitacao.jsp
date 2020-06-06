@@ -415,7 +415,7 @@
                                                                     <div class="col-lg-3">
                                                                         <label for="number-button"
                                                                                class="block">Quantidade</label>
-                                                                        <input type="text" id="form-field-1-1"
+                                                                        <input type="number" onkeypress="return event.charCode >= 48" min="1" id="form-field-1-1"
                                                                                class="form-control" name="quantidadeProduto" onkeypress="return onlynumber()"
                                                                                required value="${quantidadeProduto}"/>
                                                                     </div>
@@ -426,7 +426,7 @@
                                                                                 <i class="ace-icon fa fa-money"></i>
                                                                             </span>
 
-                                                                            <input class="form-control input-mask-phone"
+                                                                            <input class="form-control money"
                                                                                    type="text" id="form-field-mask-2"
                                                                                    placeholder="R$00,00" name="valorProduto" onkeypress="return onlynumber()"
                                                                                    required value="${valorProduto}"/>
@@ -545,6 +545,7 @@
                 <script src="assets/js/jquery.flot.min.js"></script>
                 <script src="assets/js/jquery.flot.pie.min.js"></script>
                 <script src="assets/js/jquery.flot.resize.min.js"></script>
+                <script src="assets/js/jquery.mask.js"></script>
 
                 <!-- ace scripts -->
                 <script src="assets/js/ace-elements.min.js"></script>
@@ -579,6 +580,9 @@
                                                                                                 })
                                                                                                 */
                                                                                            }
+                    $(document).ready(function(){
+                        $('.money').mask('000.000.000.000.000.00', {reverse: true});
+                    });
 
                     <%
                         Cookie[] cookies = request.getCookies();
