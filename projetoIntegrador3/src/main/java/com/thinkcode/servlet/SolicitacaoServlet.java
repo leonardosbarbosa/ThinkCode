@@ -87,8 +87,13 @@ public class SolicitacaoServlet extends HttpServlet {
         if (logado) {
             url = "/acompanhamentoSolicitacao.jsp";
             if (tarefa != null) {
+                
+                if (tarefa.equals("editando")) {                    
+                    request.setAttribute("tarefa", "editando");
+                    url = "/cadastroSolicitacao.jsp";
+                }
                 if (tarefa.equals("Cadastrando")) {
-                    request.setAttribute("AcompanheCadastro", "");
+                    request.setAttribute("tarefa", "");
                     url = "/cadastroSolicitacao.jsp";
                 }
                 if (tarefa.equals("cadastro")) {

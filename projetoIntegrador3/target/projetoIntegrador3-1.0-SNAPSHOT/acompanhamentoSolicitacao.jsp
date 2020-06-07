@@ -470,7 +470,7 @@
                                                         <button class="btn btn-xs btn-info btn-edit" value="${pedido.idPedido}" onclick="window.displaymessage(${pedido.idPedido})" >
                                                             <i class="ace-icon fa fa-list bigger-120"></i>
                                                         </button>
-                                                        <button class="btn btn-xs btn-success btn-edit" value="${pedido.idPedido}" onclick="window.displaymessage(${pedido.idPedido})" >
+                                                        <button class="btn btn-xs btn-success btn-edit" value="${pedido.idPedido}" onclick="window.edit(${pedido.idPedido})" >
                                                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                         </button>
 
@@ -485,9 +485,9 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <form method="POST" action="" >
+                            <form method="POST" action="SolicitacaoServlet" >
                                 <input  name="id" style="display: none" type="text" id="valorEditar"/>
-                                <input  name="tarefa" style="display: none" type="text" value="modal" />
+                                <input  name="tarefa" style="display: none" type="text" value="editando" />
                                 <button type="submit" style="display: none" id="enviarEditacao"></button>
                             </form>
 
@@ -631,6 +631,12 @@
 
 
                                                                     });
+                                                                }
+                                                                
+                                                                window.edit = function (user)
+                                                                {     
+                                                                    $('#valorEditar').val(user);
+                                                                    $('#enviarEditacao').click();
                                                                 }
 
                         <%                            Cookie[] cookies = request.getCookies();
