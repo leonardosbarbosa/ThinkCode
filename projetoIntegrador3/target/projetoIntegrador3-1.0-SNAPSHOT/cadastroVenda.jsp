@@ -152,7 +152,7 @@
                     }
                 </script>
 
-               <ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -461,7 +461,7 @@
                                                                             <div class="radio">
                                                                                 <label>
                                                                                     <input name="sexoRadio" type="radio"
-                                                                                           class="form-control ace" />
+                                                                                           class="form-control ace" value="masculino"/>
                                                                                     <span class="lbl"> Masculino</span>
                                                                                 </label>
                                                                             </div>
@@ -469,7 +469,7 @@
                                                                             <div class="radio">
                                                                                 <label>
                                                                                     <input name="sexoRadio" type="radio"
-                                                                                           class="form-control ace" />
+                                                                                           class="form-control ace" value="feminino"/>
                                                                                     <span class="lbl"> Feminino</span>
                                                                                 </label>
                                                                             </div>
@@ -576,7 +576,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
 
                                             <div class="step-pane" data-step="3">
@@ -607,7 +607,7 @@
                                                 <div class="col-lg-3">
                                                     <label for="number-button" class="block">Valor Total</label>
                                                     <input type="text" id="form-field-1-1" placeholder="Valor Recebido"
-                                                           class="form-control input-mask-cpf" name="ValorTotal" />
+                                                           class="form-control" name="ValorTotal" />
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <label for="number-button" class="block">Troco</label>
@@ -622,7 +622,7 @@
                                             <div class="col-lg-12">
 
                                                 <div class="col-lg-3">
-                                                    <label for="number-button" class="block">NOME</label>
+                                                    <label for="number-button" class="block">Nome</label>
                                                     <input type="text" id="nomeFinal" 
                                                            class="form-control" disabled />
 
@@ -684,6 +684,14 @@
 
                                                     <input class="form-control" type="text" id="complementoFinal"
                                                            name="complemento" disabled/>
+
+                                                </div>
+                                                
+                                                <div class="col-lg-3">
+                                                    <label for="number-button" class="block">Telefone</label>
+
+                                                    <input class="form-control" type="text" id="telefoneFinal"
+                                                           name="telefone" disabled/>
 
                                                 </div>
                                             </div>
@@ -899,6 +907,15 @@
                             pagAtual++;
                             if (pagAtual === 4) {
                                 var cpfcnpjSALVAR = $('#cpfCad').val();
+                                var rgSALVAR = $('#rgCad').val();
+                                
+                                var nomeSALVAR = $('#nomeCad').val();
+                                var emailSALVAR = $('#emailCad').val();
+                                var telefoneSALVAR = $('#telCad').val();
+                                var sexoSALVAR = $("input[name='sexoRadio']:checked").val();
+
+                                var dataSALVAR = $('#dataCad').val();
+                                
                                 var metodopagSALVAR = $("#selectPagamento option:selected").val();
                                 var parcelasSALVAR = "0";
                                 var totalSALVAR = $('#totalCarrinho').val();
@@ -909,24 +926,19 @@
 
                                 for (var i = 1; i <= posicaoCarrinho - 1; i++) {
                                     var atual = localStorage.getItem("salvar" + i);
-                                    console.log(atual);
-
                                     id_produto += atual + ",";
-                                    console.log(id_produto);
                                 }
 
                                 for (var i = 1; i <= posicaoCarrinho - 1; i++) {
                                     var atual = localStorage.getItem("qtd" + i);
                                     quantidade_produto += atual + ",";
-                                    console.log(quantidade_produto);
                                 }
 
                                 for (var i = 1; i <= posicaoCarrinho - 1; i++) {
                                     var atual = localStorage.getItem("valor" + i);
                                     valor_produto += atual + ",";
-                                    console.log(valor_produto);
                                 }
-
+                                radioValue = $("input[name='userRegister']:checked").val();
                                 $.ajax({
                                     type: 'POST',
                                     data: {
@@ -937,50 +949,63 @@
                                         Id_produtos: id_produto,
                                         Qtd_produtos: quantidade_produto,
                                         Cpf_cliente: cpfcnpjSALVAR,
-                                        Vlrs_produtos: valor_produto
-
-
+                                        Rg_cliente:  rgSALVAR,
+                                        Nome_cliente: nomeSALVAR,
+                                        Email_cliente: emailSALVAR,
+                                        Telefone_cliente: telefoneSALVAR,
+                                        Sexo_cliente: sexoSALVAR,
+                                        Data_cliente: dataSALVAR,                                      
+                                        Vlrs_produtos: valor_produto,
+                                        salvarCliente: radioValue
+                                         
                                     },
                                     url: 'VendaServlet',
                                     success: function (result) {
-                                        alert("Sucesso");
+                                        alert("Compra registrada com sucesso !");
+                                        document.location.reload(true);
                                     }
                                 });
                             }
                             if (pagAtual == 3) {
                                 var nome = $('#nomeCad').val();
-                                console.log(nome);
                                 var cpf = $('#cpfCad').val();
-                                console.log(cpf);
                                 var rg = $('#rgCad').val();
-                                console.log(rg);
                                 var data = $('#dataCad').val();
-                                console.log(data);
                                 var tel = $('#telCad').val();
-                                console.log(tel);
                                 var email = $('#emailCad').val();
-                                console.log(email);
                                 var rua = $('#ruaCad').val();
-                                console.log(rua);
                                 var cep = $('#cepCad').val();
-                                console.log(cep);
                                 var bairro = $('#bairroCad').val();
-                                console.log(bairro);
                                 var numero = $('#numeroCad').val();
-                                console.log(numero);
                                 var metodo = $("#selectPagamento option:selected").val();
+                                
+                                if(metodo == 1){
+                                    metodo = "Cartão de Crédito";
+                                }else if (metodo == 2){
+                                    metodo = "Cartão de Débito";
+                                }else if (metodo == 3){
+                                    metodo = "Dinheiro";
+                                }
 
                                 var nomeCad = $('#nomeCad').val()
                                 $('#nomeFinal').attr('placeholder', nomeCad);
+                                
+                                var emailCad = $('#emailCad').val()
+                                $('#emailFinal').attr('placeholder', emailCad);
 
                                 var cpfCad = $('#cpfCad').val()
                                 $('#cpfFinal').attr('placeholder', cpfCad);
+                                
+                                var dataCad = $('#dataCad').val()
+                                $('#dataFinal').attr('placeholder', dataCad);
 
                                 var rgCad = $('#rgCad').val()
                                 $('#rgFinal').attr('placeholder', rgCad);
 
                                 var cepCad = $('#cepCad').val()
                                 $('#cepFinal').attr('placeholder', rgCad);
+                                                                                        
+                                $('#telefoneFinal').attr('placeholder', tel);
 
                                 var ruaCad = $('#ruaCad').val()
                                 $('#ruaFinal').attr('placeholder', ruaCad);
@@ -996,10 +1021,9 @@
 
                                 $('#metodoFinal').attr('placeholder', metodo);
 
-                                var totalCarrin = $('#totalCarrinho').val();
+                                var totalCarrin = "R$ " + $('#totalCarrinho').val();
                                 $('#totalFinal').attr('placeholder', totalCarrin);
-
-                                console.log($('#totalFinal').html);
+                                                         
                             }
                             if (nome == "" || cpf == "" || rg == "" || data == "" || tel == "" || email == "" || rua == "" || cep == "" || bairro == "" || numero == "" || metodo == 0) {
                                 $('#btnProximo').attr("disabled", true);
@@ -1083,7 +1107,7 @@
                         $('.input-mask-phone').mask('(99) 99999-9999');
                         $('.input-mask-cpf').mask('999-999-999-99');
                         $('.input-mask-rg').mask('99-999-999-9');
-                        $('.input-mask-cep').mask('999.99-999')
+                        $('.input-mask-cep').mask('999.99-999');
                         $('.date-picker').datepicker({
                             autoclose: true,
                             todayHighlight: true
@@ -1110,32 +1134,10 @@
                                 //.on('changed.fu.wizard', function() {
                                 //})
                                 .on('finished.fu.wizard', function (e) {
-                                    /*bootbox.dialog({
-                                        message: "Thank you! Your information was successfully saved!",
-                                        buttons: {
-                                            "success": {
-                                                "label": "OK",
-                                                "className": "btn-sm btn-primary"
-                                            }
-                                        }
-                                    });*/
+
                                 }).on('stepclick.fu.wizard', function (e) {
-                            //e.preventDefault();//this will prevent clicking and selecting steps
                         });
-                        //jump to a step
-                        /**
-                         var wizard = $('#fuelux-wizard-container').data('fu.wizard')
-                         wizard.currentStep = 3;
-                         wizard.setState();
-                         */
 
-                        //determine selected step
-                        //wizard.selectedItem().step
-
-
-
-                        //hide or show the other form which requires validation
-                        //this is for demo only, you usullay want just one form in your application
                         $('#skip-validation').removeAttr('checked').on('click', function () {
                             $validation = this.checked;
                             if (this.checked) {
@@ -1158,15 +1160,7 @@
                         }, "Enter a valid phone number.");
                         $('#modal-wizard-container').ace_wizard();
                         $('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
-                        /**
-                         $('#date').datepicker({autoclose:true}).on('changeDate', function(ev) {
-                         $(this).closest('form').validate().element($(this));
-                         });
-                         
-                         $('#mychosen').chosen().on('change', function(ev) {
-                         $(this).closest('form').validate().element($(this));
-                         });
-                         */
+
 
 
                         $(document).one('ajaxloadstart.page', function (e) {
@@ -1178,6 +1172,7 @@
                             $('.multiselect').multiselect('destroy');
                         })
 
+                        
                         $('#id-file-format').removeAttr('checked').on('change', function () {
                             var whitelist_ext, whitelist_mime;
                             var btn_choose
@@ -1207,44 +1202,8 @@
                             file_input
                                     .off('file.error.ace')
                                     .on('file.error.ace', function (e, info) {
-                                        //console.log(info.file_count);//number of selected files
-                                        //console.log(info.invalid_count);//number of invalid files
-                                        //console.log(info.error_list);//a list of errors in the following format
 
-                                        //info.error_count['ext']
-                                        //info.error_count['mime']
-                                        //info.error_count['size']
-
-                                        //info.error_list['ext']  = [list of file names with invalid extension]
-                                        //info.error_list['mime'] = [list of file names with invalid mimetype]
-                                        //info.error_list['size'] = [list of file names with invalid size]
-
-
-                                        /**
-                                         if( !info.dropped ) {
-                                         //perhapse reset file field if files have been selected, and there are invalid files among them
-                                         //when files are dropped, only valid files will be added to our file array
-                                         e.preventDefault();//it will rest input
-                                         }
-                                         */
-
-
-                                        //if files have been selected (not dropped), you can choose to reset input
-                                        //because browser keeps all selected files anyway and this cannot be changed
-                                        //we can only reset file field to become empty again
-                                        //on any case you still should check files with your server side script
-                                        //because any arbitrary file can be uploaded by user and it's not safe to rely on browser-side measures
                                     });
-                            /**
-                             file_input
-                             .off('file.preview.ace')
-                             .on('file.preview.ace', function(e, info) {
-                             console.log(info.file.width);
-                             console.log(info.file.height);
-                             e.preventDefault();//to prevent preview
-                             });
-                             */
-
                         });
                         $('.spinner1').ace_spinner({
                             value: 0,
@@ -1256,7 +1215,6 @@
                         })
                                 .closest('.ace-spinner')
                                 .on('changed.fu.spinbox', function () {
-                                    //console.log($('#spinner1').val())
                                 });
 
                     })
@@ -1272,7 +1230,6 @@
                         } else if ((resultCompr < 0) || (quantProd == 0)) {
                             alert("Quantidade em estoque: " + quantProd + ". Favor incluir valor menor ou igual ao dísponivel! ")
                             document.getElementById("quantiaCompra" + id).value = "";
-
                         } else {
 
                             localStorage.setItem("salvar" + posicaoCarrinho, id);
@@ -1280,7 +1237,6 @@
                             localStorage.setItem("qtd" + posicaoCarrinho, document.getElementById("quantiaCompra" + id).value);
                             valor = valor * document.getElementById("quantiaCompra" + id).value;
                             localStorage.setItem("valor" + posicaoCarrinho, valor);
-                            alert("Produto adicionado ao carrinho!");
                             // exibe os dados da lista dentro da div itens
                             document.getElementById("itens").innerHTML += localStorage.getItem("qtd" + posicaoCarrinho) + " x ";
                             document.getElementById("itens").innerHTML += localStorage.getItem("produto" + posicaoCarrinho);

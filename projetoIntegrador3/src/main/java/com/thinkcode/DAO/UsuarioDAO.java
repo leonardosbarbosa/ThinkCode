@@ -44,7 +44,11 @@ public class UsuarioDAO extends ConnectionDB {
             ps.setString(4, usuario.getRg());
             ps.setString(5, usuario.getNome());
             ps.setString(6, usuario.getEmail());
+            if(usuario.getIdPerfil() == 3){
+             ps.setString(7, "0");
+            }else{
             ps.setString(7, usuario.getSenha());
+            }
             ps.setLong(8, usuario.getTelefone());
             ps.setString(9, usuario.getSexo());
             ps.setInt(10, 1);

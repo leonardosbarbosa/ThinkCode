@@ -19,6 +19,8 @@ import com.thinkcode.models.UsuarioModel;
 import com.thinkcode.models.VendaModel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -30,6 +32,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -375,6 +382,8 @@ public class VendaServlet extends HttpServlet {
             request.setAttribute("usuario", usuarios);
 
         }
+        /* Se a solicitacao que vier do JSP for "SalvarCompra" então o sistema
+         faz a captura das informaçoes necessarias para salvar uma compra */
         if ("SalvarCompra".equals(solicitacao)) {
             int metodoS_produto = Integer.parseInt(request.getParameter("Metodo"));
             String parcelaS_produto = request.getParameter("Parcelas");
@@ -383,6 +392,89 @@ public class VendaServlet extends HttpServlet {
             String qtdS_produto = request.getParameter("Qtd_produtos");
             String valrS_produto = request.getParameter("Vlrs_produtos");
             String cpf_produto = request.getParameter("Cpf_cliente").replace("-", "");
+
+            String salvarCliente = request.getParameter("salvarCliente");
+
+            //Caso salvar cliente retorne 2 então o sistema faz a captura dos demais dados e cria um novo cliente
+            if ("2".equals(salvarCliente)) {
+
+                int id_perfil_cliente = 3;
+
+                String usr_inclusao;
+                usr_inclusao = String.valueOf(cook.getValue());
+
+                UsuarioController usuarioC;
+                usuarioC = new UsuarioController();
+
+                UsuarioController usuarioController = new UsuarioController();
+                List<UsuarioModel> usuarioCPF = usuarioController.UsuariosCadastrados("", usr_inclusao);
+
+                int filial_cliente = 0;
+                int empresa_cliente = 0;
+
+                for (UsuarioModel user : usuarioCPF) {
+                    filial_cliente = user.getIdFilial();
+                }
+
+                //Pega os dados via POST do Ajax vindos do  JSP 
+                String cpf_cnpj_cliente = request.getParameter("Cpf_cliente").replaceAll("[^0-9]", "");
+                String rg_cliente = request.getParameter("Rg_cliente").replaceAll("[^0-9]", "");
+                String nome_cliente = request.getParameter("Nome_cliente");
+                String email_cliente = request.getParameter("Email_cliente");
+                String telefone = request.getParameter("Telefone_cliente").replaceAll("[^0-9]", "");
+                String sexo = request.getParameter("Sexo_cliente");
+                String data_nascimento = request.getParameter("Data_cliente");
+                //Fim
+
+                // Alterar padrao brasileiro de data para ISO
+                Date data = null;
+                SimpleDateFormat dataISO = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat datatBRA = new SimpleDateFormat("dd-MM-yyyy");
+
+                try {
+                    data = datatBRA.parse(data_nascimento);
+                } catch (ParseException ex) {
+                    Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String dataNascimento = dataISO.format(data);
+                //Fim
+
+                //Pega a data atual do sistema
+                java.util.Date dataHoje = new Date();
+                String data_inclusao = java.text.DateFormat.getDateInstance(DateFormat.MEDIUM).format(dataHoje);
+
+                data_inclusao = data_inclusao.replace("/", "-");
+
+                Date dataHoje_tratada = null;
+                try {
+                    dataHoje_tratada = datatBRA.parse(data_inclusao);
+                } catch (ParseException ex) {
+                    Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                String dataHoje_final = dataISO.format(dataHoje_tratada);
+
+                //Fim  
+                UsuarioModel usuarioAjax = new UsuarioModel();
+                usuarioAjax.setIdPerfil(3);
+                usuarioAjax.setIdFilial(filial_cliente);
+                usuarioAjax.setCpfCnpj(cpf_cnpj_cliente);
+                usuarioAjax.setRg(rg_cliente);
+                usuarioAjax.setNome(nome_cliente);
+                usuarioAjax.setEmail(email_cliente);
+                usuarioAjax.setTelefone(Long.parseLong(telefone));
+                usuarioAjax.setSexo(sexo);
+                usuarioAjax.setDataNasc(dataNascimento);
+                usuarioAjax.setDataInclusao(dataHoje_final);
+                usuarioAjax.setUserInclusao(Integer.parseInt(usr_inclusao));
+
+                boolean resultadoSalvar = false;
+                UsuarioController usuarioSalvar = new UsuarioController();
+                resultadoSalvar = usuarioSalvar.Save(usuarioAjax);
+
+                rg_cliente = "testar";
+            }//Fim caso necessite cadastro de cliente
+
             Date data = new Date();
 
             //ID PRODUTO 
