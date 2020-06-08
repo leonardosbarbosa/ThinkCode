@@ -471,8 +471,8 @@ public class VendaServlet extends HttpServlet {
                 boolean resultadoSalvar = false;
                 UsuarioController usuarioSalvar = new UsuarioController();
                 resultadoSalvar = usuarioSalvar.Save(usuarioAjax);
+                
 
-                rg_cliente = "testar";
             }//Fim caso necessite cadastro de cliente
 
             Date data = new Date();

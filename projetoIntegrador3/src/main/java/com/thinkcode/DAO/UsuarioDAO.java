@@ -5,7 +5,6 @@
  */
 package com.thinkcode.DAO;
 
-
 import com.thinkcode.db.ConnectionDB;
 import com.thinkcode.models.UsuarioModel;
 import java.sql.Connection;
@@ -44,10 +43,10 @@ public class UsuarioDAO extends ConnectionDB {
             ps.setString(4, usuario.getRg());
             ps.setString(5, usuario.getNome());
             ps.setString(6, usuario.getEmail());
-            if(usuario.getIdPerfil() == 3){
-             ps.setString(7, "0");
-            }else{
-            ps.setString(7, usuario.getSenha());
+            if (usuario.getIdPerfil() == 3) {
+                ps.setString(7, "0");
+            } else {
+                ps.setString(7, usuario.getSenha());
             }
             ps.setLong(8, usuario.getTelefone());
             ps.setString(9, usuario.getSexo());
@@ -67,7 +66,7 @@ public class UsuarioDAO extends ConnectionDB {
         }
         return ok;
     }
-    
+
     public static boolean atualizarUsuario(UsuarioModel usuario) {
 
         boolean ok = false;
@@ -123,8 +122,8 @@ public class UsuarioDAO extends ConnectionDB {
         try {
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("select email from tb_usuario where email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'",
-                            ResultSet.TYPE_SCROLL_SENSITIVE, 
-                        ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 return true;
@@ -141,9 +140,16 @@ public class UsuarioDAO extends ConnectionDB {
         try {
             con = ConnectionDB.obterConexao();
             String sqlState = "select * from tb_usuario";
-            if (usuario.getEmail() != null && usuario.getSenha() != null) {
-                sqlState += " where email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'";
+            if (usuario.getIdPerfil() != 0 && usuario.getIdPerfil() == 3) {
+                if (usuario.getEmail() != null && usuario.getSenha() != null) {
+                    sqlState += " where email = '" + usuario.getEmail() + "'";
+                }
+            } else {
+                    if (usuario.getEmail() != null && usuario.getSenha() != null) {
+                    sqlState += " where email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'";
+                }
             }
+
             if (usuario.getCpfCnpj() != null) {
                 if (usuario.getEmail() != null && usuario.getSenha() != null) {
                     sqlState += " and cpf_cnpj = '" + usuario.getCpfCnpj() + "' ";
@@ -157,11 +163,11 @@ public class UsuarioDAO extends ConnectionDB {
                 } else {
                     sqlState += " where id_usuario = '" + usuario.getIdUsuario() + "' ";
                 }
-                
+
             }
             PreparedStatement ps = con.prepareStatement(sqlState,
-                            ResultSet.TYPE_SCROLL_SENSITIVE, 
-                        ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 usuario.setCpfCnpj(rs.getString("cpf_cnpj"));
@@ -187,13 +193,13 @@ public class UsuarioDAO extends ConnectionDB {
         return usuario;
     }
 
-    public static boolean excluirUsuario(int idUsuarioExclusao , int idUsuarioExcluindo) {
+    public static boolean excluirUsuario(int idUsuarioExclusao, int idUsuarioExcluindo) {
         Connection con;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
-        LocalDateTime now = LocalDateTime.now();  
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDateTime now = LocalDateTime.now();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("update  tb_usuario set data_exclusao = ?, usr_exclusao = ? where id_usuario = ?" );
+            PreparedStatement ps = con.prepareStatement("update  tb_usuario set data_exclusao = ?, usr_exclusao = ? where id_usuario = ?");
             ps.setString(1, dtf.format(now));
             ps.setInt(2, idUsuarioExcluindo);
             ps.setInt(3, idUsuarioExclusao);
@@ -224,9 +230,9 @@ public class UsuarioDAO extends ConnectionDB {
 
         try {
             String sqlState = "select * from tb_usuario as us"
-                              + " left join tb_filial as fi on us.id_filial = fi.id_filial"
-                              + " left join tb_perfil as pe on us.id_perfil = pe.id_perfil"
-                              + " where us.data_exclusao is null";
+                    + " left join tb_filial as fi on us.id_filial = fi.id_filial"
+                    + " left join tb_perfil as pe on us.id_perfil = pe.id_perfil"
+                    + " where us.data_exclusao is null";
             if (filtroFilial != null && !filtroFilial.equals("")) {
                 sqlState += " and us.id_filial = " + filtroFilial;
             }
@@ -240,8 +246,8 @@ public class UsuarioDAO extends ConnectionDB {
             }
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement(sqlState,
-                            ResultSet.TYPE_SCROLL_SENSITIVE, 
-                        ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 UsuarioModel usuario = new UsuarioModel();
@@ -270,18 +276,18 @@ public class UsuarioDAO extends ConnectionDB {
         }
         return usuarios;
     }
-    
+
     public static UsuarioModel UsuariosPorCPFPERFIL(String CPF, String PERFIL) {
         Connection con;
         UsuarioModel usuarioDB = new UsuarioModel();
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("SELECT * from tb_usuario where id_perfil = 3 and cpf_cnpj = '" +CPF+ "' ",
-                            ResultSet.TYPE_SCROLL_SENSITIVE, 
-                        ResultSet.CONCUR_UPDATABLE);
+            PreparedStatement ps = con.prepareStatement("SELECT * from tb_usuario where id_perfil = 3 and cpf_cnpj = '" + CPF + "' ",
+                    ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
 
-            if(rs.first()){
+            if (rs.first()) {
 
                 usuarioDB.setNome(rs.getString("nome"));
                 usuarioDB.setRg(rs.getString("rg"));
@@ -291,12 +297,11 @@ public class UsuarioDAO extends ConnectionDB {
                 usuarioDB.setSexo(rs.getString("sexo"));
                 usuarioDB.setId(rs.getInt("id_usuario"));
 
-
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return usuarioDB;
-        }
+    }
 
 }

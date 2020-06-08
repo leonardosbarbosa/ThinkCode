@@ -14,22 +14,16 @@ public class ConnectionDB {
 
     public Statement st; //prepar e realizar pesquisas no banco de dados
     public ResultSet rs; //armazena resultados de uma pesquisa passada para o statement
-<<<<<<< HEAD
-    //private static final String CAMINHO = "jdbc:mysql://thinkcode.coczbjefacyr.us-east-2.rds.amazonaws.com:3306/dbprojeto3?zeroDateTimeBehavior=convertToNull&useSSL=false";//Caminho de produção
-    private static final String CAMINHO = "jdbc:mysql://localhost:3306/bd_tadespoo?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=UTC";
-=======
+
     private static final String CAMINHO = "jdbc:mysql://thinkcode.coczbjefacyr.us-east-2.rds.amazonaws.com:3306/dbprojeto3?zeroDateTimeBehavior=convertToNull&useSSL=false";//Caminho de produ��o
->>>>>>> origin/master
     //private static final String CAMINHO = "jdbc:mysql://localhost:3306/bdprojeto3?zeroDateTimeBehavior=convertToNull";
     //private static final String CAMINHO = "jdbc:mysql://localhost:3306/bd_tadespoo?zeroDateTimeBehavior=convertToNull";
     private static final String USER = "root";
-<<<<<<< HEAD
-    //private static final String SENHA = "12345678";//Senha de produção
-    private static final String SENHA = "";
-=======
-    private static final String SENHA = "12345678";//Senha de produ��o
+    private static final String SENHA = "12345678";//Senha de produção
     //private static final String SENHA = "";
->>>>>>> origin/master
+
+    //private static final String SENHA = "";
+
 
     public static Connection obterConexao()
             throws ClassNotFoundException, SQLException {

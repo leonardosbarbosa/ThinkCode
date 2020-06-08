@@ -1,54 +1,3 @@
-<<<<<<< HEAD
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\UsuarioServlet.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\EnderecoModel.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\PerfilServlet.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\UsuarioDAO.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\DetalhePedidoDAO.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\Controller\FilialController.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\LoginServlet.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\Controller\DetalhePedidoController.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\ProdutoModel.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\db\ConnectionDB.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\ItensVendaDAO.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\FilialDAO.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\PedidoModel.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\ControleAcessoServlet.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\UsuarioModel.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\Controller\PedidoController.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\Criptografia.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\ProdutoDAO.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\ProdutoServlet.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\EnderecoDAO.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\AcompanheModel.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\DetalhePedido.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\RelatorioDAO.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\Controller\UsuarioController.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\ItensVenda.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\StatusVendaDAO.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\Controller\VendaController.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\RelatorioModel.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\Controller\PerfilController.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\Controller\RelatorioController.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\SolicitacaoServlet.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\Status_Venda.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\PerfilModel.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\FilialServlet.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\DetalhePedidoModel.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\PerfilDAO.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\VendaDAO.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\FilialModel.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\Controller\EnderecoController.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\RelatorioServlet.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\Controller\ProdutoController.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\Controller\AcompanheController.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\PedidoDAO.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\VendaServlet.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\AcompanheDAO.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\VendaModel.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\ModalServlet.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\IndexServlet.java
-C:\Users\alex3\Desktop\ThinkCode\projetoIntegrador3\src\main\java\Controller\ItensVendaController.java
-=======
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\servlet\IndexServlet.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\ThinkCode\projetoIntegrador3\src\main\java\Controller\ProdutoController.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\models\DetalhePedido.java
@@ -98,4 +47,3 @@ C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\ThinkCode\projetoIntegrad
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\ThinkCode\projetoIntegrador3\src\main\java\Controller\PerfilController.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\ThinkCode\projetoIntegrador3\src\main\java\com\thinkcode\DAO\FilialDAO.java
 C:\Users\Gustavo Nascimento\Documents\NetBeansProjects\ThinkCode\projetoIntegrador3\src\main\java\Controller\EnderecoController.java
->>>>>>> origin/master
