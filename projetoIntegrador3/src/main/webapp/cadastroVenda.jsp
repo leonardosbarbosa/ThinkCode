@@ -928,6 +928,7 @@
                                 for (var i = 1; i <= posicaoCarrinho - 1; i++) {
                                     var atual = localStorage.getItem("salvar" + i);
                                     id_produto += atual + ",";
+                                    
                                 }
 
                                 for (var i = 1; i <= posicaoCarrinho - 1; i++) {
