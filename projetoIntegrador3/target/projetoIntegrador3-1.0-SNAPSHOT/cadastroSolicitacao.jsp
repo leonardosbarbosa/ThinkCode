@@ -216,7 +216,7 @@
 
 
                 <!-- /.sidebar-shortcuts -->
-<ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -373,18 +373,12 @@
                                         <hr>
                                         </p>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12">
+                                    <div class="col-xs-12 col-lg-12">
                                         <div class="row">
-                                            <div class="col-sm-12">
+                                            <div class="col-lg-12">
                                                 <div class="widget-box">
                                                     <div class="widget-header">
-                                                        <h4 class="widget-title center">Informações Gerais</h4>
-
-                                                        <div class="widget-toolbar">
-                                                            <a href="#" data-action="collapse">
-                                                                <i class="ace-icon fa fa-chevron-up"></i>
-                                                            </a>
-                                                        </div>
+                                                        <h4 class="widget-title">Solicitações</h4>
                                                     </div>
 
                                                     <div class="widget-body">
@@ -401,207 +395,228 @@
                                                                             </c:forEach>
 
                                                                         </select>
-                                                                    </div>
+                                                                    </div>  
                                                                     <div class="col-lg-3">
-                                                                        <label for="number-button" class="block">Produtos</label>
-                                                                        <select class="form-group" style="width: 100%;" name="produtos">
-                                                                            <c:forEach var="produtos" items="${produtos}">
-                                                                                <option value="${produtos.idProduto}">
-                                                                                    ${produtos.nome}
-                                                                                </option>
-                                                                            </c:forEach>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-lg-3">
-                                                                        <label for="number-button"
-                                                                               class="block">Quantidade</label>
-                                                                        <input type="text" id="form-field-1-1"
-                                                                               class="form-control" name="quantidadeProduto" onkeypress="return onlynumber()"
-                                                                               required value="${quantidadeProduto}"/>
-                                                                    </div>
-                                                                    <div class="col-lg-3">
-                                                                        <label for="number-button" class="block">Valor</label>
-                                                                        <div class="input-group">
-                                                                            <span class="input-group-addon">
-                                                                                <i class="ace-icon fa fa-money"></i>
-                                                                            </span>
+                                                                        <label for="number-button" class="block">Descrição</label>
 
-                                                                            <input class="form-control input-mask-phone"
-                                                                                   type="text" id="form-field-mask-2"
-                                                                                   placeholder="R$00,00" name="valorProduto" onkeypress="return onlynumber()"
-                                                                                   required value="${valorProduto}"/>
-                                                                        </div>
-                                                                    </div>
 
+                                                                        <input class="form-control money"
+                                                                               type="text" id="form-field-mask-2"
+                                                                               onkeypress="return onlynumber()"
+                                                                               required value="" name="observacaoProduto"/>
+                                                                    </div>
+                                                                    <c:choose>
+                                                                        <c:when test= "${empty tarefa}">
+
+                                                                        </c:when>
+                                                                        <c:otherwise>                                                                      
+                                                                            <div class="col-lg-3">
+                                                                                <label for="number-button" class="block">Acompanhamento</label>
+                                                                                <select class="form-group" style="width: 100%;" name="acompanhamento">
+                                                                                    <c:forEach var="acompanhamento" items="${acompanhamentos}">
+                                                                                        <option value="${acompanhamento.idAcompanhe}">
+                                                                                            ${acompanhamento.descricao}
+                                                                                        </option>
+                                                                                    </c:forEach>
+
+                                                                                </select>
+                                                                            </div>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
                                                                 </div>
-                                                                <div class="col-lg-12"><div class="col-lg-3">
-                                                                        <label for="number-button"
-                                                                               class="block">Observação</label>
-                                                                        <input type="text" id="form-field-1-1"
-                                                                               class="form-control" name="observacaoProduto"
-                                                                               required value="${descricaoProduto}"/>
-                                                                    </div>
-
-                                                                </div>
-
-
                                                             </div>
-                                                            <label>
-                                                                &nbsp;<br />
-                                                                &nbsp;<br />
-                                                                &nbsp;<br />
-
-
-                                                            </label>
                                                         </div>
+                                                        <label>
+                                                            &nbsp;<br />
+                                                            &nbsp;<br />
+                                                            &nbsp;<br />
+
+
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row col-lg-12">
+                                                <c:forEach var="produtos" items="${produtos}">
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail search-thumbnail">
+                                                            <div class="caption">
+                                                                <h3 class="search-title">
+                                                                    <p class="blue" id="descProduto${produtos.idProduto}">${produtos.nome}</p>
+                                                                </h3>
+                                                                <p>${produtos.descricao}</p>
+                                                            </div>
+                                                            <button type="button" value="${produtos.idProduto}" class="btn btn-info" onclick="window.addProduto(${produtos.idProduto})">Adicionar</button>
+                                                            <input type="number" min="1" placeholder="Quantidade" id="qtdProduto${produtos.idProduto}"/>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>    
+                                            </div>
                                         </div>
-                                        <input name="ID_PRODUTO" style="display: none" value="${ID_PRODUTO}"/>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-lg-12">
-                                            <a href="SolicitacaoServlet"  class="btn btn-sm btn-danger right" style="float: right;">
-                                                Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
-                                            </a>
-                                            <c:choose>
-                                                <c:when test= "${empty tarefa}">
-                                                    <button type="submit" class="btn btn-sm btn-success"
-                                                            style="float: right; margin-right: 2px;" name="tarefa" value="cadastro" />
-                                                    Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
-                                                    </button>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="${tarefa}" name="tarefa">
-                                                        Alterar &nbsp; <i class="ace-icon fa fa-save"></i>
-                                                    </button>
-                                                </c:otherwise>
-                                            </c:choose>
-
+                                            <label>Lista de produtos:
+                                                <p id="produtosLista"></p></label>
                                         </div>
+                                    </div>
+                                    <input name="ID_PRODUTO" style="display: none" value="${ID_PRODUTO}"/>
+                                    <input type="text" id="produtosQuantidades" style="display: none" name="produtosSolicitantes">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <a href="SolicitacaoServlet"  class="btn btn-sm btn-danger right" style="float: right;">
+                                            Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
+                                        </a>
+                                        <c:choose>
+                                            <c:when test= "${empty tarefa}">
+                                                <button type="submit" class="btn btn-sm btn-success"
+                                                        style="float: right; margin-right: 2px;" name="tarefa" value="cadastro" />
+                                                Registrar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                                </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="${tarefa}" name="tarefa">
+                                                    Alterar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>
+
                                     </div>
                                 </div>
                             </div>
                     </div>
-                    </form>
+                </div>
+                </form>
 
-                    <div class="footer">
-                        <div class="footer-inner">
-                            <div class="footer-content">
-                                <span class="bigger-120">
-                                    <span class="blue bolder">Ace</span> Application &copy; 2013-2014
-                                </span>
+                <div class="footer">
+                    <div class="footer-inner">
+                        <div class="footer-content">
+                            <span class="bigger-120">
+                                <span class="blue bolder">Ace</span> Application &copy; 2013-2014
+                            </span>
 
-                                &nbsp; &nbsp;
-                                <span class="action-buttons">
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-                                    </a>
+                            &nbsp; &nbsp;
+                            <span class="action-buttons">
+                                <a href="#">
+                                    <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+                                </a>
 
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-                                    </a>
+                                <a href="#">
+                                    <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                                </a>
 
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
-                                    </a>
-                                </span>
-                            </div>
+                                <a href="#">
+                                    <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+                                </a>
+                            </span>
                         </div>
                     </div>
-
-                    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-                        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-                    </a>
                 </div>
-                <!-- /.main-container -->
 
-                <!-- basic scripts -->
+                <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+                </a>
+            </div>
+            <!-- /.main-container -->
 
-                <!--[if !IE]> -->
-                <script src="assets/js/jquery-2.1.4.min.js"></script>
+            <!-- basic scripts -->
 
-                <!-- <![endif]-->
+            <!--[if !IE]> -->
+            <script src="assets/js/jquery-2.1.4.min.js"></script>
 
-                <!--[if IE]>
-    <script src="assets/js/jquery-1.11.3.min.js"></script>
-    <![endif]-->
-                <script type="text/javascript">
-                                                                                       if ('ontouchstart' in document.documentElement)
-                                                                                           document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
-                </script>
-                <script src="assets/js/bootstrap.min.js"></script>
+            <!-- <![endif]-->
 
-                <!-- page specific plugin scripts -->
+            <!--[if IE]>
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+            <script type="text/javascript">
+                                                                if ('ontouchstart' in document.documentElement)
+                                                                    document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+            </script>
+            <script src="assets/js/bootstrap.min.js"></script>
 
-                <!--[if lte IE 8]>
-                      <script src="assets/js/excanvas.min.js"></script>
-                    <![endif]-->
-                <script src="assets/js/jquery-ui.custom.min.js"></script>
-                <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
-                <script src="assets/js/jquery.easypiechart.min.js"></script>
-                <script src="assets/js/jquery.sparkline.index.min.js"></script>
-                <script src="assets/js/jquery.flot.min.js"></script>
-                <script src="assets/js/jquery.flot.pie.min.js"></script>
-                <script src="assets/js/jquery.flot.resize.min.js"></script>
+            <!-- page specific plugin scripts -->
 
-                <!-- ace scripts -->
-                <script src="assets/js/ace-elements.min.js"></script>
-                <script src="assets/js/ace.min.js"></script>
+            <!--[if lte IE 8]>
+                  <script src="assets/js/excanvas.min.js"></script>
+                <![endif]-->
+            <script src="assets/js/jquery-ui.custom.min.js"></script>
+            <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+            <script src="assets/js/jquery.easypiechart.min.js"></script>
+            <script src="assets/js/jquery.sparkline.index.min.js"></script>
+            <script src="assets/js/jquery.flot.min.js"></script>
+            <script src="assets/js/jquery.flot.pie.min.js"></script>
+            <script src="assets/js/jquery.flot.resize.min.js"></script>
+            <script src="assets/js/jquery.mask.js"></script>
+
+            <!-- ace scripts -->
+            <script src="assets/js/ace-elements.min.js"></script>
+            <script src="assets/js/ace.min.js"></script>
 
 
-                <!-- inline scripts related to this page -->
-                <script type="text/javascript">
-                                                                                       jQuery(function ($) {
+            <!-- inline scripts related to this page -->
+            <script type="text/javascript">
+                                                                jQuery(function ($) {
 
-                                                                                           window.displaymessage = function (user)
-                                                                                           {
-                                                                                               $('#valorEditar').val(user);
-                                                                                               $('#enviarEditacao').click();
-                                                                                               /*
-                                                                                                $.ajax({
-                                                                                                url: "UsuarioServlet",
-                                                                                                type: "POST",
-                                                                                                data: {
-                                                                                                tarefa: 'Editar'
-                                                                                                },
-                                                                                                })
-                                                                                                .success(function (e) {
-                                                                                                //do success stuff
-                                                                                                console.log("Sucessor " + e)
-                                                                                                //window.location = "UsuarioServlet?Teste=1";
-                                                                                                $(location).attr('href','cadastroUsuario.jsp');
-                                                                                                })
-                                                                                                .error(function (e) {
-                                                                                                //do error handling stuff
-                                                                                                console.log('Erro' + e.toString())
-                                                                                                })
-                                                                                                */
-                                                                                           }
+                                                                    window.displaymessage = function (user)
+                                                                    {
+                                                                        $('#valorEditar').val(user);
+                                                                        $('#enviarEditacao').click();
+                                                                        /*
+                                                                         $.ajax({
+                                                                         url: "UsuarioServlet",
+                                                                         type: "POST",
+                                                                         data: {
+                                                                         tarefa: 'Editar'
+                                                                         },
+                                                                         })
+                                                                         .success(function (e) {
+                                                                         //do success stuff
+                                                                         console.log("Sucessor " + e)
+                                                                         //window.location = "UsuarioServlet?Teste=1";
+                                                                         $(location).attr('href','cadastroUsuario.jsp');
+                                                                         })
+                                                                         .error(function (e) {
+                                                                         //do error handling stuff
+                                                                         console.log('Erro' + e.toString())
+                                                                         })
+                                                                         */
+                                                                    }
 
-                    <%
-                        Cookie[] cookies = request.getCookies();
-                        for (Cookie atual : cookies) {
-                            if (atual.getName().equals("Perfil")) {
-                                int auxilio = Integer.parseInt(atual.getValue());
-                                if (auxilio != 1) {
-                    %>
-                                                                                           $('#liCadastro').hide()
-                    <%
-                            }
+                                                                    window.addProduto = function (user)
+                                                                    {                                                                       
+                                                                        var valores = $('#produtosQuantidades').val()
+                                                                        var qtd = $('#qtdProduto'+user).val()
+                                                                        valores += user + ","+ qtd + ";";
+                                                                        $('#produtosQuantidades').val(valores)
+                                                                        $('#qtdProduto').val(null)
+                                                                        var produtosLista = $('#produtosLista').html()
+                                                                        produtosLista = produtosLista +  "</br>(x" + qtd + ") " + $('#descProduto'+user).text() + "</br>";
+                                                                        $('#produtosLista').html(produtosLista)
+                                                                    }
+
+                <%
+                    Cookie[] cookies = request.getCookies();
+                    for (Cookie atual : cookies) {
+                        if (atual.getName().equals("Perfil")) {
+                            int auxilio = Integer.parseInt(atual.getValue());
+                            if (auxilio != 1) {
+                %>
+                                                                    $('#liCadastro').hide()
+                <%
                         }
-                        if (atual.getName().equals("Nome")) {
-                            String auxiliado = atual.getValue().substring(0, 8);
-                    %>
-                                                                                           $('#lblNome').text('<%= auxiliado%>');
-                    <%
-                            }
-
+                    }
+                    if (atual.getName().equals("Nome")) {
+                        String auxiliado = atual.getValue().substring(0, 8);
+                %>
+                                                                    $('#lblNome').text('<%= auxiliado%>');
+                <%
                         }
-                    %>
-                                                                                       });
-                </script>
-                </body>
 
-                </html>
+                    }
+                %>
+                                                                });
+            </script>
+    </body>
+
+</html>

@@ -128,7 +128,7 @@ public class ProdutoDAO {
         List<ProdutoModel> produtos = new ArrayList<>();
 
         try {
-            String sqlState = "select * from tb_produto where data_exclusao is null ";
+            String sqlState = "select * from tb_produto where data_exclusao is null order by nome";
             if (filtroFilial != null && !filtroFilial.equals("") ) {
                 sqlState += "and id_filial = " + filtroFilial ;
             }

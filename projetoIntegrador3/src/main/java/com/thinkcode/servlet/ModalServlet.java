@@ -72,41 +72,102 @@ public class ModalServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
         String tarefa = request.getParameter("tarefa");
         String id = request.getParameter("id");
+
         Connection con;
+
         List<RelatorioModel> relatorios = new ArrayList<RelatorioModel>();
 
         try {
-            String sqlState = "SELECT po.nome, iv.quantidade, iv.valor, po.id_produto FROM tb_item_venda iv \n"
-                    + "	INNER JOIN tb_venda ve ON iv.id_venda = ve.id_venda\n"
-                    + "	INNER JOIN tb_produto po on iv.id_produto = po.id_produto\n"
-                    + "	where iv.id_venda =  " + id;
-//            if (filtroFilial != null && !filtroFilial.equals("")) {
-//                sqlState += " and us.id_filial = " + filtroFilial;
-//            }
-//            if (filtroPerfil != null && !filtroPerfil.equals("")) {
-//                if (filtroFilial != null && !filtroFilial.equals("")) {
-//                    sqlState += " and us.id_perfil = " + filtroPerfil;
-//                } else {
-//                    sqlState += " and us.id_perfil = " + filtroPerfil;
-//                }
-//
-//            }
+            String sqlState = "";
+            if (!tarefa.equals("modelPedidos")) {
+
+                sqlState = "SELECT po.nome, iv.quantidade, iv.valor, po.id_produto FROM tb_item_venda iv \n"
+                        + "	INNER JOIN tb_venda ve ON iv.id_venda = ve.id_venda\n"
+                        + "	INNER JOIN tb_produto po on iv.id_produto = po.id_produto\n"
+                        + "	where iv.id_venda =  " + id;
+            } else {
+                sqlState = "SELECT\n"
+                        + "	pt.nome,\n"
+                        + "	pt.tipo,\n"
+                        + "	pt.descricao,\n"
+                        + "	dp.qtde,\n"
+                        + "	dp.valor\n"
+                        + "FROM tb_detalhe_pedido AS dp\n"
+                        + "INNER JOIN tb_produto as pt on dp.id_produto = pt.id_produto\n"
+                        + "WHERE dp.id_pedido = " + id;
+            }
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement(sqlState);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                RelatorioModel relatorio = new RelatorioModel();
-                relatorio.setNomeProduto((rs.getString("po.nome")));
-                relatorio.setQuantidadeProduto(Integer.parseInt(rs.getString("iv.quantidade")));
-                relatorio.setValorProduto(Double.parseDouble(rs.getString("iv.valor")));
-                relatorio.setIdProduto(Integer.parseInt(rs.getString("po.id_produto")));
+            if (!tarefa.equals("modelPedidos")) {
+                while (rs.next()) {
+                    RelatorioModel relatorio = new RelatorioModel();
+                    relatorio.setNomeProduto((rs.getString("po.nome")));
+                    relatorio.setQuantidadeProduto(Integer.parseInt(rs.getString("iv.quantidade")));
+                    relatorio.setValorProduto(Double.parseDouble(rs.getString("iv.valor")));
+                    relatorio.setIdProduto(Integer.parseInt(rs.getString("po.id_produto")));
 
-                relatorios.add(relatorio);
+                    relatorios.add(relatorio);
+                }
+            }else{
+            while (rs.next()) {
+                    RelatorioModel relatorio = new RelatorioModel();
+                    relatorio.setNomeProduto((rs.getString("pt.nome")));
+                    relatorio.setQuantidadeProduto(Integer.parseInt(rs.getString("dp.qtde")));
+                    relatorio.setValorProduto(Double.parseDouble(rs.getString("dp.valor")));
+                    relatorio.settipoProduto(rs.getString("pt.tipo"));
+                    relatorio.setdescricao(rs.getString("pt.descricao"));
+
+                    relatorios.add(relatorio);
+                }
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (tarefa.equals("modelPedidos")) {
+            String modal = "<div id=\"my-modal\" class=\"modal fade\" tabindex=\"-1\">\n"
+                    + "									<div class=\"modal-dialog\">\n"
+                    + "										<div class=\"modal-content\">\n"
+                    + "											<div class=\"modal-header\">\n"
+                    + "												<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\n"
+                    + "												<h3 class=\"smaller lighter blue no-margin\">Produtos</h3>\n"
+                    + "											</div>\n"
+                    + "\n"
+                    + "											<div class=\"modal-body\">\n"
+                    + "												<table id=\"tabelaprodutos\" class=\"table table-hover display  table-striped table-bordered nowrap\" style=\"width: 100%\">"
+                    + "                                    <thead>\n"
+                    + "                                        <tr>\n"
+                    + "                                            <th id=\"id\"> Produto </th>\n"
+                    + "                                            <th id=\"id\"> Tipo </th>\n"
+                    + "                                            <th id=\"id\"> Desc. </th>\n"
+                    + "                                            <th> Quantidade</th>\n"
+                    + "                                            <th> Valor </th>\n"
+                    + "                                        </tr>\n"
+                    + "                                    </thead>\n"
+                    + "\n"
+                    + "                                    <tbody>\n";
+               for (RelatorioModel relatorio : relatorios) {
+                modal += "<tr><th>" + relatorio.getNomeProduto()+ "</th><th>" + relatorio.gettipoProduto()+ "</th><th>" + relatorio.getdescricao()+  "</th><th>" + relatorio.getQuantidadeProduto()+ "</th><th class='row_currency2'>" + relatorio.getValorProduto() + "</th></tr>";
+            }
+            modal += "                                    </tbody>\n"
+                    + "                                </table>"
+                    + "											</div>\n"
+                    + "\n"
+                    + "											<div class=\"modal-footer\">\n"
+                    + "												<button class=\"btn btn-sm btn-danger pull-right\" data-dismiss=\"modal\">\n"
+                    + "													<i class=\"ace-icon fa fa-times\"></i>\n"
+                    + "													Fechar\n"
+                    + "												</button>\n"
+                    + "											</div>\n"
+                    + "										</div><!-- /.modal-content -->\n"
+                    + "									</div><!-- /.modal-dialog -->\n"
+                    + "								</div>";
+
+            PrintWriter out = response.getWriter();
+            out.print(modal);
         }
         if (tarefa.equals("modal")) {
 
@@ -146,8 +207,7 @@ public class ModalServlet extends HttpServlet {
                     + "										</div><!-- /.modal-content -->\n"
                     + "									</div><!-- /.modal-dialog -->\n"
                     + "								</div>";
-            //response.getWriter().write(modal);
-            //request.setAttribute("result", modal);
+
             PrintWriter out = response.getWriter();
             out.print(modal);
         }

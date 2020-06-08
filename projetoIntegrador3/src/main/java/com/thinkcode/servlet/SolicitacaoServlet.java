@@ -5,11 +5,13 @@
  */
 package com.thinkcode.servlet;
 
+import Controller.AcompanheController;
 import Controller.DetalhePedidoController;
 import Controller.FilialController;
 import Controller.PedidoController;
 import Controller.ProdutoController;
 import Controller.UsuarioController;
+import com.thinkcode.models.AcompanheModel;
 import com.thinkcode.models.DetalhePedidoModel;
 import com.thinkcode.models.FilialModel;
 import com.thinkcode.models.PedidoModel;
@@ -60,6 +62,8 @@ public class SolicitacaoServlet extends HttpServlet {
         PedidoController pedidoC = new PedidoController();
         DetalhePedidoModel detalhePedido = new DetalhePedidoModel();
         DetalhePedidoController detalhePedidoC = new DetalhePedidoController();
+        AcompanheModel acompanhamento = new AcompanheModel();
+        AcompanheController acompanhamentoC = new AcompanheController();
         Boolean cadastro = false;
         Date dataIncl = new Date();
         Cookie cook = null;
@@ -83,30 +87,40 @@ public class SolicitacaoServlet extends HttpServlet {
         if (logado) {
             url = "/acompanhamentoSolicitacao.jsp";
             if (tarefa != null) {
+
+                if (tarefa.equals("editando")) {
+                    request.setAttribute("tarefa", "editando");
+                    url = "/cadastroSolicitacao.jsp";
+                }
                 if (tarefa.equals("Cadastrando")) {
+                    request.setAttribute("tarefa", "");
                     url = "/cadastroSolicitacao.jsp";
                 }
                 if (tarefa.equals("cadastro")) {
 
-                        
-                    if (request.getParameter("filialProduto") != null && request.getParameter("produtos") != null && request.getParameter("quantidadeProduto") != null && request.getParameter("valorProduto") != null && request.getParameter("observacaoProduto") != null) {
+                    if (request.getParameter("filialProduto") != null && request.getParameter("observacaoProduto") != null) {
                         pedido.setIdFilial(Integer.parseInt(request.getParameter("filialProduto")));
                         pedido.setIdAcompanhe(1);
-                        pedido.setValor(Double.parseDouble(request.getParameter("valorProduto")));
+                        pedido.setValor(Double.parseDouble("10"));
                         pedido.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
                         pedido.setUserInclusao(Integer.parseInt(cook.getValue()));
                         cadastro = pedidoC.save(pedido);
                         if (cadastro) {
-                            
-                            dataIncl = new Date();
-                            int id_pedido =  pedidoC.UltimoPedido(Integer.parseInt(cook.getValue()));
-                            detalhePedido.setIdPedido(id_pedido);
-                            detalhePedido.setIdProduto(Integer.parseInt(request.getParameter("produtos")));
-                            detalhePedido.setQtde(Integer.parseInt(request.getParameter("quantidadeProduto")));
-                            detalhePedido.setValor(Double.parseDouble(request.getParameter("valorProduto")));
-                            detalhePedido.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
-                            detalhePedido.setUserInclusao(Integer.parseInt(cook.getValue()));
-                            cadastro = detalhePedidoC.save(detalhePedido);
+                            String auxProdutos[] = request.getParameter("produtosSolicitantes").split(";");
+                            for (int i = 0; i < auxProdutos.length; i++) {
+                                dataIncl = new Date();
+                                int id_pedido = pedidoC.UltimoPedido(Integer.parseInt(cook.getValue()));
+                                detalhePedido.setIdPedido(id_pedido);
+
+                                String auxProduto[] = auxProdutos[i].split(",");
+                                detalhePedido.setIdProduto(Integer.parseInt(auxProduto[0]));
+                                detalhePedido.setQtde(Integer.parseInt(auxProduto[1]));
+
+                                detalhePedido.setValor(Double.parseDouble("10"));
+                                detalhePedido.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
+                                detalhePedido.setUserInclusao(Integer.parseInt(cook.getValue()));
+                                cadastro = detalhePedidoC.save(detalhePedido);
+                            }
                         }
                     }
 
@@ -116,9 +130,11 @@ public class SolicitacaoServlet extends HttpServlet {
             List<ProdutoModel> produtos = produtoController.ProdutosCadastrados("", "", "");
             List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");
             List<PedidoModel> pedidos = pedidoC.todosPedidos();
+            List<AcompanheModel> acompanhamentos = acompanhamentoC.todosAcompanhes();
             request.setAttribute("filiais", filiais);
             request.setAttribute("produtos", produtos);
             request.setAttribute("pedidos", pedidos);
+            request.setAttribute("acompanhamentos", acompanhamentos);
 
         }
         try {

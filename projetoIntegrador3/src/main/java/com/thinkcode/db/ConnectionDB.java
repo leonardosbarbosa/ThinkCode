@@ -14,20 +14,29 @@ public class ConnectionDB {
 
     public Statement st; //prepar e realizar pesquisas no banco de dados
     public ResultSet rs; //armazena resultados de uma pesquisa passada para o statement
+<<<<<<< HEAD
     //private static final String CAMINHO = "jdbc:mysql://thinkcode.coczbjefacyr.us-east-2.rds.amazonaws.com:3306/dbprojeto3?zeroDateTimeBehavior=convertToNull&useSSL=false";//Caminho de produção
     private static final String CAMINHO = "jdbc:mysql://localhost:3306/bd_tadespoo?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=UTC";
+=======
+    private static final String CAMINHO = "jdbc:mysql://thinkcode.coczbjefacyr.us-east-2.rds.amazonaws.com:3306/dbprojeto3?zeroDateTimeBehavior=convertToNull&useSSL=false";//Caminho de produ��o
+>>>>>>> origin/master
     //private static final String CAMINHO = "jdbc:mysql://localhost:3306/bdprojeto3?zeroDateTimeBehavior=convertToNull";
     //private static final String CAMINHO = "jdbc:mysql://localhost:3306/bd_tadespoo?zeroDateTimeBehavior=convertToNull";
     private static final String USER = "root";
+<<<<<<< HEAD
     //private static final String SENHA = "12345678";//Senha de produção
     private static final String SENHA = "";
+=======
+    private static final String SENHA = "12345678";//Senha de produ��o
+    //private static final String SENHA = "";
+>>>>>>> origin/master
 
     public static Connection obterConexao()
             throws ClassNotFoundException, SQLException {
 // 1) Declarar o driver JDBC de acordo com o Banco de dados usado
         Class.forName("com.mysql.jdbc.Driver");
-// 2) Abrir a conexão
-        Connection conn = DriverManager.getConnection(CAMINHO, USER, SENHA); // Usuário de conexão no BD"SENHA"); // Senha
+// 2) Abrir a conex�o
+        Connection conn = DriverManager.getConnection(CAMINHO, USER, SENHA); // Usu�rio de conex�o no BD"SENHA"); // Senha
         return conn;
     }
 }

@@ -11,7 +11,7 @@ package com.thinkcode.models;
  */
 public class PedidoModel {
 
-    private int idpedido;
+    private int idPedido;
     private int idfilial;
     private String nomeFilial;
     private int idacompanhe;
@@ -25,6 +25,7 @@ public class PedidoModel {
     private String nomeProduto;
     private int qtd;
     private String observacao;
+    private String acompanhamento;                   
 
     public PedidoModel() {
     }
@@ -40,11 +41,11 @@ public class PedidoModel {
     }
 
     public int getIdPedido() {
-        return idpedido;
+        return idPedido;
     }
 
     public void setIdPedido(int id) {
-        this.idpedido = id;
+        this.idPedido = id;
     }
 
     public int getIdFilial() {
@@ -118,7 +119,7 @@ public class PedidoModel {
     public void setUserExclusao(int userExclusao) {
         this.userExclusao = userExclusao;
     }
-    
+
     public String getnomeSolicitante() {
         return nomeSolicitante;
     }
@@ -126,22 +127,31 @@ public class PedidoModel {
     public void setnomeSolicitante(String nomeSolicitante) {
         this.nomeSolicitante = nomeSolicitante;
     }
-     public String getnomeProduto() {
+
+    public String getnomeProduto() {
         return nomeProduto;
     }
 
     public void setnomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
-    
+
     public String getobservacao() {
         return observacao;
     }
 
-    public void setobservacao (String observacao) {
+    public void setobservacao(String observacao) {
         this.observacao = observacao;
     }
-       
+
+    public String getAcompanhamento() {
+        return acompanhamento;
+    }
+
+    public void setAcompanhamento(String _acompanhamento) {
+        this.acompanhamento = _acompanhamento;
+    }
+
     public int getqtd() {
         return qtd;
     }
