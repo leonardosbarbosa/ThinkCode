@@ -10,7 +10,7 @@ import java.sql.Statement;
  *
  * @author Leonardo Silva
  */
-public class ConnectionDB {
+public abstract class ConnectionDB {
 
     public Statement st; //prepar e realizar pesquisas no banco de dados
     public ResultSet rs; //armazena resultados de uma pesquisa passada para o statement
