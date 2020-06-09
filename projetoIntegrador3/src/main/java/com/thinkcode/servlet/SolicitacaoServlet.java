@@ -87,23 +87,43 @@ public class SolicitacaoServlet extends HttpServlet {
         if (logado) {
             url = "/acompanhamentoSolicitacao.jsp";
             if (tarefa != null) {
-
+                
                 if (tarefa.equals("editando")) {
-                    request.setAttribute("tarefa", "editando");
+                    PedidoModel pedidoEditar = pedidoC.PropriedadesPedido(Integer.parseInt(id));
+                    List<DetalhePedidoModel> produtos = detalhePedidoC.todosDetalhe(pedidoEditar.getIdPedido());
+                    request.setAttribute("tarefa", "editar");
+                    request.setAttribute("pedido", pedidoEditar);
+                    request.setAttribute("produtoPedido", produtos);
+                    request.setAttribute("ID_PEDIDO", id);
                     url = "/cadastroSolicitacao.jsp";
                 }
                 if (tarefa.equals("Cadastrando")) {
                     request.setAttribute("tarefa", "");
                     url = "/cadastroSolicitacao.jsp";
                 }
+                if (tarefa.equals("editar")) {
+                    if (request.getParameter("filialProduto") != null && request.getParameter("observacaoProduto") != null) {
+                        pedido.setIdPedido(Integer.parseInt(request.getParameter("ID_PEDIDO")));
+                        pedido.setIdFilial(Integer.parseInt(request.getParameter("filialProduto")));
+                        pedido.setIdAcompanhe(Integer.parseInt(request.getParameter("acompanhamento")));
+                        pedido.setValor(Double.parseDouble("10"));
+                        pedido.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
+                        pedido.setUserAcompanhamento(Integer.parseInt(cook.getValue()));
+                        pedido.setobservacao(request.getParameter("observacaoProduto"));
+                        cadastro = pedidoC.update(pedido);
+                        url = "/acompanhamentoSolicitacao.jsp";
+                    }
+                }
                 if (tarefa.equals("cadastro")) {
-
+                    
                     if (request.getParameter("filialProduto") != null && request.getParameter("observacaoProduto") != null) {
                         pedido.setIdFilial(Integer.parseInt(request.getParameter("filialProduto")));
                         pedido.setIdAcompanhe(1);
                         pedido.setValor(Double.parseDouble("10"));
                         pedido.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
                         pedido.setUserInclusao(Integer.parseInt(cook.getValue()));
+                        pedido.setobservacao(request.getParameter("observacaoProduto"));
+                        pedido.setUserAcompanhamento(Integer.parseInt(cook.getValue()));
                         cadastro = pedidoC.save(pedido);
                         if (cadastro) {
                             String auxProdutos[] = request.getParameter("produtosSolicitantes").split(";");
@@ -111,11 +131,11 @@ public class SolicitacaoServlet extends HttpServlet {
                                 dataIncl = new Date();
                                 int id_pedido = pedidoC.UltimoPedido(Integer.parseInt(cook.getValue()));
                                 detalhePedido.setIdPedido(id_pedido);
-
+                                
                                 String auxProduto[] = auxProdutos[i].split(",");
                                 detalhePedido.setIdProduto(Integer.parseInt(auxProduto[0]));
                                 detalhePedido.setQtde(Integer.parseInt(auxProduto[1]));
-
+                                
                                 detalhePedido.setValor(Double.parseDouble("10"));
                                 detalhePedido.setDataInclusao(dataIncl.toInstant().toString().substring(0, 10));
                                 detalhePedido.setUserInclusao(Integer.parseInt(cook.getValue()));
@@ -123,9 +143,9 @@ public class SolicitacaoServlet extends HttpServlet {
                             }
                         }
                     }
-
+                    
                 }
-
+                
             }
             List<ProdutoModel> produtos = produtoController.ProdutosCadastrados("", "", "");
             List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");
@@ -135,10 +155,10 @@ public class SolicitacaoServlet extends HttpServlet {
             request.setAttribute("produtos", produtos);
             request.setAttribute("pedidos", pedidos);
             request.setAttribute("acompanhamentos", acompanhamentos);
-
+            
         }
         try {
-
+            
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(request, response);
         } catch (Exception e) {

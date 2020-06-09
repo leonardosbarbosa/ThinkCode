@@ -378,7 +378,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <form method="POST" action="RelatorioServlet">
+                                    <form method="POST" action="SolicitacaoServlet">
                                         <div class="widget-body">
                                             <div class="widget-main">
                                                 <div class="col-lg-12">
@@ -447,7 +447,8 @@
                                         <tr>
                                             <th> Nr. Solicitação</th>
                                             <th> Filial Solicitante</th>
-                                            <th> Solicitante </th>                                                                           
+                                            <th> Solicitante </th>   
+                                            <th> Atendente </th>   
                                             <th> Observação</th>  
                                             <th> Status</th>  
                                             <th> Data Solicitação</th>  
@@ -460,7 +461,8 @@
                                             <tr>
                                                 <td>${pedido.idPedido}</td>
                                                 <td>${pedido.nomeFilial}</td>
-                                                <td>${pedido.nomeSolicitante}</td>                                               
+                                                <td>${pedido.nomeSolicitante}</td>  
+                                                <td>${pedido.nomeAcompanhamento}</td>  
                                                 <td>${pedido.observacao}</td>
                                                 <td>${pedido.acompanhamento}</td>
                                                 <td>${pedido.dataInclusao}</td>

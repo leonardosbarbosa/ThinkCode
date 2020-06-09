@@ -46,12 +46,19 @@ public class DetalhePedidoDAO {
 
         try {
            con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select tb_detalhe_pedido.id_detalhepedido , produto.nome , tb_detalhe_pedido.qtde , tb_detalhe_pedido.valor from tb_detalhe_pedido inner join produto on tb_detalhe_pedido.id_produto = produto.id_produto where id_pedido ="+idpedido);
+            PreparedStatement ps = con.prepareStatement("select "
+                    + "tb_detalhe_pedido.id_detalhepedido ,"
+                    + " tb_produto.nome ,"
+                    + " tb_detalhe_pedido.qtde ,"
+                    + " tb_detalhe_pedido.valor "
+                    + " from tb_detalhe_pedido "
+                    + " inner join tb_produto on tb_detalhe_pedido.id_produto = tb_produto.id_produto "
+                    + " where id_pedido ="+idpedido);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 DetalhePedidoModel detalhe = new DetalhePedidoModel();
                 detalhe.setIdDetalhePedido(rs.getInt("id_detalhepedido"));
-                detalhe.setNomeProduto(rs.getString("nome"));
+                detalhe.setNomeProduto(rs.getString("tb_produto.nome"));
                 detalhe.setQtde(rs.getInt("qtde"));
                 detalhe.setValor(rs.getDouble("valor"));
                 detalhes.add(detalhe);

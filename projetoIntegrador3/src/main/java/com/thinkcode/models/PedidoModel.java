@@ -19,13 +19,15 @@ public class PedidoModel {
     private double valor;
     private String dataInclusao;
     private int userInlcusao;
+    private int userAcompanhamento;
     private String dataExclusao;
     private int userExclusao;
     private String nomeSolicitante;
     private String nomeProduto;
     private int qtd;
     private String observacao;
-    private String acompanhamento;                   
+    private String acompanhamento;
+    private String nomeAcompanhamento;
 
     public PedidoModel() {
     }
@@ -158,5 +160,21 @@ public class PedidoModel {
 
     public void setQtd(int qtd) {
         this.qtd = qtd;
+    }
+
+    public int getUserAcompanhamento() {
+        return userAcompanhamento;
+    }
+
+    public void setUserAcompanhamento(int _userAcompanhamento) {
+        this.userAcompanhamento = _userAcompanhamento;
+    }
+
+    public void setNomeAcompanhamento(String _nomeAcompanhamento) {
+        this.nomeAcompanhamento = _nomeAcompanhamento;
+    }
+
+    public String getNomeAcompanhamento() {
+        return this.nomeAcompanhamento;
     }
 }

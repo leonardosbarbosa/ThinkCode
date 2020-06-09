@@ -403,7 +403,7 @@
                                                                         <input class="form-control money"
                                                                                type="text" id="form-field-mask-2"
                                                                                onkeypress="return onlynumber()"
-                                                                               required value="" name="observacaoProduto"/>
+                                                                               required value="${pedido.observacao}" name="observacaoProduto"/>
                                                                     </div>
                                                                     <c:choose>
                                                                         <c:when test= "${empty tarefa}">
@@ -436,29 +436,42 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row col-lg-12">
-                                                <c:forEach var="produtos" items="${produtos}">
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail search-thumbnail">
-                                                            <div class="caption">
-                                                                <h3 class="search-title">
-                                                                    <p class="blue" id="descProduto${produtos.idProduto}">${produtos.nome}</p>
-                                                                </h3>
-                                                                <p>${produtos.descricao}</p>
+                                            <c:choose>
+                                                <c:when test= "${empty tarefa}">
+                                                    <div class="row col-lg-12">
+                                                        <c:forEach var="produtos" items="${produtos}">
+                                                            <div class="col-md-3">
+                                                                <div class="thumbnail search-thumbnail">
+                                                                    <div class="caption">
+                                                                        <h3 class="search-title">
+                                                                            <p class="blue" id="descProduto${produtos.idProduto}">${produtos.nome}</p>
+                                                                        </h3>
+                                                                        <p>${produtos.descricao}</p>
+                                                                    </div>
+                                                                    <button type="button" value="${produtos.idProduto}" class="btn btn-info" onclick="window.addProduto(${produtos.idProduto})">Adicionar</button>
+                                                                    <input type="number" min="1" placeholder="Quantidade" id="qtdProduto${produtos.idProduto}"/>
+                                                                </div>
                                                             </div>
-                                                            <button type="button" value="${produtos.idProduto}" class="btn btn-info" onclick="window.addProduto(${produtos.idProduto})">Adicionar</button>
-                                                            <input type="number" min="1" placeholder="Quantidade" id="qtdProduto${produtos.idProduto}"/>
-                                                        </div>
+                                                        </c:forEach>    
                                                     </div>
-                                                </c:forEach>    
-                                            </div>
+                                                </c:when>
+                                                <c:otherwise>                                                                      
+
+                                                </c:otherwise>
+                                            </c:choose>
+
                                         </div>
                                         <div class="col-lg-12">
                                             <label>Lista de produtos:
+                                                <c:forEach var="produtos" items="${produtoPedido}">
+                                                    <br>
+                                                    (x${produtos.qtde}) ${produtos.nomeProduto} 
+                                                    <br>
+                                                </c:forEach>    
                                                 <p id="produtosLista"></p></label>
                                         </div>
                                     </div>
-                                    <input name="ID_PRODUTO" style="display: none" value="${ID_PRODUTO}"/>
+                                    <input name="ID_PEDIDO" style="display: none" value="${ID_PEDIDO}"/>
                                     <input type="text" id="produtosQuantidades" style="display: none" name="produtosSolicitantes">
                                 </div>
 
@@ -530,8 +543,8 @@
 <script src="assets/js/jquery-1.11.3.min.js"></script>
 <![endif]-->
             <script type="text/javascript">
-                                                                if ('ontouchstart' in document.documentElement)
-                                                                    document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+                                                                        if ('ontouchstart' in document.documentElement)
+                                                                            document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
             </script>
             <script src="assets/js/bootstrap.min.js"></script>
 
@@ -556,44 +569,44 @@
 
             <!-- inline scripts related to this page -->
             <script type="text/javascript">
-                                                                jQuery(function ($) {
+                                                                        jQuery(function ($) {
 
-                                                                    window.displaymessage = function (user)
-                                                                    {
-                                                                        $('#valorEditar').val(user);
-                                                                        $('#enviarEditacao').click();
-                                                                        /*
-                                                                         $.ajax({
-                                                                         url: "UsuarioServlet",
-                                                                         type: "POST",
-                                                                         data: {
-                                                                         tarefa: 'Editar'
-                                                                         },
-                                                                         })
-                                                                         .success(function (e) {
-                                                                         //do success stuff
-                                                                         console.log("Sucessor " + e)
-                                                                         //window.location = "UsuarioServlet?Teste=1";
-                                                                         $(location).attr('href','cadastroUsuario.jsp');
-                                                                         })
-                                                                         .error(function (e) {
-                                                                         //do error handling stuff
-                                                                         console.log('Erro' + e.toString())
-                                                                         })
-                                                                         */
-                                                                    }
+                                                                            window.displaymessage = function (user)
+                                                                            {
+                                                                                $('#valorEditar').val(user);
+                                                                                $('#enviarEditacao').click();
+                                                                                /*
+                                                                                 $.ajax({
+                                                                                 url: "UsuarioServlet",
+                                                                                 type: "POST",
+                                                                                 data: {
+                                                                                 tarefa: 'Editar'
+                                                                                 },
+                                                                                 })
+                                                                                 .success(function (e) {
+                                                                                 //do success stuff
+                                                                                 console.log("Sucessor " + e)
+                                                                                 //window.location = "UsuarioServlet?Teste=1";
+                                                                                 $(location).attr('href','cadastroUsuario.jsp');
+                                                                                 })
+                                                                                 .error(function (e) {
+                                                                                 //do error handling stuff
+                                                                                 console.log('Erro' + e.toString())
+                                                                                 })
+                                                                                 */
+                                                                            }
 
-                                                                    window.addProduto = function (user)
-                                                                    {                                                                       
-                                                                        var valores = $('#produtosQuantidades').val()
-                                                                        var qtd = $('#qtdProduto'+user).val()
-                                                                        valores += user + ","+ qtd + ";";
-                                                                        $('#produtosQuantidades').val(valores)
-                                                                        $('#qtdProduto').val(null)
-                                                                        var produtosLista = $('#produtosLista').html()
-                                                                        produtosLista = produtosLista +  "</br>(x" + qtd + ") " + $('#descProduto'+user).text() + "</br>";
-                                                                        $('#produtosLista').html(produtosLista)
-                                                                    }
+                                                                            window.addProduto = function (user)
+                                                                            {
+                                                                                var valores = $('#produtosQuantidades').val()
+                                                                                var qtd = $('#qtdProduto' + user).val()
+                                                                                valores += user + "," + qtd + ";";
+                                                                                $('#produtosQuantidades').val(valores)
+                                                                                $('#qtdProduto').val(null)
+                                                                                var produtosLista = $('#produtosLista').html()
+                                                                                produtosLista = produtosLista + "</br>(x" + qtd + ") " + $('#descProduto' + user).text() + "</br>";
+                                                                                $('#produtosLista').html(produtosLista)
+                                                                            }
 
                 <%
                     Cookie[] cookies = request.getCookies();
@@ -602,20 +615,20 @@
                             int auxilio = Integer.parseInt(atual.getValue());
                             if (auxilio != 1) {
                 %>
-                                                                    $('#liCadastro').hide()
+                                                                            $('#liCadastro').hide()
                 <%
                         }
                     }
                     if (atual.getName().equals("Nome")) {
                         String auxiliado = atual.getValue().substring(0, 8);
                 %>
-                                                                    $('#lblNome').text('<%= auxiliado%>');
+                                                                            $('#lblNome').text('<%= auxiliado%>');
                 <%
                         }
 
                     }
                 %>
-                                                                });
+                                                                        });
             </script>
     </body>
 

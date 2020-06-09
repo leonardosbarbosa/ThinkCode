@@ -24,13 +24,15 @@ public class PedidoDAO extends ConnectionDB {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sql = "INSERT INTO tb_pedido (id_filial, id_acompanhe, Valor, data_inclusao,usr_inclusao) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO tb_pedido (id_filial, id_acompanhe, Valor, data_inclusao,usr_inclusao,descricao, usr_acompanhamento) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, pedido.getIdFilial());
             ps.setInt(2, pedido.getIdAcompanhe());
             ps.setDouble(3, pedido.getValor());
             ps.setString(4, pedido.getDataInclusao());
             ps.setInt(5, pedido.getUserInclusao());
+            ps.setString(6, pedido.getobservacao());
+            ps.setInt(7, pedido.getUserAcompanhamento());
 
             ps.execute();
             ok = true;
@@ -51,12 +53,15 @@ public class PedidoDAO extends ConnectionDB {
                     + "	tb_pedido.id_pedido ,\n"
                     + "	fi.nome as nomeFilial,\n"
                     + "	us.nome as nomeSolicitante,\n"
+                    + "	us2.nome as nomeAcompanhamento,\n"
                     + "	ac.descricao,\n"
-                    + "	tb_pedido.data_inclusao\n"
+                    + "	tb_pedido.data_inclusao,\n"
+                    + "	tb_pedido.descricao\n"
                     + "from tb_pedido \n"
                     + "INNER JOIN tb_filial as fi ON tb_pedido.id_filial = fi.id_filial \n"
                     + "INNER JOIN tb_acompanhe as ac ON tb_pedido.id_acompanhe = ac.id_acompanhe\n"
-                    + "INNER JOIN tb_usuario as us on tb_pedido.usr_inclusao = us.id_usuario",
+                    + "INNER JOIN tb_usuario as us on tb_pedido.usr_inclusao = us.id_usuario\n"
+                    + "LEFT JOIN tb_usuario as us2 on tb_pedido.usr_acompanhamento = us2.id_usuario",
                     ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
@@ -67,6 +72,8 @@ public class PedidoDAO extends ConnectionDB {
                 pedido.setnomeSolicitante(rs.getString("nomeSolicitante"));
                 pedido.setAcompanhamento(rs.getString("ac.descricao"));
                 pedido.setDataInclusao(rs.getString("data_inclusao"));
+                pedido.setobservacao(rs.getString("tb_pedido.descricao"));
+                pedido.setNomeAcompanhamento(rs.getString("nomeAcompanhamento"));
                 pedidos.add(pedido);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -119,5 +126,69 @@ public class PedidoDAO extends ConnectionDB {
             Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id_pedido;
+    }
+
+    public static PedidoModel consultaPedido(int id) {
+        Connection con;
+        PedidoModel pedido = new PedidoModel();
+        try {
+            con = ConnectionDB.obterConexao();
+            PreparedStatement ps = con.prepareStatement("select \n"
+                    + "	tb_pedido.id_pedido ,\n"
+                    + "	tb_pedido.id_filial ,\n"
+                    + "	tb_pedido.id_acompanhe ,\n"
+                    + "	tb_pedido.usr_inclusao ,\n"
+                    + "	tb_pedido.Valor,\n"
+                    + "	fi.nome as nomeFilial,\n"
+                    + "	us.nome as nomeSolicitante,\n"
+                    + "	ac.descricao,\n"
+                    + "	tb_pedido.data_inclusao,\n"
+                    + "	tb_pedido.descricao\n"
+                    + "from tb_pedido \n"
+                    + "INNER JOIN tb_filial as fi ON tb_pedido.id_filial = fi.id_filial \n"
+                    + "INNER JOIN tb_acompanhe as ac ON tb_pedido.id_acompanhe = ac.id_acompanhe\n"
+                    + "INNER JOIN tb_usuario as us on tb_pedido.usr_inclusao = us.id_usuario where tb_pedido.id_pedido = " + id,
+                    ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                pedido.setIdPedido(rs.getInt("tb_pedido.id_pedido"));
+                pedido.setNomeFilial(rs.getString("nomeFilial"));
+                pedido.setnomeSolicitante(rs.getString("nomeSolicitante"));
+                pedido.setAcompanhamento(rs.getString("ac.descricao"));
+                pedido.setDataInclusao(rs.getString("data_inclusao"));
+                pedido.setobservacao(rs.getString("tb_pedido.descricao"));
+                pedido.setIdFilial(rs.getInt("tb_pedido.id_filial"));
+                pedido.setIdAcompanhe(rs.getInt("tb_pedido.id_acompanhe"));
+                pedido.setUserInclusao(rs.getInt("tb_pedido.usr_inclusao"));
+                pedido.setValor(rs.getDouble("tb_pedido.Valor"));
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pedido;
+
+    }
+
+    public static boolean AtualizarPedido(PedidoModel _pedido) {
+        boolean alter = false;
+        Connection con;
+        try {
+            con = ConnectionDB.obterConexao();
+
+            String sql = "update tb_pedido set  id_filial = " + _pedido.getIdFilial() + ", id_acompanhe = " + _pedido.getIdAcompanhe() + ", Valor = " + Double.toString(_pedido.getValor()) + " , data_inclusao =  '" + _pedido.getDataInclusao() + "',  descricao =  '" + _pedido.getobservacao() + "', usr_acompanhamento = " + _pedido.getUserAcompanhamento() + " "
+                    + "  where id_pedido = " + _pedido.getIdPedido();
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.execute();
+            alter = true;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            String guts = ex.toString();
+            System.out.println(ex);
+        }
+
+        return alter;
     }
 }
