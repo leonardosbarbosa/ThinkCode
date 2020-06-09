@@ -451,7 +451,7 @@ public class VendaServlet extends HttpServlet {
                 } catch (ParseException ex) {
                     Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 String dataHoje_final = dataISO.format(dataHoje_tratada);
 
                 //Fim  
@@ -473,6 +473,32 @@ public class VendaServlet extends HttpServlet {
                 resultadoSalvar = usuarioSalvar.Save(usuarioAjax);
                 
 
+                if (resultadoSalvar == true) {
+                    UsuarioController usuarioConsulta = new UsuarioController();
+                    usuarioAjax = usuarioConsulta.UsuarioPropriedades(usuarioAjax);
+
+                    EnderecoModel enderecoConsulta = new EnderecoModel();
+                    EnderecoController enderecoController = new EnderecoController();
+
+                    String rua_cliente = request.getParameter("Rua_cliente");
+                    String cep_cliente = request.getParameter("Cep_cliente");
+                    String bairro_cliente = request.getParameter("Bairro_cliente");
+                    String numero_cliente = request.getParameter("Numero_cliente");
+                    String complemento_cliente = request.getParameter("Complemento_cliente:");
+                    
+                    enderecoConsulta.setRua(rua_cliente);
+                    enderecoConsulta.setCep(cep_cliente);
+                    enderecoConsulta.setBairro(bairro_cliente);
+                    enderecoConsulta.setNumero(numero_cliente);
+                    enderecoConsulta.setComplemento(complemento_cliente);
+                    enderecoConsulta.setIdUsuario(usuarioAjax.getIdUsuario());
+
+                    boolean resultEnd = false;
+                    resultEnd = enderecoController.Save(enderecoConsulta);
+                    
+                } else {
+                    html = "erro_salvar_usuario";
+                }
             }//Fim caso necessite cadastro de cliente
 
             Date data = new Date();
