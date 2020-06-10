@@ -31,18 +31,18 @@ public class UsuarioModel extends Criptografia {
     private String nomePerfil;
 
     public UsuarioModel() {
-    
+
     }
-    
-    public UsuarioModel (String email, String senha){
-    this.email = email;
-    this.senha = senha;
+
+    public UsuarioModel(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
     }
-    
-    public UsuarioModel (int idPerfil, int idFilial, String cpfCnpj, String rg,
+
+    public UsuarioModel(int idPerfil, int idFilial, String cpfCnpj, String rg,
             String nome, String email, String senha, long telefone, String sexo,
             int empresa, String dataNasc, String dataInclusao, int userInclusao) {
-        
+
         this.idPerfil = idPerfil;
         this.idFilial = idFilial;
         this.cpfCnpj = cpfCnpj;
@@ -56,7 +56,7 @@ public class UsuarioModel extends Criptografia {
         this.dataNasc = dataNasc;
         this.dataInclusao = dataInclusao;
         this.userInclusao = userInclusao;
-        
+
     }
 
     public int getIdUsuario() {
@@ -116,14 +116,20 @@ public class UsuarioModel extends Criptografia {
     }
 
     public String getSenha() {
-        String senhaCrip = CriptografiaMD5(senha);  
-        return senhaCrip;        
+        String senhaCrip = "";
+        if (senha != null) {
+            senhaCrip = CriptografiaMD5(senha);
+        } else {
+            senhaCrip = senha;
+        }
+
+        return senhaCrip;
     }
 
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
+
     public long getTelefone() {
         return telefone;
     }
@@ -187,7 +193,7 @@ public class UsuarioModel extends Criptografia {
     public void setUserExclusao(int userExclusao) {
         this.userExclusao = userExclusao;
     }
-    
+
     public String getNomeFilial() {
         return nomeFilial;
     }
@@ -195,7 +201,8 @@ public class UsuarioModel extends Criptografia {
     public void setNomeFilial(String nomeFilial) {
         this.nomeFilial = nomeFilial;
     }
-     public String getNomePerfil() {
+
+    public String getNomePerfil() {
         return nomePerfil;
     }
 

@@ -907,15 +907,12 @@
                             pagAtual++;
                             if (pagAtual === 4) {
                                 var cpfcnpjSALVAR = $('#cpfCad').val();
-                                var rgSALVAR = $('#rgCad').val();
-                                
+                                var rgSALVAR = $('#rgCad').val();                                
                                 var nomeSALVAR = $('#nomeCad').val();
                                 var emailSALVAR = $('#emailCad').val();
                                 var telefoneSALVAR = $('#telCad').val();
                                 var sexoSALVAR = $("input[name='sexoRadio']:checked").val();
-
-                                var dataSALVAR = $('#dataCad').val();
-                                
+                                var dataSALVAR = $('#dataCad').val();                                
                                 var metodopagSALVAR = $("#selectPagamento option:selected").val();
                                 var parcelasSALVAR = "0";
                                 var totalSALVAR = $('#totalCarrinho').val();
@@ -923,6 +920,11 @@
                                 var quantidade_produto = "";
                                 var valor_produto = "";
 
+                                var ruaSALVAR = $('#ruaCad').val();
+                                var cepSALVAR = $('#cepCad').val();
+                                var bairroSALVAR = $('#bairroCad').val();
+                                var numeroSALVAR = $('#numeroCad').val();
+                                var complementoSALVAR = $('#complementoCad').val();
 
  
                                 for (var i = 1; i <= posicaoCarrinho - 1; i++) {
@@ -958,6 +960,13 @@
                                         Sexo_cliente: sexoSALVAR,
                                         Data_cliente: dataSALVAR,                                      
                                         Vlrs_produtos: valor_produto,
+                                        
+                                        Rua_cliente: ruaSALVAR,
+                                        Cep_cliente: cepSALVAR,
+                                        Bairro_cliente: bairroSALVAR,
+                                        Numero_cliente: numeroSALVAR,
+                                        Complemento_cliente: complementoSALVAR,
+                                                
                                         salvarCliente: radioValue
                                          
                                     },
@@ -965,6 +974,7 @@
                                     success: function (result) {
                                         alert("Compra registrada com sucesso !");
                                         document.location.reload(true);
+                                        console.log(result);
                                     }
                                 });
                             }

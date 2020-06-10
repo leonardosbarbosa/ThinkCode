@@ -20,7 +20,7 @@ public abstract class ConnectionDB {
     //private static final String CAMINHO = "jdbc:mysql://localhost:3306/bd_tadespoo?zeroDateTimeBehavior=convertToNull";
     private static final String USER = "root";
     private static final String SENHA = "12345678";//Senha de produção
-    //private static final String SENHA = "";
+ //   private static final String SENHA = "";
 
     //private static final String SENHA = "";
 

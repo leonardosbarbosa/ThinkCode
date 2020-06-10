@@ -139,14 +139,14 @@ public class UsuarioDAO extends ConnectionDB {
         Connection con;
         try {
             con = ConnectionDB.obterConexao();
-            String sqlState = "select * from tb_usuario";
+            String sqlState = "select * from tb_usuario where data_exclusao is null ";
             if (usuario.getIdPerfil() != 0 && usuario.getIdPerfil() == 3) {
-                if (usuario.getEmail() != null && usuario.getSenha() != null) {
-                    sqlState += " where email = '" + usuario.getEmail() + "'";
+                if (usuario.getEmail() != null && usuario.getSenha() == null) {
+                    sqlState += " and email = '" + usuario.getEmail() + "'";
                 }
             } else {
                     if (usuario.getEmail() != null && usuario.getSenha() != null) {
-                    sqlState += " where email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'";
+                    sqlState += " and email = '" + usuario.getEmail() + "' and senha = '" + usuario.getSenha() + "'";
                 }
             }
 
@@ -154,14 +154,14 @@ public class UsuarioDAO extends ConnectionDB {
                 if (usuario.getEmail() != null && usuario.getSenha() != null) {
                     sqlState += " and cpf_cnpj = '" + usuario.getCpfCnpj() + "' ";
                 } else {
-                    sqlState += " where cpf_cnpj = '" + usuario.getCpfCnpj() + "' ";
+                    sqlState += " and cpf_cnpj = '" + usuario.getCpfCnpj() + "' ";
                 }
             }
             if (usuario.getIdUsuario() != 0) {
                 if (usuario.getEmail() != null && usuario.getSenha() != null) {
                     sqlState += " and id_usuario = '" + usuario.getIdUsuario() + "' ";
                 } else {
-                    sqlState += " where id_usuario = '" + usuario.getIdUsuario() + "' ";
+                    sqlState += " and id_usuario = '" + usuario.getIdUsuario() + "' ";
                 }
 
             }

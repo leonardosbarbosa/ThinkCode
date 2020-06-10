@@ -457,7 +457,7 @@ public class VendaServlet extends HttpServlet {
                 //Fim  
                 UsuarioModel usuarioAjax = new UsuarioModel();
                 usuarioAjax.setIdPerfil(3);
-                usuarioAjax.setIdFilial(filial_cliente);
+                usuarioAjax.setIdFilial(1);
                 usuarioAjax.setCpfCnpj(cpf_cnpj_cliente);
                 usuarioAjax.setRg(rg_cliente);
                 usuarioAjax.setNome(nome_cliente);
