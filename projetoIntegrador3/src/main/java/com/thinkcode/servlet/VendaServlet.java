@@ -484,7 +484,7 @@ public class VendaServlet extends HttpServlet {
                     String cep_cliente = request.getParameter("Cep_cliente");
                     String bairro_cliente = request.getParameter("Bairro_cliente");
                     String numero_cliente = request.getParameter("Numero_cliente");
-                    String complemento_cliente = request.getParameter("Complemento_cliente:");
+                    String complemento_cliente = request.getParameter("Complemento_cliente");
                     
                     enderecoConsulta.setRua(rua_cliente);
                     enderecoConsulta.setCep(cep_cliente);
