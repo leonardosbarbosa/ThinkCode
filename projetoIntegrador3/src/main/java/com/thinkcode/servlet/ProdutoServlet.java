@@ -1,9 +1,11 @@
 package com.thinkcode.servlet;
 
 import Controller.FilialController;
+import Controller.PedidoController;
 import Controller.ProdutoController;
 import Controller.UsuarioController;
 import com.thinkcode.models.FilialModel;
+import com.thinkcode.models.PedidoModel;
 import com.thinkcode.models.ProdutoModel;
 import com.thinkcode.models.UsuarioModel;
 import java.io.IOException;
@@ -44,7 +46,8 @@ public class ProdutoServlet extends HttpServlet {
         ProdutoController produtoController = new ProdutoController();
         FilialController FilialController = new FilialController();
         UsuarioModel usuario = new UsuarioModel();
-        UsuarioController usuarioController = new UsuarioController();
+        UsuarioController usuarioController = new UsuarioController();        
+        PedidoController pedidoC = new PedidoController();
         Cookie cook = null;
         List<Cookie> cookies = new ArrayList<Cookie>();
         cookies = Arrays.asList(request.getCookies());
@@ -111,7 +114,7 @@ public class ProdutoServlet extends HttpServlet {
                     produto.setNome(request.getParameter("nomeProduto"));
                     produto.setQuantidade(Integer.parseInt(request.getParameter("quantidadeProduto")));
                     produto.setTipo(request.getParameter("tipoProduto"));
-                    produto.setValor(Double.parseDouble(request.getParameter("valorProduto").replace(".", "").replace(",",".")));
+                    produto.setValor(Double.parseDouble(request.getParameter("valorProduto").replace(".", "").replace(",", ".")));
                     produto.setDescricao(request.getParameter("descricaoProduto"));
                     produto.setIdUsuario(usuario.getIdUsuario());
                     produto.setIdFilial(Integer.parseInt(request.getParameter("filialProduto")));
@@ -139,16 +142,19 @@ public class ProdutoServlet extends HttpServlet {
 
             //Filtro para tela de gerenciamento de usuário
             String filtroIDFilial = "";
-            String filtroNome = "";
-            if (request.getParameter("filtroFiliais") != null || request.getParameter("filtroNome") != null) {
+            String filtrotipoProduto = "";
+            if (request.getParameter("filtroFiliais") != null || request.getParameter("tipoProduto") != null) {
                 filtroIDFilial = request.getParameter("filtroFiliais");
-                filtroNome = request.getParameter("filtroNome");
+                filtrotipoProduto = request.getParameter("tipoProduto");
             }
-            List<ProdutoModel> produtos = produtoController.ProdutosCadastrados(filtroIDFilial, "", filtroNome);
+            List<ProdutoModel> produtos = produtoController.ProdutosCadastrados(filtroIDFilial, filtrotipoProduto, "");
             request.setAttribute("produtos", produtos);
 
             List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");
             request.setAttribute("filiais", filiais);
+            
+            List<PedidoModel> pedidos = pedidoC.todosPedidos("", "", "");
+            request.setAttribute("pedidos", pedidos);
             //Fim filtros
         }
         try {

@@ -88,59 +88,27 @@
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav">
 
-                        <li class="purple dropdown-modal">
+                    <li class="purple dropdown-modal">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="ace-icon fa fa-bell icon-animated-bell"></i>
-                                <span class="badge badge-important">8</span>
+                                <span class="badge badge-important">${pedidos.size()}</span>
                             </a>
 
-                            <ul
-                                class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+                            <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
                                 <li class="dropdown-header">
-                                    <i class="ace-icon fa fa-exclamation-triangle"></i> 8 Notifications
+                                    <i class="ace-icon fa fa-exclamation-triangle"></i> ${pedidos.size()} Notifications
                                 </li>
 
                                 <li class="dropdown-content">
-                                    <ul class="dropdown-menu dropdown-navbar navbar-pink">
+                                    <ul class="dropdown-menu dropdown-navbar navbar-pink"> 
                                         <li>
-                                            <a href="#">
-                                                <div class="clearfix">
-                                                    <span class="pull-left">
-                                                        <i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
-                                                        New Comments
-                                                    </span>
-                                                    <span class="pull-right badge badge-info">+12</span>
-                                                </div>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">
-                                                <i class="btn btn-xs btn-primary fa fa-user"></i> Bob just signed up as an
-                                                editor ...
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">
+                                            <a href="SolicitacaoServlet">
                                                 <div class="clearfix">
                                                     <span class="pull-left">
                                                         <i class="btn btn-xs no-hover btn-success fa fa-shopping-cart"></i>
-                                                        New Orders
+                                                        Solicitações
                                                     </span>
-                                                    <span class="pull-right badge badge-success">+8</span>
-                                                </div>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">
-                                                <div class="clearfix">
-                                                    <span class="pull-left">
-                                                        <i class="btn btn-xs no-hover btn-info fa fa-twitter"></i>
-                                                        Followers
-                                                    </span>
-                                                    <span class="pull-right badge badge-info">+11</span>
+                                                    <span class="pull-right badge badge-success">${pedidos.size()}</span>
                                                 </div>
                                             </a>
                                         </li>
@@ -505,7 +473,7 @@
                     <div class="footer-inner">
                         <div class="footer-content">
                             <span class="bigger-120">
-                                <span class="blue bolder">Ace</span> Application &copy; 2013-2014
+                                <span class="blue bolder">ThinkCode
                             </span>
 
                             &nbsp; &nbsp;

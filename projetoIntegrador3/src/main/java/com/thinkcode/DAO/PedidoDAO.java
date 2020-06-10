@@ -43,13 +43,13 @@ public class PedidoDAO extends ConnectionDB {
         return ok;
     }
 
-    public static List<PedidoModel> consultarTodosPedido() {
+    public static List<PedidoModel> consultarTodosPedido(String _filtroFilial, String _filtroSolicitante, String _filtroStatus) {
         Connection con;
         List<PedidoModel> pedidos = new ArrayList<PedidoModel>();
 
         try {
             con = ConnectionDB.obterConexao();
-            PreparedStatement ps = con.prepareStatement("select \n"
+            String sql = "select \n"
                     + "	tb_pedido.id_pedido ,\n"
                     + "	fi.nome as nomeFilial,\n"
                     + "	us.nome as nomeSolicitante,\n"
@@ -61,7 +61,20 @@ public class PedidoDAO extends ConnectionDB {
                     + "INNER JOIN tb_filial as fi ON tb_pedido.id_filial = fi.id_filial \n"
                     + "INNER JOIN tb_acompanhe as ac ON tb_pedido.id_acompanhe = ac.id_acompanhe\n"
                     + "INNER JOIN tb_usuario as us on tb_pedido.usr_inclusao = us.id_usuario\n"
-                    + "LEFT JOIN tb_usuario as us2 on tb_pedido.usr_acompanhamento = us2.id_usuario",
+                    + "LEFT JOIN tb_usuario as us2 on tb_pedido.usr_acompanhamento = us2.id_usuario\n";
+                    
+            if (_filtroStatus == null || _filtroStatus.equals("")) {
+                sql += "where ac.descricao not like '%Cancelado%'";
+            } else {
+                sql += "where tb_pedido.id_acompanhe = " + _filtroStatus;
+            }
+            if (_filtroFilial != null && !_filtroFilial.equals("")) {
+                sql += "and tb_pedido.id_filial = " + _filtroFilial;
+            }
+            if (_filtroSolicitante != null && !_filtroSolicitante.equals("")) {
+                sql += "and tb_pedido.usr_inclusao = " + _filtroSolicitante;
+            }
+            PreparedStatement ps = con.prepareStatement(sql,
                     ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();

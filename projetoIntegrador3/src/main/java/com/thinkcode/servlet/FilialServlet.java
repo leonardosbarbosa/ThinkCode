@@ -1,7 +1,9 @@
 package com.thinkcode.servlet;
 
 import Controller.FilialController;
+import Controller.PedidoController;
 import com.thinkcode.models.FilialModel;
+import com.thinkcode.models.PedidoModel;
 import com.thinkcode.models.UsuarioModel;
 import java.util.Date;
 import java.io.IOException;
@@ -41,6 +43,8 @@ public class FilialServlet extends HttpServlet {
         //Instância de objetos
         FilialModel filial = new FilialModel();
         FilialController filialController = new FilialController();
+         
+        PedidoController pedidoC = new PedidoController();
         String url = "/login.html";
         Cookie cook = null;
         List<Cookie> cookies = new ArrayList<Cookie>();
@@ -144,6 +148,8 @@ public class FilialServlet extends HttpServlet {
                     url = "/cadastroFilial.jsp";
                 }
             }
+              List<PedidoModel> pedidos = pedidoC.todosPedidos("", "", "");
+            request.setAttribute("pedidos", pedidos);
             //Fim filtro
         }
         //Fim logado

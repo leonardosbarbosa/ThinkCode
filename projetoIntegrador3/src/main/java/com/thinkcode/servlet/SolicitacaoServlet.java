@@ -64,6 +64,9 @@ public class SolicitacaoServlet extends HttpServlet {
         DetalhePedidoController detalhePedidoC = new DetalhePedidoController();
         AcompanheModel acompanhamento = new AcompanheModel();
         AcompanheController acompanhamentoC = new AcompanheController();
+        String _filtroFilial = null;
+        String _filtroSolicitante = null;
+        String _filtroStatus = null;
         Boolean cadastro = false;
         Date dataIncl = new Date();
         Cookie cook = null;
@@ -149,12 +152,24 @@ public class SolicitacaoServlet extends HttpServlet {
             }
             List<ProdutoModel> produtos = produtoController.ProdutosCadastrados("", "", "");
             List<FilialModel> filiais = FilialController.FiliaisCadastradas("", "");
-            List<PedidoModel> pedidos = pedidoC.todosPedidos();
+            
+            if (request.getParameter("filtroFiliais") !=null) {
+                _filtroFilial = request.getParameter("filtroFiliais");
+            }
+            if (request.getParameter("filtroSolicitante") !=null) {
+                _filtroSolicitante = request.getParameter("filtroSolicitante");
+            }
+            if (request.getParameter("filtroStatus") !=null) {
+                _filtroStatus = request.getParameter("filtroStatus");
+            }
+            List<PedidoModel> pedidos = pedidoC.todosPedidos(_filtroFilial, _filtroSolicitante, _filtroStatus);
             List<AcompanheModel> acompanhamentos = acompanhamentoC.todosAcompanhes();
+            List<UsuarioModel> usuarios = usuarioController.UsuariosCadastrados("", "");
             request.setAttribute("filiais", filiais);
             request.setAttribute("produtos", produtos);
             request.setAttribute("pedidos", pedidos);
             request.setAttribute("acompanhamentos", acompanhamentos);
+            request.setAttribute("usuarios", usuarios);
             
         }
         try {

@@ -7,10 +7,12 @@ package com.thinkcode.servlet;
 
 import Controller.EnderecoController;
 import Controller.FilialController;
+import Controller.PedidoController;
 import Controller.PerfilController;
 import Controller.UsuarioController;
 import com.thinkcode.models.EnderecoModel;
 import com.thinkcode.models.FilialModel;
+import com.thinkcode.models.PedidoModel;
 import com.thinkcode.models.PerfilModel;
 import com.thinkcode.models.UsuarioModel;
 import java.io.IOException;
@@ -57,6 +59,7 @@ public class UsuarioServlet extends HttpServlet {
         UsuarioController usuarioController = new UsuarioController();
         EnderecoController enderecoController = new EnderecoController();
         EnderecoModel endereco = new EnderecoModel();
+        PedidoController pedidoC = new PedidoController();
         Cookie cook = null;
         List<Cookie> cookies = new ArrayList<Cookie>();
         cookies = Arrays.asList(request.getCookies());
@@ -211,6 +214,8 @@ public class UsuarioServlet extends HttpServlet {
                 filtroFilial = request.getParameter("filtroFiliais");
                 filtroPerfil = request.getParameter("filtroPerfil");
             }
+            List<PedidoModel> pedidos = pedidoC.todosPedidos("", "", "");
+            request.setAttribute("pedidos", pedidos);
             List<UsuarioModel> usuarios = usuarioController.UsuariosCadastrados(filtroFilial, filtroPerfil);
             request.setAttribute("usuarios", usuarios);
             FilialController FilialController = new FilialController();
@@ -219,6 +224,7 @@ public class UsuarioServlet extends HttpServlet {
             PerfilController perfilController = new PerfilController();
             List<PerfilModel> perfis = perfilController.PerfisCadastrados("", "");
             request.setAttribute("perfis", perfis);
+            
             //Fim filtros
 
         }

@@ -15,8 +15,8 @@ public class PedidoController {
         return PedidoDAO.cadastrarPedido(pedido);
     }
 
-    public List<PedidoModel> todosPedidos() {
-        return PedidoDAO.consultarTodosPedido();
+    public List<PedidoModel> todosPedidos(String _filtroFilial, String _filtroSolicitante, String _filtroStatus) {
+        return PedidoDAO.consultarTodosPedido(_filtroFilial, _filtroSolicitante, _filtroStatus);
     }
 
     public boolean excluir(int id_pedido, int userExclusao) {
@@ -34,8 +34,8 @@ public class PedidoController {
     public PedidoModel PropriedadesPedido(int id_pedido) {
         return PedidoDAO.consultaPedido(id_pedido);
     }
-    
-    public boolean update(PedidoModel _pedido){
+
+    public boolean update(PedidoModel _pedido) {
         return PedidoDAO.AtualizarPedido(_pedido);
     }
 }

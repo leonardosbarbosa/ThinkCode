@@ -5,10 +5,13 @@
  */
 package com.thinkcode.servlet;
 
+import Controller.PedidoController;
 import Controller.UsuarioController;
+import com.thinkcode.models.PedidoModel;
 import com.thinkcode.models.UsuarioModel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,8 +39,9 @@ public class IndexServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //Instância de objetos
-         UsuarioModel usuario = new UsuarioModel();
+        UsuarioModel usuario = new UsuarioModel();
         UsuarioController usuarioController = new UsuarioController();
+        PedidoController pedidoC = new PedidoController();
         String url = "/LoginServlet";
         //Fim instância
 
@@ -57,10 +61,17 @@ public class IndexServlet extends HttpServlet {
         }
         if (!logado) {
             url = "/LoginServlet";
+        } else {
+            List<PedidoModel> pedidos = pedidoC.todosPedidos("", "", "");
+            request.setAttribute("solicitacoes", pedidos);
+        }
+        try {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(request, response);
+        } catch (Exception e) {
+            String error = e.toString();
         }
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

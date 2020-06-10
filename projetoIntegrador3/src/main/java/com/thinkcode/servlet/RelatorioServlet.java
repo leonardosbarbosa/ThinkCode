@@ -6,9 +6,11 @@
 package com.thinkcode.servlet;
 
 import Controller.FilialController;
+import Controller.PedidoController;
 import Controller.RelatorioController;
 import Controller.UsuarioController;
 import com.thinkcode.models.FilialModel;
+import com.thinkcode.models.PedidoModel;
 import com.thinkcode.models.ProdutoModel;
 import com.thinkcode.models.RelatorioModel;
 import com.thinkcode.models.UsuarioModel;
@@ -48,6 +50,7 @@ public class RelatorioServlet extends HttpServlet {
         String tarefa = request.getParameter("tarefa");
         RelatorioModel relatorioModel = new RelatorioModel();
         RelatorioController relatorioController = new RelatorioController();
+        PedidoController pedidoC = new PedidoController();
         UsuarioModel usuario = new UsuarioModel();
         UsuarioController usuarioController = new UsuarioController();
         Cookie cook = null;
@@ -97,9 +100,8 @@ public class RelatorioServlet extends HttpServlet {
             List<RelatorioModel> _relatorio = relatorioController.ProdutosCadastrados(relatorioModel);
             request.setAttribute("relatorio", _relatorio);
             ProdutoModel produto = relatorioModel.getProduto();
-            if (tarefa != null) {
-
-            }
+             List<PedidoModel> pedidos = pedidoC.todosPedidos("", "", "");
+            request.setAttribute("pedidos", pedidos);
         }
 
         try {

@@ -1,6 +1,8 @@
 package com.thinkcode.servlet;
 
+import Controller.PedidoController;
 import Controller.PerfilController;
+import com.thinkcode.models.PedidoModel;
 import com.thinkcode.models.PerfilModel;
 import java.util.Date;
 import java.io.IOException;
@@ -40,6 +42,7 @@ public class PerfilServlet extends HttpServlet {
         //Instância de objetos
         PerfilModel perfil = new PerfilModel();
         PerfilController perfilController = new PerfilController();
+        PedidoController pedidoC = new PedidoController();
         String url = "/login.jsp";
         boolean logado = false;
         Date dataIncl = new Date();
@@ -64,7 +67,6 @@ public class PerfilServlet extends HttpServlet {
             url = "/gerenciarPerfis.jsp";
             //Se houve alguma tarefa a ser feita Seja Edita/Editar/Criando/Criar/Atualizar entra no IF
             if (tarefa != null) {
-
                 //Tarefa editando se estiver edirando será redirecionado com os campos preenchidos
                 if (tarefa.equals("Editando")) {
 
@@ -132,17 +134,18 @@ public class PerfilServlet extends HttpServlet {
             List<PerfilModel> perfis = perfilController.PerfisCadastrados(filtroNome, filtroIDFilial);
             request.setAttribute("perfis", perfis);
 
-            if (tarefa != null) {
-
-                if (tarefa.equals("Editando")) {
-                    url = "/cadastroPerfil.jsp";
-                }
-            }
+            List<PedidoModel> pedidos = pedidoC.todosPedidos("", "", "");
+            request.setAttribute("pedidos", pedidos);
 
         }
         //Fim usuario Logado
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        try {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(request, response);
+        } catch (Exception e) {
+            String error = e.toString();
+        }
+
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

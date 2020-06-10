@@ -52,8 +52,8 @@ public class ProdutoDAO {
         try {
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("select * from tb_produto where id_produto = " + produto.getIdProduto(),
-                            ResultSet.TYPE_SCROLL_SENSITIVE, 
-                        ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 produto.setDescricao(rs.getString("descricao"));
@@ -113,8 +113,8 @@ public class ProdutoDAO {
         try {
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement("delete nome from tb_produto where id_produto like '%" + idProduto + "%'",
-                            ResultSet.TYPE_SCROLL_SENSITIVE, 
-                        ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -128,21 +128,21 @@ public class ProdutoDAO {
         List<ProdutoModel> produtos = new ArrayList<>();
 
         try {
-            String sqlState = "select * from tb_produto where data_exclusao is null order by nome";
-            if (filtroFilial != null && !filtroFilial.equals("") ) {
-                sqlState += "and id_filial = " + filtroFilial ;
+            String sqlState = "select * from tb_produto where data_exclusao is null";
+            if (filtroFilial != null && !filtroFilial.equals("")) {
+                sqlState += "and id_filial = " + filtroFilial;
             }
             if (filtroTipo != null && !filtroTipo.equals("")) {
                 sqlState += " and tipo = '" + filtroTipo + "'";
             }
-             if (filtroNome != null && !filtroNome.equals("")) {
+            if (filtroNome != null && !filtroNome.equals("")) {
                 sqlState += "and nome like '%" + filtroNome + "%' and qtde > 0";
             }
-
+            sqlState += " order by nome";
             con = ConnectionDB.obterConexao();
             PreparedStatement ps = con.prepareStatement(sqlState,
-                            ResultSet.TYPE_SCROLL_SENSITIVE, 
-                        ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ProdutoModel produto = new ProdutoModel();
@@ -161,8 +161,8 @@ public class ProdutoDAO {
         }
         return produtos;
     }
-    
-    public static boolean atualizarQtdeProduto(int id,int qtde) {
+
+    public static boolean atualizarQtdeProduto(int id, int qtde) {
         boolean ok = false;
         Connection con;
         try {
