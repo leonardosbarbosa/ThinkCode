@@ -96,7 +96,7 @@
 
                             <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
                                 <li class="dropdown-header">
-                                    <i class="ace-icon fa fa-exclamation-triangle"></i> ${pedidos.size()} Notifications
+                                    <i class="ace-icon fa fa-exclamation-triangle"></i> ${pedidos.size()} Notificações
                                 </li>
 
                                 <li class="dropdown-content">
@@ -105,7 +105,7 @@
                                             <a href="SolicitacaoServlet">
                                                 <div class="clearfix">
                                                     <span class="pull-left">
-                                                        <i class="btn btn-xs no-hover btn-success fa fa-shopping-cart"></i>
+                                                        <i class="btn btn-xs no-hover btn-success fa fa-product-hunt"></i>
                                                         Solicitações
                                                     </span>
                                                     <span class="pull-right badge badge-success">${pedidos.size()}</span>
@@ -113,13 +113,6 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
-
-                                <li class="dropdown-footer">
-                                    <a href="#">
-                                        See all notifications
-                                        <i class="ace-icon fa fa-arrow-right"></i>
-                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -184,7 +177,7 @@
 
 
                 <!-- /.sidebar-shortcuts -->
-<ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -481,22 +474,22 @@
                                 <div class="footer-content">
                                     <span class="bigger-120">
                                         <span class="blue bolder">ThinkCode
-                                    </span>
+                                        </span>
 
-                                    &nbsp; &nbsp;
-                                    <span class="action-buttons">
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-                                        </a>
+                                        &nbsp; &nbsp;
+                                        <span class="action-buttons">
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+                                            </a>
 
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-                                        </a>
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                                            </a>
 
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
-                                        </a>
-                                    </span>
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+                                            </a>
+                                        </span>
                                 </div>
                             </div>
                         </div>

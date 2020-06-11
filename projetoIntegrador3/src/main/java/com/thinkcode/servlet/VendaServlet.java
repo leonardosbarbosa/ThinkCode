@@ -155,7 +155,7 @@ public class VendaServlet extends HttpServlet {
                         + "                                                                    <h3 class=\"search-title\">\n"
                         + "                                                                        <a href=\"#\" class=\"blue\">" + produtosHTML.getNome() + "</a>\n"
                         + "                                                                    </h3>\n"
-                        + "                                                                    <p>" + produtosHTML.getDescricao() + "</p><br><span type=\"text\" id=\"valor_produto\" value=\"" + produtosHTML.getValor() + "\">R$ " + produtosHTML.getValor() + "</span>\n"
+                        + "                                                                    <p>" + produtosHTML.getDescricao() + "</p><br><span type=\"text\" id=\"valor_produto\" value=\"" + produtosHTML.getValor() + "\" class=\"row_currency\"> " + produtosHTML.getValor() + "</span>\n"
                         + "                                                                    <input type=\"hidden\" id=\"id_produto\" value=\"" + produtosHTML.getIdProduto() + "\"\\>\n"
                         + "                                                                    <div class=\"col-lg-12\">\n"
                         + "                                                                        <div class=\"col-lg-6\">\n"

@@ -490,7 +490,7 @@
 
                             <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
                                 <li class="dropdown-header">
-                                    <i class="ace-icon fa fa-exclamation-triangle"></i> ${solicitacoes.size()} Notifications
+                                    <i class="ace-icon fa fa-exclamation-triangle"></i> ${solicitacoes.size()} Notificações
                                 </li>
 
                                 <li class="dropdown-content">
@@ -499,7 +499,7 @@
                                             <a href="SolicitacaoServlet">
                                                 <div class="clearfix">
                                                     <span class="pull-left">
-                                                        <i class="btn btn-xs no-hover btn-success fa fa-shopping-cart"></i>
+                                                        <i class="btn btn-xs no-hover btn-success fa fa-product-hunt"></i>
                                                         Solicitações
                                                     </span>
                                                     <span class="pull-right badge badge-success">${solicitacoes.size()}</span>
@@ -507,14 +507,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
-
-                                <li class="dropdown-footer">
-                                    <a href="#">
-                                        See all notifications
-                                        <i class="ace-icon fa fa-arrow-right"></i>
-                                    </a>
-                                </li>
+                                </li>                                
                             </ul>
                         </li>
 

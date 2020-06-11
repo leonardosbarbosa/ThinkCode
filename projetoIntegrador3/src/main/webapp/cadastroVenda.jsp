@@ -686,7 +686,7 @@
                                                            name="complemento" disabled/>
 
                                                 </div>
-                                                
+
                                                 <div class="col-lg-3">
                                                     <label for="number-button" class="block">Telefone</label>
 
@@ -820,26 +820,26 @@
             <!-- /.ace-settings-container -->
             <div class="footer">
                 <div class="footer-inner" >
-                     <div class="footer-content">
-                            <span class="bigger-120">
-                                <span class="blue bolder">ThinkCode
+                    <div class="footer-content">
+                        <span class="bigger-120">
+                            <span class="blue bolder">ThinkCode
                             </span>
-    
+
                             &nbsp; &nbsp;
                             <span class="action-buttons">
                                 <a href="#">
                                     <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
                                 </a>
-    
+
                                 <a href="#">
                                     <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
                                 </a>
-    
+
                                 <a href="#">
                                     <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
                                 </a>
                             </span>
-                        </div> 
+                    </div> 
                 </div>
             </div>
 
@@ -906,12 +906,12 @@
                             pagAtual++;
                             if (pagAtual === 4) {
                                 var cpfcnpjSALVAR = $('#cpfCad').val();
-                                var rgSALVAR = $('#rgCad').val();                                
+                                var rgSALVAR = $('#rgCad').val();
                                 var nomeSALVAR = $('#nomeCad').val();
                                 var emailSALVAR = $('#emailCad').val();
                                 var telefoneSALVAR = $('#telCad').val();
                                 var sexoSALVAR = $("input[name='sexoRadio']:checked").val();
-                                var dataSALVAR = $('#dataCad').val();                                
+                                var dataSALVAR = $('#dataCad').val();
                                 var metodopagSALVAR = $("#selectPagamento option:selected").val();
                                 var parcelasSALVAR = "0";
                                 var totalSALVAR = $('#totalCarrinho').val();
@@ -925,11 +925,11 @@
                                 var numeroSALVAR = $('#numeroCad').val();
                                 var complementoSALVAR = $('#complementoCad').val();
 
- 
+
                                 for (var i = 1; i <= posicaoCarrinho - 1; i++) {
                                     var atual = localStorage.getItem("salvar" + i);
                                     id_produto += atual + ",";
-                                    
+
                                 }
 
                                 for (var i = 1; i <= posicaoCarrinho - 1; i++) {
@@ -952,22 +952,20 @@
                                         Id_produtos: id_produto,
                                         Qtd_produtos: quantidade_produto,
                                         Cpf_cliente: cpfcnpjSALVAR,
-                                        Rg_cliente:  rgSALVAR,
+                                        Rg_cliente: rgSALVAR,
                                         Nome_cliente: nomeSALVAR,
                                         Email_cliente: emailSALVAR,
                                         Telefone_cliente: telefoneSALVAR,
                                         Sexo_cliente: sexoSALVAR,
-                                        Data_cliente: dataSALVAR,                                      
+                                        Data_cliente: dataSALVAR,
                                         Vlrs_produtos: valor_produto,
-                                        
                                         Rua_cliente: ruaSALVAR,
                                         Cep_cliente: cepSALVAR,
                                         Bairro_cliente: bairroSALVAR,
                                         Numero_cliente: numeroSALVAR,
                                         Complemento_cliente: complementoSALVAR,
-                                                
                                         salvarCliente: radioValue
-                                         
+
                                     },
                                     url: 'VendaServlet',
                                     success: function (result) {
@@ -989,24 +987,24 @@
                                 var bairro = $('#bairroCad').val();
                                 var numero = $('#numeroCad').val();
                                 var metodo = $("#selectPagamento option:selected").val();
-                                
-                                if(metodo == 1){
+
+                                if (metodo == 1) {
                                     metodo = "Cartão de Crédito";
-                                }else if (metodo == 2){
+                                } else if (metodo == 2) {
                                     metodo = "Cartão de Débito";
-                                }else if (metodo == 3){
+                                } else if (metodo == 3) {
                                     metodo = "Dinheiro";
                                 }
 
                                 var nomeCad = $('#nomeCad').val()
                                 $('#nomeFinal').attr('placeholder', nomeCad);
-                                
+
                                 var emailCad = $('#emailCad').val()
                                 $('#emailFinal').attr('placeholder', emailCad);
 
                                 var cpfCad = $('#cpfCad').val()
                                 $('#cpfFinal').attr('placeholder', cpfCad);
-                                
+
                                 var dataCad = $('#dataCad').val()
                                 $('#dataFinal').attr('placeholder', dataCad);
 
@@ -1015,7 +1013,7 @@
 
                                 var cepCad = $('#cepCad').val()
                                 $('#cepFinal').attr('placeholder', rgCad);
-                                                                                        
+
                                 $('#telefoneFinal').attr('placeholder', tel);
 
                                 var ruaCad = $('#ruaCad').val()
@@ -1034,7 +1032,7 @@
 
                                 var totalCarrin = "R$ " + $('#totalCarrinho').val();
                                 $('#totalFinal').attr('placeholder', totalCarrin);
-                                                         
+
                             }
                             if (nome == "" || cpf == "" || rg == "" || data == "" || tel == "" || email == "" || rua == "" || cep == "" || bairro == "" || numero == "" || metodo == 0) {
                                 $('#btnProximo').attr("disabled", true);
@@ -1095,6 +1093,15 @@
                                 url: 'VendaServlet',
                                 success: function (result) {
                                     $('#mostrarProdutos').html(result);
+                                    let
+                                    cells = Array.prototype.slice.call(document.querySelectorAll(".row_currency"));
+// Loop over the array
+                                    cells.forEach(function (cell) {
+                                        // Convert cell data to a number, call .toLocaleString()
+                                        // on that number and put result back into the cell
+                                        cell.textContent = (+cell.textContent).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+
+                                    });
                                 }
                             });
                         })
@@ -1183,7 +1190,7 @@
                             $('.multiselect').multiselect('destroy');
                         })
 
-                        
+
                         $('#id-file-format').removeAttr('checked').on('change', function () {
                             var whitelist_ext, whitelist_mime;
                             var btn_choose
@@ -1249,10 +1256,13 @@
                             valor = valor * document.getElementById("quantiaCompra" + id).value;
                             localStorage.setItem("valor" + posicaoCarrinho, valor);
                             // exibe os dados da lista dentro da div itens
-                            document.getElementById("itens").innerHTML += localStorage.getItem("qtd" + posicaoCarrinho) + " x ";
+                            document.getElementById("itens").innerHTML += "(x"+localStorage.getItem("qtd" + posicaoCarrinho) + ") ";
                             document.getElementById("itens").innerHTML += localStorage.getItem("produto" + posicaoCarrinho);
-                            document.getElementById("itens").innerHTML += " : TOTAL ";
-                            document.getElementById("itens").innerHTML += "R$ " + localStorage.getItem("valor" + posicaoCarrinho) + "<hr>";
+                            document.getElementById("itens").innerHTML += " <br> TOTAL ";
+                            var convertInt = parseFloat(localStorage.getItem("valor" + posicaoCarrinho));
+                            let cell = convertInt;
+                            cell = cell.toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+                            document.getElementById("itens").innerHTML += cell + "<hr>";
 
                             document.getElementById("itensFinal").innerHTML += localStorage.getItem("qtd" + posicaoCarrinho) + " x ";
                             document.getElementById("itensFinal").innerHTML += localStorage.getItem("produto" + posicaoCarrinho);
@@ -1267,6 +1277,10 @@
                             var anteriorCarrinho = parseFloat(document.getElementById("totalCarrinho").value);
                             var valorAtual = parseFloat(valor);
                             var totalCarrinho = anteriorCarrinho + valorAtual;
+                            /*convertInt = parseFloat(totalCarrinho);
+                            cell = convertInt;
+                            cell = cell.toLocaleString("pt-BR", {style: "currency", currency: "BRL"});*/
+                            
                             document.getElementById("totalCarrinho").value = totalCarrinho;
                             document.getElementById("quantia" + id).value = resultCompr;
                             document.getElementById("quantiaCompra" + id).value = "";
