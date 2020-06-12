@@ -409,7 +409,7 @@
                                                                     <div class="radio">
                                                                         <label>
                                                                             <input name="sexo" type="radio"
-                                                                                   class="ace" value="${sexo}"/>
+                                                                                   class="ace" value="${sexo}" required/>
                                                                             <span class="lbl"> Masculino</span>
                                                                         </label>
                                                                     </div>
@@ -452,7 +452,7 @@
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">CEP</label>
 
-                                                                    <input type="text" id="form-field-1-1" placeholder="Digite seu CEP" placeholder="000.00-000" class="form-control input-mask-cep" name="cep"  value="${cep}"/>
+                                                                    <input type="text" id="form-field-1-1" placeholder="Digite seu CEP" placeholder="000.00-000" class="form-control input-mask-cep" name="cep"  value="${cep}" required/>
 
                                                                 </div>
                                                                 <div class="col-lg-3">
@@ -461,22 +461,22 @@
                                                                         <span class="input-group-addon">
                                                                             <i class="ace-icon fa fa-map"></i>
                                                                         </span>
-                                                                        <input type="text" id="form-field-1-1" placeholder="Nome da rua" class="form-control" name="rua" value="${rua}"/>
+                                                                        <input type="text" id="form-field-1-1" placeholder="Nome da rua" class="form-control" name="rua" value="${rua}" required/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Bairro</label>
-                                                                    <input type="text" id="form-field-1-1" placeholder="Nome do bairro" class="form-control" name="bairro" value="${bairro}"/>
+                                                                    <input type="text" id="form-field-1-1" placeholder="Nome do bairro" class="form-control" name="bairro" value="${bairro}" required/>
                                                                 </div>
                                                                 <div class="col-lg-3">
 
                                                                     <label for="number-button" class="block">Número </label>
-                                                                    <input class="form-control" type="text" placeholder="Número da casa/apto" id="form-field-mask-2" name="numero" value="${numero}"/>
+                                                                    <input class="form-control" type="text" placeholder="Número da casa/apto" id="form-field-mask-2" name="numero" value="${numero}" required/>
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Complemento</label>
 
-                                                                    <input class="form-control" type="text" id="form-field-mask-2" name="complemento" value="${complemento}"/>
+                                                                    <input class="form-control" type="text" id="form-field-mask-2" name="complemento" value="${complemento}" required/>
 
                                                                 </div>
 
@@ -516,7 +516,7 @@
                                                                         <span class="input-group-addon">
                                                                             <i class="ace-icon fa fa-user"></i>
                                                                         </span>
-                                                                        <select class="" style="width: 100%;" name="perfil">
+                                                                        <select class="" style="width: 100%;" name="perfil" required>
                                                                             <option></option>
                                                                             <c:forEach var="perfil" items="${perfis}">
                                                                                 <option value="${perfil.idPerfil}">
@@ -528,7 +528,7 @@
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <label for="number-button" class="block">Filial</label>
-                                                                    <select class="form-group" style="width: 100%;" name="filial">
+                                                                    <select class="form-group" style="width: 100%;" name="filial" required>
                                                                         <option></option>
                                                                         <c:forEach var="filial" items="${filiais}">
                                                                             <option value="${filial.idFilial}">
