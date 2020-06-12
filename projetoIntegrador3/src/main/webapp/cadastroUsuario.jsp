@@ -123,25 +123,14 @@
                             </a>
 
                             <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                                <li>
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-cog"></i> Settings
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="profile.html">
-                                        <i class="ace-icon fa fa-user"></i> Profile
-                                    </a>
-                                </li>
-
-                                <li class="divider"></li>
-
-                                <li>
-                                    <a href="#" id="Sair">
-                                        <i class="ace-icon fa fa-power-off"></i> Logout
-                                    </a>
-                                </li>
+                                <form action="LoginServlet" method="POST">
+                                    <li>
+                                        <a href="#" id="idSair">
+                                            <i class="ace-icon fa fa-power-off"></i> Sair
+                                        </a>
+                                    </li>
+                                    <button id="btnSair" name="tarefa" type="submit" style="display:none;" value="sair"></button>
+                                </form>
                             </ul>
                         </li>
                     </ul>
@@ -317,12 +306,12 @@
                     <div class="page-content">
                         <form action="UsuarioServlet" method="POST">
                             <div>
-                                 <div class="col-lg-12">
-                                        <p>
-                                        <h4>Cadastro de Usuário</h4>
-                                        <hr>
-                                        </p>
-                                    </div>
+                                <div class="col-lg-12">
+                                    <p>
+                                    <h4>Cadastro de Usuário</h4>
+                                    <hr>
+                                    </p>
+                                </div>
                                 <div id="user-profile-1" class="user-profile row">
                                     <div class="col-xs-12 col-sm-3 center">
                                         <div>
@@ -590,22 +579,22 @@
                                 <div class="footer-content">
                                     <span class="bigger-120">
                                         <span class="blue bolder">ThinkCode
-                                    </span>
+                                        </span>
 
-                                    &nbsp; &nbsp;
-                                    <span class="action-buttons">
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-                                        </a>
+                                        &nbsp; &nbsp;
+                                        <span class="action-buttons">
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+                                            </a>
 
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-                                        </a>
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                                            </a>
 
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
-                                        </a>
-                                    </span>
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+                                            </a>
+                                        </span>
                                 </div>
                             </div>
                         </div>
@@ -654,6 +643,11 @@
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
                     jQuery(function ($) {
+
+                        $('#idSair').click(function () {
+                            $('#btnSair').click()
+                        });
+
                         $.mask.definitions['~'] = '[+-]';
                         $('.input-mask-phone').mask('(99) 99999-9999');
                         $('.input-mask-cpf').mask('999-999-999-99');

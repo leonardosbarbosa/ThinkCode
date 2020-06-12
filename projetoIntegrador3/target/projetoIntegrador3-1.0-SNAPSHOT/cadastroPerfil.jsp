@@ -79,7 +79,7 @@
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav">
 
-                           <li class="purple dropdown-modal">
+                        <li class="purple dropdown-modal">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="ace-icon fa fa-bell icon-animated-bell"></i>
                                 <span class="badge badge-important">${pedidos.size()}</span>
@@ -122,26 +122,15 @@
                             </a>
 
                             <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                                <li>
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-cog"></i> Settings
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="profile.html">
-                                        <i class="ace-icon fa fa-user"></i> Profile
-                                    </a>
-                                </li>
-
-                                <li class="divider"></li>
-
-                                <li>
-                                    <a href="#" id="Sair">
-                                        <i class="ace-icon fa fa-power-off"></i> Logout
-                                    </a>
-                                </li>
-                            </ul>
+                                <form action="LoginServlet" method="POST">
+                                    <li>
+                                        <a href="#" id="idSair">
+                                            <i class="ace-icon fa fa-power-off"></i> Sair
+                                        </a>
+                                    </li>
+                                    <button id="btnSair" name="tarefa" type="submit" style="display:none;" value="sair"></button>
+                                </form>
+                            </ul>  
                         </li>
                     </ul>
                 </div>
@@ -168,7 +157,7 @@
 
 
                 <!-- /.sidebar-shortcuts -->
-               <ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -378,25 +367,25 @@
                                                 <c:when test= "${empty tarefa}">
                                                     <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="cadastro" name="tarefa">
                                                         Registrar &nbsp; <i class="ace-icon fa fa-save"></i>                                                     
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="${tarefa}" name="tarefa">
-                                                        Editar &nbsp; <i class="ace-icon fa fa-save"></i>
-                                                    </button>
-                                                </c:otherwise>
-                                            </c:choose>                                            </div>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <button type="submit" class="btn btn-sm btn-success" style="float: right; margin-right: 2px;" value="${tarefa}" name="tarefa">
+                                                            Editar &nbsp; <i class="ace-icon fa fa-save"></i>
+                                                        </button>
+                                                    </c:otherwise>
+                                                </c:choose>                                            </div>
                                     </div>
 
                                 </div>
                             </div>
                     </div>
                     </form>
-                        <!-- /.ace-settings-container -->
-                        <div class="footer">
-                            <div class="footer-inner">
-                                <div class="footer-content">
-                                    <span class="bigger-120">
-                                        <span class="blue bolder">ThinkCode
+                    <!-- /.ace-settings-container -->
+                    <div class="footer">
+                        <div class="footer-inner">
+                            <div class="footer-content">
+                                <span class="bigger-120">
+                                    <span class="blue bolder">ThinkCode
                                     </span>
 
                                     &nbsp; &nbsp;
@@ -413,54 +402,60 @@
                                             <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
                                         </a>
                                     </span>
-                                </div>
                             </div>
                         </div>
-
-                        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-                            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-                        </a>
                     </div>
-                    <!-- /.main-container -->
 
-                    <!-- basic scripts -->
+                    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+                    </a>
+                </div>
+                <!-- /.main-container -->
 
-                    <!--[if !IE]> -->
-                    <script src="assets/js/jquery-2.1.4.min.js"></script>
+                <!-- basic scripts -->
 
-                    <!-- <![endif]-->
+                <!--[if !IE]> -->
+                <script src="assets/js/jquery-2.1.4.min.js"></script>
 
-                    <!--[if IE]>
-    <script src="assets/js/jquery-1.11.3.min.js"></script>
-    <![endif]-->
-                    <script type="text/javascript">
+                <!-- <![endif]-->
+
+                <!--[if IE]>
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+                <script type="text/javascript">
                     if ('ontouchstart' in document.documentElement)
                         document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
-                    </script>
-                    <script src="assets/js/bootstrap.min.js"></script>
+                </script>
+                <script src="assets/js/bootstrap.min.js"></script>
 
-                    <!-- page specific plugin scripts -->
+                <!-- page specific plugin scripts -->
 
-                    <!--[if lte IE 8]>
-                      <script src="assets/js/excanvas.min.js"></script>
-                    <![endif]-->
-                    <script src="assets/js/jquery-ui.custom.min.js"></script>
-                    <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
-                    <script src="assets/js/jquery.easypiechart.min.js"></script>
-                    <script src="assets/js/jquery.sparkline.index.min.js"></script>
-                    <script src="assets/js/jquery.flot.min.js"></script>
-                    <script src="assets/js/jquery.flot.pie.min.js"></script>
-                    <script src="assets/js/jquery.flot.resize.min.js"></script>
-                    <script src="assets/js/jquery.maskedinput.min.js"></script>
-                    <script src="assets/js/bootstrap-datepicker.min.js"></script>
-                    <!-- ace scripts -->
-                    <script src="assets/js/ace-elements.min.js"></script>
-                    <script src="assets/js/ace.min.js"></script>
+                <!--[if lte IE 8]>
+                  <script src="assets/js/excanvas.min.js"></script>
+                <![endif]-->
+                <script src="assets/js/jquery-ui.custom.min.js"></script>
+                <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+                <script src="assets/js/jquery.easypiechart.min.js"></script>
+                <script src="assets/js/jquery.sparkline.index.min.js"></script>
+                <script src="assets/js/jquery.flot.min.js"></script>
+                <script src="assets/js/jquery.flot.pie.min.js"></script>
+                <script src="assets/js/jquery.flot.resize.min.js"></script>
+                <script src="assets/js/jquery.maskedinput.min.js"></script>
+                <script src="assets/js/bootstrap-datepicker.min.js"></script>
+                <!-- ace scripts -->
+                <script src="assets/js/ace-elements.min.js"></script>
+                <script src="assets/js/ace.min.js"></script>
 
 
-                    <!-- inline scripts related to this page -->
-                    <script type="text/javascript">
+                <!-- inline scripts related to this page -->
+                <script type="text/javascript">
                     jQuery(function ($) {
+
+
+                        $('#idSair').click(function () {
+                            $('#btnSair').click()
+                        });
+
                         $.mask.definitions['~'] = '[+-]';
                         $('.input-mask-phone').mask('(99) 99999-9999');
                         $('.input-mask-cpf').mask('999-999-999-99');
@@ -479,28 +474,28 @@
                         }
 
 
-                        <%
-                            Cookie[] cookies = request.getCookies();
-                            for (Cookie atual : cookies) {
-                                if (atual.getName().equals("Perfil")) {
-                                    int auxilio = Integer.parseInt(atual.getValue());
-                                    if (auxilio != 1) {
-                        %>
+                    <%
+                        Cookie[] cookies = request.getCookies();
+                        for (Cookie atual : cookies) {
+                            if (atual.getName().equals("Perfil")) {
+                                int auxilio = Integer.parseInt(atual.getValue());
+                                if (auxilio != 1) {
+                    %>
                         $('#liCadastro').hide()
-                        <%
-                                }
+                    <%
                             }
-                            if (atual.getName().equals("Nome")) {
-                                String auxiliado = atual.getValue().substring(0, 8);
-                        %>
+                        }
+                        if (atual.getName().equals("Nome")) {
+                            String auxiliado = atual.getValue().substring(0, 8);
+                    %>
                         $('#lblNome').text('<%= auxiliado%>');
-                        <%
-                                }
-
+                    <%
                             }
-                        %>
-                    })
-                    </script>
-                    </body>
 
-                    </html>
+                        }
+                    %>
+                    })
+                </script>
+                </body>
+
+                </html>

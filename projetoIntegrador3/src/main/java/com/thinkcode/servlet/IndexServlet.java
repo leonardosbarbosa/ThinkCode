@@ -51,7 +51,7 @@ public class IndexServlet extends HttpServlet {
         if (cookies != null) {
             for (Cookie atual : cookies) {
                 if (atual.getName().equals("Id_Usuario")) {
-                    if (atual.getValue() != null) {
+                    if (atual.getValue() != null && !atual.getValue().equalsIgnoreCase("")) {                        
                         url = "/home.jsp";
                         logado = true;
                     }

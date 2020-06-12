@@ -38,8 +38,12 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         //Instância de objetos
         UsuarioModel usuario = new UsuarioModel();
+        String tarefa = "";
         UsuarioController usuarioController = new UsuarioController();
         String url = "/login.jsp";
+        if(request.getParameter("tarefa")!=null && !request.getParameter("tarefa").equals("")){
+            tarefa = request.getParameter("tarefa");
+        }
         //Fim instância
 
         Cookie[] cookies = request.getCookies();
@@ -48,7 +52,7 @@ public class LoginServlet extends HttpServlet {
         if (cookies != null) {
             for (Cookie atual : cookies) {
                 if (atual.getName().equals("Id_Usuario")) {
-                    if (atual.getValue() != null) {
+                    if (atual.getValue() != null && !atual.getValue().equals("")) {
                         url = "/IndexServlet";
                         logado = true;
                     }
@@ -57,7 +61,8 @@ public class LoginServlet extends HttpServlet {
             }
         }
         if (!logado) {
-            
+ 
+
             if (request.getParameter("email") != null && request.getParameter("senha") != null) {
                 //Pegando parâmetros e atribuindo a model
                 usuario.setEmail(request.getParameter("email"));
@@ -73,13 +78,13 @@ public class LoginServlet extends HttpServlet {
                     usuario = usuarioController.UsuarioPropriedades(usuario);
                     //Fim atribuição
                     Cookie cook = new Cookie("Id_Usuario", Integer.toString(usuario.getIdUsuario()));
-                    cook.setMaxAge(60 * 60*8);
+                    cook.setMaxAge(60 * 60 * 8);
                     Cookie cook1 = new Cookie("CPF", usuario.getCpfCnpj());
-                    cook1.setMaxAge(60 * 60*8);
+                    cook1.setMaxAge(60 * 60 * 8);
                     Cookie cook2 = new Cookie("Nome", usuario.getNome());
-                    cook2.setMaxAge(60 * 60*8);
+                    cook2.setMaxAge(60 * 60 * 8);
                     Cookie cook3 = new Cookie("Perfil", Integer.toString(usuario.getIdPerfil()));
-                    cook3.setMaxAge(60 * 60*8);
+                    cook3.setMaxAge(60 * 60 * 8);
                     response.addCookie(cook);
                     response.addCookie(cook1);
                     response.addCookie(cook2);
@@ -87,11 +92,31 @@ public class LoginServlet extends HttpServlet {
 
                     //url = "/index.jsp";
                     url = "/home.jsp";
-                 } else {
+                } else {
                     url = "/login.jsp";
                 }
             }
         }
+        
+        if(!tarefa.equals("")){
+             if (tarefa.equals("sair")) {
+
+                if (cookies != null) {
+                    for (Cookie atual : cookies) {
+                        if (atual.getName().equals("Id_Usuario")) {
+                            if (atual.getValue() != null) {
+                                atual.setValue(null);
+                                atual.setMaxAge(0);
+                                response.addCookie(atual);
+                            }
+                        }
+
+                    }
+                }
+
+            }
+        }
+             
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

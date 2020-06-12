@@ -43,7 +43,7 @@ public class FilialServlet extends HttpServlet {
         //Instância de objetos
         FilialModel filial = new FilialModel();
         FilialController filialController = new FilialController();
-         
+
         PedidoController pedidoC = new PedidoController();
         String url = "/login.html";
         Cookie cook = null;
@@ -58,8 +58,11 @@ public class FilialServlet extends HttpServlet {
         if (cookies != null) {
             for (Cookie ck : cookies) {
                 if (ck.getName() != null && ck.getName().equals("Id_Usuario")) {
-                    cook = ck;
-                    logado = true;
+                    if (ck.getValue() != null && !ck.getValue().equals("")) {
+                        logado = true;
+                        cook = ck;
+                    }
+
                 }
             }
         }
@@ -148,7 +151,7 @@ public class FilialServlet extends HttpServlet {
                     url = "/cadastroFilial.jsp";
                 }
             }
-              List<PedidoModel> pedidos = pedidoC.todosPedidos("", "", "");
+            List<PedidoModel> pedidos = pedidoC.todosPedidos("", "", "");
             request.setAttribute("pedidos", pedidos);
             //Fim filtro
         }

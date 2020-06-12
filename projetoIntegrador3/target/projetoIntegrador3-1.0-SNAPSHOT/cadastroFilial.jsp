@@ -79,7 +79,7 @@
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav">
 
-                     <li class="purple dropdown-modal">
+                        <li class="purple dropdown-modal">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="ace-icon fa fa-bell icon-animated-bell"></i>
                                 <span class="badge badge-important">${pedidos.size()}</span>
@@ -123,26 +123,15 @@
                             </a>
 
                             <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                                <li>
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-cog"></i> Settings
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="profile.html">
-                                        <i class="ace-icon fa fa-user"></i> Profile
-                                    </a>
-                                </li>
-
-                                <li class="divider"></li>
-
-                                <li>
-                                    <a href="#" id="Sair">
-                                        <i class="ace-icon fa fa-power-off"></i> Logout
-                                    </a>
-                                </li>
-                            </ul>
+                                <form action="LoginServlet" method="POST">
+                                    <li>
+                                        <a href="#" id="idSair">
+                                            <i class="ace-icon fa fa-power-off"></i> Sair
+                                        </a>
+                                    </li>
+                                    <button id="btnSair" name="tarefa" type="submit" style="display:none;" value="sair"></button>
+                                </form>
+                            </ul> 
                         </li>
                     </ul>
                 </div>
@@ -169,7 +158,7 @@
 
 
                 <!-- /.sidebar-shortcuts -->
-<ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -442,7 +431,7 @@
 
                                 <div class="row">
                                     <div class="col-lg-12">
-                                         <a href="FilialServlet"  class="btn btn-sm btn-danger right" style="float: right;">
+                                        <a href="FilialServlet"  class="btn btn-sm btn-danger right" style="float: right;">
                                             Cancelar &nbsp;<i class="ace-icon fa fa-close"></i>
                                         </a>
                                         <c:choose>
@@ -468,22 +457,22 @@
                                 <div class="footer-content">
                                     <span class="bigger-120">
                                         <span class="blue bolder">ThinkCode
-                                    </span>
+                                        </span>
 
-                                    &nbsp; &nbsp;
-                                    <span class="action-buttons">
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-                                        </a>
+                                        &nbsp; &nbsp;
+                                        <span class="action-buttons">
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+                                            </a>
 
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-                                        </a>
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                                            </a>
 
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
-                                        </a>
-                                    </span>
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+                                            </a>
+                                        </span>
                                 </div>
                             </div>
                         </div>
@@ -531,39 +520,43 @@
 
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
-                   jQuery(function ($) {
-                       $.mask.definitions['~'] = '[+-]';
-                       $('.input-mask-phone').mask('(99) 99999-9999');
-                       $('.input-mask-cnpj').mask('99.999.999/9999-99');
-                       $('.input-mask-rg').mask('99-999-999-9');
-                       $('.input-mask-cep').mask('99999-999')
-                       $('.date-picker').datepicker({
-                           autoclose: true,
-                           todayHighlight: true
-                       })
+                    jQuery(function ($) {
+
+                        $('#idSair').click(function () {
+                            $('#btnSair').click()
+                        });
+                        $.mask.definitions['~'] = '[+-]';
+                        $('.input-mask-phone').mask('(99) 99999-9999');
+                        $('.input-mask-cnpj').mask('99.999.999/9999-99');
+                        $('.input-mask-rg').mask('99-999-999-9');
+                        $('.input-mask-cep').mask('99999-999')
+                        $('.date-picker').datepicker({
+                            autoclose: true,
+                            todayHighlight: true
+                        })
 
 
                         <%
-                           Cookie[] cookies = request.getCookies();
-                           for (Cookie atual : cookies) {
-                               if (atual.getName().equals("Perfil")) {
-                                   int auxilio = Integer.parseInt(atual.getValue());
-                                   if (auxilio != 1) {
+                            Cookie[] cookies = request.getCookies();
+                            for (Cookie atual : cookies) {
+                                if (atual.getName().equals("Perfil")) {
+                                    int auxilio = Integer.parseInt(atual.getValue());
+                                    if (auxilio != 1) {
                         %>
-                       $('#liCadastro').hide()
+                        $('#liCadastro').hide()
                         <%
-                               }
-                           }
-                           if (atual.getName().equals("Nome")) {
-                               String auxiliado = atual.getValue().substring(0, 8);
+                                }
+                            }
+                            if (atual.getName().equals("Nome")) {
+                                String auxiliado = atual.getValue().substring(0, 8);
                         %>
-                       $('#lblNome').text('<%= auxiliado%>');
+                        $('#lblNome').text('<%= auxiliado%>');
                         <%
-                               }
+                                }
 
-                           }
+                            }
                         %>
-                   })
+                    })
                     </script>   
                     </body>
 

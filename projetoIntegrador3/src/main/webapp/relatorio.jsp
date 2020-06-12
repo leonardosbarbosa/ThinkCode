@@ -131,28 +131,16 @@
                                 <i class="ace-icon fa fa-caret-down"></i>
                             </a>
 
-                            <ul
-                                class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                                <li>
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-cog"></i> Settings
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="profile.html">
-                                        <i class="ace-icon fa fa-user"></i> Profile
-                                    </a>
-                                </li>
-
-                                <li class="divider"></li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-power-off"></i> Logout
-                                    </a>
-                                </li>
-                            </ul>
+                            <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                                <form action="LoginServlet" method="POST">
+                                    <li>
+                                        <a href="#" id="idSair">
+                                            <i class="ace-icon fa fa-power-off"></i> Sair
+                                        </a>
+                                    </li>
+                                    <button id="btnSair" name="tarefa" type="submit" style="display:none;" value="sair"></button>
+                                </form>
+                            </ul>    
                         </li>
                     </ul>
                 </div>
@@ -571,6 +559,11 @@
 
                                                             });
                                                             jQuery(function ($) {
+
+                                                                $('#idSair').click(function () {
+                                                                    $('#btnSair').click()
+                                                                });
+
                                                                 $('#tabelaUsuarios').DataTable({
                                                                     "language": {
                                                                         "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"

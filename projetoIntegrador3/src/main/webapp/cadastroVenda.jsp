@@ -105,31 +105,16 @@
                                 <i class="ace-icon fa fa-caret-down"></i>
                             </a>
 
-                            <ul
-                                class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                                <li>
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-cog"></i>
-                                        Settings
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="profile.html">
-                                        <i class="ace-icon fa fa-user"></i>
-                                        Profile
-                                    </a>
-                                </li>
-
-                                <li class="divider"></li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-power-off"></i>
-                                        Logout
-                                    </a>
-                                </li>
-                            </ul>
+                            <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                                <form action="LoginServlet" method="POST">
+                                    <li>
+                                        <a href="#" id="idSair">
+                                            <i class="ace-icon fa fa-power-off"></i> Sair
+                                        </a>
+                                    </li>
+                                    <button id="btnSair" name="tarefa" type="submit" style="display:none;" value="sair"></button>
+                                </form>
+                            </ul>       
                         </li>
                     </ul>
                 </div>
@@ -902,6 +887,12 @@
                     var pagAtual = 0;
                     jQuery(function ($) {
 
+
+                        $('#idSair').click(function () {
+                            $('#btnSair').click()
+                        });
+
+
                         $('#btnProximo').click(function () {
                             pagAtual++;
                             if (pagAtual === 4) {
@@ -1256,7 +1247,7 @@
                             valor = valor * document.getElementById("quantiaCompra" + id).value;
                             localStorage.setItem("valor" + posicaoCarrinho, valor);
                             // exibe os dados da lista dentro da div itens
-                            document.getElementById("itens").innerHTML += "(x"+localStorage.getItem("qtd" + posicaoCarrinho) + ") ";
+                            document.getElementById("itens").innerHTML += "(x" + localStorage.getItem("qtd" + posicaoCarrinho) + ") ";
                             document.getElementById("itens").innerHTML += localStorage.getItem("produto" + posicaoCarrinho);
                             document.getElementById("itens").innerHTML += " <br> TOTAL ";
                             var convertInt = parseFloat(localStorage.getItem("valor" + posicaoCarrinho));
@@ -1278,9 +1269,9 @@
                             var valorAtual = parseFloat(valor);
                             var totalCarrinho = anteriorCarrinho + valorAtual;
                             /*convertInt = parseFloat(totalCarrinho);
-                            cell = convertInt;
-                            cell = cell.toLocaleString("pt-BR", {style: "currency", currency: "BRL"});*/
-                            
+                             cell = convertInt;
+                             cell = cell.toLocaleString("pt-BR", {style: "currency", currency: "BRL"});*/
+
                             document.getElementById("totalCarrinho").value = totalCarrinho;
                             document.getElementById("quantia" + id).value = resultCompr;
                             document.getElementById("quantiaCompra" + id).value = "";

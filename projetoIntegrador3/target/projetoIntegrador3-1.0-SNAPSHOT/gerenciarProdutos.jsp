@@ -88,7 +88,7 @@
 
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav">
-                         <li class="purple dropdown-modal">
+                        <li class="purple dropdown-modal">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="ace-icon fa fa-bell icon-animated-bell"></i>
                                 <span class="badge badge-important">${pedidos.size()}</span>
@@ -130,28 +130,16 @@
                                 <i class="ace-icon fa fa-caret-down"></i>
                             </a>
 
-                            <ul
-                                class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                                <li>
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-cog"></i> Settings
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="profile.html">
-                                        <i class="ace-icon fa fa-user"></i> Profile
-                                    </a>
-                                </li>
-
-                                <li class="divider"></li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-power-off"></i> Logout
-                                    </a>
-                                </li>
-                            </ul>
+                            <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                                <form action="LoginServlet" method="POST">
+                                    <li>
+                                        <a href="#" id="idSair">
+                                            <i class="ace-icon fa fa-power-off"></i> Sair
+                                        </a>
+                                    </li>
+                                    <button id="btnSair" name="tarefa" type="submit" style="display:none;" value="sair"></button>
+                                </form>
+                            </ul>    
                         </li>
                     </ul>
                 </div>
@@ -536,6 +524,19 @@
 
                                                             });
                                                             jQuery(function ($) {
+
+
+                                                                $('#idSair').click(function () {
+                                                                    $('#btnSair').click()
+                                                                });
+
+
+
+
+                                                                $('#idSair').click(function () {
+                                                                    $('#btnSair').click()
+                                                                });
+
 
                                                                 $('#tabelaProdutos').DataTable({
                                                                     "language": {

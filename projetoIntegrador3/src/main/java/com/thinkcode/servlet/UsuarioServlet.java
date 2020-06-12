@@ -71,8 +71,10 @@ public class UsuarioServlet extends HttpServlet {
         if (cookies != null) {
             for (Cookie ck : cookies) {
                 if (ck.getName() != null && ck.getName().equals("Id_Usuario")) {
-                    cook = ck;
-                    logado = true;
+                    if (ck.getValue() != null && !ck.getValue().equals("")) {
+                        logado = true;
+                        cook = ck;
+                    }
                 }
             }
         }
@@ -224,9 +226,8 @@ public class UsuarioServlet extends HttpServlet {
             PerfilController perfilController = new PerfilController();
             List<PerfilModel> perfis = perfilController.PerfisCadastrados("", "");
             request.setAttribute("perfis", perfis);
-            
-            //Fim filtros
 
+            //Fim filtros
         }
         //Fim usuario Logado
 

@@ -55,8 +55,10 @@ public class PerfilServlet extends HttpServlet {
         if (cookies != null) {
             for (Cookie ck : cookies) {
                 if (ck.getName() != null && ck.getName().equals("Id_Usuario")) {
-                    cook = ck;
-                    logado = true;
+                    if (ck.getValue() != null && !ck.getValue().equals("")) {
+                        logado = true;
+                        cook = ck;
+                    }
                 }
             }
         }

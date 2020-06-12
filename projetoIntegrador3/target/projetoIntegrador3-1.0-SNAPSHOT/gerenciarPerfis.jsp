@@ -14,8 +14,8 @@
         <!-- bootstrap & fontawesome -->
         <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
         <link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
-        
-         <!--Data Table import-->
+
+        <!--Data Table import-->
         <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.2.7/css/rowReorder.dataTables.min.css"/>
@@ -87,7 +87,7 @@
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav">
 
-                           <li class="purple dropdown-modal">
+                        <li class="purple dropdown-modal">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="ace-icon fa fa-bell icon-animated-bell"></i>
                                 <span class="badge badge-important">${pedidos.size()}</span>
@@ -129,28 +129,16 @@
                                 <i class="ace-icon fa fa-caret-down"></i>
                             </a>
 
-                            <ul
-                                class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                                <li>
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-cog"></i> Settings
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="profile.html">
-                                        <i class="ace-icon fa fa-user"></i> Profile
-                                    </a>
-                                </li>
-
-                                <li class="divider"></li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="ace-icon fa fa-power-off"></i> Logout
-                                    </a>
-                                </li>
-                            </ul>
+                            <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                                <form action="LoginServlet" method="POST">
+                                    <li>
+                                        <a href="#" id="idSair">
+                                            <i class="ace-icon fa fa-power-off"></i> Sair
+                                        </a>
+                                    </li>
+                                    <button id="btnSair" name="tarefa" type="submit" style="display:none;" value="sair"></button>
+                                </form>
+                            </ul>  
                         </li>
                     </ul>
                 </div>
@@ -176,7 +164,7 @@
 
 
                 <!-- /.sidebar-shortcuts -->
-<ul class="nav nav-list">
+                <ul class="nav nav-list">
                     <li class="active">
                         <a href="IndexServlet">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -447,22 +435,22 @@
                                 <div class="footer-content">
                                     <span class="bigger-120">
                                         <span class="blue bolder">ThinkCode
-                                    </span>
+                                        </span>
 
-                                    &nbsp; &nbsp;
-                                    <span class="action-buttons">
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-                                        </a>
+                                        &nbsp; &nbsp;
+                                        <span class="action-buttons">
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+                                            </a>
 
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-                                        </a>
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                                            </a>
 
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
-                                        </a>
-                                    </span>
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+                                            </a>
+                                        </span>
                                 </div>
                             </div>
                         </div>
@@ -514,10 +502,16 @@
                     <!-- inline scripts related to this page -->
                     <script type="text/javascript">
                                                             jQuery(function ($) {
+
+
+                                                                $('#idSair').click(function () {
+                                                                    $('#btnSair').click()
+                                                                });
+
                                                                 $('#tabelaPerfis').DataTable({
                                                                     "language": {
-                                                                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json" 
-                                                                   }
+                                                                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                                                                    }
                                                                     ,
                                                                     responsive: true,
                                                                     "pageLength": 25
