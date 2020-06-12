@@ -495,6 +495,11 @@
                 <script type="text/javascript">
                                                                                    jQuery(function ($) {
 
+                                                                                       $('#idSair').click(function () {
+                                                                                           $('#btnSair').click()
+                                                                                       });
+
+
                                                                                        window.displaymessage = function (user)
                                                                                        {
                                                                                            $('#valorEditar').val(user);

@@ -382,8 +382,8 @@
                                                     <div class="form-group">
                                                         <div class="col-lg-3">
                                                             <label for="number-button" class="block">CEP</label>
-
-                                                            <input type="text" id="form-field-1-1" placeholder="00000-000" class="form-control input-mask-cep" name="cepFilial" value="${cepFilial}"/>
+ 
+                                                            <input type="text" id="form-field-1-1" placeholder="00000-000" class="form-control input-mask-cep" name="cepFilial" required value="${cepFilial}"/>
 
                                                         </div>
                                                         <div class="col-lg-3">

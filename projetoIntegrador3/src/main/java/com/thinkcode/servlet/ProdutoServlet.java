@@ -59,8 +59,8 @@ public class ProdutoServlet extends HttpServlet {
         if (cookies != null) {
             for (Cookie ck : cookies) {
                 if (ck.getName() != null && ck.getName().equals("Id_Usuario")) {
-                     if (ck.getValue() != null && !ck.getValue().equals("")) {
-                        url = "/IndexServlet";
+                     if (ck.getValue() != null && !ck.getValue().equals("")) {                        
+                        cook = ck;
                         logado = true;
                     }
                 }
